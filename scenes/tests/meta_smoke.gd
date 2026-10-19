@@ -40,6 +40,7 @@ func _ready() -> void:
 	await _howto_cases()
 	await _keyboard_cases()
 	await _round5_cases()
+	await _audio_cases()
 	_restore_save()
 	SettingsService.onboarding_done = _onboarding_was
 	if not _settings_bytes.is_empty():
@@ -834,3 +835,48 @@ func _round5_cases() -> void:
 			chosen_routes += 1
 	ok(ch.size() == chosen_routes and (ch.is_empty() or ch[0] is Vector2i), "route diorama gets one chosen node per passed branch")
 	ok(ch.is_empty() or (int((ch[0] as Vector2i).x) == 1 and absi(int((ch[0] as Vector2i).y)) == 1), "route_map coordinates (col 2k-1, lane -1/+1)")
+
+
+# --------------------------------------------------------------- LR-26 audio
+
+## Every cue the code can trigger has a sound file; music ids route to music.
+func _audio_cases() -> void:
+	_case = "audio_cues"
+	var re := RegEx.new()
+	re.compile("(?:AudioBridge|AudioService)\\.play(?:_music)?\\(\"([a-z0-9_]+)\"")
+	var cues: Dictionary = {}
+	var files: PackedStringArray = []
+	_collect_gd("res://scripts", files)
+	_collect_gd("res://scenes", files)
+	for path in files:
+		for m in re.search_all(FileAccess.get_file_as_string(path)):
+			cues[m.get_string(1)] = true
+	# Built from expressions in the battle presenter / screen:
+	for c: String in ["spell_cast", "attack_spore", "attack_bark", "death_enemy", "music_battle"]:
+		cues[c] = true
+	for c: String in cues.keys():
+		ok(AudioService.cue_path(c) != "", "cue %s has a sound" % c)
+	ok(cues.size() >= 30, "audited %d triggered cues" % cues.size())
+	for c: String in ["hit", "attack_bark", "attack_spore", "attack_enemy"]:
+		ok(AudioService.variants(c).size() >= 3, "%s has 3 variants" % c)
+	AudioService.play("music_battle")
+	ok(AudioService.current_music() == "music_battle", "play(music_*) starts the music loop")
+	var ms: AudioStream = AudioService.stream("music_battle")
+	ok(ms is AudioStreamWAV and (ms as AudioStreamWAV).loop_mode == AudioStreamWAV.LOOP_FORWARD, "music loops")
+	AudioService.play("heart_hit")
+	await _frames(3)
+	ok(AudioService.is_ducked() or not AudioService._music.playing, "music ducks under heart_hit")
+	AudioService.stop_music()
+	var total := 0
+	for f in DirAccess.get_files_at("res://assets/audio/placeholder"):
+		if f.ends_with(".wav"):
+			total += FileAccess.get_file_as_bytes("res://assets/audio/placeholder/" + f).size()
+	ok(total < 4 * 1024 * 1024, "placeholder audio < 4 MB (%d KB)" % (total / 1024))
+
+
+func _collect_gd(dir: String, out: PackedStringArray) -> void:
+	for d in DirAccess.get_directories_at(dir):
+		_collect_gd(dir + "/" + d, out)
+	for f in DirAccess.get_files_at(dir):
+		if f.ends_with(".gd"):
+			out.append(dir + "/" + f)
