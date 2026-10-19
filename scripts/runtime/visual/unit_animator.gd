@@ -41,6 +41,8 @@ var slot_id: String = ""
 var current: StringName = &""
 ## Overlay restored after flashes (the ally/enemy rim from VisualSlots.apply_side).
 var base_overlay: Material = null
+## Speed factor for the idle loop (HeartVisual slows the heart's pulse when hurt).
+var idle_rate: float = 1.0
 
 var _model: Node3D
 var _player: AnimationPlayer
@@ -313,7 +315,7 @@ func _procedural(state: StringName, speed: float) -> void:
 		&"idle" when fam == &"heart":
 			# The heart breathes: slow pulse of the gem and its halo (top visual priority).
 			_idle_tween = create_tween().set_loops()
-			_idle_tween.set_speed_scale(speed)
+			_idle_tween.set_speed_scale(speed * idle_rate)
 			var amp := 0.02 if motion_reduced() else 0.07
 			var nodes := _model.find_children("Glow_Heart*", "Node3D", true, false) + _model.find_children("Glow_Halo*", "Node3D", true, false)
 			if nodes.is_empty():

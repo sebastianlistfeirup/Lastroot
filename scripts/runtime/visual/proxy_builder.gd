@@ -63,6 +63,19 @@ func _end(g: Node3D) -> void:
 	_at = g.get_parent() as Node3D
 
 
+static var _unfog_cache: Dictionary = {}
+
+
+## Glow material that ignores fog (far fires must read through the battle fog).
+func _unfogged(key: String, alpha: float, additive: bool) -> StandardMaterial3D:
+	var k := "%s|%.2f|%s" % [key, alpha, additive]
+	if not _unfog_cache.has(k):
+		var m := VisualPalette.glow(key, alpha, additive).duplicate() as StandardMaterial3D
+		m.disable_fog = true
+		_unfog_cache[k] = m
+	return _unfog_cache[k]
+
+
 func _m(key: String) -> StandardMaterial3D:
 	return VisualPalette.mat(key)
 
@@ -758,6 +771,11 @@ func _b_heart(_s: Dictionary) -> void:
 	var mi := _p(ProxyMesh.heart_gem(1.5, 0.42), _heart_mat(), Vector3.ZERO, Vector3.ZERO, Vector3.ONE, "Gem")
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_p(ProxyMesh.sphere(0.95, 10, 6), VisualPalette.glow("turquoise", 0.12, true), Vector3(0, 0.05, 0), Vector3.ZERO, Vector3(1.1, 1, 0.6), "Glow_Halo")
+	# Cracks for HeartVisual.set_health (hidden while healthy); first three = light damage.
+	for c: Array in [[Vector3(-0.18, 0.22, 0.33), 28.0, 0.42], [Vector3(0.22, 0.05, 0.31), -38.0, 0.36], [Vector3(0.02, -0.28, 0.3), 72.0, 0.3],
+			[Vector3(-0.32, -0.05, 0.25), -12.0, 0.4], [Vector3(0.36, 0.3, 0.22), 55.0, 0.28], [Vector3(-0.05, 0.42, 0.24), -70.0, 0.3], [Vector3(0.12, -0.5, 0.18), 20.0, 0.22]]:
+		var ck := _p(ProxyMesh.box(Vector3(0.045, float(c[2]), 0.02)), VisualPalette.glow("ash_black"), c[0] as Vector3, Vector3(0, 0, float(c[1])), Vector3.ONE, "Crack")
+		ck.visible = false
 	_end(gem)
 	for i: int in 7:
 		var a := TAU * float(i) / 7.0
@@ -802,6 +820,46 @@ func _b_backdrop(_s: Dictionary) -> void:
 		var h := _r(10, 26)
 		_p(ProxyMesh.cyl(_r(0.2, 0.6), _r(1.0, 2.2), h, 6), _g("haze_dark"), Vector3(x, -14 + h * 0.5, _r(-52, -34)))
 	_p(ProxyMesh.sphere(14.0, 12, 6), VisualPalette.glow("haze", 0.05, false), Vector3(0, -18.0, -30.0), Vector3.ZERO, Vector3(3.0, 0.5, 0.4), "Haze")
+	# Depth layers (dark, quiet): far route islands with tiny warm fires, pale light
+	# shafts, long mist bands and slow motes. Fires ignore fog so they twinkle through.
+	var far_fire := _unfogged("amber_soft", 0.75, false)
+	var far_rock := _unfogged("haze_dark", 1.0, false)
+	var far_bridge := _unfogged("haze", 0.12, false)
+	for side: float in [-1.0, 1.0]:
+		var prev := Vector3.ZERO
+		for i: int in 5:
+			var x := side * (9.0 + 3.6 * float(i))
+			var fp := Vector3(x, 4.0 + 2.6 * float(i) + sin(float(i) * 1.7 + side) * 1.5, -72.0 - 5.0 * float(i % 2))
+			var r := _r(0.35, 0.65)
+			_p(ProxyMesh.cyl(r, r * 0.1, r * 1.6, 6), far_rock, fp + Vector3(0, -r * 0.8, 0))
+			_p(ProxyMesh.sphere(0.09, 5, 3), far_fire, fp + Vector3(0, 0.12, 0), Vector3.ZERO, Vector3.ONE, "Glow_Window")
+			if i > 0:
+				var d := fp - prev
+				var br := _p(ProxyMesh.box(Vector3(Vector2(d.x, d.y).length(), 0.035, 0.035)), far_bridge, (prev + fp) * 0.5 + Vector3(0, -0.15, 0))
+				br.rotation = Vector3(0, 0, atan2(d.y, d.x))
+			prev = fp
+	# Light shafts and mist bands: stacked low-alpha layers fake a soft gradient edge.
+	for i: int in 4:
+		var x: float = [-15.0, -9.0, 10.5, 16.0][i]
+		var w := _r(1.2, 2.2)
+		for k: int in 3:
+			_p(ProxyMesh.box(Vector3(w * (1.0 + 0.7 * float(k)), 60.0, 0.1)), VisualPalette.glow("cap_gill", 0.014, true), Vector3(x, 8.0, -34.0 - 3.0 * float(i) - 0.2 * float(k)), Vector3(0, 0, 14.0 if x < 0.0 else -14.0), Vector3.ONE, "Shaft")
+	for i: int in 3:
+		for k: int in 4:
+			_p(ProxyMesh.box(Vector3(160.0, 1.0 + 1.3 * float(k), 0.1)), VisualPalette.glow("haze", 0.022, false), Vector3(0, -5.0 + 8.0 * float(i), -24.0 - 6.0 * float(i) - 0.2 * float(k)), Vector3.ZERO, Vector3.ONE, "MistBand")
+	var motes := CPUParticles3D.new()
+	motes.name = "FarMotes"
+	motes.amount = 30
+	motes.lifetime = 12.0
+	motes.preprocess = 12.0
+	motes.position = Vector3(0, 6.0, -28.0)
+	motes.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
+	motes.emission_box_extents = Vector3(40, 14, 4)
+	motes.gravity = Vector3(0.06, 0.04, 0)
+	motes.initial_velocity_max = 0.05
+	motes.mesh = ProxyMesh.box(Vector3(0.12, 0.12, 0.12))
+	motes.material_override = VisualPalette.glow("cap_gill", 0.5)
+	_at.add_child(motes)
 	_p(ProxyMesh.sphere(3.0, 16, 8), VisualPalette.glow("cap_white", 0.8), Vector3(30, 24, -60), Vector3.ZERO, Vector3.ONE, "Moon")
 
 

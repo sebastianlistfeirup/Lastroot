@@ -153,6 +153,8 @@ static func make(slot_id: String) -> Node3D:
 			root = FxBuilder.build(slot_id, spec)
 		else:
 			root.add_child(ProxyBuilder.build(slot_id, spec))
+	if slot_id == "stage.heart" and root.get_script() == null:
+		root.set_script(HeartVisual)
 	root.name = slot_id.replace(".", "_") if not slot_id.is_empty() else "MissingSlot"
 	var kind := str(s.get("kind", "missing"))
 	root.set_meta("slot_id", slot_id)
