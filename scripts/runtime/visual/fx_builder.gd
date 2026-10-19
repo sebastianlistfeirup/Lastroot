@@ -125,10 +125,7 @@ static func build(slot_id: String, spec: Dictionary) -> Node3D:
 	root.set_meta("one_shot", life > 0.0)
 	root.set_meta("lifetime_s", life)
 	if life > 0.0:
-		var r := root
-		root.ready.connect(func() -> void:
-			if r.is_inside_tree():
-				r.get_tree().create_timer(life).timeout.connect(r.queue_free), CONNECT_ONE_SHOT)
+		root.ready.connect(_self_free.bind(root, life), CONNECT_ONE_SHOT)
 	return root
 
 
@@ -217,10 +214,24 @@ static func _ring(root: Node3D, key: String, r: float, y: float, rot: Vector3 = 
 	ring.rotation_degrees = rot
 	ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(ring)
-	ring.ready.connect(func() -> void:
-		var t := ring.create_tween()
-		t.tween_property(ring, "scale", Vector3.ONE * 1.6, 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		t.parallel().tween_property(ring, "transparency", 1.0, 0.6), CONNECT_ONE_SHOT)
+	ring.ready.connect(_expand_ring.bind(ring), CONNECT_ONE_SHOT)
+
+
+## One-shot fx free themselves with a Tween owned by the fx node (dies with it).
+static func _self_free(root: Node3D, life: float) -> void:
+	if not is_instance_valid(root):
+		return
+	var t := root.create_tween()
+	t.tween_interval(life)
+	t.tween_callback(root.queue_free)
+
+
+static func _expand_ring(ring: MeshInstance3D) -> void:
+	if not is_instance_valid(ring):
+		return
+	var t := ring.create_tween()
+	t.tween_property(ring, "scale", Vector3.ONE * 1.6, 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.parallel().tween_property(ring, "transparency", 1.0, 0.6)
 
 
 ## Flies a spore bolt (or any fx slot) from `from` to `to` (global positions) under

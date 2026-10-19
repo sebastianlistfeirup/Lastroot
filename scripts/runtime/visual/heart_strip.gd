@@ -33,7 +33,9 @@ func _ready() -> void:
 		l.position = h.position + Vector3(0, -0.4, 1.0)
 		add_child(l)
 		if hurt:
-			get_tree().create_timer(0.8).timeout.connect(func() -> void: h.call("hurt", 0.3))
+			var tw := h.create_tween()
+			tw.tween_interval(0.8)
+			tw.tween_callback(Callable(h, "hurt").bind(0.3))
 	var cam := Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
 	cam.size = 4.6
