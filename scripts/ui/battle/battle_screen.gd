@@ -68,7 +68,7 @@ func _ready() -> void:
 	SettingsService.changed.connect(_on_settings_changed)
 	GameSession.run_changed.connect(_on_run_changed)
 	GameSession.command_rejected.connect(_on_rejected)
-	AppFlow.layout_changed.connect(func(_p: bool) -> void: _relayout())
+	AppFlow.layout_changed.connect(_on_layout_changed)
 	get_viewport().size_changed.connect(_relayout)
 	battle = GameSession.battle()
 	if battle.is_empty():
@@ -438,6 +438,10 @@ func _rebuild_hud() -> void:
 	_refresh_all()
 	if keep_pause:
 		_open_menu()
+
+
+func _on_layout_changed(_p: bool) -> void:
+	_relayout()
 
 
 func _on_rejected(reason: String) -> void:
