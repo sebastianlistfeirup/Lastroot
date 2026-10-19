@@ -52,7 +52,11 @@ func render() -> void:
 	m.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_content.add_child(m)
 	var scroll := UiKit.vscroll()
-	m.add_child(scroll)
+	# Buttons live in a fixed bar under the scrolling summary: always visible,
+	# always reachable by keyboard / pad, and the headline stays in view.
+	var outer := UiKit.vbox(12)
+	m.add_child(outer)
+	outer.add_child(scroll)
 	var col := UiKit.vbox(18)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(col)
@@ -84,10 +88,13 @@ func render() -> void:
 	right.custom_minimum_size = Vector2(0 if portrait else 760, 0)
 	main.add_child(right)
 	right.add_child(_stats_panel(stats, portrait))
+	var bp: Control = _battles_panel()
+	if bp:
+		right.add_child(bp)
 	right.add_child(_build_panel())
 	var buttons := UiKit.flow(16)
 	buttons.name = "Actions"
-	col.add_child(buttons)
+	outer.add_child(buttons)
 	var nb := UiKit.button(Loc.t("New run"), UiKit.AMBER, 24)
 	nb.name = "NewRunButton"
 	nb.custom_minimum_size = Vector2(280, 64)
@@ -137,6 +144,57 @@ func _stats_panel(stats: Dictionary, portrait: bool) -> Control:
 		c.add_child(val)
 		h.add_child(c)
 		grid.add_child(cell)
+	return p
+
+
+## Per-battle rows from run["history"] ({index, battle_def_id, result, turns,
+## heart_start, heart_end, deployed}); old saves without it fall back to the
+## one battle they record, run["last_battle"]. Never invents numbers.
+static func battle_rows(run: Dictionary) -> Array:
+	var out: Array = []
+	for h: Dictionary in run.get("history", []):
+		var row := {"index": int(h.get("index", 0)), "result": str(h.get("result", "")), "turns": int(h.get("turns", 0)),
+			"heart": int(h.get("heart_end", 0))}
+		if h.has("heart_start"):
+			row["heart_lost"] = maxi(0, int(h["heart_start"]) - int(h.get("heart_end", 0)))
+		if h.has("deployed"):
+			row["deployed"] = int(h["deployed"])
+		out.append(row)
+	if not out.is_empty():
+		return out
+	var lb: Dictionary = run.get("last_battle", {})
+	return [] if lb.is_empty() else [lb]
+
+
+func _battles_panel() -> Control:
+	var rows: Array = battle_rows(run)
+	if rows.is_empty():
+		return null
+	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), UiKit.LINE)
+	p.name = "BattlesPanel"
+	var v := UiKit.vbox(6)
+	p.add_child(v)
+	v.add_child(UiKit.heading(Loc.t("Battles") if rows.size() > 1 else Loc.t("Final battle"), 22))
+	for b: Dictionary in rows:
+		var won_b: bool = str(b.get("result", "")) == "won"
+		var h := UiKit.hbox(10)
+		h.name = "BattleRow_%d" % int(b.get("index", 0))
+		var ic := MetaIcon.make("check" if won_b else "skip", UiKit.LIFE if won_b else UiKit.DANGER, UiKit.px(22))
+		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		h.add_child(ic)
+		var name_l := UiKit.label(RunText.battle_name(int(b.get("index", 0))), 17, UiKit.TEXT, true)
+		name_l.custom_minimum_size = Vector2(UiKit.px(150), 0)
+		h.add_child(name_l)
+		var parts: PackedStringArray = [Loc.t("Won") if won_b else Loc.t("Lost"), Loc.t("%d turns") % int(b.get("turns", 0)),
+			"%s %d" % [Loc.t("Heart"), int(b.get("heart", 0))]]
+		if b.has("heart_lost") and int(b["heart_lost"]) > 0:
+			parts.append(Loc.t("lost %d") % int(b["heart_lost"]))
+		if b.has("deployed"):
+			parts.append(Loc.t("%d creatures played") % int(b["deployed"]))
+		var d := UiKit.label(" · ".join(parts), 16, UiKit.TEXT_DIM)
+		d.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(d)
+		v.add_child(h)
 	return p
 
 

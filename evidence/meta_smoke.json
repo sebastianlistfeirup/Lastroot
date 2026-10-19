@@ -1,6 +1,6 @@
 {
-  "checks": 421,
-  "duration_ms": 6946,
+  "checks": 455,
+  "duration_ms": 7402,
   "engine_version": "4.5.1-stable (official)",
   "failed": 0,
   "failures": [],
@@ -106,7 +106,12 @@
     "keyboard_overlays: key ui_right",
     "keyboard_overlays: key ui_accept",
     "keyboard_overlays: key ui_accept",
-    "keyboard_overlays: key ui_cancel"
+    "keyboard_overlays: key ui_cancel",
+    "first_run_skip: press NewRunButton",
+    "first_run_skip: press SkipGuideButton",
+    "first_run_skip: press NewRunButton",
+    "first_run_show: press NewRunButton",
+    "first_run_show: press ShowGuideButton"
   ],
-  "timestamp": "2026-10-19T22:22:12"
+  "timestamp": "2026-10-19T22:39:31"
 }

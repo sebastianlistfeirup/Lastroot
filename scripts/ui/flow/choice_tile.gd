@@ -109,7 +109,7 @@ func _style() -> void:
 	sb.content_margin_right = 16
 	sb.content_margin_top = 14
 	sb.content_margin_bottom = 14
-	if has_focus():
+	if has_focus() and UiKit.focus_visible:
 		sb.expand_margin_left = 4
 		sb.expand_margin_right = 4
 		sb.expand_margin_top = 4
@@ -134,3 +134,8 @@ func _gui_input(event: InputEvent) -> void:
 	if press:
 		accept_event()
 		pressed.emit()
+
+
+## Called by SettingsService when keyboard / pointer mode flips.
+func _on_focus_style() -> void:
+	_style()

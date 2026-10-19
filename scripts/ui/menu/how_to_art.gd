@@ -85,7 +85,7 @@ func _floors(show_front: bool, show_climb: bool) -> void:
 		_token(Vector2(cx + 82.0, y0), 18.0, UiKit.DANGER, "2")
 		_text(Vector2(cx, y0 - 44.0), Loc.t("Front"), 15, UiKit.AMBER)
 		draw_line(Vector2(cx - 40.0, y0 - 30.0), Vector2(cx + 40.0, y0 - 30.0), UiKit.AMBER, 2.0, true)
-		if w > 380:
+		if w > 460:
 			_text(Vector2(cx - 150.0, y0 + 2.0), Loc.t("Allies"), 15, UiKit.LIFE)
 			_text(Vector2(cx + 150.0, y0 + 2.0), Loc.t("Enemies"), 15, UiKit.DANGER)
 		# A second floor with one ally.

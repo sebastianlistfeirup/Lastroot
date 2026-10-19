@@ -36,6 +36,7 @@ func _cases() -> Array:
 	return [
 		{"id": "menu_title", "scene": "menu", "run": MetaFixtures.route(1), "save": true},
 		{"id": "menu_faction", "scene": "menu", "run": {}, "view": "faction"},
+		{"id": "menu_first_run", "scene": "menu", "run": {}, "view": "first_run"},
 		{"id": "menu_settings", "scene": "menu", "run": {}, "open": "settings"},
 		{"id": "menu_credits", "scene": "menu", "run": {}, "open": "credits"},
 		{"id": "reward_card", "scene": "run", "run": MetaFixtures.reward_slot("card"), "select": "first_offer"},
