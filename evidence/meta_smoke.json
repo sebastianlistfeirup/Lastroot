@@ -1,6 +1,6 @@
 {
-  "checks": 387,
-  "duration_ms": 6604,
+  "checks": 421,
+  "duration_ms": 7447,
   "engine_version": "4.5.1-stable (official)",
   "failed": 0,
   "failures": [],
@@ -85,7 +85,28 @@
     "howto_menu: press NextPage",
     "howto_menu: press NextPage",
     "howto_pause: press MenuButton",
-    "howto_pause: press PauseHowToButton"
+    "howto_pause: press PauseHowToButton",
+    "keyboard_menu: key ui_down",
+    "keyboard_menu: key ui_accept",
+    "keyboard_menu: key ui_right",
+    "keyboard_menu: key ui_cancel",
+    "keyboard_menu: key ui_accept",
+    "keyboard_menu: key ui_cancel",
+    "keyboard_menu: key ui_accept",
+    "keyboard_menu: key ui_right",
+    "keyboard_menu: key ui_accept",
+    "keyboard_reward: key ui_right",
+    "keyboard_reward: key ui_accept",
+    "keyboard_reward: key ui_accept",
+    "keyboard_reward: key ui_cancel",
+    "keyboard_reward: key ui_cancel",
+    "keyboard_route: key ui_accept",
+    "keyboard_overlays: press DeckButton",
+    "keyboard_overlays: key ui_cancel",
+    "keyboard_overlays: key ui_right",
+    "keyboard_overlays: key ui_accept",
+    "keyboard_overlays: key ui_accept",
+    "keyboard_overlays: key ui_cancel"
   ],
-  "timestamp": "2026-10-19T22:05:53"
+  "timestamp": "2026-10-19T22:14:14"
 }
