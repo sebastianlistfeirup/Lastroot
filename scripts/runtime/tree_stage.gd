@@ -26,8 +26,8 @@ func build() -> void:
 	e.glow_intensity = 0.7
 	e.glow_bloom = 0.12
 	e.fog_enabled = true
-	e.fog_light_color = Color("2a2246")
-	e.fog_density = 0.008
+	e.fog_light_color = Color("1d1830")
+	e.fog_density = 0.005
 	env.environment = e
 	add_child(env)
 	var sun := DirectionalLight3D.new()
