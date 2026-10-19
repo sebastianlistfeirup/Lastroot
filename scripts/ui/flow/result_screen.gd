@@ -44,6 +44,8 @@ func _add_epilog_diorama() -> void:
 	_has_3d = true
 	_backdrop.visible = false
 	layer.set_portrait(vp.y > vp.x)
+	if layer.diorama != null and layer.diorama.has_method("set_screen_anchor"):
+		layer.diorama.call("set_screen_anchor", 0.5 if vp.y > vp.x else 0.24)
 	var r: Dictionary = GameSession.run
 	if layer.diorama != null and layer.diorama.has_method("set_run"):
 		layer.diorama.call("set_run", r.get("mutations", []), str(r.get("main_faction", "BARK")),
