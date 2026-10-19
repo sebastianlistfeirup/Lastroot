@@ -80,6 +80,12 @@ FX = {
     "fx.ash_death": (True, "Ash cloud and rising embers when an ash enemy dies (one-shot)."),
     "fx.heart_pulse": (False, "Turquoise ring pulse around the heart (loop)."),
     "fx.heart_damage": (True, "Red/turquoise shard burst + ring when the heart is hit (one-shot)."),
+    "fx.summon_bark": (True, "Leaves and bark chips burst from the floor when a Bark unit grows in (UnitAnimator summon; also the slam dust)."),
+    "fx.summon_spore": (True, "Violet/turquoise spores rise when a Spore unit grows in (UnitAnimator summon, S01 victory)."),
+    "fx.ash_puff": (True, "Smoky ash puff with a few embers: an enemy's first appearance (UnitAnimator summon/first move)."),
+    "fx.wilt": (True, "Falling leaves when a Bark ally wilts into the floor (UnitAnimator death)."),
+    "fx.wilt_spore": (True, "Falling violet cap flakes when a Spore ally wilts (UnitAnimator death)."),
+    "fx.ember_trail": (True, "Short world-space ember trail behind a lunging enemy (UnitAnimator attack)."),
     "fx.ring": (False, "Ground ring at a unit's feet: TargetMarker.set_radius(VisualSlots.footprint_radius(id)) + set_kind(none/target/selected/invalid/danger)."),
     "fx.floor_target": (False, "Strip along a floor's front (x -5.6..5.6): TargetMarker.set_kind(none/target/selected) for floor-targeted spells."),
 }

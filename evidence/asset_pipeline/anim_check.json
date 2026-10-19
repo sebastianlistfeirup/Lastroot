@@ -1,0 +1,1194 @@
+{
+ "failed": 0,
+ "rows": [
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.62,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.79,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B01",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.79,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S01",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.62,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.62,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.79,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.37,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.B04",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.62,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.44,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.37,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "unit.S03",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E01",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": false,
+   "slot": "enemy.E06",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.79,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B01",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.09,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.44,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S01",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.B04",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "unit.S03",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.8,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E01",
+   "state": "interrupt attack->hit"
+  },
+  {
+   "finished_s": 0.0,
+   "limit_s": 3.3,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "idle"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "summon"
+  },
+  {
+   "finished_s": 0.61,
+   "limit_s": 1.52,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "attack"
+  },
+  {
+   "finished_s": 0.79,
+   "limit_s": 1.7,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "cast"
+  },
+  {
+   "finished_s": 0.37,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "hit"
+  },
+  {
+   "finished_s": 0.7,
+   "limit_s": 1.6,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "death"
+  },
+  {
+   "finished_s": 0.5,
+   "limit_s": 1.4,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "defend"
+  },
+  {
+   "finished_s": 1.1,
+   "limit_s": 2.0,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "victory"
+  },
+  {
+   "finished_s": 0.45,
+   "limit_s": 1.35,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "move"
+  },
+  {
+   "finished_s": 0.38,
+   "limit_s": 1.28,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "play_hit(9)"
+  },
+  {
+   "finished_s": 0.01,
+   "limit_s": 0.2,
+   "note": "",
+   "ok": true,
+   "reduced_motion": true,
+   "slot": "enemy.E06",
+   "state": "interrupt attack->hit"
+  }
+ ],
+ "status": "PASS"
+}

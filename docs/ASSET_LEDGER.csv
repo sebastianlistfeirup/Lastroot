@@ -42,5 +42,11 @@ asset_fx_bark_hit,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_u
 asset_fx_ash_death,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ash_death,PROXY
 asset_fx_heart_pulse,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heart_pulse,PROXY
 asset_fx_heart_damage,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heart_damage,PROXY
+asset_fx_summon_bark,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.summon_bark,PROXY
+asset_fx_summon_spore,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.summon_spore,PROXY
+asset_fx_ash_puff,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ash_puff,PROXY
+asset_fx_wilt,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.wilt,PROXY
+asset_fx_wilt_spore,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.wilt_spore,PROXY
+asset_fx_ember_trail,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ember_trail,PROXY
 asset_fx_ring,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ring,PROXY
 asset_fx_floor_target,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.floor_target,PROXY

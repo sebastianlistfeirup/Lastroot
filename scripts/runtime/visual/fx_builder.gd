@@ -7,7 +7,8 @@ extends RefCounted
 ## Looping status effects (poison, armor, thorns, growth, heart_pulse) stay until
 ## the caller frees them. Visual only.
 
-const ONE_SHOT := ["fx.heal", "fx.spore_bolt", "fx.bark_hit", "fx.ash_death", "fx.heart_damage"]
+const ONE_SHOT := ["fx.heal", "fx.spore_bolt", "fx.bark_hit", "fx.ash_death", "fx.heart_damage", "fx.summon_bark", "fx.summon_spore",
+	"fx.ash_puff", "fx.wilt", "fx.wilt_spore", "fx.ember_trail"]
 
 
 static func build(slot_id: String, spec: Dictionary) -> Node3D:
@@ -91,6 +92,34 @@ static func build(slot_id: String, spec: Dictionary) -> Node3D:
 			_emit(root, {"color": "ember_red", "ramp2": "turquoise", "amount": 26, "life": 0.9, "shape": "sphere", "radius": 0.5, "y": 1.0,
 				"vel": Vector3(0, 0.5, 0), "radial": 3.0, "spread": 180.0, "size": 0.09, "one_shot": true, "explosiveness": 1.0, "gravity": Vector3(0, -3, 0), "mesh": "diamond", "spin": 360.0})
 			_ring(root, "ember_red", 1.0, 1.0, Vector3(90, 0, 0))
+		"summon_bark":
+			life = 1.1
+			_emit(root, {"color": "leaf_light", "ramp2": "moss", "amount": 18, "life": 0.9, "shape": "ring", "radius": 0.35, "y": 0.05,
+				"vel": Vector3(0, 2.4, 0), "spread": 35.0, "size": 0.1, "one_shot": true, "explosiveness": 0.9, "gravity": Vector3(0, -4.5, 0),
+				"mesh": "leaf", "additive": false, "spin": 360.0})
+			_emit(root, {"color": "bark_light", "amount": 10, "life": 0.6, "shape": "ring", "radius": 0.3, "y": 0.05, "vel": Vector3(0, 1.6, 0),
+				"spread": 60.0, "size": 0.07, "one_shot": true, "explosiveness": 1.0, "gravity": Vector3(0, -6, 0), "mesh": "chip", "additive": false, "spin": 540.0})
+		"summon_spore":
+			life = 1.3
+			_emit(root, {"color": "poison_violet", "ramp2": "turquoise", "amount": 26, "life": 1.1, "shape": "ring", "radius": 0.4, "y": 0.05,
+				"vel": Vector3(0, 1.3, 0), "spread": 25.0, "size": 0.07, "one_shot": true, "explosiveness": 0.8, "gravity": Vector3(0, 0.2, 0), "mesh": "sphere"})
+		"ash_puff":
+			life = 1.4
+			_emit(root, {"color": "ash_grey", "ramp2": "charcoal", "amount": 20, "life": 1.1, "shape": "sphere", "radius": 0.4, "y": 0.5,
+				"vel": Vector3(0, 0.6, 0), "spread": 80.0, "size": 0.3, "grow": 2.4, "one_shot": true, "explosiveness": 0.9, "additive": false, "gravity": Vector3(0, 0.3, 0)})
+			_emit(root, {"color": "ember_hot", "ramp2": "ember_red", "amount": 12, "life": 0.8, "shape": "sphere", "radius": 0.3, "y": 0.5,
+				"vel": Vector3(0, 1.0, 0), "spread": 70.0, "size": 0.05, "one_shot": true, "explosiveness": 0.9, "gravity": Vector3(0, 0.5, 0)})
+		"wilt", "wilt_spore":
+			life = 1.4
+			var sp := kind == "wilt_spore"
+			_emit(root, {"color": "cap_violet" if sp else "leaf_light", "ramp2": "spore_skin" if sp else "bark", "amount": 16, "life": 1.2,
+				"shape": "sphere", "radius": 0.4, "y": 0.0, "vel": Vector3(0, 0.4, 0), "spread": 90.0, "size": 0.1, "one_shot": true,
+				"explosiveness": 0.7, "gravity": Vector3(0, -1.4, 0), "mesh": "leaf", "additive": false, "spin": 270.0})
+		"ember_trail":
+			life = 0.7
+			var tr := _emit(root, {"color": "ember_hot", "ramp2": "ember_red", "amount": 22, "life": 0.35, "shape": "sphere", "radius": 0.18, "y": 0.0,
+				"vel": Vector3.ZERO, "size": 0.07, "one_shot": true, "explosiveness": 0.0, "gravity": Vector3(0, 0.4, 0)})
+			tr.local_coords = false
 		_:
 			push_warning("FxBuilder: unknown fx %s" % slot_id)
 	root.set_meta("one_shot", life > 0.0)

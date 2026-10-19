@@ -21,7 +21,8 @@ var badge_y := VisualSlots.head_height("unit.B01")   # hp/attack-badge (2D-overl
 | `VisualSlots.make(slot_id) -> Node3D` | Wrapper (købt model), hvis `asset_slots.json` → `scene` eller `slot_scenes.json` peger på en eksisterende scene; ellers procedural proxy. Root-meta: `slot_id`, `is_proxy`, `kind`, `height_m`. Væsner, fjender og `stage.heart` har barnet `UnitAnimator`. Ingen fysik/kollision. |
 | `VisualSlots.has_real_asset(id)`, `slot_ids()`, `ids_of_kind(kind)`, `slot(id)`, `head_height(id)`, `bounds(node)`, `reload()` | Opslag. `head_height` = målt top + ~0,2 m (wrapper: byggerens målte højde × `scale` + 0,25). |
 | `UnitAnimator.play(state, speed=1.0)` | Spiller clip `lr/<state>` (eller mappet clipnavn) in place; ellers procedural tween på `Model`-barnet. Rooten røres aldrig (du ejer dens position mellem anchors). |
-| `signal finished(state)` | Én gang pr. `play()`; også hvis en ny `play()` afbryder, og senest `varighed/speed + 0,6 s` (sikkerhedsnet). Loop-tilstande (`idle`, `move`) sender `finished` efter første cyklus og fortsætter. Efter `summon/attack/cast/hit/victory` går figuren selv tilbage til `idle`. `death`: proxyen synker, falmer og skjules; en rig holder dødsclippets sidste frame (fjern noden efter `finished`). |
+| `signal finished(state)` | Én gang pr. `play()`; også hvis en ny `play()` afbryder, og senest `varighed/speed + 0,6 s` (sikkerhedsnet). `idle` er loop og sender `finished` efter første cyklus; `move` er nu ét hop (0,45 s) og går tilbage til idle. Efter `summon/attack/cast/hit/victory` går figuren selv tilbage til `idle`. `death`: proxyen synker, falmer og skjules; en rig holder dødsclippets sidste frame (fjern noden efter `finished`). |
+| `play_hit(amount: int, speed=1.0)` | Som `play(&"hit")`, men rekyl, sammenpresning og blink skaleres med skaden (0,6× ved 0 → maks. 2× ved ~8). Samme finished/timeout-regler. |
 | `signal contact(state)`, `contact_time(state)` | Kontaktframe for attack/cast (standard 0,30 / 0,38 s ved speed 1; del med speed). Kun til feedback-synk (hit-fx, tal-pop) — skade er allerede afgjort. |
 | `has_clip(state)` | Rig: true hvis der findes et rigtigt clip. Proxy: true for alle tilstande (proceduralt er dens clip). Manglende clip spiller stadig procedural + `finished`. |
 | `snap(state)` | Skip/load: sæt slutpose med det samme (`death` = skjult, ellers idle). |
@@ -45,6 +46,24 @@ var badge_y := VisualSlots.head_height("unit.B01")   # hp/attack-badge (2D-overl
 | FX | Origin = den ramte figurs fødder (dimensioneret til ~1,6 m figur; skalér med `head_height/1,8`). One-shot (`meta one_shot`, `lifetime_s`) frigør sig selv; status-loops (poison, armor, thorns, growth, heart_pulse) fjerner du selv. CPUParticles3D (virker i Compatibility/web). |
 
 Markører er rent visuelle: én–tre unshaded meshes med eget materiale, ingen lys, ingen fysik, så de blokerer aldrig klik. Puls respekterer reduced motion (kun farve). Art gate: `scenes/tests/stage_mutations.tscn -- --markers` → `evidence/asset_pipeline/stage_markers.png`.
+
+## Procedural "personlighed" pr. tilstand (proxies, og fallback for manglende clips)
+
+Familie læses af slot-id: `unit.B*` bark, `unit.S*` spore, `enemy.*` aske. Kun `Model`-barnet bevæger sig; roden røres aldrig. Alt respekterer reduced motion (ca. ⅓ udsving).
+
+| Tilstand | Bark | Spore | Aske | Varighed |
+|---|---|---|---|---|
+| `summon` | vokser op af gulvet (rejser sig, strækker sig, sætter sig) + `fx.summon_bark` (blade/bark) | samme + `fx.summon_spore` | kondenserer ud af `fx.ash_puff` | 0,62 s |
+| `attack` | kort opsving og tungt slag; kontakt 0,30 s + støv | stav-kast (`_spore_cast`) | udfald med `fx.ember_trail`; kontakt 0,30 s | 0,62 s |
+| `cast` | — | læn tilbage, stav frem og op, kuglen blusser ved 0,38 s (presenteren sender `fx.spore_bolt`) | — | 0,8 s |
+| `hit` / `play_hit` | rekyl + rødt blink, skaleret | | | 0,38 s |
+| `death` | visner og synker i gulvet + `fx.wilt` / `fx.wilt_spore` | | ryster og smuldrer sammen; **`fx.ash_death` bliver presenter-side** (som nu) | 0,7 s |
+| `move` | ét hop (0,45 s) — passer til en 0,45 s tween af roden mellem anchors | | højere hop; første gang en fjende viser sig: `fx.ash_puff` | 0,45 s, one-shot → idle |
+| `defend` | B01: afstiver sig bag skjoldet, ravkerne blusser | stav på tværs som værn, kuglen blusser | standard | 0,5 s |
+| `victory` | B01: to tunge stamp | S01: stav mod himlen, langsom drejning, sporer | hop + drejning | 1,1 s |
+| `idle` | B01: langsom tung vuggen | S01: svævende bob med åndende stavglød | aske lidt hurtigere | loop |
+
+Animatorens små fx (`fx.summon_*`, `fx.wilt*`, `fx.ash_puff`, `fx.ember_trail`) lægges på den øverste 3D-forfader, så de overlever, at UnitView fjernes. Forslag til presenteren: vent ~0,55 s (i stedet for 0,35) før `remove_view` efter `death`, så visnen/smuldringen ses; spil `&"move"` på fjender ved `enemy_climbed` sammen med den 0,45 s layout-tween. `tools/synty/anim_check.gd` tjekker alle tilstande i et kørende træ (finished, kontakt, rod urørt, også med reduced motion) → `evidence/asset_pipeline/anim_check.json`; `tools/synty/record_riglab.sh` optager RigLab-klippet.
 
 ## Liv i tomgang
 
