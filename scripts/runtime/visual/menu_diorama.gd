@@ -23,6 +23,7 @@ const ORBIT_DEG := 22.0
 const ORBIT_PERIOD := 26.0
 
 var portrait: bool = false
+var screen_anchor: float = 0.5
 var faction: String = ""
 
 var _cam: Camera3D
@@ -64,7 +65,9 @@ func _ready() -> void:
 	ui.add_child(_dim_rect)
 	var want := ""
 	for a: String in OS.get_cmdline_user_args():
-		if a == "--portrait":
+		if a.begins_with("--anchor="):
+			screen_anchor = float(a.substr(9))
+		elif a == "--portrait":
 			portrait = true
 		elif a.begins_with("--champion="):
 			want = a.substr(11)
@@ -163,6 +166,28 @@ func _place_camera() -> void:
 		a = deg_to_rad(ORBIT_DEG) * sin(TAU * _t / ORBIT_PERIOD)
 	var pos := CENTER + Vector3(sin(a) * _dist, _height - CENTER.y + 1.5, cos(a) * _dist)
 	_cam.transform = Transform3D(Basis.looking_at(CENTER + Vector3(0, 0.3, 0) - pos, Vector3.UP), pos)
+	_apply_anchor(_dist)
+
+
+
+## Where the tree's centre should appear horizontally (0..1 of the view width), e.g.
+## 0.24 when UI panels cover the right side, 0.5 centred. Implemented as a sideways
+## camera shift (h_offset) of exactly the right size for the current aspect and fov.
+func set_screen_anchor(x: float) -> void:
+	screen_anchor = clampf(x, 0.0, 1.0)
+	_place_camera()
+
+
+func _apply_anchor(dist: float) -> void:
+	var vp := get_viewport()
+	var size := vp.get_visible_rect().size if vp else Vector2(16, 9)
+	var aspect := size.x / maxf(size.y, 1.0)
+	var half_w := 0.0
+	if _cam.keep_aspect == Camera3D.KEEP_WIDTH:
+		half_w = dist * tan(deg_to_rad(_cam.fov) * 0.5)
+	else:
+		half_w = dist * tan(deg_to_rad(_cam.fov) * 0.5) * aspect
+	_cam.h_offset = (1.0 - 2.0 * screen_anchor) * half_w
 
 
 func _process(dt: float) -> void:
