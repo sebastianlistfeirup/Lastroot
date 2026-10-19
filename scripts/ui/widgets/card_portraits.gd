@@ -137,6 +137,9 @@ func _render(slot_id: String) -> Texture2D:
 	dist = maxf(dist, maxf(ab.size.x, ab.size.z) * 1.2)
 	cam.position = target + Vector3(0, h * 0.08, dist)
 	cam.look_at(target)
+	# One frame for the new world/shaders to settle; the very first portrait
+	# of a session otherwise came back empty.
+	await get_tree().process_frame
 	sv.render_target_update_mode = SubViewport.UPDATE_ONCE
 	await RenderingServer.frame_post_draw
 	await RenderingServer.frame_post_draw

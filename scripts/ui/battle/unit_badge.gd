@@ -60,7 +60,7 @@ static func _part(kind: String, value: String) -> String:
 
 ## Compact badges for narrow portrait screens (smaller text, same information).
 func set_compact(c: bool) -> void:
-	var k: float = 0.82 if c else 1.0
+	var k: float = 0.72 if c else 1.0
 	_k = k
 	_apply_fonts()
 	_fc.add_theme_font_size_override("font_size", int(15 * k * UiKit.font_scale))
