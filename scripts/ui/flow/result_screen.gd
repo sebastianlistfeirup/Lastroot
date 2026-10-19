@@ -19,6 +19,7 @@ func _ready() -> void:
 	_backdrop = MenuBackdrop.new()
 	_backdrop.show_tree = false
 	add_child(_backdrop)
+	_add_epilog_diorama()
 	_content = Control.new()
 	_content.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -26,6 +27,31 @@ func _ready() -> void:
 	SettingsService.changed.connect(render)
 	get_viewport().size_changed.connect(render)
 	render()
+
+
+## REF_10: the run's own tree behind the summary (3D when allowed, else the 2D backdrop).
+var _has_3d := false
+
+
+func _add_epilog_diorama() -> void:
+	var vp: Vector2 = get_viewport().get_visible_rect().size
+	if not DioramaLayer.allowed(vp):
+		return
+	var layer: DioramaLayer = DioramaLayer.make("res://scenes/art/epilog_diorama.tscn", 0.45)
+	if layer == null:
+		return
+	add_child(layer)
+	_has_3d = true
+	_backdrop.visible = false
+	layer.set_portrait(vp.y > vp.x)
+	var r: Dictionary = GameSession.run
+	if layer.diorama != null and layer.diorama.has_method("set_run"):
+		layer.diorama.call("set_run", r.get("mutations", []), str(r.get("main_faction", "BARK")),
+			str(r.get("champion_path", "")), "won" if won_run(r) else "lost")
+
+
+static func won_run(r: Dictionary) -> bool:
+	return str(r.get("phase", "")) == "won" or str(r.get("result", "")) == "won"
 
 
 func won() -> bool:
@@ -83,6 +109,8 @@ func render() -> void:
 	tree.won = won()
 	tree.mutations = run.get("mutations", [])
 	tree.custom_minimum_size = Vector2(0, 360) if portrait else Vector2(460, 560)
+	if _has_3d:
+		tree.self_modulate = Color(1, 1, 1, 0)  # the 3D epilog tree shows through this space
 	main.add_child(tree)
 	var right := UiKit.vbox(16)
 	right.custom_minimum_size = Vector2(0 if portrait else 760, 0)

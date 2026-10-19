@@ -47,6 +47,15 @@ static func make(name: String, faction: String = "BARK", seed_value: int = 1) ->
 			route["options"][0]["type"] = want if want != "" else route["options"][0]["type"]
 			return RunReducer.apply(run, {"type": "choose_node", "node": route["options"][0]["id"]})["run"]
 		if name == "lost":
+			# A real defeat: the casual bot (no look-ahead) plays on until the Heart falls.
+			var prev: String = AutoPlayer.style
+			AutoPlayer.style = "casual"
+			for attempt in 12:
+				var res: Dictionary = AutoPlayer.play_run(RunReducer.new_run(seed_value + attempt * 101, faction))
+				if res["run"]["phase"] == "lost":
+					AutoPlayer.style = prev
+					return res["run"]
+			AutoPlayer.style = prev
 			run["phase"] = "lost"
 			run["result"] = "lost"
 			return run
