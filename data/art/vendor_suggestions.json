@@ -1,0 +1,1300 @@
+{
+ "_note": "Search hints for which purchased pack/model could fill each slot. NOTHING here is verified against the real pack files (verified=false everywhere): pack names are real product lines, but model names/patterns are typical naming conventions used as search hints, not facts. Godot-ready downloads exist for some Synty packs (uncertain which — check each pack's download page); otherwise use the FBX 'Source Files'. PolyPerfect ships Unity packages (FBX inside): unpack.py extracts them. Mixamo clip names are search terms on mixamo.com. Rig families: one humanoid family covers all bipeds (Synty + Mixamo bone names are mapped to SkeletonProfileHumanoid); Thornhart is a quadruped with its own clips; ash enemies reuse 2-3 humanoid rigs with recolours/attachments; the boss is a large humanoid + custom crown attachment.",
+ "status": "unverified — check actual pack contents",
+ "slots": {
+  "unit.B01": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Fantasy Rivals",
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "*Golem*",
+    "*Rock*Giant*",
+    "*Treant*",
+    "SK_Chr_*Giant*"
+   ],
+   "attachments": [],
+   "notes": "Heavy humanoid base (giant/golem/treant) + bark plates and rocks from POLYGON Nature as attachments (Rock_*, Bark/Log_*). Keep the existing rig.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Mutant Breathing Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Mutant Jumping",
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Mutant Punch",
+     "Mutant Swiping",
+     "Punching"
+    ],
+    "hit": [
+     "Mutant Hit Reaction",
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Mutant Dying",
+     "Dying"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Mutant Roaring",
+     "Victory"
+    ],
+    "move": [
+     "Mutant Walking",
+     "Walking"
+    ]
+   }
+  },
+  "unit.B02": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "PolyPerfect Low Poly Ultimate Pack",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "*Sapling*",
+    "*Sprout*",
+    "*Stump*",
+    "SK_Chr_*Goblin*"
+   ],
+   "attachments": [],
+   "notes": "Small humanoid base (goblin/child scale) + sapling/leaf attachments, or a PolyPerfect stump creature if one exists.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Happy Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Punching",
+     "Goblin Attack"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Jumping",
+     "Victory"
+    ],
+    "move": [
+     "Sneak Walk",
+     "Walking"
+    ]
+   }
+  },
+  "unit.B03": {
+   "packs": [
+    "Synty POLYGON Fantasy Kingdom",
+    "Synty POLYGON Fantasy Characters",
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "SK_Chr_*Knight*",
+    "*Shield*Tower*"
+   ],
+   "attachments": [
+    "SM_Wep_Shield_*Wood*"
+   ],
+   "notes": "Stocky humanoid + big wooden tower shield (SM_Wep_Shield_* is a typical Synty prefix) recoloured to bark.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Breathing Idle",
+     "Standing Idle",
+     "Happy Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Sword And Shield Bash",
+     "Sword And Shield Slash"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Sword And Shield Block",
+     "Standing Block Idle"
+    ],
+    "victory": [
+     "Victory",
+     "Cheering",
+     "Victory Idle"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   }
+  },
+  "unit.B04": {
+   "packs": [
+    "PolyPerfect Low Poly Animated Animals",
+    "PolyPerfect Low Poly Ultimate Pack",
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "*Deer*",
+    "*Stag*",
+    "*Elk*",
+    "*Moose*"
+   ],
+   "attachments": [],
+   "notes": "QUADRUPED: PolyPerfect animated deer/stag with its own clips (idle/attack/hit/death names vary per pack) + thorn antler attachments built from POLYGON Nature branches. Do NOT retarget humanoid clips.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "clips": {
+    "idle": "use the pack's own idle clip (names vary: e.g. idle, breathing, stand)",
+    "summon": "use the pack's own summon clip (names vary: e.g. summon, spawn, emerge)",
+    "attack": "use the pack's own attack clip (names vary: e.g. attack, punch, slash)",
+    "hit": "use the pack's own hit clip (names vary: e.g. hit, react, impact)",
+    "death": "use the pack's own death clip (names vary: e.g. death, dying, die)",
+    "move": "use the pack's own move clip (names vary: e.g. walk, jog, run)"
+   }
+  },
+  "unit.B05": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Fantasy Characters",
+    "PolyPerfect Low Poly Ultimate Pack"
+   ],
+   "search": [
+    "SK_Chr_*Dwarf*",
+    "*Jar*",
+    "*Barrel*Small*",
+    "*Honey*"
+   ],
+   "attachments": [],
+   "notes": "Short round humanoid (dwarf/child) carrying a jar/lantern prop with an amber emissive material.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Happy Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Punching",
+     "Goblin Attack"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Jumping",
+     "Victory"
+    ],
+    "move": [
+     "Sneak Walk",
+     "Walking"
+    ]
+   }
+  },
+  "unit.B06": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Dark Fantasy"
+   ],
+   "search": [
+    "*Treant*",
+    "*Tree*Monster*"
+   ],
+   "attachments": [
+    "SM_Env_Tree_Oak*",
+    "SM_Env_Tree_*Large*"
+   ],
+   "notes": "Treant/tree creature rig if one exists; otherwise a giant humanoid wearing an oak crown cut from SM_Env_Tree_* (keep crown low).",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Mutant Breathing Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Mutant Jumping",
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Mutant Punch",
+     "Mutant Swiping",
+     "Punching"
+    ],
+    "hit": [
+     "Mutant Hit Reaction",
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Mutant Dying",
+     "Dying"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Mutant Roaring",
+     "Victory"
+    ],
+    "move": [
+     "Mutant Walking",
+     "Walking"
+    ]
+   }
+  },
+  "unit.S01": {
+   "packs": [
+    "Synty POLYGON Fantasy Characters",
+    "Synty POLYGON Elven Realm",
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "SK_Chr_*Wizard*",
+    "SK_Chr_*Druid*"
+   ],
+   "attachments": [
+    "SM_Env_Mushroom*",
+    "SM_Wep_Staff_*"
+   ],
+   "notes": "Small humanoid (gnome/child scale) + oversized mushroom-cap attachment (SM_Env_Mushroom_* scaled up, violet recolour) + staff with turquoise emissive tip. Hat and staff must read.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Breathing Idle",
+     "Standing Idle",
+     "Happy Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "cast": [
+     "Standing 1H Magic Attack 01",
+     "Standing 2H Magic Attack 01"
+    ],
+    "attack": [
+     "Punching",
+     "Standing Melee Attack Downward",
+     "Sword And Shield Slash"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Victory",
+     "Cheering",
+     "Victory Idle"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   }
+  },
+  "unit.S02": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "PolyPerfect Low Poly Ultimate Pack"
+   ],
+   "search": [
+    "*Mushroom*",
+    "SK_Chr_*Goblin*",
+    "*Imp*"
+   ],
+   "attachments": [],
+   "notes": "Tiny creature/goblin base + mushroom cap attachment.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Happy Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Punching",
+     "Goblin Attack"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Jumping",
+     "Victory"
+    ],
+    "move": [
+     "Sneak Walk",
+     "Walking"
+    ]
+   }
+  },
+  "unit.S03": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Dungeons"
+   ],
+   "search": [
+    "*Fungus*",
+    "*Shelf*Mushroom*"
+   ],
+   "attachments": [
+    "SM_Env_Mushroom*"
+   ],
+   "notes": "Static: a cluster of POLYGON Nature mushrooms on a rock, no rig (procedural motion).",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "unit.S04": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Fantasy Characters"
+   ],
+   "search": [
+    "SK_Chr_*Assassin*",
+    "SK_Chr_*Rogue*"
+   ],
+   "attachments": [
+    "SM_Wep_Dagger*"
+   ],
+   "notes": "Slim rogue/assassin base + pointed dark cap attachment + twin daggers.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Sneaking Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Stabbing",
+     "Punching"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Victory",
+     "Cheering",
+     "Victory Idle"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   }
+  },
+  "unit.S05": {
+   "packs": [
+    "Synty POLYGON Elven Realm",
+    "Synty POLYGON Fantasy Characters",
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "SK_Chr_*Druid*",
+    "SK_Chr_*Monk*"
+   ],
+   "attachments": [
+    "SM_Prop_Lantern*"
+   ],
+   "notes": "Robed humanoid + mushroom cap + lantern with turquoise emissive.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Breathing Idle",
+     "Standing Idle",
+     "Happy Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "cast": [
+     "Standing 1H Magic Attack 01",
+     "Magic Spell Casting"
+    ],
+    "attack": [
+     "Punching",
+     "Standing Melee Attack Downward",
+     "Sword And Shield Slash"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Victory",
+     "Cheering",
+     "Victory Idle"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   }
+  },
+  "unit.S06": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "SK_Chr_*Giant*",
+    "SK_Chr_*Ogre*",
+    "*Troll*"
+   ],
+   "attachments": [
+    "SM_Env_Mushroom_Large*"
+   ],
+   "notes": "Giant/ogre base + very large mushroom cap and glowing sacs.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Mutant Breathing Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Mutant Jumping",
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Mutant Punch",
+     "Mutant Swiping",
+     "Punching"
+    ],
+    "hit": [
+     "Mutant Hit Reaction",
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Mutant Dying",
+     "Dying"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Mutant Roaring",
+     "Victory"
+    ],
+    "move": [
+     "Mutant Walking",
+     "Walking"
+    ]
+   }
+  },
+  "enemy.E01": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Fantasy Rivals",
+    "Synty POLYGON Dungeons"
+   ],
+   "search": [
+    "SK_Chr_*Imp*",
+    "SK_Chr_*Goblin*",
+    "*Ghoul*"
+   ],
+   "attachments": [],
+   "notes": "Rig family A (small humanoid). Charcoal recolour + ember emissive eyes; quick tempo (play speed 1.2-1.4).",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Happy Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Punching",
+     "Goblin Attack"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "move": [
+     "Sneak Walk",
+     "Walking"
+    ]
+   }
+  },
+  "enemy.E02": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Dungeons"
+   ],
+   "search": [
+    "SK_Chr_*Skeleton*Shield*",
+    "SK_Chr_*Golem*"
+   ],
+   "attachments": [
+    "SM_Wep_Shield_*"
+   ],
+   "notes": "Rig family B (stocky humanoid) + slab shield attachment; ember rim material.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Breathing Idle",
+     "Standing Idle",
+     "Happy Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Punching",
+     "Standing Melee Attack Downward",
+     "Sword And Shield Slash"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   }
+  },
+  "enemy.E03": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Fantasy Rivals"
+   ],
+   "search": [
+    "SK_Chr_*Hunter*",
+    "SK_Chr_*Demon*"
+   ],
+   "attachments": [
+    "SM_Wep_Spear*"
+   ],
+   "notes": "Rig family A/B + spikes + spear; lean forward.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Breathing Idle",
+     "Standing Idle",
+     "Happy Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Standing Melee Attack Downward",
+     "Spear Stab"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   }
+  },
+  "enemy.E04": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Dungeons"
+   ],
+   "search": [
+    "SK_Chr_*Fat*",
+    "SK_Chr_*Ogre*",
+    "*Blob*"
+   ],
+   "attachments": [],
+   "notes": "Rig family B scaled round (or a fat zombie/ogre) + soot sack/chimney attachments.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Mutant Breathing Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Mutant Jumping",
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Mutant Punch",
+     "Mutant Swiping",
+     "Punching"
+    ],
+    "hit": [
+     "Mutant Hit Reaction",
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Mutant Dying",
+     "Dying"
+    ],
+    "move": [
+     "Mutant Walking",
+     "Walking"
+    ]
+   }
+  },
+  "enemy.E05": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Dungeons",
+    "Synty POLYGON Fantasy Rivals"
+   ],
+   "search": [
+    "SK_Chr_*Golem*",
+    "SK_Chr_*Brute*",
+    "SK_Chr_*Giant*"
+   ],
+   "attachments": [],
+   "notes": "Rig family C (heavy) + basalt plate attachments.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Mutant Breathing Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Mutant Jumping",
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Mutant Punch",
+     "Mutant Swiping",
+     "Punching"
+    ],
+    "hit": [
+     "Mutant Hit Reaction",
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Mutant Dying",
+     "Dying"
+    ],
+    "move": [
+     "Mutant Walking",
+     "Walking"
+    ]
+   }
+  },
+  "enemy.E06": {
+   "packs": [
+    "Synty POLYGON Dark Fantasy",
+    "Synty POLYGON Fantasy Rivals"
+   ],
+   "search": [
+    "SK_Chr_*King*",
+    "SK_Chr_*Lich*",
+    "SK_Chr_*Giant*",
+    "*Crown*"
+   ],
+   "attachments": [],
+   "notes": "Boss: large humanoid rig (family C, scaled to ~3 m) + custom charred crown of branches/stone (attachment to the head bone) + emissive core. Do not cover its own HP/armor badge.",
+   "verified": false,
+   "status": "unverified — check actual pack contents",
+   "mixamo": {
+    "idle": [
+     "Mutant Breathing Idle",
+     "Breathing Idle"
+    ],
+    "summon": [
+     "Mutant Jumping",
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Mutant Punch",
+     "Mutant Swiping",
+     "Punching"
+    ],
+    "hit": [
+     "Mutant Hit Reaction",
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Mutant Dying",
+     "Dying"
+    ],
+    "move": [
+     "Mutant Walking",
+     "Walking"
+    ],
+    "victory": [
+     "Mutant Roaring",
+     "Victory"
+    ]
+   }
+  },
+  "stage.floor_roots": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Fantasy Kingdom"
+   ],
+   "search": [
+    "SM_Env_Rock_Flat*",
+    "SM_Env_Tree_Root*",
+    "SM_Env_Ground_*",
+    "*Platform*"
+   ],
+   "attachments": [],
+   "notes": "Build TreeStage from rocks, roots and flagstones; top must be flat at y=0 and 11 m wide usable.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "stage.floor_trunk": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Fantasy Kingdom"
+   ],
+   "search": [
+    "SM_Env_Rock_Flat*",
+    "SM_Env_Path_*",
+    "*Platform*"
+   ],
+   "attachments": [],
+   "notes": "Same as Roots floor; mushrooms at back edge.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "stage.floor_crown": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "SM_Env_Rock_Flat*",
+    "*Platform*",
+    "SM_Env_Tree_Branch*"
+   ],
+   "attachments": [],
+   "notes": "Same; crystals/blossoms at back edge.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "stage.trunk": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "SM_Env_Tree_Trunk*",
+    "SM_Env_Tree_Dead*",
+    "SM_Env_Tree_Giant*",
+    "SM_Bld_*Door*"
+   ],
+   "attachments": [],
+   "notes": "Giant trunk segments (scaled tree trunks) + doorway with amber light.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "stage.heart": {
+   "packs": [
+    "Synty POLYGON Elven Realm",
+    "Synty POLYGON Dungeons",
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "*Gem*",
+    "*Heart*"
+   ],
+   "attachments": [
+    "SM_Prop_Crystal*"
+   ],
+   "notes": "Keep the procedural faceted heart unless a crystal heart model exists; recolour turquoise emissive.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "stage.backdrop": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "SM_Env_Rock_Large*",
+    "SM_Env_Cliff*",
+    "*Floating*Island*",
+    "SM_Env_Rock_Spire*"
+   ],
+   "attachments": [],
+   "notes": "Floating islands and spires far behind (z < -15); low detail is fine.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "prop.lantern": {
+   "packs": [
+    "Synty POLYGON Fantasy Kingdom",
+    "Synty POLYGON Elven Realm",
+    "Synty POLYGON Dungeons"
+   ],
+   "search": [
+    "SM_Prop_Lantern*",
+    "SM_Prop_Lamp*"
+   ],
+   "attachments": [],
+   "notes": "Amber emissive lantern.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "prop.mushroom_cluster": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "SM_Env_Mushroom*",
+    "*Mushroom*Group*"
+   ],
+   "attachments": [],
+   "notes": "Violet recolour with emissive gills.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "prop.crystal": {
+   "packs": [
+    "Synty POLYGON Dungeons",
+    "Synty POLYGON Elven Realm",
+    "Synty POLYGON Dark Fantasy"
+   ],
+   "search": [
+    "SM_Prop_Crystal*",
+    "SM_Env_Crystal*"
+   ],
+   "attachments": [],
+   "notes": "Turquoise emissive crystals.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "prop.root_arch": {
+   "packs": [
+    "Synty POLYGON Nature"
+   ],
+   "search": [
+    "SM_Env_Tree_Root*",
+    "*Arch*Root*",
+    "SM_Env_Rock_Arch*"
+   ],
+   "attachments": [],
+   "notes": "Root/rock arch for the back edge.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "prop.rock": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "PolyPerfect Low Poly Ultimate Pack"
+   ],
+   "search": [
+    "SM_Env_Rock_0*",
+    "SM_Env_Rock_Small*",
+    "*Rock*"
+   ],
+   "attachments": [],
+   "notes": "Mossy rocks.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "mutation.M01": {
+   "packs": [
+    "Synty POLYGON Nature"
+   ],
+   "search": [],
+   "attachments": [
+    "SM_Env_Tree_Root*"
+   ],
+   "notes": "Extra roots placed in the Roots-floor frame.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "mutation.M02": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "*Vine*",
+    "*Ring*"
+   ],
+   "attachments": [],
+   "notes": "Band around the trunk + emissive veins.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "mutation.M03": {
+   "packs": [
+    "Synty POLYGON Nature",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "*Blossom*"
+   ],
+   "attachments": [
+    "SM_Env_Flower*",
+    "SM_Env_Bush_Flower*"
+   ],
+   "notes": "Blossoms along the Crown back edge.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "mutation.M04": {
+   "packs": [
+    "Synty POLYGON Particle FX",
+    "Synty POLYGON Elven Realm"
+   ],
+   "search": [
+    "FX_*Glow*"
+   ],
+   "attachments": [
+    "SM_Prop_Crystal*"
+   ],
+   "notes": "Bigger glow/halo around the heart.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.poison": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.heal": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.armor": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.thorns": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.growth": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.spore_bolt": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.bark_hit": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.ash_death": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.heart_pulse": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.heart_damage": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  }
+ }
+}
