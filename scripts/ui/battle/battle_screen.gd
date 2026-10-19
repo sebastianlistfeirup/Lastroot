@@ -116,6 +116,10 @@ func _build_hud() -> void:
 	lbl_turn = _top_label(UiKit.TEXT)
 	lbl_wave = _top_label(Color("ff9a5a"))
 	lbl_piles = _top_label(UiKit.TEXT_DIM)
+	lbl_piles.mouse_filter = Control.MOUSE_FILTER_STOP
+	lbl_piles.gui_input.connect(func(ev: InputEvent) -> void:
+		if (ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed) or (ev is InputEventScreenTouch and (ev as InputEventScreenTouch).pressed):
+			_toggle_piles())
 	lbl_relics = _top_label(UiKit.AMBER)
 	btn_speed = UiKit.button("1×", UiKit.LIFE, 18)
 	btn_speed.custom_minimum_size = Vector2(UiKit.MIN_HIT * 1.3, UiKit.MIN_HIT)
@@ -872,6 +876,41 @@ func bolt(from_uid: int, to_uid: int, duration: float) -> void:
 	var fb: GDScript = load("res://scripts/runtime/visual/fx_builder.gd")
 	fb.call("launch", stage, (views[from_uid] as UnitView).head_world() - Vector3(0, 0.3, 0),
 		(views[to_uid] as UnitView).head_world() - Vector3(0, 0.4, 0), duration)
+
+
+var _piles_panel: PanelContainer
+
+
+## Draw pile (sorted, never in draw order), discard and played cards.
+func _toggle_piles() -> void:
+	if _piles_panel != null:
+		_piles_panel.queue_free()
+		_piles_panel = null
+		return
+	_piles_panel = UiKit.panel(Color(0.05, 0.07, 0.11, 0.97), UiKit.LIFE)
+	var sc := ScrollContainer.new()
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_piles_panel.add_child(sc)
+	var v := VBoxContainer.new()
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(v)
+	var close := UiKit.button(Loc.t("Close"), UiKit.TEXT_DIM, 18)
+	close.pressed.connect(_toggle_piles)
+	v.add_child(close)
+	var z: Dictionary = battle["zones"]
+	for pile in [["draw", Loc.t("Draw pile (sorted, order hidden)")], ["discard", Loc.t("Discard pile")], ["deployed", Loc.t("Played creatures (out for this battle)")], ["consumed", Loc.t("Consumed")]]:
+		var ids: Array = (z[pile[0]] as Array).duplicate()
+		v.add_child(UiKit.label("%s: %d" % [pile[1], ids.size()], 18, UiKit.LIFE, true))
+		var names: PackedStringArray = []
+		for iid: int in ids:
+			var inst: Dictionary = battle["deck"][str(iid)]
+			names.append(Loc.field(Catalog.card(inst["def_id"]), "name") + ("+" if inst["upgrade_id"] != "" else ""))
+		names.sort()
+		v.add_child(UiKit.label(", ".join(names) if not names.is_empty() else "—", 16, UiKit.TEXT))
+	root.add_child(_piles_panel)
+	var vp: Vector2 = root.get_viewport_rect().size
+	_piles_panel.size = Vector2(minf(560.0, vp.x - 24), minf(520.0, vp.y - 160))
+	_piles_panel.position = Vector2(12, 80)
 
 
 func focus_floor(_f: int) -> void:
