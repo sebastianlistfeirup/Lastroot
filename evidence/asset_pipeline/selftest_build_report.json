@@ -216,7 +216,7 @@
       "min_m": [
         -5.8,
         -0.61,
-        -2.03
+        -2.02
       ],
       "notes": [
         "file looks like centimetres (scale 0.0101)"
@@ -254,7 +254,7 @@
       "min_m": [
         -5.8,
         -0.61,
-        -2.58
+        -2.57
       ],
       "notes": [
         "file looks like centimetres (scale 0.0101)"
@@ -263,7 +263,7 @@
       "proxy_m": [
         14.53,
         3.11,
-        5.79
+        5.8
       ],
       "reimport": false,
       "rig": "",
@@ -292,7 +292,7 @@
       "min_m": [
         -5.8,
         -0.61,
-        -2.59
+        -2.58
       ],
       "notes": [
         "file looks like centimetres (scale 0.0101)"
@@ -301,7 +301,7 @@
       "proxy_m": [
         14.53,
         2.79,
-        5.78
+        5.8
       ],
       "reimport": false,
       "rig": "",

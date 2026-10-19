@@ -316,9 +316,80 @@ def main() -> int:
     merge_csv(os.path.join(ROOT, "docs", "ANIMATION_LEDGER.csv"),
               ["clip_id", "source_asset_id", "rig_id", "state", "duration_s", "loop", "in_place", "event_times", "interrupt_policy", "blend_in_s", "blend_out_s", "review_status"],
               arows, "clip_id")
+    write_asset_plan(slots, vs)
     print("slots: %d (units %d, enemies %d, stage %d, props %d, mutations %d, fx %d)" % (
         len(slots), len(UNITS), len(ENEMIES), len(STAGE), len(PROPS), len(MUTATIONS), len(FX)))
     return 0
+
+
+PLAN_HEAD = """# LASTROOT · Assetplan (Synty, PolyPerfect, Mixamo)
+
+*Genereret af `tools/synty/gen_slots.py` fra samme data som spillet bruger (`data/art/asset_slots.json`, `data/art/vendor_suggestions.json`). Ret i scriptet, ikke her.*
+
+> **Ærlighedsnote:** Ingen pakke er åbnet endnu. Pakkenavnene er rigtige produktlinjer, men **alle model- og clipnavne er søgemønstre — unverified — check actual pack contents**. Biblen forbyder at opfinde leverandørfilnavne som fakta. Om en Synty-pakke findes i en Godot-klar udgave (Synty er begyndt at udgive Godot-versioner af nogle pakker) er **usikkert** pr. pakke: tjek downloadsiden. Ellers bruges FBX "Source Files". PolyPerfect leveres typisk som Unity-pakke med FBX indeni; `unpack.py` trækker FBX og teksturer ud.
+
+## Hurtig vej
+
+1. Pak købte pakker ud i karantæne: `python3 tools/synty/unpack.py <pakke.unitypackage|.zip|mappe>` (også en mappe med Mixamo-FBX).
+2. `python3 tools/synty/match.py` foreslår en model pr. slot og Mixamo-clips pr. tilstand → `data/art/synty_choices.json`.
+3. Ret/godkend valgene (`"status": "approved"`, `"skip"` = behold proxy, `"rotation_y"`).
+4. `tools/synty/build.sh` → wrappers i `art/prefabs/`, spillet bruger dem straks. Tjek i `scenes/tests/rig_lab.tscn` og style gate `scenes/tests/asset_gallery.tscn`.
+
+Detaljer: `docs/SYNTY_INTEGRATION.md`. Placering i kampscenen: `docs/SCENE_ASSEMBLY.md`.
+
+## Strategi (biblen: "Synty og PolyPerfect: konkret assetplan")
+
+* **Identitet før pakker.** Bark/rav, svampe/violet, turkis liv, mørke aske-silhuetter. Vælg konsistens frem for at vise alle købte pakker; én materialestil (pakkens atlas + vores emissive farver fra `data/art/palette.json`).
+* **Få rigfamilier.** *humanoid* (én familie for alle tobenede: Synty- og Mixamo-knoglenavne mappes til Godots `SkeletonProfileHumanoid`, så ét Mixamo-clipsæt spiller på alle), *quadruped* (Tornhjort: PolyPerfect-dyr med egne clips — **aldrig** humanoid retarget på fire ben), *static* (Svampevæg: ingen knogler, proceduralt).
+* **Askefjender** genbruger 2–3 humanoide rigs (lille / kompakt / tung) med forkullet omfarvning, ember-emissive øjne og egne attachments (skjold, spyd, sæk, plader). Visuelle varianter giver aldrig nye evner (EnemyDef bestemmer tal).
+* **Bossen (Askekronen)** er en stor humanoid rig skaleret til ~3 m + en egen forkullet krone af grene og sten som attachment på hovedknoglen + emissive kerne. Den må ikke skjule sit eget hp-/pansertal.
+* **Barkvogter/Sporevismand**: verificeret basismodel + egne attachments (bark-/stenplader; stor svampehat og stav). Hat og stav skal kunne læses ved kampkameraet.
+* **Manglende clip = ingen blokering.** `UnitAnimator` falder tilbage til procedural bevægelse og sender altid `finished`. Ledger viser, hvad der mangler.
+
+## Mixamo-indstillinger
+
+FBX Binary, 30 fps, **In Place** slået til for gang/løb, "Without Skin" for rene clip-filer (én karakter "With Skin" er nok som reference). Læg alle clips i én mappe, fx `Mixamo/`, og kør `unpack.py` på mappen. Clipnavnet i Mixamo-filer er typisk `mixamo.com`; tilstanden læses af filnavnet (Breathing Idle → idle, Punching → attack, Hit Reaction → hit, Dying → death …, se `data/art/animation_sets.json` → `keywords`).
+
+"""
+
+SECTIONS = [("unit", "Allierede væsner"), ("enemy", "Askefjender og boss"), ("stage", "TreeStage"), ("prop", "Props (kun bagkant)"),
+            ("mutation", "Træmutationer (kun visuelt)"), ("fx", "Effekter (bygges i Godot)")]
+
+
+def write_asset_plan(slots, vs):
+    out = [PLAN_HEAD]
+    for kind, title in SECTIONS:
+        out.append("## %s\n" % title)
+        anim = kind in ("unit", "enemy")
+        if anim:
+            out.append("| Slot | Navn | Proxy / mål | Rig | Pakker (forslag) | Søg (basismodel) | Attachments | Animation (hint pr. tilstand) |")
+            out.append("|---|---|---|---|---|---|---|---|")
+        else:
+            out.append("| Slot | Navn | Proxy / mål | Pakker (forslag) | Søg | Noter |")
+            out.append("|---|---|---|---|---|---|")
+        for sid, d in slots.items():
+            if d["kind"] != kind:
+                continue
+            v = vs[sid]
+            size = "%.2f m" % d.get("height", 0)
+            if d.get("space"):
+                size += ", %d plads" % d["space"]
+            packs = "<br>".join(v["packs"])
+            search = ", ".join("`%s`" % p for p in v["search"]) or "—"
+            if anim:
+                att = ", ".join("`%s`" % p for p in v.get("attachments", [])) or "—"
+                if d.get("rig_family") == "humanoid":
+                    hints = "<br>".join("%s: %s" % (st, (v.get("mixamo", {}).get(st) or ["—"])[0]) for st in d.get("animation_states", []))
+                elif d.get("rig_family") == "quadruped":
+                    hints = "egne clips (idle/attack/hit/death/move), ingen retarget"
+                else:
+                    hints = "procedural (ingen rig)"
+                out.append("| `%s` | %s | %s | %s | %s | %s | %s | %s |" % (sid, d["name"], size + "<br>" + d.get("notes", ""), d.get("rig_family", ""), packs, search, att, hints))
+            else:
+                out.append("| `%s` | %s | %s | %s | %s | %s |" % (sid, d["name"], size if kind != "fx" else ("one-shot" if d.get("one_shot") else "loop"), packs, search, v["notes"] + " " + d.get("notes", "")))
+        out.append("")
+    with open(os.path.join(ROOT, "docs", "ASSET_PLAN.md"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(out))
 
 
 if __name__ == "__main__":

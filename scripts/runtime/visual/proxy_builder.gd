@@ -324,7 +324,7 @@ func _b_spore_sage(_s: Dictionary) -> void:
 	for sx: float in [-1.0, 1.0]:
 		_p(ProxyMesh.sphere(0.035, 6, 3), _g("turquoise"), Vector3(0.065 * sx, 0.02, -0.15), Vector3.ZERO, Vector3.ONE, "Glow_Eye")
 	_end(head)
-	_hat(1.0, 0.64, "cap_pale", 0.55, 7, "cap_violet")
+	_hat(1.0, 0.66, "cap_pale", 0.72, 7, "cap_violet")
 	_p(ProxyMesh.cyl(0.08, 0.1, 0.14, 6), _m("cap_white"), Vector3(0, 0.95, 0))
 	_p(ProxyMesh.sphere(0.06, 6, 3), _m("spore_skin"), Vector3(-0.27, 0.55, -0.1))
 	_tube([Vector3(0.14, 0.68, -0.02), Vector3(0.32, 0.64, -0.08), Vector3(0.46, 0.6, -0.1)], 0.07, 0.05, "spore_body", 5)

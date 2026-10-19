@@ -144,12 +144,12 @@ func _world() -> void:
 		var key := "stone_warm" if i % 5 == 0 else "stone"
 		_box(Vector3(12, 0.005, 0.02), Vector3(0, 0.003, i), key)
 		_box(Vector3(0.02, 0.005, 12), Vector3(i, 0.003, 0), key)
-	_box(Vector3.ONE, Vector3(-2.5, 0.5, 1.5), "stone", "1 m")
-	_box(Vector3(0.05, 3.0, 0.05), Vector3(1.8, 1.5, 0), "amber")
+	_box(Vector3.ONE, Vector3(2.4, 0.5, 0.6), "stone", "1 m")
+	_box(Vector3(0.05, 3.0, 0.05), Vector3(-1.8, 1.5, -0.7), "amber")
 	for k: int in range(1, 7):
 		var y := 0.5 * k
-		_box(Vector3(0.22, 0.012, 0.012), Vector3(1.9, y, 0), "amber")
-		_label("%.1f m" % y, Vector3(2.25, y, 0), 0.004)
+		_box(Vector3(0.22, 0.012, 0.012), Vector3(-1.9, y, -0.7), "amber")
+		_label("%.1f m" % y, Vector3(-2.25, y, -0.7), 0.004)
 	# Front arrow: Godot forward is -Z; every unit must look along it.
 	_box(Vector3(0.06, 0.02, 1.6), Vector3(0, 0.02, -1.3), "turquoise")
 	var tip := MeshInstance3D.new()

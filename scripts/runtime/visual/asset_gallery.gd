@@ -18,6 +18,8 @@ var _state_i: int = 0
 var _capture: String = ""
 var _frames: int = 0
 var _anim_state: StringName = &""
+var _t0: int = 0
+var _captured: bool = false
 
 
 func _ready() -> void:
@@ -91,7 +93,7 @@ func _show(m: String) -> void:
 		_:
 			_lineup()
 	if _anim_state != &"":
-		_play_all(_anim_state)
+		_play_all.call_deferred(_anim_state)
 
 
 ## Three shelves like the battle floors: Bark folk (top), Spore folk, ash enemies (bottom).
@@ -114,8 +116,8 @@ func _lineup() -> void:
 		for i: int in ids.size():
 			_place(ids[i], Vector3(x + widths[i] * 0.5, y, 0.0), 120.0 if r == 2 else -120.0)
 			x += widths[i] + gap
-	_cam.size = 14.5
-	_cam.position = Vector3(0, 9.0, 30)
+	_cam.size = 15.0
+	_cam.position = Vector3(0, 10.6, 30)
 	_cam.rotation_degrees = Vector3(-10, 0, 0)
 	_label.text = "STYLE GATE · all units + enemies, one light, 1 m grid · 1 lineup  2 stage  3 props/fx  4 gate  A animate  R reduced motion"
 
@@ -124,13 +126,13 @@ func _lineup() -> void:
 func _gate() -> void:
 	_shelf(0.0, 14.0)
 	var ids := ["unit.B01", "unit.S01", "unit.B02", "unit.S02", "enemy.E01", "enemy.E05"]
-	var x := -5.2
+	var x := -4.7
 	for id: String in ids:
 		var w := _width(id)
 		_place(id, Vector3(x + w * 0.5, 0, 0.0), 120.0 if id.begins_with("enemy") else -120.0)
 		x += w + 0.45
 	_cam.size = 6.2
-	_cam.position = Vector3(0.6, 3.4, 20)
+	_cam.position = Vector3(0.9, 3.4, 20)
 	_cam.rotation_degrees = Vector3(-6, 0, 0)
 	_label.text = "STYLE GATE · champions B01 + S01, normal B02 + S02, enemies E01 + E05"
 
@@ -279,8 +281,12 @@ func _process(_dt: float) -> void:
 	if _capture.is_empty():
 		return
 	_frames += 1
-	# Mid-animation for --state captures, settled particles otherwise.
-	if _frames == (24 if _anim_state != &"" else 45):
+	if _frames == 1:
+		_t0 = Time.get_ticks_msec()
+	# Mid-animation (near the contact frame) for --state captures, settled particles otherwise.
+	var ready_now := (Time.get_ticks_msec() - _t0 >= 280 and _frames > 3) if _anim_state != &"" else _frames == 45
+	if ready_now and not _captured:
+		_captured = true
 		var img := get_viewport().get_texture().get_image()
 		var path := _capture if _capture.begins_with("res://") or _capture.begins_with("/") else "res://" + _capture
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path).get_base_dir())

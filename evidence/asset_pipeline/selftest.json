@@ -1,6 +1,6 @@
 {
  "status": "PASS",
- "date": "2026-10-19 20:57:40",
+ "date": "2026-10-19 21:07:20",
  "godot": "4.5.1.stable.official.f62fdbde1",
  "note": "Fake packs from tools/synty/make_test_pack.py (glTF models; FBX goes through the same Godot importer interface but is not exercised here).",
  "checks": [
