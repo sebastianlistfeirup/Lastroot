@@ -457,7 +457,7 @@ func _b_coalshield(_s: Dictionary) -> void:
 	_p(ProxyMesh.rock(0.42, 61, 1.0), _m("charcoal"), Vector3(0, 0.62, 0.08), Vector3.ZERO, Vector3(1.0, 1.0, 0.85))
 	var head := _grp("Head", Vector3(0, 1.0, 0.0))
 	_p(ProxyMesh.box(Vector3(0.32, 0.24, 0.3)), _m("ash_grey"), Vector3.ZERO)
-	_p(ProxyMesh.box(Vector3(0.26, 0.04, 0.03)), _g("ember_hot"), Vector3(0, 0.0, -0.16))
+	_p(ProxyMesh.box(Vector3(0.26, 0.04, 0.03)), _g("ember_hot"), Vector3(0, 0.0, -0.16), Vector3.ZERO, Vector3.ONE, "Glow_Eye")
 	_end(head)
 	var sh := _grp("Shield", Vector3(0.05, 0.6, -0.42), Vector3(-4, -8, 0))
 	_p(ProxyMesh.box(Vector3(0.78, 0.95, 0.14)), _m("ash_black"), Vector3.ZERO)
@@ -613,7 +613,8 @@ func _b_floor(s: Dictionary) -> void:
 		_p(ProxyMesh.box(Vector3(_r(0.5, 0.9), _r(0.45, 0.7), 0.16)), _m("bark_dark" if i % 3 else "bark"), Vector3(x, -0.45, d * 0.5 + 0.22), Vector3(0, _r(-8, 8), _r(-10, 10)))
 	for i: int in 26:
 		var x := -w * 0.5 - 0.3 + (w + 0.6) * float(i) / 25.0 + _r(-0.15, 0.15)
-		_p(ProxyMesh.box(Vector3(_r(0.35, 0.8), _r(0.06, 0.12), _r(0.22, 0.36))), _m("moss" if i % 3 else "moss_light"), Vector3(x, -0.02, d * 0.5 + 0.14), Vector3(0, _r(-10, 10), _r(-4, 4)))
+		var mh := _r(0.06, 0.12)
+		_p(ProxyMesh.box(Vector3(_r(0.35, 0.8), mh, _r(0.22, 0.36))), _m("moss" if i % 3 else "moss_light"), Vector3(x, -mh * 0.5 + 0.012, d * 0.5 + 0.16), Vector3(0, _r(-10, 10), 0))
 	for i: int in 22:
 		var x := _r(-w * 0.5, w * 0.5)
 		var dl := _r(0.3, 1.1) if kind == "roots" else _r(0.2, 0.45)

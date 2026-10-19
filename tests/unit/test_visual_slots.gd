@@ -1,0 +1,252 @@
+class_name TestVisualSlots
+extends RefCounted
+## Unit tests for the visual asset layer (VisualSlots, proxies, UnitAnimator contract,
+## stage layout rules, vendor hints). Runner contract: every method named test_*
+## takes no arguments and returns an Array of failure strings (empty = pass).
+##   var t := TestVisualSlots.new()
+##   for m in t.get_method_list(): if m.name.begins_with("test_"): var fails: Array = t.call(m.name)
+## Standalone: godot --headless --path . --script res://tools/synty/run_visual_tests.gd
+## Headless-safe: nothing here needs a running scene tree (timing of finished() is
+## covered by tools/synty/selftest.sh in a live tree).
+
+const UNITS := ["unit.B01", "unit.B02", "unit.B03", "unit.B04", "unit.B05", "unit.B06",
+	"unit.S01", "unit.S02", "unit.S03", "unit.S04", "unit.S05", "unit.S06"]
+const ENEMIES := ["enemy.E01", "enemy.E02", "enemy.E03", "enemy.E04", "enemy.E05", "enemy.E06"]
+const STAGE := ["stage.floor_roots", "stage.floor_trunk", "stage.floor_crown", "stage.trunk", "stage.heart", "stage.backdrop"]
+const PROPS := ["prop.lantern", "prop.mushroom_cluster", "prop.crystal", "prop.root_arch", "prop.rock"]
+const MUTATIONS := ["mutation.M01", "mutation.M02", "mutation.M03", "mutation.M04"]
+const FX := ["fx.poison", "fx.heal", "fx.armor", "fx.thorns", "fx.growth", "fx.spore_bolt", "fx.bark_hit", "fx.ash_death", "fx.heart_pulse", "fx.heart_damage"]
+const STATES := ["idle", "summon", "attack", "cast", "hit", "death", "defend", "victory", "move"]
+
+
+static func all_required() -> Array:
+	return UNITS + ENEMIES + STAGE + PROPS + MUTATIONS + FX
+
+
+func test_every_required_slot_exists() -> Array:
+	var f: Array = []
+	var ids := VisualSlots.slot_ids()
+	for id: String in all_required():
+		if not ids.has(id):
+			f.append("missing slot " + id)
+	return f
+
+
+func test_make_never_null_and_sets_meta() -> Array:
+	var f: Array = []
+	for id: String in all_required():
+		var v := VisualSlots.make(id)
+		if v == null:
+			f.append(id + ": make returned null")
+			continue
+		if str(v.get_meta("slot_id", "")) != id:
+			f.append(id + ": meta slot_id wrong")
+		if not v.has_meta("is_proxy"):
+			f.append(id + ": meta is_proxy missing")
+		if not VisualSlots.has_real_asset(id) and not bool(v.get_meta("is_proxy")):
+			f.append(id + ": no asset mapped but is_proxy false")
+		v.free()
+	return f
+
+
+func test_unknown_id_is_labelled_placeholder() -> Array:
+	var v := VisualSlots.make("unit.NOPE")
+	if v == null:
+		return ["unknown id returned null"]
+	var f: Array = []
+	if v.find_children("*", "Label3D", true, false).is_empty():
+		f.append("unknown id placeholder has no label")
+	if not bool(v.get_meta("is_proxy", false)):
+		f.append("unknown id placeholder must be a proxy")
+	v.free()
+	return f
+
+
+func test_units_and_enemies_carry_unit_animator() -> Array:
+	var f: Array = []
+	for id: String in UNITS + ENEMIES + ["stage.heart"]:
+		var v := VisualSlots.make(id)
+		var an := v.get_node_or_null("UnitAnimator")
+		if not an is UnitAnimator:
+			f.append(id + ": no child UnitAnimator")
+		elif v.get_meta("is_proxy", true):
+			(an as UnitAnimator)._bind()
+			for st: String in STATES:
+				if not (an as UnitAnimator).has_clip(StringName(st)):
+					f.append("%s: proxy has no procedural %s" % [id, st])
+		v.free()
+	return f
+
+
+func test_required_animation_states_declared() -> Array:
+	var f: Array = []
+	for id: String in UNITS + ENEMIES:
+		var st: Array = VisualSlots.slot(id).get("animation_states", []) as Array
+		for need: String in ["idle", "attack", "hit", "death"]:
+			if id == "unit.S03" and need == "attack":
+				continue
+			if not need in st:
+				f.append("%s: animation_states lacks %s" % [id, need])
+		if str(VisualSlots.slot(id).get("rig_family", "")).is_empty():
+			f.append(id + ": no rig_family")
+	if str(VisualSlots.slot("unit.B04").get("rig_family", "")) != "quadruped":
+		f.append("Thornhart must be a quadruped rig family")
+	return f
+
+
+func test_contact_times_default() -> Array:
+	var an := UnitAnimator.new()
+	var f: Array = []
+	if absf(an.contact_time(&"attack") - 0.3) > 0.05:
+		f.append("attack contact not ~0.3 s")
+	if an.contact_time(&"cast") <= 0.2 or an.contact_time(&"cast") > 0.5:
+		f.append("cast contact not ~0.3-0.4 s")
+	if an.contact_time(&"idle") != 0.0:
+		f.append("idle must have no contact")
+	an.free()
+	return f
+
+
+func test_feet_origin_and_facing() -> Array:
+	var f: Array = []
+	for id: String in UNITS + ENEMIES:
+		var v := VisualSlots.make(id)
+		var b := VisualSlots.bounds(v)
+		if absf(b.position.y) > 0.15:
+			f.append("%s: feet at y=%.2f" % [id, b.position.y])
+		var c := b.get_center()
+		if absf(c.x) > 0.45 or absf(c.z) > 0.6:
+			f.append("%s: not centred on the origin (%.2f, %.2f)" % [id, c.x, c.z])
+		var facing := RigLab.facing_of(v)
+		if facing != "-Z":
+			f.append("%s: facing %s, expected -Z" % [id, facing])
+		v.free()
+	return f
+
+
+func test_head_height_clears_model() -> Array:
+	var f: Array = []
+	for id: String in UNITS + ENEMIES:
+		var v := VisualSlots.make(id)
+		var top := VisualSlots.bounds(v).end.y
+		var hh := VisualSlots.head_height(id)
+		if hh < top - 0.05:
+			f.append("%s: badge %.2f below model top %.2f" % [id, hh, top])
+		if hh > top + 0.6:
+			f.append("%s: badge %.2f floats far above top %.2f" % [id, hh, top])
+		v.free()
+	return f
+
+
+func test_size_language() -> Array:
+	var f: Array = []
+	var h := {}
+	for id: String in UNITS + ENEMIES:
+		var v := VisualSlots.make(id)
+		h[id] = VisualSlots.bounds(v).end.y
+		v.free()
+	for id: String in UNITS:
+		var sp := int(VisualSlots.slot(id).get("space", 1))
+		if sp == 1 and float(h[id]) > 1.45:
+			f.append("%s: 1-space unit too tall (%.2f)" % [id, h[id]])
+		if sp == 3 and float(h[id]) < 2.2:
+			f.append("%s: 3-space unit too small (%.2f)" % [id, h[id]])
+	if float(h["unit.S01"]) >= float(h["unit.B01"]):
+		f.append("Spore Sage must be smaller than the Barkwarden")
+	if float(h["enemy.E06"]) < 3.0:
+		f.append("boss under 3 m")
+	for id: String in ENEMIES:
+		if id != "enemy.E01" and float(h[id]) <= float(h["enemy.E01"]):
+			f.append("Ashling must be the smallest enemy (vs %s)" % id)
+	return f
+
+
+## Floors: play area (x -5.5..5.5, front part of the depth) is flat at y<=0.02;
+## props only on the back edge.
+func test_floor_play_area_free() -> Array:
+	var f: Array = []
+	for id: String in ["stage.floor_roots", "stage.floor_trunk", "stage.floor_crown"]:
+		var v := VisualSlots.make(id)
+		var play := AABB(Vector3(-5.5, 0.02, -0.9), Vector3(11.0, 6.0, 2.5))
+		for n: Node in v.find_children("*", "VisualInstance3D", true, false):
+			var b := RigLab._xf_to(v, n as Node3D) * (n as VisualInstance3D).get_aabb()
+			if b.intersects(play):
+				f.append("%s: %s rises into the play area (top %.2f at z %.2f)" % [id, n.name, b.end.y, b.get_center().z])
+				break
+		v.free()
+	return f
+
+
+func test_trunk_and_backdrop_stay_behind() -> Array:
+	var f: Array = []
+	var t := VisualSlots.make("stage.trunk")
+	var tb := VisualSlots.bounds(t)
+	if tb.end.z > -1.2:
+		f.append("trunk front at z=%.2f (must be < -1.2)" % tb.end.z)
+	if absf(tb.get_center().x) > 0.3:
+		f.append("trunk not centred on x=0")
+	if absf(tb.size.y - 4.5) > 0.6:
+		f.append("trunk segment height %.2f, expected ~4.5" % tb.size.y)
+	t.free()
+	var b := VisualSlots.make("stage.backdrop")
+	var bb := VisualSlots.bounds(b)
+	if bb.end.z > -15.0:
+		f.append("backdrop reaches z=%.2f (must stay < -15)" % bb.end.z)
+	b.free()
+	var h := VisualSlots.make("stage.heart")
+	var hb := VisualSlots.bounds(h)
+	if hb.size.y < 1.4 or hb.size.y > 2.6:
+		f.append("heart height %.2f, expected ~1.6-2.2" % hb.size.y)
+	h.free()
+	return f
+
+
+func test_visual_only_no_physics() -> Array:
+	var f: Array = []
+	for id: String in all_required():
+		var v := VisualSlots.make(id)
+		if not v.find_children("*", "CollisionObject3D", true, false).is_empty():
+			f.append(id + ": contains physics bodies")
+		v.free()
+	return f
+
+
+func test_fx_metadata() -> Array:
+	var f: Array = []
+	for id: String in FX:
+		var v := VisualSlots.make(id)
+		var one := bool(v.get_meta("one_shot", false))
+		if one != bool(VisualSlots.slot(id).get("one_shot", false)):
+			f.append(id + ": one_shot meta disagrees with asset_slots.json")
+		if one and float(v.get_meta("lifetime_s", 0.0)) <= 0.0:
+			f.append(id + ": one-shot without lifetime")
+		if v.find_children("*", "GPUParticles3D", true, false).size() > 0:
+			f.append(id + ": uses GPUParticles3D (CPUParticles3D preferred for web/compat)")
+		v.free()
+	return f
+
+
+func test_vendor_suggestions_cover_every_slot() -> Array:
+	var f: Array = []
+	var v: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/art/vendor_suggestions.json"))
+	if not v is Dictionary:
+		return ["vendor_suggestions.json unreadable"]
+	var slots: Dictionary = (v as Dictionary).get("slots", {})
+	for id: String in all_required():
+		var e: Dictionary = slots.get(id, {})
+		if e.is_empty():
+			f.append(id + ": no vendor suggestion")
+			continue
+		if bool(e.get("verified", true)) or not "unverified" in str(e.get("status", "")):
+			f.append(id + ": must be marked unverified")
+		if (e.get("packs", []) as Array).is_empty():
+			f.append(id + ": no pack named")
+		var fam := str(VisualSlots.slot(id).get("rig_family", ""))
+		if fam == "humanoid":
+			var mix: Dictionary = e.get("mixamo", {})
+			for st: Variant in VisualSlots.slot(id).get("animation_states", []) as Array:
+				if (mix.get(str(st), []) as Array).is_empty():
+					f.append("%s: no Mixamo hint for %s" % [id, st])
+		elif fam == "quadruped" and (e.get("clips", {}) as Dictionary).is_empty():
+			f.append(id + ": quadruped without own-clip hints")
+	return f
