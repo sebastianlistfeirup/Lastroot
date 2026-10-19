@@ -987,12 +987,7 @@ func _cycle_speed() -> void:
 	var next := {1.0: 2.0, 2.0: 0.5, 0.5: 1.0}
 	var cur: float = _anim_speed()
 	var n: float = next.get(cur, 1.0)
-	if "anim_speed" in SettingsService:
-		SettingsService.set("anim_speed", n)
-		if SettingsService.has_method("save"):
-			SettingsService.call("save")
-	else:
-		SettingsService.set_meta("anim_speed", n)
+	SettingsService.set_anim_speed(n)
 	presenter.speed = n
 	btn_speed.text = "%s×" % str(n).trim_suffix(".0")
 
@@ -1014,7 +1009,9 @@ func _open_menu() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if mode != "idle":
+		if _pause != null and bool(_pause.get("is_open")):
+			_pause.call("close")
+		elif mode != "idle":
 			_cancel()
 		else:
 			_open_menu()
