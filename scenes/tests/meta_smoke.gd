@@ -28,6 +28,8 @@ func _ready() -> void:
 	await _header_cases()
 	await _result_cases()
 	await _pause_cases()
+	await _resume_cases()
+	await _howto_cases()
 	_restore_save()
 	var ms: int = Time.get_ticks_msec() - t0
 	for f in failures:
@@ -455,3 +457,135 @@ func _pause_cases() -> void:
 	p.close()
 	holder.queue_free()
 	await _frames(1)
+
+
+# ------------------------------------------------- LR-21 leave and resume
+
+func _pause_of(screen: Node) -> PauseMenu:
+	var p: PauseMenu = screen.find_child("PauseMenu", true, false) as PauseMenu
+	if p:
+		p.auto_navigate = false
+	return p
+
+
+## Quit from the run screen via header Menu -> pause, "restart", Continue.
+func _resume_cases() -> void:
+	var fixtures := {"reward_card": MetaFixtures.reward_slot("card"), "reward_champion": MetaFixtures.reward_slot("champion"),
+		"route": MetaFixtures.route(1), "camp": MetaFixtures.node("camp"), "card_node": MetaFixtures.node("card")}
+	for id: String in fixtures.keys():
+		_case = "resume_" + id
+		var run: Dictionary = fixtures[id]
+		SaveService.save_run(run)
+		var s: Control = await mount(RUN, run)
+		await press(s, "MenuButton")
+		var p: PauseMenu = _pause_of(s)
+		ok(p != null and p.is_open, "header Menu opens the pause menu")
+		await press(p, "SaveQuitButton")
+		ok(p.pending_scene == "menu", "Save & quit goes to the menu")
+		await unmount(s)
+		GameSession.run = {}  # as after a restart
+		var m: Control = await mount(MENU, {})
+		var sum: Label = m.find_child("ContinueSummary", true, false) as Label
+		var champ: String = Loc.field(Catalog.card(run["champion_id"]), "name")
+		ok(sum != null and sum.text.contains(champ), "summary names the champion")
+		ok(sum != null and sum.text.contains("%d of 6" % (int(run["battle_index"]) + 2)), "summary shows battle k/6")
+		ok(sum != null and sum.text.contains("%d/%d" % [int(run["heart"]), int(run["heart_max"])]), "summary shows the Heart")
+		await press(m, "ContinueButton")
+		ok((m as MainMenu).pending_scene == "run", "Continue returns to the run screen")
+		ok(JsonUtil.canonical(GameSession.run) == JsonUtil.canonical(run), "the whole run is identical after reload")
+		var before_slot: Dictionary = RunReducer.current_slot(run) if run["phase"] == "reward" else {}
+		if not before_slot.is_empty():
+			var after_slot: Dictionary = RunReducer.current_slot(GameSession.run)
+			ok(after_slot["id"] == before_slot["id"] and after_slot["offer"] == before_slot["offer"], "same offered slot and offer (no reroll)")
+		await unmount(m)
+		s = await mount(RUN, GameSession.run)
+		if not before_slot.is_empty():
+			for o: String in before_slot["offer"]:
+				ok(s.find_child("Offer_" + o, true, false) != null, "offer %s shown again" % o)
+		elif run["phase"] == "route":
+			for opt: Dictionary in RunReducer.current_route(run)["options"]:
+				ok(btn(s, "Go_" + str(opt["id"])) != null, "same route option %s" % opt["id"])
+		elif run["node"]["type"] == "card":
+			for o: String in run["node"]["slots"][0]["offer"]:
+				ok(s.find_child("Offer_" + o, true, false) != null, "card node offer %s shown again" % o)
+		else:
+			ok(int(GameSession.run["resin"]) == int(run["resin"]) and GameSession.run["node"]["id"] == run["node"]["id"], "same node, no Resin change")
+		await unmount(s)
+
+	_case = "resume_midbattle"
+	var mid: Dictionary = DebugFixtures.make("midbattle", "SPORE", 3)
+	SaveService.save_run(mid)
+	GameSession.run = {}
+	var res: Dictionary = GameSession.continue_run()
+	ok(res["ok"] and GameSession.phase() == "battle", "mid-battle save continues into battle")
+	ok(JsonUtil.canonical(GameSession.run["battle"]) == JsonUtil.canonical(mid["battle"]), "battle state identical (hand, waves, RNG)")
+
+	_case = "result_record_kept"
+	var won: Dictionary = MetaFixtures.won()
+	SaveService.save_run(won)
+	var r: Control = await mount(RESULT, won)
+	await press(r, "NewRunButton")
+	ok(SaveService.load_run()["run"].get("phase", "") == "won", "won record kept after New run")
+	await unmount(r)
+	var m2: Control = await mount(MENU, {})
+	ok((m2 as MainMenu).view == "faction", "result New run opens champion select")
+	ok(SaveService.load_run()["run"].get("phase", "") == "won", "record kept while choosing")
+	await press(m2, "BackButton")
+	var sum2: Label = m2.find_child("ContinueSummary", true, false) as Label
+	ok(sum2 != null and sum2.text.contains(Loc.t("Run won")), "Continue summary shows the finished run")
+	await press(m2, "NewRunButton")
+	ok(not (m2.find_child("MessageDialog", true, false) as MessageDialog).visible, "no confirm needed over a finished run")
+	await press(m2, "Choose_BARK")
+	ok(SaveService.load_run()["run"].get("phase", "") == "battle" and SaveService.load_run()["run"]["run_id"] != won["run_id"], "record replaced only when the new run starts")
+	await unmount(m2)
+
+	_case = "abandon"
+	var rr: Dictionary = MetaFixtures.route(1)
+	SaveService.save_run(rr)
+	var s2: Control = await mount(RUN, rr)
+	await press(s2, "MenuButton")
+	var p2: PauseMenu = _pause_of(s2)
+	await press(p2, "AbandonButton")
+	ok(p2.confirming_abandon and btn(p2, "ResumeButton") == null, "in-page confirmation replaces the menu")
+	await press(p2, "KeepPlayingButton")
+	ok(not p2.confirming_abandon and GameSession.has_run(), "Keep playing cancels")
+	await press(p2, "AbandonButton")
+	await press(p2, "ConfirmAbandonButton")
+	ok(not GameSession.has_run() and not SaveService.has_save(), "run and save removed")
+	ok(p2.pending_scene == "menu", "abandon goes to the menu")
+	await unmount(s2)
+
+
+func _howto_cases() -> void:
+	_case = "howto_menu"
+	var m: Control = await mount(MENU, {})
+	await press(m, "HowToButton")
+	var h: HowToPlayPanel = m.find_child("HowToPlayPanel", true, false) as HowToPlayPanel
+	ok(h.visible and h.page == 0, "How to play opens on page 1")
+	ok(btn(h, "PrevPage").disabled, "no Back on the first page")
+	var n: int = h.page_count()
+	ok(n >= 7, "seven pages")
+	var titles: Array = []
+	for i in n:
+		var t: Label = h.find_child("PageTitle", true, false) as Label
+		titles.append(t.text if t else "")
+		ok(h.find_child("Art", true, false) is HowToArt, "page %d illustrated" % (i + 1))
+		await press(h, "NextPage")
+	ok(not h.visible, "Done on the last page closes")
+	ok(titles.has(Loc.field(Catalog.boss(), "name")), "boss page present")
+	var status_text: String = ""
+	h.page = 5
+	h.open()
+	status_text = (h.find_child("PageText", true, false) as Label).text
+	for g: String in ["armor", "poison", "thorns", "growth"]:
+		ok(status_text.contains(UiKit.status_glyph(g)), "status page uses the battle glyph %s" % g)
+	h.close()
+	await unmount(m)
+
+	_case = "howto_pause"
+	var s: Control = await mount(RUN, MetaFixtures.route(1))
+	await press(s, "MenuButton")
+	var p: PauseMenu = _pause_of(s)
+	await press(p, "PauseHowToButton")
+	ok((p.find_child("HowToPlayPanel", true, false) as Control).visible, "How to play from the pause menu")
+	await unmount(s)

@@ -154,3 +154,35 @@ static func champion_line(run: Dictionary) -> String:
 
 static func faction_name(faction: String) -> String:
 	return Loc.t("Bark") if faction == "BARK" else Loc.t("Spore")
+
+
+## Waves of a battle as [[turn, "2× Ashling", [enemy ids]]], catalog order.
+static func wave_rows(battle_index: int) -> Array:
+	var out: Array = []
+	for w: Dictionary in BattleFactory.waves_for(battle_index):
+		var counts: Dictionary = {}
+		var order: Array = []
+		for eid: String in w["enemies"]:
+			if not counts.has(eid):
+				order.append(eid)
+				counts[eid] = 0
+			counts[eid] = int(counts[eid]) + 1
+		var parts: PackedStringArray = []
+		for eid: String in order:
+			parts.append("%d× %s" % [int(counts[eid]), Loc.field(Catalog.enemy(eid), "name")])
+		out.append([int(w["turn"]), ", ".join(parts), order])
+	return out
+
+
+## "⚔2 ♥5 ◆4" for an enemy definition.
+static func enemy_stats(eid: String) -> String:
+	var e: Dictionary = Catalog.enemy(eid)
+	var s: String = "%s%d %s%d" % [UiKit.status_glyph("attack"), int(e.get("attack", 0)), UiKit.status_glyph("hp"), int(e.get("max_hp", 0))]
+	if int(e.get("start_armor", 0)) > 0:
+		s += " %s%d" % [UiKit.status_glyph("armor"), int(e["start_armor"])]
+	return s
+
+
+static func boss_rules() -> String:
+	var b: Dictionary = Catalog.boss()
+	return Loc.t("Arrives on the Roots on turn %d after four waves. It stays on a floor while a living ally stands there; otherwise it climbs. If it leaves the Crown, the run is lost. From turn %d it gains +2 attack every turn.") % [int(b["arrival_turn"]), int(b["escalate_from_turn"])]

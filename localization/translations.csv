@@ -41,6 +41,7 @@ Turn %d,Tur %d
 Wave %d of %d arrives on the Roots,Bølge %d af %d ankommer til Rødderne
 %s reached the Heart: −%d,%s nåede Hjertet: −%d
 An enemy,En fjende
+B%d · T%d,K%d · T%d
 Battle %d/6 · Turn %d,Kamp %d/6 · Tur %d
 Choose a highlighted target.,Vælg et fremhævet mål.
 Confirm,Bekræft
@@ -56,9 +57,9 @@ Full,Fuld
 Full %d/%d,Fuld %d/%d
 Got it,Forstået
 If you confirm and then end the turn:,Hvis du bekræfter og derefter afslutter turen:
-If you end the turn now:,Hvis du afslutter turen nu:
 In %d turns: %s,Om %d ture: %s
 It has already moved this turn.,Den har allerede flyttet denne tur.
+Last wave is in,Sidste bølge er ankommet
 Last wave is in · defeat every enemy,Sidste bølge er inde · besejr alle fjender
 Move: tap a + spot on this or a neighbouring floor (%d Sap).,Flyt: tryk på et +-felt på denne eller en nabo-etage (%d Saftkraft).
 Next turn: %s,Næste tur: %s
@@ -122,7 +123,6 @@ Resin,Harpiks
 Route progress,Fremskridt på ruten
 Spent at camps (upgrades) and removals. Each won battle gives %d.,Bruges i lejre (opgraderinger) og ved fjernelse. Hver vundet kamp giver %d.
 The world tree's Heart. Enemies that climb past the Crown damage it. At 0 the run is lost.,"Verdenstræets Hjerte. Fjender, der klatrer forbi Kronen, skader det. Ved 0 er løbet tabt."
-%d enemy waves.,%d fjendebølger.
 %s grows stronger,%s bliver stærkere
 %s is closed: the path cannot change.,%s er lukket: retningen kan ikke skiftes.
 A free card for your deck.,Et gratis kort til dit dæk.
@@ -159,6 +159,7 @@ Leave camp,Forlad lejren
 Leave without a gift,Gå uden en gave
 Leave without removing,Gå uden at fjerne
 Locked: opens after battle %d.,Låst: åbner efter kamp %d.
+Next: %s,Næste: %s
 Not enough Resin: you need %d more.,Ikke nok Harpiks: du mangler %d.
 Not taken.,Ikke valgt.
 One of two places before %s. Both paths lead to the same battle.,Et af to steder før %s. Begge veje fører til samme kamp.
@@ -178,7 +179,6 @@ Tap a card in your deck to see its upgrades.,Tryk på et kort i dit dæk for at 
 "Tap a card to select it, then confirm.","Tryk på et kort for at vælge det, og bekræft derefter."
 "Tap an option to select it, then confirm.","Tryk på en mulighed for at vælge den, og bekræft derefter."
 The Heart is already full: healing would do nothing.,Hjertet er allerede fuldt: heling ville intet gøre.
-The boss arrives on turn %d after four waves. It escalates from turn %d.,Bossen ankommer på tur %d efter fire bølger. Den eskalerer fra tur %d.
 The champion cannot be removed.,Championen kan ikke fjernes.
 The first choice locks the path for the rest of the run. After battle 4 the same path rises to rank 2.,Første valg låser retningen resten af løbet. Efter kamp 4 stiger samme retning til trin 2.
 "The last stop before the boss, %s.","Sidste stop før bossen, %s."
@@ -188,10 +188,12 @@ Travel to %s,Rejs til %s
 "Upgrade one card once by the fire, or rest and move on. You have %d Resin.","Opgradér ét kort én gang ved bålet, eller hvil og gå videre. Du har %d Harpiks."
 Upgrade: %s for %d Resin,Opgradér: %s for %d Harpiks
 Victory,Sejr
+Waves arrive on the Roots at the start of their turn.,Bølger ankommer til Rødderne ved starten af deres tur.
 You went here.,Du gik hertil.
 Your deck,Dit dæk
 Your deck must keep at least %d normal cards.,Dit dæk skal beholde mindst %d normale kort.
 Your path is locked: %s rises to rank 2.,Din retning er låst: %s stiger til trin 2.
+"Arrives on the Roots on turn %d after four waves. It stays on a floor while a living ally stands there; otherwise it climbs. If it leaves the Crown, the run is lost. From turn %d it gains +2 attack every turn.","Ankommer til Rødderne på tur %d efter fire bølger. Den bliver på en etage, så længe en levende allieret står dér; ellers klatrer den. Forlader den Kronen, er løbet tabt. Fra tur %d får den +2 angreb hver tur."
 Attack,Angreb
 Bark,Bark
 Battle %d,Kamp %d
@@ -229,7 +231,47 @@ Planned art and animation,Planlagt grafik og animation
 Team,Hold
 These packs are not in the game yet. Everything you see now is drawn in code.,"Disse pakker er ikke i spillet endnu. Alt, hvad du ser nu, er tegnet i kode."
 "planned, pending import","planlagt, afventer import"
+1. Tap a card,1. Tryk på et kort
+2. Tap a target,2. Tryk på et mål
+3 Sap every turn,3 Saftkraft hver tur
+3. Confirm,3. Bekræft
+5 space per floor,5 plads pr. etage
+Allies,Allierede
+Armor,Panser
+Arrives on turn %d · +2 attack every turn from turn %d,Ankommer på tur %d · +2 angreb hver tur fra tur %d
+Ashling dies,Askeling dør
+Champion: 2,Champion: 2
+Coalshield climbs to the Trunk,Kulskjold klatrer til Stammen
+Creature: 1,Væsen: 1
+Defender,Forsvarer
+Enemies,Fjender
+Free,Ledig
+Front,Front
+Growth,Vækst
+If you end the turn now:,Hvis du afslutter turen nu:
+Nothing is spent until you confirm.,"Intet bruges, før du bekræfter."
+Poison,Gift
+"Same rules, same result: what you see is what happens.","Samme regler, samme resultat: det, du ser, er det, der sker."
+Thorns,Torne
+−attack to the Heart,−angreb mod Hjertet
 Back,Tilbage
+"Card, target, confirm","Kort, mål, bekræft"
+Climbing ash and the Heart,Klatrende aske og Hjertet
+Done,Færdig
+"New waves arrive on the Roots. After all floors fight, every surviving enemy climbs one floor. Enemies that climb past the Crown strike the Heart for their attack. At 0 Heart the run is lost.","Nye bølger ankommer til Rødderne. Når alle etager har kæmpet, klatrer hver overlevende fjende én etage. Fjender, der klatrer forbi Kronen, rammer Hjertet med deres angreb. Ved 0 Hjerte er løbet tabt."
+Sap and space,Saftkraft og plads
+Statuses,Statusser
+"Tap a card, then a highlighted target or a + spot on a floor, then Confirm. An invalid target spends nothing. Cancel or tap elsewhere to change your mind.","Tryk på et kort, derefter på et fremhævet mål eller et +-felt på en etage, og så Bekræft. Et ugyldigt mål bruger intet. Annullér eller tryk et andet sted for at fortryde."
+The forecast,Prognosen
+"The forecast panel shows exactly what ending the turn will do: deaths, climbs and Heart damage. It runs the same rules as the battle, so you can plan without surprises.","Prognosepanelet viser præcis, hvad det gør at afslutte turen: dødsfald, opstigninger og skade på Hjertet. Det bruger de samme regler som kampen, så du kan planlægge uden overraskelser."
+"The sixth battle. After four waves the Ash Crown arrives on the Roots on turn %d. It stays on a floor while a living ally stands there; otherwise it climbs. If it leaves the Crown, the run is lost. From turn %d it gains +2 attack every turn.","Den sjette kamp. Efter fire bølger ankommer Askekronen til Rødderne på tur %d. Den bliver på en etage, så længe en levende allieret står dér; ellers klatrer den. Forlader den Kronen, er løbet tabt. Fra tur %d får den +2 angreb hver tur."
+"The tree has three floors: the Roots, the Trunk and the Crown. Your creatures stand left of the trunk, the ash on the right. Position 1, next to the trunk, is the front: it attacks first and is hit first. Floors fight from the Roots upward.","Træet har tre etager: Rødderne, Stammen og Kronen. Dine væsner står til venstre for stammen, asken til højre. Plads 1, ved stammen, er fronten: den angriber først og rammes først. Etagerne kæmper fra Rødderne og opad."
+Three floors and the front,Tre etager og fronten
+"You get 3 Sap at the start of every turn; unused Sap is lost. Cards cost Sap. Each floor has 5 space: a creature takes its space value, your champion takes 2 and costs 0. Moving a creature one floor costs 1 Sap, once per turn.","Du får 3 Saftkraft ved starten af hver tur; ubrugt Saftkraft går tabt. Kort koster Saftkraft. Hver etage har 5 plads: et væsen fylder sin pladsværdi, din champion fylder 2 og koster 0. At flytte et væsen én etage koster 1 Saftkraft, én gang pr. tur."
+◆ Armor: absorbs normal damage first. Poison ignores it.,◆ Panser: tager normal skade først. Gift ignorerer det.
+"☠ Poison: deals its value at the floor's poison phase, then drops by 1.",☠ Gift: giver sin værdi i skade i etagens giftfase og falder derefter med 1.
+✚ Growth: heals its value at the end of the floor.,"✚ Vækst: heler sin værdi, når etagen er færdig."
+✶ Thorns: deals its value back to every direct attacker.,✶ Torne: giver sin værdi i skade tilbage til hver direkte angriber.
 Battle %d of 6,Kamp %d af 6
 Before battle %d of 6,Før kamp %d af 6
 Cancel,Annullér
@@ -276,6 +318,10 @@ Reduced motion,Reduceret bevægelse
 Sound effects,Lydeffekter
 Text size,Tekststørrelse
 Volume,Lydstyrke
+Abandon run,Opgiv løbet
+Abandon this run? It ends now and cannot be continued.,Opgiv dette løb? Det slutter nu og kan ikke fortsættes.
+How to play,Sådan spiller du
+Keep playing,Spil videre
 Menu,Menu
 Paused,Pause
 Resume,Genoptag
@@ -284,12 +330,8 @@ Settings,Indstillinger
 Your run is saved after every action.,Dit løb gemmes efter hver handling.
 Cannot be upgraded,Kan ikke opgraderes
 Upgraded,Opgraderet
-Armor,Panser
-Poison,Gift
 attack,angreb
 cost,pris
 damage,skade
 healing,heling
 max HP,maks. liv
-B%d · T%d,K%d · T%d
-Last wave is in,Sidste bølge er ankommet

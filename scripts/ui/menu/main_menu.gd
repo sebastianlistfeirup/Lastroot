@@ -21,6 +21,7 @@ var _backdrop: MenuBackdrop
 var _content: Control
 var _settings: SettingsPanel
 var _credits: CreditsPanel
+var _howto: HowToPlayPanel
 var _dialog: MessageDialog
 var _last_portrait: bool = false
 
@@ -41,6 +42,9 @@ func _ready() -> void:
 	_credits = CreditsPanel.new()
 	_credits.name = "CreditsPanel"
 	add_child(_credits)
+	_howto = HowToPlayPanel.new()
+	_howto.name = "HowToPlayPanel"
+	add_child(_howto)
 	_dialog = MessageDialog.new()
 	_dialog.name = "MessageDialog"
 	add_child(_dialog)
@@ -119,6 +123,7 @@ func _build_title() -> void:
 			s.name = "ContinueSummary"
 			buttons.add_child(s)
 	buttons.add_child(_menu_button(Loc.t("New Run"), UiKit.AMBER, "NewRunButton", _on_new_run))
+	buttons.add_child(_menu_button(Loc.t("How to play"), UiKit.LIFE.darkened(0.2), "HowToButton", func() -> void: _howto.open()))
 	buttons.add_child(_menu_button(Loc.t("Settings"), UiKit.ASH, "SettingsButton", _on_settings))
 	buttons.add_child(_menu_button(Loc.t("Credits"), UiKit.ASH, "CreditsButton", _on_credits))
 	if show_quit():
