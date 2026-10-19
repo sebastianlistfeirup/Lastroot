@@ -223,13 +223,13 @@ func _relayout() -> void:
 	(right_panel.get_child(0).get_child(0) as Control).visible = not portrait
 	if portrait:
 		top_h = top.get_combined_minimum_size().y
-		var card_h := 196.0
+		var card_h := 176.0
 		hand_scroll.position = Vector2(4, vp.y - card_h - 6)
 		hand_scroll.size = Vector2(vp.x - 8, card_h)
-		right_panel.position = Vector2(6, vp.y - card_h - 214)
-		right_panel.size = Vector2(vp.x - 12, 204)
+		right_panel.position = Vector2(6, vp.y - card_h - 230)
+		right_panel.size = Vector2(vp.x - 12, 222)
 		hint_label.custom_minimum_size.x = vp.x - 150
-		hint_panel.position = Vector2(8, top_h + 12)
+		hint_panel.position = Vector2(8, vp.y - card_h - 230 - 4)
 		hint_panel.size = Vector2(vp.x - 16, 0)
 		hint_panel.reset_size()
 		toast_box.position = Vector2(vp.x * 0.5 - 180, top_h + 90)
@@ -251,6 +251,8 @@ func _relayout() -> void:
 		toast_box.position = Vector2((vp.x - rw) * 0.5 - 220, top_h + 80)
 		toast_box.size = Vector2(440, 160)
 		stage.frame_camera(false, rw / vp.x)
+	if not battle.is_empty():
+		_refresh_top()
 	_refresh_hand()
 
 
@@ -674,7 +676,10 @@ func _refresh_top() -> void:
 	lbl_heart.text = "%s %d/%d" % [UiKit.status_glyph("hp"), battle["heart"], battle["heart_max"]]
 	lbl_heart.tooltip_text = Loc.t("World Heart")
 	lbl_sap.text = "%s %d %s" % [UiKit.status_glyph("sap"), battle["energy"], Loc.t("Sap")]
-	lbl_turn.text = Loc.t("Battle %d/6 · Turn %d") % [int(battle["battle_index"]) + 1, battle["turn"]]
+	if portrait:
+		lbl_turn.text = Loc.t("B%d · T%d") % [int(battle["battle_index"]) + 1, battle["turn"]]
+	else:
+		lbl_turn.text = Loc.t("Battle %d/6 · Turn %d") % [int(battle["battle_index"]) + 1, battle["turn"]]
 	var waves: Array = battle["waves"]
 	var wi: int = int(battle["wave_index"])
 	if wi < waves.size():
@@ -688,7 +693,7 @@ func _refresh_top() -> void:
 		var when: int = int(w["turn"]) - int(battle["turn"])
 		lbl_wave.text = (Loc.t("Next turn: %s") if when <= 1 else Loc.t("In %d turns: %s").replace("%d", str(when))) % ", ".join(parts)
 	else:
-		lbl_wave.text = Loc.t("Last wave is in · defeat every enemy")
+		lbl_wave.text = Loc.t("Last wave is in") if portrait else Loc.t("Last wave is in · defeat every enemy")
 	var z: Dictionary = battle["zones"]
 	lbl_piles.text = Loc.t("Draw %d · Discard %d · Played %d") % [(z["draw"] as Array).size(), (z["discard"] as Array).size(), (z["deployed"] as Array).size() + (z["consumed"] as Array).size()]
 	var rel: PackedStringArray = []
@@ -715,7 +720,7 @@ func _refresh_hand() -> void:
 		cv.playable = (not locked) and _card_playable(iid)
 		cv.pressed.connect(_on_card_pressed.bind(iid))
 		if portrait:
-			cv.custom_minimum_size = Vector2(140, 190)
+			cv.set_compact(true)
 		hand_box.add_child(cv)
 
 

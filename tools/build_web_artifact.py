@@ -25,6 +25,7 @@ cfg["mainPack"] = "index.pck.wasm"
 cfg["fileSizes"]["index.pck.wasm"] = cfg["fileSizes"].pop("index.pck")
 engine_js = open(os.path.join(SRC, "index.js"), encoding="utf-8").read().replace("</script>", "<\\/script>")
 page = """<title>Lastroot Playtest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 [hidden] { display: none !important; }

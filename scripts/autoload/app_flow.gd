@@ -18,8 +18,23 @@ var portrait: bool = false
 
 
 func _ready() -> void:
+	_install_symbol_font()
 	get_window().size_changed.connect(_apply_scale)
 	_apply_scale()
+
+
+## The built-in font has no ⚔♥◆☠ glyphs and web builds have no system fonts
+## to fall back on, so DejaVu Sans (free license, assets/fonts/) is added as
+## fallback of the default font everywhere.
+func _install_symbol_font() -> void:
+	var sym: Font = load("res://assets/fonts/DejaVuSans.ttf")
+	var base: Font = ThemeDB.fallback_font
+	if sym == null or base == null:
+		return
+	var fb: Array[Font] = base.fallbacks
+	if not fb.has(sym):
+		fb.append(sym)
+		base.fallbacks = fb
 
 
 func _apply_scale() -> void:
@@ -53,3 +68,11 @@ func goto(scene_id: String) -> void:
 ## Opens the screen that matches the run's phase.
 func goto_phase() -> void:
 	goto(GameSession.scene_for_phase())
+
+
+var _debug_input: bool = OS.get_cmdline_user_args().has("--debug-input")
+
+
+func _input(event: InputEvent) -> void:
+	if _debug_input and (event is InputEventScreenTouch or event is InputEventMouseButton):
+		print("INPUT ", event.as_text(), " pos ", event.get("position"))

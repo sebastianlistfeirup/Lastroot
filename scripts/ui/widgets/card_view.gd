@@ -57,6 +57,16 @@ func _init() -> void:
 		c.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
+## Smaller text and footprint for narrow portrait hands (same information).
+func set_compact(c: bool) -> CardView:
+	var k: float = 0.78 if c else 1.0
+	var sizes := [[_cost, 22], [_kind, 14], [_name, 19], [_stats, 18], [_text, 15], [_upg, 13]]
+	for pair in sizes:
+		(pair[0] as Label).add_theme_font_size_override("font_size", int(pair[1] * k * UiKit.font_scale))
+	custom_minimum_size = Vector2(W * k, H * k * 0.92)
+	return self
+
+
 func setup(p_def_id: String, p_upgrade: String = "", p_path: String = "", p_rank: int = 0, p_iid: int = -1) -> CardView:
 	def_id = p_def_id
 	upgrade_id = p_upgrade
