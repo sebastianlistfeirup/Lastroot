@@ -352,3 +352,39 @@ func test_footprint_radius_and_side() -> Array:
 			f.append("%s: side decoration added physics" % pair[0])
 		v.free()
 	return f
+
+
+## Meta-screen dioramas: build headless, expose their API, stay web-cheap.
+func test_dioramas_api_and_budget() -> Array:
+	var f: Array = []
+	for path: String in ["res://scenes/art/route_diorama.tscn", "res://scenes/art/menu_diorama.tscn"]:
+		var ps := load(path) as PackedScene
+		if ps == null:
+			f.append(path + ": missing")
+			continue
+		var d := ps.instantiate()
+		d.call("_ready")
+		var api: Array = ["set_portrait"] + (["set_progress", "focus"] if "route" in path else ["set_champion"])
+		for m: String in api:
+			if not d.has_method(m):
+				f.append("%s: no %s()" % [path, m])
+		if "route" in path:
+			d.call("set_progress", 3, [Vector2i(1, 1), {"col": 3, "lane": -1}])
+			d.call("focus", 2)
+		else:
+			d.call("set_champion", "SPORE")
+			d.call("set_champion", "")
+		d.call("set_portrait", true)
+		d.call("set_portrait", false)
+		var lights := d.find_children("*", "Light3D", true, false)
+		if lights.size() > 3:
+			f.append("%s: %d lights (max 3)" % [path, lights.size()])
+		for l: Node in lights:
+			if (l as Light3D).shadow_enabled:
+				f.append("%s: %s casts shadows" % [path, l.name])
+		if not d.find_children("*", "GPUParticles3D", true, false).is_empty():
+			f.append(path + ": uses GPUParticles3D")
+		if not d.find_children("*", "CollisionObject3D", true, false).is_empty():
+			f.append(path + ": has physics bodies")
+		d.free()
+	return f

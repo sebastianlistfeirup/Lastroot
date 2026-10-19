@@ -73,6 +73,36 @@ Etager, props og mutationer har barnet `GlowPulse`: små `Glow_*`-dele (svampepr
 
 `scenes/tests/stage_mutations.tscn` bygger den rigtige TreeStage, kalder `apply_mutations([...])`, rammer kameraet med `frame_camera(false, 0.23)` og stiller repræsentative figurer på de rigtige anchors. `tools/synty/capture_battle.sh` tager den og de rigtige kampskærme (`--setup=boss`, `--setup=midbattle`, portræt 390×844) til `evidence/asset_pipeline/`.
 
+## Meta-dioramaer (rute og menu)
+
+To små 3D-scener til at ligge bag 2D-UI'et. Rent stemning: al information står i 2D.
+
+| Scene | Rod-API |
+|---|---|
+| `scenes/art/route_diorama.tscn` (`RouteDiorama`, REF_04) | `set_progress(battle_index: int, chosen_nodes: Array)` — kampe < index er besøgt (lejrbål tændt), index er den aktuelle ø (eget varmt lys); `chosen_nodes` er de valgte mellemknuder som `Vector2i(col, lane)` eller `{"col", "lane"}` i route_map-koordinater (kamp k = col 2k, lane 0; valg efter kamp k = col 2k−1, lane −1/+1). Broer mellem tændte øer tændes. `focus(i)` glider kameraet mod kamp-ø i (øjeblikkeligt ved reduced motion). `set_portrait(p)`: liggende sti venstre→højre / stående sti nær→fjern. `@export dim` (0,35). |
+| `scenes/art/menu_diorama.tscn` (`MenuDiorama`) | `set_champion("BARK" \| "SPORE" \| "")` — rav ring, side-rim (ikke på web), varmt lys og victory-pose på den valgte champion. `set_portrait(p)`. `@export dim` (0,2). Langsom svingende kredsbane (stille ved reduced motion), hjertet pulserer, gløder stiger. |
+
+Indlejring:
+
+```gdscript
+var box := SubViewportContainer.new()
+box.stretch = true
+box.set_anchors_preset(Control.PRESET_FULL_RECT)
+box.mouse_filter = Control.MOUSE_FILTER_IGNORE      # klik går til 2D-UI'et
+var vp := SubViewport.new()
+vp.own_world_3d = true
+vp.transparent_bg = false
+vp.msaa_3d = Viewport.MSAA_DISABLED                  # web
+box.add_child(vp)
+var dio := preload("res://scenes/art/route_diorama.tscn").instantiate()
+vp.add_child(dio)
+add_child(box)
+move_child(box, 0)                                   # bag UI'et
+dio.set_portrait(size.x < size.y)
+```
+
+Hver scene har sin egen WorldEnvironment, ≤ 3 lys (sol, hjerte, ét accentlys), ingen skygger, kun CPUParticles; testet i `test_dioramas_api_and_budget`. En `CanvasLayer` med en mørk `ColorRect` (`dim`) ligger i SubViewporten. Billeder: `tools/synty/capture_dioramas.sh` → `evidence/asset_pipeline/diorama_*.png`.
+
 ## Kamera og lys (forslag, matcher style gate)
 
 Ortografisk, let skråt sidekamera (fx `size ≈ 17`, pitch −10…−12°) viser alle tre etager + hjertet. Miljø: baggrund `#1b1530`, ambient `#7b6aa8` × 0,55, varm sol `#ffe2b8` × 1,25 fra (−42°, −35°) med skygger, kølig rim `#6a7cff` × 0,45. Emissive dele er unshaded og læses uden glow. **Bemærk:** glow i Compatibility-rendereren gjorde hele billedet violet i vores test (xvfb/llvmpipe) — prøv den på rigtig hardware før den slås til.
