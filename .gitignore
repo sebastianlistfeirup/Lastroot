@@ -17,3 +17,6 @@ export_credentials.cfg
 Thumbs.db
 *.tmp
 __pycache__/
+
+# Agent worktrees
+/.claude/
