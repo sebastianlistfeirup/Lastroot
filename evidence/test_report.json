@@ -9,7 +9,7 @@
     "test_meta_flow.gd": 5,
     "test_rng.gd": 5,
     "test_run.gd": 10,
-    "test_save.gd": 6,
+    "test_save.gd": 8,
     "test_visual_slots.gd": 17
   },
   "names": [
@@ -107,9 +107,11 @@
     "test_save/test_corrupt_detected",
     "test_save/test_future_version_rejected",
     "test_save/test_garbage_and_foreign",
-    "test_save/test_reward_claim_survives_reload_once"
+    "test_save/test_reward_claim_survives_reload_once",
+    "test_save/test_fuzzed_saves_never_load_wrong_state",
+    "test_save/test_truncated_save_rejected"
   ],
   "status": "PASS",
-  "tests": 112,
-  "timestamp": "2026-10-19T22:09:29"
+  "tests": 114,
+  "timestamp": "2026-10-19T22:10:30"
 }

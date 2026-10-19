@@ -47,3 +47,27 @@ func test_reward_claim_survives_reload_once() -> void:
 	var r := RunReducer.apply(run, {"type": "claim", "slot": slot["id"], "choice": slot["offer"][1]})
 	var d := SaveCodec.decode(SaveCodec.encode(r["run"]))
 	check(not RunReducer.apply(d["run"], {"type": "claim", "slot": slot["id"], "choice": slot["offer"][1]})["ok"], "claim cannot repeat after load")
+
+
+func test_fuzzed_saves_never_load_wrong_state() -> void:
+	# LR-29 groundwork: flipping characters anywhere must give a clean refusal
+	# (or, for whitespace-only changes, the identical run) — never a different run.
+	var run := RunReducer.new_run(60, "SPORE")
+	var text := SaveCodec.encode(run)
+	var rng := RngStream.create(99, "fuzz")
+	var canon := JsonUtil.canonical(run)
+	var accepted_wrong := 0
+	for i in 200:
+		var pos: int = RngStream.next_int(rng, text.length())
+		var ch: String = "0123456789abcdef{}[]\",:x"[RngStream.next_int(rng, 25)]
+		var bad: String = text.substr(0, pos) + ch + text.substr(pos + 1)
+		var d := SaveCodec.decode(bad)
+		if d["ok"] and JsonUtil.canonical(d["run"]) != canon:
+			accepted_wrong += 1
+	eq(accepted_wrong, 0, "no corrupted save is accepted as a different run")
+
+
+func test_truncated_save_rejected() -> void:
+	var text := SaveCodec.encode(RunReducer.new_run(61, "BARK"))
+	for cut in [10, text.length() / 2, text.length() - 2]:
+		check(not SaveCodec.decode(text.substr(0, cut))["ok"], "truncated at %d refused" % cut)
