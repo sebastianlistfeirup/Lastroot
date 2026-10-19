@@ -14,3 +14,7 @@ run 1920x1080 res://scenes/art/route_diorama.tscn -- --progress=3 --capture=$EV/
 run 430x932 res://scenes/art/route_diorama.tscn -- --portrait --progress=3 --capture=$EV/diorama_route_portrait.png --frames=60
 run 1920x1080 res://scenes/art/menu_diorama.tscn -- --champion=BARK --capture=$EV/diorama_menu_1080p.png --frames=60
 run 430x932 res://scenes/art/menu_diorama.tscn -- --portrait --champion=SPORE --capture=$EV/diorama_menu_portrait.png --frames=60
+run 1920x1080 res://scenes/art/epilog_diorama.tscn -- --result=won --faction=BARK --path=BULWARK --mutations=M01,M02,M03,M04 --capture=$EV/diorama_epilog_won_1080p.png --frames=70
+run 1920x1080 res://scenes/art/epilog_diorama.tscn -- --result=lost --capture=$EV/diorama_epilog_lost_1080p.png --frames=70
+run 430x932 res://scenes/art/epilog_diorama.tscn -- --portrait --result=won --faction=SPORE --path=LIFEWEAVER --mutations=M02,M03 --capture=$EV/diorama_epilog_won_portrait.png --frames=70
+run 430x932 res://scenes/art/epilog_diorama.tscn -- --portrait --result=lost --capture=$EV/diorama_epilog_lost_portrait.png --frames=70
