@@ -33,12 +33,20 @@ var badge_y := VisualSlots.head_height("unit.B01")   # hp/attack-badge (2D-overl
 | Element | Placering |
 |---|---|
 | Etager | `stage.floor_roots/trunk/crown` på y = 0 / 4,5 / 9,0. Overflade y=0 lokalt; spilbart x −5,5…+5,5; dybde 3,2 (z −1,6…+1,6). Forkanten (+Z, mod kameraet) er fri; props kun på bagkanten (z ≈ −1,45). Undersiden af Stammen/Kronen holdes bag figurerne på etagen nedenunder (z < −1,2) eller over y −0,75 lokalt, så 3,4 m bossen kan stå under. |
-| Stamme | `stage.trunk` er ét segment fra y=0 til 4,5, centreret x=0, z ≈ −3,2 (forside z ≈ −1,4). Instancér ét pr. mellemrum (y = 0 og 4,5) eller også under Rødderne (y = −4,5). Ravdør vender mod kameraet. |
-| Hjerte | `stage.heart` (~2 m inkl. vugge, egen turkis OmniLight3D) fx på `(0, 9.0, -2.6)` bag Kronen, eller ovenpå; `fx.heart_pulse` på samme sted. Har `UnitAnimator` (`idle`, `hit`). |
+| Stamme | `stage.trunk` er ét segment fra y=0 til 4,5, centreret x=0, z ≈ −3,2 (forside z ≈ −1,4 i enhedshøjde). TreeStage instancerer ét **pr. etage ved etagens y** (0 / 4,5 / 9); segmenterne fliser lodret. Barnet `StageVariant` vælger udseende efter verdenshøjden: Rødder (mørk, violette svampe), Stamme (små ravvinduer højt oppe, tynde turkise årer), Krone (stammen smalner og deler sig i grene, der omkranser hjertet, med lysegrøn løvkrone og blomster til siderne). Intet lyst objekt ved x≈0 i enhedshøjde. |
+| Hjerte | `stage.heart` (~2 m inkl. vugge, egen turkis OmniLight3D) på `(0, 12.4, −0.4)` (StageLayout.heart_pos); `fx.heart_pulse` samme sted. Har `UnitAnimator`: `idle` er en langsom puls af krystal + halo (reduced motion: næsten stille), `hit` blinker rødt. TreeStage.pulse_heart skalerer roden — det spiller sammen. |
 | Baggrund | `stage.backdrop` ved origin; alt ligger z < −15. |
 | Figurer | Stå omkring z = 0 (maks. dybde ±1,0). Allierede venstre (x < 0) med `rotation_y = -90` (front mod +X), fjender højre med `+90`. Lidt mod kameraet (−115 / +115) giver 3/4-visning som i style gate. Fodaftryk langs X ≈ figurens Z-dybde: 1-plads ≤ ~0,9 m, 2-plads ≤ ~2,1 m, 3-plads ≤ ~2,6 m. |
-| Mutationer | Instancér i rammen for det, de pynter: `mutation.M01` som barn af/oven på `stage.floor_roots`, `M02` på hvert `stage.trunk`-segment, `M03` på `stage.floor_crown`, `M04` på `stage.heart`. Ændrer aldrig klikflader. |
+| Mutationer | Instancér i rammen for det, de pynter (som `TreeStage.apply_mutations`): `M01` ved `(0, 0, 0)` — bredere barkkant under Rødder-pladen (under overfladen) + tykke rødder over bagkanten og ned ad yderhjørnerne med ravspidser; `M02` ved `(0, 4.5, 0)` — tyk glødende ring højt på stammen (lokal y ≈ 3,35, over hovederne) + turkise årer; `M03` ved `(0, 9, 0)` — blomstertræer i bagerste hjørner, guldblomster på bagkanten, få drivende kronblade (14 CPU-partikler); `M04` ved hjertets position — dobbelt halo, turkis ring, 12 skår, ét ekstra lys. Ingen del går ind i spilområdet (testet) og klikflader ændres aldrig. |
 | FX | Origin = den ramte figurs fødder (dimensioneret til ~1,6 m figur; skalér med `head_height/1,8`). One-shot (`meta one_shot`, `lifetime_s`) frigør sig selv; status-loops (poison, armor, thorns, growth, heart_pulse) fjerner du selv. CPUParticles3D (virker i Compatibility/web). |
+
+## Liv i tomgang
+
+Etager, props og mutationer har barnet `GlowPulse`: små `Glow_*`-dele (svampeprikker, krystaller, lanterner, årer, blomster) ånder langsomt med hver sin fase (få tweens, ingen ekstra lys). Med reduced motion står de stille. `UnitAnimator.motion_reduced()` læser både `UnitAnimator.reduced_motion` og autoloaden `SettingsService.reduced_motion`, så der kræves ingen integrationskode.
+
+## Kunstgate for TreeStage
+
+`scenes/tests/stage_mutations.tscn` bygger den rigtige TreeStage, kalder `apply_mutations([...])`, rammer kameraet med `frame_camera(false, 0.23)` og stiller repræsentative figurer på de rigtige anchors. `tools/synty/capture_battle.sh` tager den og de rigtige kampskærme (`--setup=boss`, `--setup=midbattle`, portræt 390×844) til `evidence/asset_pipeline/`.
 
 ## Kamera og lys (forslag, matcher style gate)
 

@@ -180,13 +180,28 @@ func test_floor_play_area_free() -> Array:
 func test_trunk_and_backdrop_stay_behind() -> Array:
 	var f: Array = []
 	var t := VisualSlots.make("stage.trunk")
-	var tb := VisualSlots.bounds(t)
-	if tb.end.z > -1.2:
-		f.append("trunk front at z=%.2f (must be < -1.2)" % tb.end.z)
+	# Everything at unit height (local y < 3.2) stays behind the units (z < -1.2);
+	# only the crown variant's branches above head height may reach further forward.
+	for n: Node in t.find_children("*", "VisualInstance3D", true, false):
+		var b := RigLab._xf_to(t, n as Node3D) * (n as VisualInstance3D).get_aabb()
+		if b.get_center().y < 3.0 and b.end.z > -1.2:
+			f.append("trunk part %s at unit height reaches z=%.2f (must be < -1.2)" % [n.name, b.end.z])
+			break
+	for k: String in ["roots", "trunk", "crown"]:
+		StageVariant.apply(t, k)
+		var vis := 0
+		for g: Node in t.find_children("Variant_*", "Node3D", true, false):
+			vis += 1 if (g as Node3D).visible else 0
+		if vis != 1 or str(t.get_meta("variant", "")) != k:
+			f.append("trunk variant %s not exclusive" % k)
+	if t.get_node_or_null("StageVariant") == null:
+		f.append("trunk proxy lacks the StageVariant node")
+	StageVariant.apply(t, "trunk")
+	var tb := VisualSlots.bounds(t.get_node("Model").get_node("Variant_trunk"))
 	if absf(tb.get_center().x) > 0.3:
 		f.append("trunk not centred on x=0")
 	if absf(tb.size.y - 4.5) > 0.6:
-		f.append("trunk segment height %.2f, expected ~4.5" % tb.size.y)
+		f.append("trunk segment height %.2f, expected ~4.5 (tiles per floor)" % tb.size.y)
 	t.free()
 	var b := VisualSlots.make("stage.backdrop")
 	var bb := VisualSlots.bounds(b)
@@ -249,4 +264,25 @@ func test_vendor_suggestions_cover_every_slot() -> Array:
 					f.append("%s: no Mixamo hint for %s" % [id, st])
 		elif fam == "quadruped" and (e.get("clips", {}) as Dictionary).is_empty():
 			f.append(id + ": quadruped without own-clip hints")
+	return f
+
+
+## Mutations are visual only and never enter the unit play area of their floor.
+func test_mutations_keep_play_area_free() -> Array:
+	var f: Array = []
+	var play := AABB(Vector3(-5.5, 0.02, -0.9), Vector3(11.0, 2.8, 2.5))
+	for id: String in ["mutation.M01", "mutation.M02", "mutation.M03"]:
+		var v := VisualSlots.make(id)
+		if VisualSlots.bounds(v).size == Vector3.ZERO:
+			f.append(id + ": nothing visible")
+		for n: Node in v.find_children("*", "VisualInstance3D", true, false):
+			if n is CPUParticles3D:
+				continue
+			var b := RigLab._xf_to(v, n as Node3D) * (n as VisualInstance3D).get_aabb()
+			if b.intersects(play):
+				f.append("%s: %s enters the play area (y %.2f..%.2f, z %.2f..%.2f)" % [id, n.name, b.position.y, b.end.y, b.position.z, b.end.z])
+				break
+		if v.get_node_or_null("GlowPulse") == null:
+			f.append(id + ": no GlowPulse idle life")
+		v.free()
 	return f

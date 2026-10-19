@@ -194,10 +194,10 @@ func _stage() -> void:
 		f.position.y = 4.5 * i
 		_content.add_child(f)
 		var t := VisualSlots.make("stage.trunk")
-		t.position.y = 4.5 * i - 4.5
+		t.position.y = 4.5 * i
 		_content.add_child(t)
 	var heart := VisualSlots.make("stage.heart")
-	heart.position = Vector3(0, 9.0, -2.6)
+	heart.position = Vector3(0, 12.4, -0.4)
 	_content.add_child(heart)
 	var pulse := VisualSlots.make("fx.heart_pulse")
 	pulse.position = heart.position

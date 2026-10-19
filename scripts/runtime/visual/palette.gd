@@ -11,8 +11,8 @@ const PATH := "res://data/art/palette.json"
 
 const DEFAULTS := {
 	"bark": "#6b4a2f", "bark_dark": "#3f2a1b", "bark_light": "#8f6a43", "wood_plank": "#7a5634",
-	"moss": "#5f7f2e", "moss_light": "#8aa63c", "leaf": "#3f7a3a", "leaf_light": "#6fa64a",
-	"stone": "#625d58", "stone_dark": "#403c39", "stone_warm": "#6f6253",
+	"moss": "#5f7f2e", "moss_light": "#8aa63c", "leaf": "#3f7a3a", "leaf_light": "#6fa64a", "leaf_bright": "#9ccc5a",
+	"stone": "#625d58", "stone_dark": "#403c39", "stone_warm": "#6f6253", "stone_light": "#8a8476", "stone_cool": "#4a4554",
 	"amber": "#ffb238", "amber_soft": "#e88a1f",
 	"cap_violet": "#7a4cd6", "cap_violet_dark": "#5b2f94", "cap_white": "#ece4f5", "cap_pale": "#ddd0ee", "cap_gill": "#c9b6e6",
 	"spore_body": "#4a2f6e", "spore_skin": "#2a1d3d", "beard": "#e8e2ee",
@@ -21,7 +21,7 @@ const DEFAULTS := {
 	"ember": "#ff7a1f", "ember_hot": "#ffd060", "ember_red": "#e8401c",
 	"blossom": "#f3c6de", "blossom_gold": "#ffd98a",
 	"poison": "#9be04e", "poison_violet": "#b26cf0", "heal": "#7dffb0", "armor": "#c9d4dd", "thorns": "#8fbf3a",
-	"haze": "#5a3f8c", "haze_dark": "#24193d", "island": "#2c2635", "island_top": "#3b4a2c",
+	"haze": "#5a3f8c", "haze_dark": "#24193d", "island": "#1d1826", "island_top": "#2b3524",
 	"missing": "#ff00ff",
 }
 ## Palette keys that are drawn as emissive light sources (energy multiplier).

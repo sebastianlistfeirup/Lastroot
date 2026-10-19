@@ -78,6 +78,18 @@ func _bind() -> void:
 	_contact_map = cfg.get("contact", {}) as Dictionary
 
 
+## True when motion should be calm: the static flag, or the game's SettingsService
+## autoload (if present) has reduced_motion on. No integration call needed.
+static func motion_reduced() -> bool:
+	if reduced_motion:
+		return true
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree == null or tree.root == null:
+		return false
+	var svc := tree.root.get_node_or_null("SettingsService")
+	return svc != null and bool(svc.get("reduced_motion"))
+
+
 static func _find_player(n: Node) -> AnimationPlayer:
 	for c: Node in n.get_children():
 		if c is AnimationPlayer:
@@ -223,7 +235,7 @@ func _kill_tweens() -> void:
 
 
 func _procedural(state: StringName, speed: float) -> void:
-	var k := 0.35 if reduced_motion else 1.0
+	var k := 0.35 if motion_reduced() else 1.0
 	var p0 := _rest.origin
 	var s0 := _rest.basis.get_scale()
 	var fwd := -_rest.basis.z.normalized()
@@ -232,6 +244,25 @@ func _procedural(state: StringName, speed: float) -> void:
 		_tween = create_tween()
 		_tween.set_speed_scale(speed)
 	match state:
+		&"idle" when slot_id == "stage.heart":
+			# The heart breathes: slow pulse of the gem and its halo (top visual priority).
+			_idle_tween = create_tween().set_loops()
+			_idle_tween.set_speed_scale(speed)
+			var amp := 0.02 if motion_reduced() else 0.07
+			var nodes := _model.find_children("Glow_Heart*", "Node3D", true, false) + _model.find_children("Glow_Halo*", "Node3D", true, false)
+			if nodes.is_empty():
+				nodes = [_model]
+			var bases: Array[Vector3] = []
+			for n: Node in nodes:
+				if not n.has_meta("lr_base_scale"):
+					n.set_meta("lr_base_scale", (n as Node3D).scale)
+				bases.append(n.get_meta("lr_base_scale") as Vector3)
+			var setter := func(v: float) -> void:
+				for i: int in nodes.size():
+					if is_instance_valid(nodes[i]):
+						(nodes[i] as Node3D).scale = bases[i] * v
+			_idle_tween.tween_method(setter, 1.0, 1.0 + amp, 1.3).set_trans(Tween.TRANS_SINE)
+			_idle_tween.tween_method(setter, 1.0 + amp, 1.0, 1.5).set_trans(Tween.TRANS_SINE)
 		&"idle":
 			_idle_tween = create_tween().set_loops()
 			_idle_tween.set_speed_scale(speed)
