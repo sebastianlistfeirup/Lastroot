@@ -83,7 +83,7 @@ func render() -> void:
 	var right := UiKit.vbox(16)
 	right.custom_minimum_size = Vector2(0 if portrait else 760, 0)
 	main.add_child(right)
-	right.add_child(_stats_panel(stats))
+	right.add_child(_stats_panel(stats, portrait))
 	right.add_child(_build_panel())
 	var buttons := UiKit.flow(16)
 	buttons.name = "Actions"
@@ -101,7 +101,7 @@ func render() -> void:
 	nb.grab_focus.call_deferred()
 
 
-func _stats_panel(stats: Dictionary) -> Control:
+func _stats_panel(stats: Dictionary, portrait: bool) -> Control:
 	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), UiKit.LINE)
 	p.name = "StatsPanel"
 	var v := UiKit.vbox(10)
@@ -119,7 +119,7 @@ func _stats_panel(stats: Dictionary) -> Control:
 	]
 	for r: Array in rows:
 		var cell := UiKit.panel(UiKit.PANEL_HI, UiKit.LINE)
-		cell.custom_minimum_size = Vector2(220, 0)
+		cell.custom_minimum_size = Vector2(168 if portrait else 228, 0)
 		var h := UiKit.hbox(10)
 		cell.add_child(h)
 		var ic := MetaIcon.make(str(r[0]), r[3], UiKit.px(30))
@@ -127,7 +127,9 @@ func _stats_panel(stats: Dictionary) -> Control:
 		h.add_child(ic)
 		var c := UiKit.vbox(0)
 		var l := UiKit.label(str(r[1]), 14, UiKit.TEXT_DIM)
-		l.autowrap_mode = TextServer.AUTOWRAP_OFF
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if portrait else TextServer.AUTOWRAP_OFF
+		l.custom_minimum_size = Vector2(100 if portrait else 0, 0)
+		c.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		c.add_child(l)
 		var val := UiKit.label(str(r[2]), 26, UiKit.TEXT, true)
 		val.name = "Stat_" + str(r[1]).replace(" ", "_")

@@ -282,6 +282,8 @@ func _mutation_choice(slot: Dictionary) -> void:
 		if sel_offer != "":
 			send({"type": "claim", "slot": slot["id"], "choice": sel_offer}))
 	_confirm.disabled = sel_offer == ""
+	if sel_offer == "":
+		_hint(Loc.t("Tap an option to select it, then confirm."))
 
 
 static func _mutation_floor(mid: String) -> String:
@@ -345,6 +347,8 @@ func _champion_choice(slot: Dictionary) -> void:
 		if sel_offer != "":
 			send({"type": "claim", "slot": slot["id"], "choice": sel_offer}))
 	_confirm.disabled = sel_offer == ""
+	if sel_offer == "":
+		_hint(Loc.t("Tap an option to select it, then confirm."))
 
 
 func _relic_choice(slot: Dictionary) -> void:
@@ -368,6 +372,8 @@ func _relic_choice(slot: Dictionary) -> void:
 		if sel_offer != "":
 			send({"type": "claim", "slot": slot["id"], "choice": sel_offer}))
 	_confirm.disabled = sel_offer == ""
+	if sel_offer == "":
+		_hint(Loc.t("Tap an option to select it, then confirm."))
 
 
 # ----------------------------------------------------------------- route
