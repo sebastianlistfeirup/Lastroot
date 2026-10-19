@@ -1,0 +1,132 @@
+{
+ "status": "PASS",
+ "date": "2026-10-19 20:57:40",
+ "godot": "4.5.1.stable.official.f62fdbde1",
+ "note": "Fake packs from tools/synty/make_test_pack.py (glTF models; FBX goes through the same Godot importer interface but is not exercised here).",
+ "checks": [
+  {
+   "check": "unpack: Unity-only files skipped, models kept",
+   "result": "PASS"
+  },
+  {
+   "check": "match: floor, props, trunk, golem->B01, deer->B04 proposed",
+   "result": "PASS"
+  },
+  {
+   "check": "match: Mixamo clips -> humanoid idle/attack/hit/death",
+   "result": "PASS"
+  },
+  {
+   "check": "build: every chosen slot built, nothing failed",
+   "result": "PASS"
+  },
+  {
+   "check": "floor: centimetres fitted to 11.6 m, top at y=0",
+   "result": "PASS"
+  },
+  {
+   "check": "crystal: cm -> m (x0.01), ~1 m tall",
+   "result": "PASS"
+  },
+  {
+   "check": "lantern: off-centre pivot re-centred, feet on y=0",
+   "result": "PASS"
+  },
+  {
+   "check": "trunk: scaled to the 4.5 m segment",
+   "result": "PASS"
+  },
+  {
+   "check": "atlas material applied to every static model",
+   "result": "PASS"
+  },
+  {
+   "check": "golem: humanoid bone map (GeneralSkeleton), height fitted to 2.6 m",
+   "result": "PASS"
+  },
+  {
+   "check": "golem: imported facing +Z, wrapper faces -Z",
+   "result": "PASS"
+  },
+  {
+   "check": "humanoid library: 4 clips, all retargeted",
+   "result": "PASS"
+  },
+  {
+   "check": "Punching made in-place (1 m root travel removed)",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: B01 is the model, not the proxy",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: Mixamo attack clip rotates the Synty rig's arm",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: has_clip attack/idle true, victory false (reported missing)",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: finished arrives for clip (attack) + contact frame",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: finished arrives for a MISSING clip (victory fallback)",
+   "result": "PASS"
+  },
+  {
+   "check": "deer: quadruped keeps own clips, no humanoid retarget",
+   "result": "PASS"
+  },
+  {
+   "check": "deer: faces -Z, missing hit still finishes",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: floor model 11.6 m wide, top at y=0",
+   "result": "PASS"
+  },
+  {
+   "check": "runtime: unmapped slot stays proxy; unknown id never null",
+   "result": "PASS"
+  }
+ ],
+ "build_report": "selftest_build_report.json",
+ "runtime": {
+  "b01_attack_hips_travel_m": 0.0,
+  "b01_attack_rotates_arm_deg": 67.4,
+  "b01_contact_fired": true,
+  "b01_facing": "-Z",
+  "b01_feet_y": 0.0,
+  "b01_finished_attack_s": 0.9,
+  "b01_finished_death_s": 1.4,
+  "b01_finished_victory_fallback_s": 1.1,
+  "b01_has_clip_attack": true,
+  "b01_has_clip_idle": true,
+  "b01_has_unit_animator": true,
+  "b01_height_m": 2.6,
+  "b01_is_model": true,
+  "b01_missing_victory": true,
+  "b01_reported_missing": [
+   "summon",
+   "defend",
+   "victory",
+   "move"
+  ],
+  "b01_retargeted_skeleton": true,
+  "b04_facing": "-Z",
+  "b04_finished_hit_fallback_s": 0.39,
+  "b04_has_clip_attack": true,
+  "b04_has_clip_move": true,
+  "b04_is_model": true,
+  "b04_missing_hit": true,
+  "b04_no_humanoid_retarget": true,
+  "floor_is_model": true,
+  "floor_top_y": 0.0,
+  "floor_width_m": 11.6,
+  "s02_still_proxy": true,
+  "unknown_not_null": true
+ }
+}

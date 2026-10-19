@@ -68,7 +68,9 @@ func _bind() -> void:
 	if _model == null and root is Node3D:
 		_model = root as Node3D
 	_rest = _model.transform if _model else Transform3D.IDENTITY
-	_player = _find_player(root)
+	_player = root.get_node_or_null("LRAnimations") as AnimationPlayer
+	if _player == null:
+		_player = _find_player(root)
 	if slot_id.is_empty():
 		slot_id = str(root.get_meta("slot_id", ""))
 	var cfg := _slot_set(slot_id)

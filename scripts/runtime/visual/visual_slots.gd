@@ -24,6 +24,17 @@ static var _built_heights: Dictionary = {}
 static var _loaded: bool = false
 
 
+## Points the builder's slot -> wrapper map elsewhere (the selftest uses this).
+## Kept in Engine meta, not a static var, so a script reload cannot reset it.
+static func set_built_path(path: String) -> void:
+	Engine.set_meta("lr_visual_built_path", path)
+	reload()
+
+
+static func built_path() -> String:
+	return str(Engine.get_meta("lr_visual_built_path", BUILT_PATH))
+
+
 static func _load() -> void:
 	if _loaded:
 		return
@@ -36,7 +47,7 @@ static func _load() -> void:
 		_slots = (v as Dictionary).get("slots", {}) as Dictionary
 	else:
 		push_warning("VisualSlots: cannot read " + SLOTS_PATH)
-	var b: Variant = _read_json(BUILT_PATH)
+	var b: Variant = _read_json(built_path())
 	if b is Dictionary:
 		_built = (b as Dictionary).get("scenes", {}) as Dictionary
 		_built_heights = (b as Dictionary).get("heights", {}) as Dictionary

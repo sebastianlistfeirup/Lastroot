@@ -27,26 +27,26 @@ BOSS_STATES = ["idle", "summon", "attack", "hit", "death", "move", "victory"]
 
 # id: (kind, name, builder, height, head_height, space, rig_family, states, fit, note)
 UNITS = {
-    "unit.B01": ("The Barkwarden", "barkwarden", 2.2, 2.55, 2, "humanoid", HUMANOID_STATES, "Champion. Heavy bark/stone golem, broad chest, amber eyes, plank shield (REF_02/03)."),
-    "unit.B02": ("Root Sprout", "root_sprout", 1.05, 1.3, 1, "humanoid", HUMANOID_STATES, "Small sapling with root feet; smallest bark unit."),
-    "unit.B03": ("Barkshield", "barkshield", 1.6, 1.9, 2, "humanoid", HUMANOID_STATES, "Squat wide guardian behind a tall plank shield (6 start armor)."),
-    "unit.B04": ("Thornhart", "thornhart", 2.0, 2.25, 2, "quadruped", QUAD_STATES, "QUADRUPED stag of bark with thorn antlers (Thorns 2). Never a humanoid retarget."),
-    "unit.B05": ("Sapbearer", "sapbearer", 1.3, 1.55, 1, "humanoid", HUMANOID_STATES, "Round healer carrying a glowing amber sap orb."),
-    "unit.B06": ("Old Oak", "old_oak", 2.5, 2.8, 3, "humanoid", HUMANOID_STATES, "3-space walking oak; wide, low crown so its numbers stay visible."),
-    "unit.S01": ("The Spore Sage", "spore_sage", 1.6, 1.85, 2, "humanoid", CASTER_STATES, "Champion. Small robed figure, huge violet-white mushroom hat, staff with turquoise glow (REF_02)."),
-    "unit.S02": ("Sporeling", "sporeling", 0.95, 1.2, 1, "humanoid", HUMANOID_STATES, "Tiny mushroom creature with glowing antenna spores."),
-    "unit.S03": ("Fungal Wall", "fungal_wall", 1.65, 1.9, 2, "static", STATIC_STATES, "Wide stack of shelf fungi; no skeleton needed (procedural motion only)."),
-    "unit.S04": ("Nightcap", "nightcap", 1.4, 1.65, 1, "humanoid", HUMANOID_STATES, "Dark indigo assassin with pointed cap and thorn daggers (+3 vs poisoned)."),
-    "unit.S05": ("Mycelium Keeper", "mycelium_keeper", 1.65, 1.9, 2, "humanoid", CASTER_STATES, "Keeper with a turquoise spore lantern; mycelium threads at the feet."),
-    "unit.S06": ("Spore Colossus", "spore_colossus", 2.45, 2.75, 3, "humanoid", HUMANOID_STATES, "3-space mushroom giant with glowing spore sacs."),
+    "unit.B01": ("The Barkwarden", "barkwarden", 2.6, 2.8, 2, "humanoid", HUMANOID_STATES, "Champion. Heavy bark/stone golem, broad chest, amber eyes, plank shield (REF_02/03)."),
+    "unit.B02": ("Root Sprout", "root_sprout", 1.22, 1.42, 1, "humanoid", HUMANOID_STATES, "Small sapling with root feet; smallest bark unit."),
+    "unit.B03": ("Barkshield", "barkshield", 1.57, 1.8, 2, "humanoid", HUMANOID_STATES, "Squat wide guardian behind a tall plank shield (6 start armor)."),
+    "unit.B04": ("Thornhart", "thornhart", 2.29, 2.5, 2, "quadruped", QUAD_STATES, "QUADRUPED stag of bark with thorn antlers (Thorns 2). Never a humanoid retarget."),
+    "unit.B05": ("Sapbearer", "sapbearer", 1.29, 1.5, 1, "humanoid", HUMANOID_STATES, "Round healer carrying a glowing amber sap orb."),
+    "unit.B06": ("Old Oak", "old_oak", 2.56, 2.8, 3, "humanoid", HUMANOID_STATES, "3-space walking oak; wide, low crown so its numbers stay visible."),
+    "unit.S01": ("The Spore Sage", "spore_sage", 1.73, 1.95, 2, "humanoid", CASTER_STATES, "Champion. Small robed figure, huge violet-white mushroom hat, staff with turquoise glow (REF_02)."),
+    "unit.S02": ("Sporeling", "sporeling", 0.93, 1.15, 1, "humanoid", HUMANOID_STATES, "Tiny mushroom creature with glowing antenna spores."),
+    "unit.S03": ("Fungal Wall", "fungal_wall", 1.56, 1.8, 2, "static", STATIC_STATES, "Wide stack of shelf fungi; no skeleton needed (procedural motion only)."),
+    "unit.S04": ("Nightcap", "nightcap", 1.39, 1.6, 1, "humanoid", HUMANOID_STATES, "Dark indigo assassin with pointed cap and thorn daggers (+3 vs poisoned)."),
+    "unit.S05": ("Mycelium Keeper", "mycelium_keeper", 1.54, 1.78, 2, "humanoid", CASTER_STATES, "Keeper with a turquoise spore lantern; mycelium threads at the feet."),
+    "unit.S06": ("Spore Colossus", "spore_colossus", 2.33, 2.55, 3, "humanoid", HUMANOID_STATES, "3-space mushroom giant with glowing spore sacs."),
 }
 ENEMIES = {
-    "enemy.E01": ("Ashling", "ashling", 0.9, 1.15, "humanoid", ENEMY_STATES, "Small and quick: hunched ash imp with a long tail."),
-    "enemy.E02": ("Coalshield", "coalshield", 1.2, 1.5, "humanoid", ENEMY_STATES, "Compact coal block behind a slab shield with ember rim (4 start armor)."),
-    "enemy.E03": ("Emberhunter", "emberhunter", 1.5, 1.75, "humanoid", ENEMY_STATES, "Spiky, offensive, forward-leaning; ember spear."),
-    "enemy.E04": ("Sootbearer", "sootbearer", 1.6, 1.85, "humanoid", ENEMY_STATES, "Round and heavy soot sack with an ember belly and chimney vents."),
-    "enemy.E05": ("Stonebreaker", "stonebreaker", 1.9, 2.15, "humanoid", ENEMY_STATES, "Wide, armoured basalt brute with huge fists (6 start armor)."),
-    "enemy.E06": ("The Ash Crown", "ash_crown", 3.0, 3.3, "humanoid", BOSS_STATES, "Boss ~3 m: charred crown of branches and stone, inner ember glow, clear face."),
+    "enemy.E01": ("Ashling", "ashling", 0.95, 1.15, "humanoid", ENEMY_STATES, "Small and quick: hunched ash imp with a long tail."),
+    "enemy.E02": ("Coalshield", "coalshield", 1.13, 1.35, "humanoid", ENEMY_STATES, "Compact coal block behind a slab shield with ember rim (4 start armor)."),
+    "enemy.E03": ("Emberhunter", "emberhunter", 1.68, 1.9, "humanoid", ENEMY_STATES, "Spiky, offensive, forward-leaning; ember spear."),
+    "enemy.E04": ("Sootbearer", "sootbearer", 1.54, 1.75, "humanoid", ENEMY_STATES, "Round and heavy soot sack with an ember belly and chimney vents."),
+    "enemy.E05": ("Stonebreaker", "stonebreaker", 2.03, 2.25, "humanoid", ENEMY_STATES, "Wide, armoured basalt brute with huge fists (6 start armor)."),
+    "enemy.E06": ("The Ash Crown", "ash_crown", 3.41, 3.6, "humanoid", BOSS_STATES, "Boss ~3 m: charred crown of branches and stone, inner ember glow, clear face."),
 }
 STAGE = {
     "stage.floor_roots": ("Roots floor", "floor", {"variant": "roots"}, 0.2, "footprint", "Terrace: top y=0, usable x -5.5..5.5, depth 3.2 (z -1.6..1.6). Roots hang below. Props only on back edge."),
@@ -244,7 +244,13 @@ def main() -> int:
             mix = {}
         else:
             packs, search, notes, mix = VENDOR[sid]
-        entry = {"packs": packs, "search": search, "notes": notes, "verified": False, "status": UNVERIFIED}
+        attach = []
+        if slots[sid]["kind"] in ("unit", "enemy", "mutation") or sid == "stage.heart":
+            # Base models are searched; prop meshes (SM_*) are attachment hints only,
+            # so a unit never gets matched to a lantern or a crystal.
+            attach = [p for p in search if p.startswith("SM_")]
+            search = [p for p in search if not p.startswith("SM_")]
+        entry = {"packs": packs, "search": search, "attachments": attach, "notes": notes, "verified": False, "status": UNVERIFIED}
         st = slots[sid].get("animation_states")
         fam = slots[sid].get("rig_family", "")
         if st and fam == "humanoid":

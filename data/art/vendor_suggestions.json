@@ -14,6 +14,7 @@
     "*Treant*",
     "SK_Chr_*Giant*"
    ],
+   "attachments": [],
    "notes": "Heavy humanoid base (giant/golem/treant) + bark plates and rocks from POLYGON Nature as attachments (Rock_*, Bark/Log_*). Keep the existing rig.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -70,6 +71,7 @@
     "*Stump*",
     "SK_Chr_*Goblin*"
    ],
+   "attachments": [],
    "notes": "Small humanoid base (goblin/child scale) + sapling/leaf attachments, or a PolyPerfect stump creature if one exists.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -120,8 +122,10 @@
    ],
    "search": [
     "SK_Chr_*Knight*",
-    "SM_Wep_Shield_*Wood*",
     "*Shield*Tower*"
+   ],
+   "attachments": [
+    "SM_Wep_Shield_*Wood*"
    ],
    "notes": "Stocky humanoid + big wooden tower shield (SM_Wep_Shield_* is a typical Synty prefix) recoloured to bark.",
    "verified": false,
@@ -179,6 +183,7 @@
     "*Elk*",
     "*Moose*"
    ],
+   "attachments": [],
    "notes": "QUADRUPED: PolyPerfect animated deer/stag with its own clips (idle/attack/hit/death names vary per pack) + thorn antler attachments built from POLYGON Nature branches. Do NOT retarget humanoid clips.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -203,6 +208,7 @@
     "*Barrel*Small*",
     "*Honey*"
    ],
+   "attachments": [],
    "notes": "Short round humanoid (dwarf/child) carrying a jar/lantern prop with an amber emissive material.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -252,7 +258,9 @@
    ],
    "search": [
     "*Treant*",
-    "*Tree*Monster*",
+    "*Tree*Monster*"
+   ],
+   "attachments": [
     "SM_Env_Tree_Oak*",
     "SM_Env_Tree_*Large*"
    ],
@@ -308,7 +316,9 @@
    ],
    "search": [
     "SK_Chr_*Wizard*",
-    "SK_Chr_*Druid*",
+    "SK_Chr_*Druid*"
+   ],
+   "attachments": [
     "SM_Env_Mushroom*",
     "SM_Wep_Staff_*"
    ],
@@ -372,6 +382,7 @@
     "SK_Chr_*Goblin*",
     "*Imp*"
    ],
+   "attachments": [],
    "notes": "Tiny creature/goblin base + mushroom cap attachment.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -420,9 +431,11 @@
     "Synty POLYGON Dungeons"
    ],
    "search": [
-    "SM_Env_Mushroom*",
     "*Fungus*",
     "*Shelf*Mushroom*"
+   ],
+   "attachments": [
+    "SM_Env_Mushroom*"
    ],
    "notes": "Static: a cluster of POLYGON Nature mushrooms on a rock, no rig (procedural motion).",
    "verified": false,
@@ -435,7 +448,9 @@
    ],
    "search": [
     "SK_Chr_*Assassin*",
-    "SK_Chr_*Rogue*",
+    "SK_Chr_*Rogue*"
+   ],
+   "attachments": [
     "SM_Wep_Dagger*"
    ],
    "notes": "Slim rogue/assassin base + pointed dark cap attachment + twin daggers.",
@@ -490,7 +505,9 @@
    ],
    "search": [
     "SK_Chr_*Druid*",
-    "SK_Chr_*Monk*",
+    "SK_Chr_*Monk*"
+   ],
+   "attachments": [
     "SM_Prop_Lantern*"
    ],
    "notes": "Robed humanoid + mushroom cap + lantern with turquoise emissive.",
@@ -551,7 +568,9 @@
    "search": [
     "SK_Chr_*Giant*",
     "SK_Chr_*Ogre*",
-    "*Troll*",
+    "*Troll*"
+   ],
+   "attachments": [
     "SM_Env_Mushroom_Large*"
    ],
    "notes": "Giant/ogre base + very large mushroom cap and glowing sacs.",
@@ -609,6 +628,7 @@
     "SK_Chr_*Goblin*",
     "*Ghoul*"
    ],
+   "attachments": [],
    "notes": "Rig family A (small humanoid). Charcoal recolour + ember emissive eyes; quick tempo (play speed 1.2-1.4).",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -649,7 +669,9 @@
    ],
    "search": [
     "SK_Chr_*Skeleton*Shield*",
-    "SK_Chr_*Golem*",
+    "SK_Chr_*Golem*"
+   ],
+   "attachments": [
     "SM_Wep_Shield_*"
    ],
    "notes": "Rig family B (stocky humanoid) + slab shield attachment; ember rim material.",
@@ -695,7 +717,9 @@
    ],
    "search": [
     "SK_Chr_*Hunter*",
-    "SK_Chr_*Demon*",
+    "SK_Chr_*Demon*"
+   ],
+   "attachments": [
     "SM_Wep_Spear*"
    ],
    "notes": "Rig family A/B + spikes + spear; lean forward.",
@@ -743,6 +767,7 @@
     "SK_Chr_*Ogre*",
     "*Blob*"
    ],
+   "attachments": [],
    "notes": "Rig family B scaled round (or a fat zombie/ogre) + soot sack/chimney attachments.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -789,6 +814,7 @@
     "SK_Chr_*Brute*",
     "SK_Chr_*Giant*"
    ],
+   "attachments": [],
    "notes": "Rig family C (heavy) + basalt plate attachments.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -835,6 +861,7 @@
     "SK_Chr_*Giant*",
     "*Crown*"
    ],
+   "attachments": [],
    "notes": "Boss: large humanoid rig (family C, scaled to ~3 m) + custom charred crown of branches/stone (attachment to the head bone) + emissive core. Do not cover its own HP/armor badge.",
    "verified": false,
    "status": "unverified — check actual pack contents",
@@ -885,6 +912,7 @@
     "SM_Env_Ground_*",
     "*Platform*"
    ],
+   "attachments": [],
    "notes": "Build TreeStage from rocks, roots and flagstones; top must be flat at y=0 and 11 m wide usable.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -899,6 +927,7 @@
     "SM_Env_Path_*",
     "*Platform*"
    ],
+   "attachments": [],
    "notes": "Same as Roots floor; mushrooms at back edge.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -913,6 +942,7 @@
     "*Platform*",
     "SM_Env_Tree_Branch*"
    ],
+   "attachments": [],
    "notes": "Same; crystals/blossoms at back edge.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -928,6 +958,7 @@
     "SM_Env_Tree_Giant*",
     "SM_Bld_*Door*"
    ],
+   "attachments": [],
    "notes": "Giant trunk segments (scaled tree trunks) + doorway with amber light.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -939,9 +970,11 @@
     "Synty POLYGON Particle FX"
    ],
    "search": [
-    "SM_Prop_Crystal*",
     "*Gem*",
     "*Heart*"
+   ],
+   "attachments": [
+    "SM_Prop_Crystal*"
    ],
    "notes": "Keep the procedural faceted heart unless a crystal heart model exists; recolour turquoise emissive.",
    "verified": false,
@@ -958,6 +991,7 @@
     "*Floating*Island*",
     "SM_Env_Rock_Spire*"
    ],
+   "attachments": [],
    "notes": "Floating islands and spires far behind (z < -15); low detail is fine.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -972,6 +1006,7 @@
     "SM_Prop_Lantern*",
     "SM_Prop_Lamp*"
    ],
+   "attachments": [],
    "notes": "Amber emissive lantern.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -985,6 +1020,7 @@
     "SM_Env_Mushroom*",
     "*Mushroom*Group*"
    ],
+   "attachments": [],
    "notes": "Violet recolour with emissive gills.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -999,6 +1035,7 @@
     "SM_Prop_Crystal*",
     "SM_Env_Crystal*"
    ],
+   "attachments": [],
    "notes": "Turquoise emissive crystals.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1012,6 +1049,7 @@
     "*Arch*Root*",
     "SM_Env_Rock_Arch*"
    ],
+   "attachments": [],
    "notes": "Root/rock arch for the back edge.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1026,6 +1064,7 @@
     "SM_Env_Rock_Small*",
     "*Rock*"
    ],
+   "attachments": [],
    "notes": "Mossy rocks.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1034,7 +1073,8 @@
    "packs": [
     "Synty POLYGON Nature"
    ],
-   "search": [
+   "search": [],
+   "attachments": [
     "SM_Env_Tree_Root*"
    ],
    "notes": "Extra roots placed in the Roots-floor frame.",
@@ -1050,6 +1090,7 @@
     "*Vine*",
     "*Ring*"
    ],
+   "attachments": [],
    "notes": "Band around the trunk + emissive veins.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1060,9 +1101,11 @@
     "Synty POLYGON Elven Realm"
    ],
    "search": [
-    "SM_Env_Flower*",
-    "SM_Env_Bush_Flower*",
     "*Blossom*"
+   ],
+   "attachments": [
+    "SM_Env_Flower*",
+    "SM_Env_Bush_Flower*"
    ],
    "notes": "Blossoms along the Crown back edge.",
    "verified": false,
@@ -1074,7 +1117,9 @@
     "Synty POLYGON Elven Realm"
    ],
    "search": [
-    "FX_*Glow*",
+    "FX_*Glow*"
+   ],
+   "attachments": [
     "SM_Prop_Crystal*"
    ],
    "notes": "Bigger glow/halo around the heart.",
@@ -1093,6 +1138,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1109,6 +1155,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1125,6 +1172,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1141,6 +1189,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1157,6 +1206,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1173,6 +1223,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1189,6 +1240,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1205,6 +1257,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1221,6 +1274,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
@@ -1237,6 +1291,7 @@
     "FX_*Spark*",
     "FX_*Hit*"
    ],
+   "attachments": [],
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
