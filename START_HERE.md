@@ -13,12 +13,16 @@ Et spilbart **greybox-gennemløb** af hele LASTROOT:
 5. **Save/load** efter hver handling: atomisk skrivning, backup, korrupt-/fremtidig-version-håndtering, JSON-eksport/-import, presentation checkpoint (load viser færdigt resultat — intet afregnes igen).
 6. **Grafik**: stiliserede low-poly proxies for alle 12 væsner, 6 fjender, træets dele, props og 10 effekter (`scripts/runtime/visual/`). Hver proxy er et *slot*, som skiftes til en købt model uden at røre koden.
 7. **Engelsk spil, dansk oversættelse** (Indstillinger → Sprog). Lyd: procedurelle placeholder-cues.
+8. **"Sådan spiller du"** (7 illustrerede sider) fra menu og pause, tilbydes automatisk ved første run. Rutekortet viser næste kamps bølger og bossens regler.
+9. **Kort med rigtig tekst og portrætter** renderet fra de samme visual slots som kampen (skifter automatisk til Synty/PolyPerfect), 3D-målringe og "fare"-ringe fra prognosen, udtryksfulde proxy-animationer.
+10. **Tastatur og gamepad** overalt: i kampen `1-9` kort, `Tab`/pile mål, `Enter` bekræft, `E` afslut tur (pad: LB/RB, D-pad, A, Y). Indstillinger: tekststørrelse, reduceret bevægelse, animationshastighed, lydstyrker.
 
 ## 2. Spil det
 
 1. Installér **Godot 4.5.1-stable** (samme version — `docs/VERSION_MATRIX.md`).
 2. Åbn mappen i Godot → **F5**. Eller kør `builds/windows/Lastroot.exe` efter eksport (se §5).
-3. Mus/touch: tap kort → tap mål → Bekræft (eller tap samme mål igen). `Esc` annullerer/åbner menu. `1×/2×/½×` styrer animationshastighed; "Skip animation" springer afspilningen over.
+3. Mus/touch: tap kort → tap mål → Bekræft (eller tap samme mål igen). `Esc` annullerer/åbner menu. Tastatur/pad: se punkt 10 ovenfor.
+   **På telefonen nu:** Artifact "Lastroot Playtest" (https://claude.ai/artifact/BsnV9QwztLZ5haFiHhnAjX) er web-buildet af spillet — virker i telefonens browser, op- eller nedvendt (greybox, kan være tungt på ældre telefoner). `1×/2×/½×` styrer animationshastighed; "Skip animation" springer afspilningen over.
 4. Hurtige test-states: `godot --path . -- --setup=boss` (se `AGENTS.md` for alle navne).
 
 ## 3. Næste skridt: grafik (LR-11 / LR-13 →)
@@ -60,4 +64,4 @@ Se `docs/STATUS.md` (porte, opgaver, tests, blokeringer, næste tre opgaver) og 
 
 ## 7. Dokumenter
 
-`docs/PRODUCTION_PLAN.md` (plan til udgivelse) · `docs/BALANCE_NOTES.md` · `README.md` · `AGENTS.md`/`CLAUDE.md` (regler for kodeagenter) · `plan/tasks.json` + `tools/validate_plan.py` · `docs/BIBLE.md` + PDF · `docs/STATUS.md` · `docs/DECISIONS.md` · `docs/RISKS.md` · `docs/VERSION_MATRIX.md` · `docs/CAPABILITY_MATRIX.md` · `docs/ASSET_PLAN.md` · `docs/SYNTY_INTEGRATION.md` · `docs/SCENE_ASSEMBLY.md` · `docs/ASSET_LEDGER.csv` · `docs/ANIMATION_LEDGER.csv` · `docs/AUDIO_LEDGER.csv` · `archive/` (startpakkens originaler)
+`docs/PRODUCTION_PLAN.md` (plan til udgivelse) · `docs/BALANCE_NOTES.md` · `docs/ACCESSIBILITY.md` · `docs/RELEASE_LEDGER.md` · `docs/DEMO_PLAN.md` · `docs/STORE_PAGE_DRAFT.md` · `README.md` · `AGENTS.md`/`CLAUDE.md` (regler for kodeagenter) · `plan/tasks.json` + `tools/validate_plan.py` · `docs/BIBLE.md` + PDF · `docs/STATUS.md` · `docs/DECISIONS.md` · `docs/RISKS.md` · `docs/VERSION_MATRIX.md` · `docs/CAPABILITY_MATRIX.md` · `docs/ASSET_PLAN.md` · `docs/SYNTY_INTEGRATION.md` · `docs/SCENE_ASSEMBLY.md` · `docs/ASSET_LEDGER.csv` · `docs/ANIMATION_LEDGER.csv` · `docs/AUDIO_LEDGER.csv` · `archive/` (startpakkens originaler)

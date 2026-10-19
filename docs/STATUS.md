@@ -20,11 +20,11 @@
 |---|---|---|
 | Validatorer | `python3 tools/validate_catalog.py`, `validate_plan.py` | valid |
 | Parse | `godot --headless --path . res://scenes/tests/compile_all.tscn` | 0 fejl → `evidence/compile_report.json` |
-| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **109 tests, 0 fejl** → `evidence/test_report.json` |
+| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **115 tests, 0 fejl** → `evidence/test_report.json` |
 | Prognosescenarier | 120 gemte (`fixtures/forecast/scenarios.json`) | state-hash og eventrækkefølge matcher rigtig afvikling |
-| Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **35 checks, 0 fejl** → `evidence/scene_smoke.json` |
-| Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **208 checks, 0 fejl** → `evidence/meta_smoke.json` |
-| Oversættelse | `python3 tools/loc_extract.py --check` | 294 nøgler, 0 mangler |
+| Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **40 checks, 0 fejl** (inkl. tastatur, tekststørrelse, saves) → `evidence/scene_smoke.json` |
+| Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **455 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding) → `evidence/meta_smoke.json` |
+| Oversættelse | `python3 tools/loc_extract.py --check` | 350 nøgler, 0 mangler |
 | Grafikpipeline | `tools/synty/selftest.sh` | 22/22 (falske pakker) → `evidence/asset_pipeline/selftest.json` |
 | Balance (bot) | `tools/balance/run_balance.gd -- --seeds=20` | BARK 20/20, SPORE 20/20 sejre, ~10 hjerteliv tabt → `evidence/balance/` |
 | Eksport | Linux + Windows + Web | Linux-build kørt under Xvfb (boss-screenshot). Windows NOT_RUN på Windows. Web kørt i headless Chromium (swiftshader, ~2 fps = softwarerendering, ikke en telefonmåling). |
