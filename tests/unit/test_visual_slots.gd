@@ -357,34 +357,51 @@ func test_footprint_radius_and_side() -> Array:
 ## Meta-screen dioramas: build headless, expose their API, stay web-cheap.
 func test_dioramas_api_and_budget() -> Array:
 	var f: Array = []
-	for path: String in ["res://scenes/art/route_diorama.tscn", "res://scenes/art/menu_diorama.tscn"]:
+	for path: String in ["res://scenes/art/route_diorama.tscn", "res://scenes/art/menu_diorama.tscn", "res://scenes/art/epilog_diorama.tscn"]:
 		var ps := load(path) as PackedScene
 		if ps == null:
 			f.append(path + ": missing")
 			continue
 		var d := ps.instantiate()
 		d.call("_ready")
-		var api: Array = ["set_portrait"] + (["set_progress", "focus"] if "route" in path else ["set_champion"])
+		var api: Array = ["set_portrait"] + (["set_progress", "focus"] if "route" in path else (["set_run"] if "epilog" in path else ["set_champion"]))
 		for m: String in api:
 			if not d.has_method(m):
 				f.append("%s: no %s()" % [path, m])
 		if "route" in path:
 			d.call("set_progress", 3, [Vector2i(1, 1), {"col": 3, "lane": -1}])
 			d.call("focus", 2)
+		elif "epilog" in path:
+			# Worst case for the light budget: all mutations (M04 brings its own light).
+			d.call("set_run", ["M01", "M02", "M03", "M04"], "SPORE", "LIFEWEAVER", "won")
+			if d.find_children("Aura", "MeshInstance3D", true, false).is_empty():
+				f.append("epilog won: no champion aura")
+			if d.find_children("*", "", true, false).filter(func(n: Node) -> bool: return str(n.get_meta("slot_id", "")) == "unit.S01").is_empty():
+				f.append("epilog won SPORE: Spore Sage missing on the Crown")
+			_check_lights(d, path + " (won)", f)
+			d.call("set_run", [], "BARK", "BULWARK", "lost")
+			if d.find_children("Cracks", "Node3D", true, false).is_empty():
+				f.append("epilog lost: heart not cracked")
+			if d.find_children("*", "", true, false).filter(func(n: Node) -> bool: return str(n.get_meta("slot_id", "")) == "enemy.E06").is_empty():
+				f.append("epilog lost: no Ash Crown on the Crown")
 		else:
 			d.call("set_champion", "SPORE")
 			d.call("set_champion", "")
 		d.call("set_portrait", true)
 		d.call("set_portrait", false)
-		var lights := d.find_children("*", "Light3D", true, false)
-		if lights.size() > 3:
-			f.append("%s: %d lights (max 3)" % [path, lights.size()])
-		for l: Node in lights:
-			if (l as Light3D).shadow_enabled:
-				f.append("%s: %s casts shadows" % [path, l.name])
+		_check_lights(d, path, f)
 		if not d.find_children("*", "GPUParticles3D", true, false).is_empty():
 			f.append(path + ": uses GPUParticles3D")
 		if not d.find_children("*", "CollisionObject3D", true, false).is_empty():
 			f.append(path + ": has physics bodies")
 		d.free()
 	return f
+
+
+func _check_lights(d: Node, label: String, f: Array) -> void:
+	var lights := d.find_children("*", "Light3D", true, false)
+	if lights.size() > 3:
+		f.append("%s: %d lights (max 3)" % [label, lights.size()])
+	for l: Node in lights:
+		if (l as Light3D).shadow_enabled:
+			f.append("%s: %s casts shadows" % [label, l.name])

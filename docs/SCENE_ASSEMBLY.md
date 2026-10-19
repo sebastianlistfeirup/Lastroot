@@ -82,6 +82,8 @@ To små 3D-scener til at ligge bag 2D-UI'et. Rent stemning: al information står
 | `scenes/art/route_diorama.tscn` (`RouteDiorama`, REF_04) | `set_progress(battle_index: int, chosen_nodes: Array)` — kampe < index er besøgt (lejrbål tændt), index er den aktuelle ø (eget varmt lys); `chosen_nodes` er de valgte mellemknuder som `Vector2i(col, lane)` eller `{"col", "lane"}` i route_map-koordinater (kamp k = col 2k, lane 0; valg efter kamp k = col 2k−1, lane −1/+1). Broer mellem tændte øer tændes. `focus(i)` glider kameraet mod kamp-ø i (øjeblikkeligt ved reduced motion). `set_portrait(p)`: liggende sti venstre→højre / stående sti nær→fjern. `@export dim` (0,35). |
 | `scenes/art/menu_diorama.tscn` (`MenuDiorama`) | `set_champion("BARK" \| "SPORE" \| "")` — rav ring, side-rim (ikke på web), varmt lys og victory-pose på den valgte champion. `set_portrait(p)`. `@export dim` (0,2). Langsom svingende kredsbane (stille ved reduced motion), hjertet pulserer, gløder stiger. |
 
+| `scenes/art/epilog_diorama.tscn` (`EpilogDiorama`, REF_10) | `set_run(mutations: Array, faction: String, champion_path: String, result: String)` — `"won"`: hjertet flammer (større, stærkere lys, puls), runnets mutationer (`["M01", …]`) vises på samme træ, championen (`"BARK"` → Barkvogteren, `"SPORE"` → Sporevismanden) står på Kronen i victory-pose med en aura i stiens farve (`BULWARK` rav, `WRATH` ember, `VENOM` violet, `LIFEWEAVER` grøn), varmt daggrylys, kronblade og sporer stiger. `"lost"`: hjertet dæmpet og revnet, aske driver ned, gløder, Askekronen + to følgere på Kronen, koldt lys. `set_portrait(p)`, `@export dim` (0,2). Langsom kameradrift (stille ved reduced motion). M04's ekstra lys foldes ind i hjertets eget, så budgettet holder. |
+
 Indlejring:
 
 ```gdscript
@@ -101,7 +103,7 @@ move_child(box, 0)                                   # bag UI'et
 dio.set_portrait(size.x < size.y)
 ```
 
-Hver scene har sin egen WorldEnvironment, ≤ 3 lys (sol, hjerte, ét accentlys), ingen skygger, kun CPUParticles; testet i `test_dioramas_api_and_budget`. En `CanvasLayer` med en mørk `ColorRect` (`dim`) ligger i SubViewporten. Billeder: `tools/synty/capture_dioramas.sh` → `evidence/asset_pipeline/diorama_*.png`.
+Hver scene har sin egen WorldEnvironment, ≤ 3 lys (sol, hjerte, ét accentlys), ingen skygger, kun CPUParticles; testet i `test_dioramas_api_and_budget`. En `CanvasLayer` med en mørk `ColorRect` (`dim`) ligger i SubViewporten. Billeder: `tools/synty/capture_dioramas.sh` → `evidence/asset_pipeline/diorama_*.png` (inkl. `diorama_epilog_{won,lost}_{1080p,portrait}.png`).
 
 ## Kamera og lys (forslag, matcher style gate)
 
