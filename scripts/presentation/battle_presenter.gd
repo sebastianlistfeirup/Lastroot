@@ -97,7 +97,9 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 		"attack":
 			var v: UnitView = screen.view(aid)
 			if v != null:
-				var contact: float = v.play(&"attack", speed)
+				var contact: float = v.play(&"cast" if v.def_id.begins_with("S") else &"attack", speed)
+				if v.def_id.begins_with("S") and v.side == "ally":
+					screen.bolt(aid, tid, maxf(contact, 0.15))
 				AudioBridge.play("attack_enemy" if v.side == "enemy" else ("attack_spore" if v.def_id.begins_with("S") else "attack_bark"))
 				await _wait(contact * speed)
 		"damage", "thorns":
@@ -113,12 +115,14 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 				AudioBridge.play("armor_block")
 			if dealt > 0:
 				screen.popup(tid, "-%d" % dealt, UiKit.DANGER)
+				screen.fx_at(tid, "fx.bark_hit" if kind == "damage" else "fx.thorns")
 				AudioBridge.play("hit")
 			_snap_into(disp, tid, e.get("after"))
 			await _wait(0.22)
 		"poison_tick":
 			screen.popup(tid, "%s-%d" % [UiKit.status_glyph("poison"), int(e["amount"])], UiKit.POISON)
 			AudioBridge.play("poison_tick")
+			screen.fx_at(tid, "fx.poison")
 			var v: UnitView = screen.view(tid)
 			if v != null:
 				v.play(&"hit", speed)
@@ -133,11 +137,14 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 		"heal":
 			screen.popup(tid, "+%d" % (int(e["after"]["hp"]) - int(e["before"]["hp"])), UiKit.GOOD)
 			AudioBridge.play("heal")
+			screen.fx_at(tid, "fx.heal")
 			_snap_into(disp, tid, e.get("after"))
 			await _wait(0.14)
 		"armor_gained", "armor_stripped":
 			var sign: String = "+" if kind == "armor_gained" else "-"
 			screen.popup(tid, "%s%s%d" % [UiKit.status_glyph("armor"), sign, int(e["amount"])], UiKit.ARMOR)
+			if kind == "armor_gained":
+				screen.fx_at(tid, "fx.armor")
 			_snap_into(disp, tid, e.get("after"))
 			await _wait(0.14)
 		"growth_gained", "max_hp_gained":
@@ -149,6 +156,8 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 			if v != null:
 				v.play(&"death", speed)
 			AudioBridge.play("death_ally" if str(e["side"]) == "ally" else "death_enemy")
+			if str(e["side"]) == "enemy":
+				screen.fx_at(tid, "fx.ash_death")
 			if disp.has(str(tid)):
 				disp[str(tid)]["alive"] = false
 			await _wait(0.35)

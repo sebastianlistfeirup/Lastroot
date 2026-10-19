@@ -850,6 +850,30 @@ func heart_hit(amount: int, after: int, def_id: String) -> void:
 	toast(Loc.t("%s reached the Heart: −%d") % [nm, amount], UiKit.DANGER)
 
 
+## One-shot visual effect at a unit (fx.* slots free themselves).
+func fx_at(uid: int, slot_id: String) -> void:
+	if not views.has(uid):
+		return
+	var n: Node3D = VisualBridge.make(slot_id)
+	stage.add_child(n)
+	n.global_position = (views[uid] as UnitView).global_position + Vector3(0, 0.6, 0.3)
+	if n.get_meta("is_proxy", false) and not n.has_method("emit") and n.get_child_count() == 0:
+		n.queue_free()
+		return
+	get_tree().create_timer(2.5).timeout.connect(func() -> void:
+		if is_instance_valid(n):
+			n.queue_free())
+
+
+## Spore bolt from attacker to target (cast feedback, never decides a hit).
+func bolt(from_uid: int, to_uid: int, duration: float) -> void:
+	if not views.has(from_uid) or not views.has(to_uid) or not ResourceLoader.exists("res://scripts/runtime/visual/fx_builder.gd"):
+		return
+	var fb: GDScript = load("res://scripts/runtime/visual/fx_builder.gd")
+	fb.call("launch", stage, (views[from_uid] as UnitView).head_world() - Vector3(0, 0.3, 0),
+		(views[to_uid] as UnitView).head_world() - Vector3(0, 0.4, 0), duration)
+
+
 func focus_floor(_f: int) -> void:
 	pass  # Camera stays locked (bible: reduced motion keeps it fixed); floor light highlights instead.
 
