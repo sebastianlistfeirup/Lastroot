@@ -25,6 +25,8 @@ var volumes: Dictionary = {"master": 0.8, "music": 0.6, "sfx": 0.9}
 var path: String = PATH  # tests point this at a scratch file
 ## Set once the first-run "How to play" offer was answered (shown or skipped).
 var onboarding_done: bool = false
+## 3D dioramas behind menu and route (off = the light 2D backdrop).
+var backgrounds_3d: bool = true
 var keyboard_nav: bool = false
 
 
@@ -61,6 +63,11 @@ func set_keyboard_nav(v: bool) -> void:
 	if fo and fo.has_method("_on_focus_style"):
 		fo.call("_on_focus_style")
 	nav_mode_changed.emit(v)
+
+
+func set_backgrounds_3d(v: bool) -> void:
+	backgrounds_3d = v
+	_commit()
 
 
 func set_onboarding_done(v: bool = true) -> void:
@@ -159,6 +166,7 @@ func load_settings() -> bool:
 	reduced_motion = bool(cfg.get_value("settings", "reduced_motion", reduced_motion))
 	anim_speed = clampf(float(cfg.get_value("settings", "anim_speed", anim_speed)), 0.25, 4.0)
 	onboarding_done = bool(cfg.get_value("settings", "onboarding_done", onboarding_done))
+	backgrounds_3d = bool(cfg.get_value("settings", "backgrounds_3d", backgrounds_3d))
 	for k: String in VOLUME_KEYS:
 		volumes[k] = clampf(float(cfg.get_value("volume", k, volumes[k])), 0.0, 1.0)
 	return true
@@ -172,6 +180,7 @@ func save_settings() -> bool:
 	cfg.set_value("settings", "reduced_motion", reduced_motion)
 	cfg.set_value("settings", "anim_speed", anim_speed)
 	cfg.set_value("settings", "onboarding_done", onboarding_done)
+	cfg.set_value("settings", "backgrounds_3d", backgrounds_3d)
 	for k: String in VOLUME_KEYS:
 		cfg.set_value("volume", k, volumes[k])
 	return cfg.save(path) == OK

@@ -53,6 +53,9 @@ func _build() -> void:
 		speeds.append([s, "%sx" % (str(s) if s != int(s) else str(int(s)))])
 	_row(Loc.t("Animation speed"), speeds, SettingsService.anim_speed, func(v: Variant) -> void: SettingsService.set_anim_speed(float(v)),
 		Loc.t("How fast battle animations replay. The outcome never changes."))
+	_row(Loc.t("3D backgrounds"), [[false, Loc.t("Off")], [true, Loc.t("On")]], SettingsService.backgrounds_3d,
+		func(v: Variant) -> void: SettingsService.set_backgrounds_3d(bool(v)),
+		Loc.t("Animated 3D scenes behind the menu and the route. Turn off for slow devices."))
 	body.add_child(UiKit.heading(Loc.t("Volume"), 22, UiKit.TEXT_DIM))
 	_slider(Loc.t("Master"), "master")
 	_slider(Loc.t("Music"), "music")

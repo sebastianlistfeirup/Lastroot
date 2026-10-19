@@ -320,6 +320,8 @@ Bark faction,Barkvogterne
 Spore faction,Sporefolket
 "Armor, Thorns and sturdy bodies. The Barkwarden holds a floor like a wall and makes every blow cost the ash.","Panser, Torne og stærke kroppe. Barkvogteren holder en etage som en mur og lader hvert slag koste asken dyrt."
 "Poison, Growth and healing. The Spore Sage weakens the ash before it climbs and keeps the grove alive.","Gift, Vækst og heling. Sporevismanden svækker asken, før den klatrer, og holder lunden i live."
+3D backgrounds,3D-baggrunde
+Animated 3D scenes behind the menu and the route. Turn off for slow devices.,Animerede 3D-scener bag menuen og ruten. Slå fra på langsomme enheder.
 Animation speed,Animationshastighed
 How fast battle animations replay. The outcome never changes.,Hvor hurtigt kampanimationer afspilles. Udfaldet ændres aldrig.
 Keeps the camera still and turns off pulsing and drifting effects.,Holder kameraet stille og slår pulserende og drivende effekter fra.
