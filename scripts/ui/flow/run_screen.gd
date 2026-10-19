@@ -36,6 +36,7 @@ var _offer_views: Array = []
 var _confirm: Button
 var _last_size: Vector2 = Vector2.ZERO
 var _focus_confirm: bool = false
+var _focus_action: bool = false
 var _dio_portrait: bool = false
 
 
@@ -166,12 +167,25 @@ func render() -> void:
 	if _focus_confirm and _confirm != null and not _confirm.disabled:
 		focus_name = "ConfirmButton"
 	_focus_confirm = false
-	_restore_focus.call_deferred(focus_name)
+	if _focus_action:
+		# The action panel (upgrade / remove) after choosing a card; on portrait it
+		# sits above the deck, so this also scrolls it into view.
+		for n: String in ["RemoveButton"]:
+			if _body.find_child(n, true, false):
+				focus_name = n
+		var up: Node = _body.find_child("UpgradePanel", true, false)
+		if up:
+			var ub: Node = up.find_child("Upgrade_*", true, false)
+			focus_name = ub.name if ub else "UpgradePanel"
+			if ub == null:
+				keep_scroll = 0
+		_focus_action = false
+	_restore_focus.call_deferred(focus_name, keep_scroll == 0)
 
 
 ## Keyboard / pad: keep focus on the same control across re-renders, or put
 ## it on the most useful control of the new screen.
-func _restore_focus(focus_name: String) -> void:
+func _restore_focus(focus_name: String, was_top: bool = true) -> void:
 	if not is_inside_tree() or _pause.is_open or _deck.visible:
 		return
 	var target: Control = null
@@ -181,7 +195,7 @@ func _restore_focus(focus_name: String) -> void:
 		target = default_focus()
 	if target != null:
 		target.grab_focus()
-		if focus_name == "":
+		if focus_name == "" or was_top:
 			_top_if_visible.call_deferred(target)
 
 
@@ -537,16 +551,17 @@ func next_battle_panel(index: int) -> Control:
 		var line := UiKit.hbox(8)
 		line.name = "Wave_%d" % int(row[0])
 		var turn := UiKit.label(Loc.t("Turn %d") % int(row[0]), 15, UiKit.TEXT_DIM, true)
+		turn.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		turn.custom_minimum_size = Vector2(UiKit.px(64), 0)
 		turn.autowrap_mode = TextServer.AUTOWRAP_OFF
 		line.add_child(turn)
 		var desc := UiKit.vbox(0)
 		desc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		desc.add_child(UiKit.label(str(row[1]), 16, UiKit.TEXT))
-		var stats: PackedStringArray = []
+		var counts: Dictionary = row[3]
 		for eid: String in row[2]:
-			stats.append("%s %s" % [Loc.field(Catalog.enemy(eid), "name"), RunText.enemy_stats(eid)])
-		desc.add_child(UiKit.label("  ·  ".join(stats), 14, UiKit.TEXT_DIM))
+			var el := UiKit.label("%d× %s   %s" % [int(counts[eid]), Loc.field(Catalog.enemy(eid), "name"), RunText.enemy_stats(eid)], 16, UiKit.TEXT)
+			el.autowrap_mode = TextServer.AUTOWRAP_OFF
+			desc.add_child(el)
 		line.add_child(desc)
 		v.add_child(line)
 	v.add_child(UiKit.label(Loc.t("Waves arrive on the Roots at the start of their turn."), 14, UiKit.TEXT_DIM))
@@ -579,7 +594,7 @@ func _route_option(opt: Dictionary) -> Control:
 	go.name = "Go_" + oid
 	go.custom_minimum_size = Vector2(0, 56)
 	go.pressed.connect(func() -> void: choose_node(oid))
-	t.add(go)
+	t.add_bottom(go)
 	return t
 
 
@@ -693,6 +708,7 @@ func _upgrade_row(inst: Dictionary, def: Dictionary, u: Dictionary) -> Control:
 	v.add_child(cards)
 	var b := UiKit.button(Loc.t("Upgrade: %s for %d Resin") % [CardView._upgrade_label(def, u["id"]), price], UiKit.AMBER, 20)
 	b.name = "Upgrade_" + str(u["id"])
+	b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	b.custom_minimum_size = Vector2(0, 56)
 	b.disabled = resin < price
 	var iid: int = int(inst["instance_id"])
@@ -731,6 +747,7 @@ func _render_removal() -> void:
 		v.add_child(UiKit.heading(Loc.field(def, "name"), 24))
 		var b := UiKit.button(Loc.t("Remove for %d Resin") % cost, UiKit.DANGER, 20)
 		b.name = "RemoveButton"
+		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		b.custom_minimum_size = Vector2(0, 56)
 		b.disabled = block != ""
 		var iid: int = int(sel["instance_id"])
@@ -766,7 +783,7 @@ func _render_encounter() -> void:
 	b1.name = "Encounter_resin"
 	b1.custom_minimum_size = Vector2(0, 56)
 	b1.pressed.connect(func() -> void: send({"type": "encounter", "choice": "resin"}))
-	t1.add(b1)
+	t1.add_bottom(b1)
 	row.add_child(t1)
 	var t2 := ChoiceTile.make(UiKit.LIFE)
 	t2.name = "Encounter_heal_tile"
@@ -779,7 +796,7 @@ func _render_encounter() -> void:
 	b2.name = "Encounter_heal"
 	b2.custom_minimum_size = Vector2(0, 56)
 	b2.pressed.connect(func() -> void: send({"type": "encounter", "choice": "heal"}))
-	t2.add(b2)
+	t2.add_bottom(b2)
 	row.add_child(t2)
 	_body.add_child(row)
 	_leave_row(Loc.t("Leave without a gift"))
@@ -806,6 +823,7 @@ func _deck_grid(reason_for: Callable) -> Control:
 func select_instance(iid: int) -> void:
 	AudioService.play("card_hover")
 	sel_instance = iid
+	_focus_action = true
 	render()
 
 
@@ -845,21 +863,36 @@ func _title(text: String, sub: String, accent: Color) -> void:
 	var v := UiKit.vbox(4)
 	v.name = "PhaseTitle"
 	var t := UiKit.heading(text, 34 if portrait else 44, accent.lightened(0.15))
+	_outline(t, 8)
 	v.add_child(t)
-	v.add_child(UiKit.label(sub, 18 if portrait else 20, UiKit.TEXT_DIM))
+	var sl := UiKit.label(sub, 18 if portrait else 20, UiKit.TEXT_DIM.lightened(0.15))
+	_outline(sl, 6)
+	v.add_child(sl)
 	_body.add_child(v)
+
+
+## Dark text outline so headings stay readable over the 3D diorama.
+static func _outline(l: Label, size: int) -> void:
+	l.add_theme_constant_override("outline_size", size)
+	l.add_theme_color_override("font_outline_color", Color(UiKit.BG, 0.85))
 
 
 func _section(text: String, sub: String) -> void:
 	var v := UiKit.vbox(2)
-	v.add_child(UiKit.heading(text, 26 if portrait else 30))
+	var h := UiKit.heading(text, 26 if portrait else 30)
+	_outline(h, 6)
+	v.add_child(h)
 	if sub != "":
-		v.add_child(UiKit.label(sub, 17, UiKit.TEXT_DIM))
+		var sl := UiKit.label(sub, 17, UiKit.TEXT_DIM.lightened(0.15))
+		_outline(sl, 5)
+		v.add_child(sl)
 	_body.add_child(v)
 
 
 func _hint(text: String) -> void:
-	_body.add_child(UiKit.label(text, 16, UiKit.TEXT_DIM))
+	var l := UiKit.label(text, 16, UiKit.TEXT_DIM.lightened(0.15))
+	_outline(l, 5)
+	_body.add_child(l)
 
 
 func _button_row() -> HFlowContainer:

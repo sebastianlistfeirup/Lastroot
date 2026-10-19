@@ -74,6 +74,16 @@ func add_text(text: String, size: int = 18, color: Color = UiKit.TEXT_DIM) -> La
 	return l
 
 
+## Adds `c` pinned to the bottom of the tile (tiles in one row align their buttons).
+func add_bottom(c: Control) -> void:
+	var spacer := Control.new()
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(spacer)
+	box.add_child(c)
+	_ignore(c)
+
+
 func add(c: Control) -> void:
 	box.add_child(c)
 	_ignore(c)

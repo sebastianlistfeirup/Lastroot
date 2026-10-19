@@ -56,7 +56,7 @@ func _build() -> void:
 	_row(Loc.t("3D backgrounds"), [[false, Loc.t("Off")], [true, Loc.t("On")]], SettingsService.backgrounds_3d,
 		func(v: Variant) -> void: SettingsService.set_backgrounds_3d(bool(v)),
 		Loc.t("Animated 3D scenes behind the menu and the route. Turn off for slow devices."))
-	body.add_child(UiKit.heading(Loc.t("Volume"), 22, UiKit.TEXT_DIM))
+	body.add_child(UiKit.label(Loc.t("Volume"), 20, UiKit.TEXT, true))
 	_slider(Loc.t("Master"), "master")
 	_slider(Loc.t("Music"), "music")
 	_slider(Loc.t("Sound effects"), "sfx")
