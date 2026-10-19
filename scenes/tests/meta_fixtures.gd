@@ -95,6 +95,7 @@ static func lost(faction: String = "SPORE") -> Dictionary:
 		run = bot_until(run, func(r: Dictionary) -> bool: return r["phase"] == "battle" and int(r["battle_index"]) == 2)
 		run["heart"] = 3
 		run["battle"]["heart"] = 3
+		run["heart_at_battle_start"] = 3  # keep the per-battle history consistent with the reduced Heart
 		run = AutoPlayer.play_battle(run, 2000)
 		_cache[key] = run
 	return (_cache[key] as Dictionary).duplicate(true)

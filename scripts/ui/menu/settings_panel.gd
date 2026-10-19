@@ -7,6 +7,10 @@ extends MetaModal
 
 const LANGUAGE_NAMES := {"en": "English", "da": "Dansk"}
 
+## Playtest data section state (in-page clear confirmation, last export path).
+var confirming_clear: bool = false
+var last_export: String = ""
+
 
 func _init() -> void:
 	super()
@@ -21,6 +25,8 @@ func _ready() -> void:
 
 func open() -> void:
 	title_text = Loc.t("Settings")
+	confirming_clear = false
+	last_export = ""
 	super()
 
 
@@ -60,6 +66,64 @@ func _build() -> void:
 	_slider(Loc.t("Master"), "master")
 	_slider(Loc.t("Music"), "music")
 	_slider(Loc.t("Sound effects"), "sfx")
+	_playtest_section()
+
+
+func _playtest_section() -> void:
+	var box := UiKit.vbox(8)
+	box.name = "PlaytestData"
+	box.add_child(UiKit.label(Loc.t("Playtest data"), 20, UiKit.TEXT, true))
+	var sm: Dictionary = PlaytestLog.summary()
+	var lines: PackedStringArray = [Loc.t("Runs logged on this device: %d") % int(sm["runs"])]
+	var champs: Dictionary = sm["champions"]
+	for cid: String in champs.keys():
+		var c: Dictionary = champs[cid]
+		var pct: int = int(round(100.0 * float(c["won"]) / maxf(1.0, float(c["runs"]))))
+		lines.append(Loc.t("%s: %d of %d won (%d%%)") % [Loc.field(Catalog.card(cid), "name"), int(c["won"]), int(c["runs"]), pct])
+	var info := UiKit.label("\n".join(lines), 16, UiKit.TEXT_DIM)
+	info.name = "PlaytestSummary"
+	box.add_child(info)
+	box.add_child(UiKit.label(Loc.t("Nothing is sent anywhere. Export the file and send it to the developer yourself."), 14, UiKit.TEXT_DIM))
+	var row := UiKit.flow(8, false)
+	if confirming_clear:
+		var warn := UiKit.label(Loc.t("Delete all logged runs and feedback on this device?"), 16, UiKit.DANGER, true)
+		box.add_child(warn)
+		row.add_child(_simple_button(Loc.t("Keep the data"), UiKit.LIFE, "KeepPlaytestButton", func() -> void:
+			confirming_clear = false
+			rebuild()))
+		row.add_child(_simple_button(Loc.t("Delete"), UiKit.DANGER, "ConfirmClearPlaytestButton", func() -> void:
+			PlaytestLog.clear()
+			confirming_clear = false
+			last_export = ""
+			rebuild()))
+	else:
+		var ex := _simple_button(Loc.t("Export"), UiKit.LIFE, "ExportPlaytestButton", func() -> void:
+			last_export = PlaytestLog.export_file()
+			rebuild())
+		ex.disabled = int(sm["runs"]) == 0
+		row.add_child(ex)
+		var cl := _simple_button(Loc.t("Clear"), UiKit.DANGER, "ClearPlaytestButton", func() -> void:
+			confirming_clear = true
+			rebuild())
+		cl.disabled = int(sm["runs"]) == 0
+		row.add_child(cl)
+	box.add_child(row)
+	if last_export != "":
+		var pl := UiKit.label(Loc.t("Saved to:") + "\n" + last_export, 14, UiKit.GOOD)
+		pl.name = "ExportPath"
+		pl.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+		box.add_child(pl)
+	body.add_child(box)
+
+
+func _simple_button(text: String, accent: Color, node_name: String, cb: Callable) -> Button:
+	var b := UiKit.button(text, accent, 18)
+	b.name = node_name
+	b.custom_minimum_size = Vector2(UiKit.MIN_HIT * 2.5, UiKit.MIN_HIT)
+	b.pressed.connect(func() -> void:
+		AudioService.play("ui_click")
+		cb.call())
+	return b
 
 
 func _row(title: String, options: Array, current: Variant, on_pick: Callable, hint: String = "") -> void:

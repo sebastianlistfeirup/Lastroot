@@ -27,6 +27,8 @@ func _ready() -> void:
 	if FileAccess.file_exists(SettingsService.PATH):
 		_settings_bytes = FileAccess.get_file_as_bytes(SettingsService.PATH)
 	_onboarding_was = SettingsService.onboarding_done
+	PlaytestLog.path = "user://test_playtest_log.json"  # never touch the tester's real log
+	PlaytestLog.clear()
 	SettingsService.onboarding_done = true  # the first-run prompt has its own case
 	var t0: int = Time.get_ticks_msec()
 	await _menu_cases()
@@ -41,6 +43,9 @@ func _ready() -> void:
 	await _keyboard_cases()
 	await _round5_cases()
 	await _audio_cases()
+	await _playtest_cases()
+	PlaytestLog.clear()
+	PlaytestLog.path = PlaytestLog.DEFAULT_PATH
 	_restore_save()
 	SettingsService.onboarding_done = _onboarding_was
 	if not _settings_bytes.is_empty():
@@ -880,3 +885,64 @@ func _collect_gd(dir: String, out: PackedStringArray) -> void:
 	for f in DirAccess.get_files_at(dir):
 		if f.ends_with(".gd"):
 			out.append(dir + "/" + f)
+
+
+# ------------------------------------------------------ LR-27/31 playtest log
+
+func _playtest_cases() -> void:
+	_case = "playtest_log"
+	PlaytestLog.clear()
+	var won: Dictionary = MetaFixtures.won()
+	var r: Control = await mount(RESULT, won)
+	var runs: Array = PlaytestLog.load_all()
+	ok(runs.size() == 1 and runs[0]["run_id"] == won["run_id"], "result screen logs the run")
+	var rec: Dictionary = runs[0] if runs.size() > 0 else {}
+	ok(rec.get("result", "") == "won" and int(rec.get("battles_won", 0)) == int(won["stats"]["battles_won"]), "real result and battles")
+	ok((rec.get("history", []) as Array).size() == (won.get("history", []) as Array).size(), "per-battle history copied")
+	ok((rec.get("deck", []) as Array).size() == (won["deck"] as Array).size() and rec.get("build", "") == SaveCodec.BUILD_ID, "deck and build id")
+	ok(int(rec.get("seed", -1)) == int(won["seed"]) and rec.get("champion", "") == won["champion_id"], "seed and champion")
+	await unmount(r)
+	r = await mount(RESULT, won)
+	ok(PlaytestLog.load_all().size() == 1, "never logged twice for the same run_id")
+	# Feedback through the real buttons.
+	await press(r, "Star_4")
+	await press(r, "Forecast_partly")
+	var te: TextEdit = r.find_child("FeedbackText", true, false) as TextEdit
+	ok(te != null, "free-text field")
+	te.text = "x".repeat(700)
+	te.text_changed.emit()
+	ok(te.text.length() == PlaytestLog.MAX_TEXT, "text capped at %d chars" % PlaytestLog.MAX_TEXT)
+	await press(r, "SaveFeedbackButton")
+	var fb: Dictionary = PlaytestLog.feedback_of(won["run_id"])
+	ok(int(fb.get("stars", 0)) == 4 and fb.get("forecast_clear", "") == "partly" and str(fb.get("text", "")).length() == 500, "feedback saved in the record")
+	ok(r.find_child("FeedbackSaved", true, false) != null, "saved confirmation shown")
+	await unmount(r)
+	var lost: Dictionary = MetaFixtures.lost()
+	r = await mount(RESULT, lost)
+	await unmount(r)
+	ok(PlaytestLog.load_all().size() == 2, "second run logged, feedback optional")
+	var sm: Dictionary = PlaytestLog.summary()
+	ok(int(sm["runs"]) == 2 and sm["champions"].has(won["champion_id"]), "summary per champion")
+
+	_case = "playtest_settings"
+	var m: Control = await mount(MENU, {})
+	await press(m, "SettingsButton")
+	var sp: SettingsPanel = m.find_child("SettingsPanel", true, false) as SettingsPanel
+	var info: Label = sp.find_child("PlaytestSummary", true, false) as Label
+	ok(info != null and info.text.contains("2"), "settings shows the logged run count")
+	await press(sp, "ExportPlaytestButton")
+	var pl: Label = sp.find_child("ExportPath", true, false) as Label
+	ok(pl != null and sp.last_export != "" and FileAccess.file_exists(sp.last_export), "export writes a file and shows its path")
+	if sp.last_export != "":
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(sp.last_export))
+		ok(typeof(parsed) == TYPE_DICTIONARY and (parsed["runs"] as Array).size() == 2, "export is valid JSON with both runs")
+		DirAccess.remove_absolute(sp.last_export)
+	await press(sp, "ClearPlaytestButton")
+	ok(sp.confirming_clear and PlaytestLog.load_all().size() == 2, "Clear asks first, nothing deleted yet")
+	await press(sp, "KeepPlaytestButton")
+	ok(PlaytestLog.load_all().size() == 2, "Keep cancels")
+	await press(sp, "ClearPlaytestButton")
+	await press(sp, "ConfirmClearPlaytestButton")
+	ok(PlaytestLog.load_all().is_empty(), "Delete clears the log")
+	sp.close()
+	await unmount(m)

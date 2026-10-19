@@ -12,6 +12,13 @@ var run: Dictionary = {}
 var _backdrop: MenuBackdrop
 var _content: Control
 var _played_sting: bool = false
+var _logged: bool = false
+# After-run feedback (kept across re-renders; saved only on "Save feedback").
+var fb_stars: int = 0
+var fb_forecast: String = ""
+var fb_text: String = ""
+var fb_saved: bool = false
+var _fb_loaded: bool = false
 
 
 func _ready() -> void:
@@ -69,6 +76,17 @@ func render() -> void:
 		if auto_navigate:
 			AppFlow.goto_phase()
 		return
+	if not _logged:
+		_logged = true
+		PlaytestLog.record_run(run)  # once per run_id, local only
+	if not _fb_loaded:
+		_fb_loaded = true
+		var fb: Dictionary = PlaytestLog.feedback_of(str(run.get("run_id", "")))
+		if not fb.is_empty():
+			fb_stars = int(fb.get("stars", 0))
+			fb_forecast = str(fb.get("forecast_clear", ""))
+			fb_text = str(fb.get("text", ""))
+			fb_saved = true
 	if not _played_sting:
 		_played_sting = true
 		AudioService.stop_music()
@@ -122,6 +140,7 @@ func render() -> void:
 	if bp:
 		right.add_child(bp)
 	right.add_child(_build_panel())
+	right.add_child(_feedback_panel(portrait))
 	var buttons := UiKit.flow(16)
 	buttons.name = "Actions"
 	outer.add_child(buttons)
@@ -226,6 +245,77 @@ func _battles_panel() -> Control:
 		h.add_child(d)
 		v.add_child(h)
 	return p
+
+
+## Optional after-run questions for playtesters (all skippable).
+func _feedback_panel(portrait: bool) -> Control:
+	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), UiKit.LIFE.darkened(0.4))
+	p.name = "FeedbackPanel"
+	var v := UiKit.vbox(10)
+	p.add_child(v)
+	v.add_child(UiKit.heading(Loc.t("How was this run?"), 22))
+	v.add_child(UiKit.label(Loc.t("Optional. Saved only on this device, in your playtest log."), 15, UiKit.TEXT_DIM))
+	var stars := UiKit.hbox(6)
+	for i in range(1, 6):
+		var on: bool = i <= fb_stars
+		var b := UiKit.button(("★" if on else "☆") + " %d" % i, UiKit.AMBER if on else UiKit.ASH, 20)
+		b.name = "Star_%d" % i
+		b.custom_minimum_size = Vector2(UiKit.MIN_HIT * (1.2 if portrait else 1.5), UiKit.MIN_HIT)
+		var val: int = i
+		b.pressed.connect(func() -> void:
+			AudioService.play("ui_click")
+			fb_stars = val
+			fb_saved = false
+			render())
+		stars.add_child(b)
+	v.add_child(stars)
+	v.add_child(UiKit.label(Loc.t("Did the forecast make sense?"), 17, UiKit.TEXT, true))
+	var fc := UiKit.flow(8, false)
+	for opt: Array in [["yes", Loc.t("Yes")], ["partly", Loc.t("Partly")], ["no", Loc.t("No")]]:
+		var sel: bool = fb_forecast == opt[0]
+		var b2 := UiKit.button(("✓ " if sel else "") + str(opt[1]), UiKit.LIFE if sel else UiKit.ASH, 18)
+		b2.name = "Forecast_" + str(opt[0])
+		var key: String = opt[0]
+		b2.pressed.connect(func() -> void:
+			AudioService.play("ui_click")
+			fb_forecast = key
+			fb_saved = false
+			render())
+		fc.add_child(b2)
+	v.add_child(fc)
+	var te := TextEdit.new()
+	te.name = "FeedbackText"
+	te.placeholder_text = Loc.t("Anything confusing, fun or frustrating? (optional)")
+	te.text = fb_text
+	te.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+	te.custom_minimum_size = Vector2(0, UiKit.px(90))
+	te.add_theme_font_size_override("font_size", UiKit.px(16))
+	te.text_changed.connect(func() -> void:
+		if te.text.length() > PlaytestLog.MAX_TEXT:
+			te.text = te.text.left(PlaytestLog.MAX_TEXT)
+			te.set_caret_column(te.text.length())
+		fb_text = te.text
+		fb_saved = false)
+	v.add_child(te)
+	var row := UiKit.hbox(12)
+	var save := UiKit.button(Loc.t("Save feedback"), UiKit.LIFE, 20)
+	save.name = "SaveFeedbackButton"
+	save.custom_minimum_size = Vector2(220, 56)
+	save.pressed.connect(save_feedback)
+	row.add_child(save)
+	if fb_saved:
+		var ok_l := UiKit.label("✓ " + Loc.t("Thank you! Feedback saved."), 16, UiKit.GOOD, true)
+		ok_l.name = "FeedbackSaved"
+		ok_l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(ok_l)
+	v.add_child(row)
+	return p
+
+
+func save_feedback() -> void:
+	AudioService.play("ui_confirm")
+	fb_saved = PlaytestLog.set_feedback(str(run.get("run_id", "")), fb_stars, fb_forecast, fb_text)
+	render()
 
 
 func _build_panel() -> Control:

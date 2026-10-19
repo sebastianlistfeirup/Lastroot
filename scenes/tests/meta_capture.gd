@@ -15,6 +15,8 @@ var _saved: Dictionary = {}
 func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
 	_backup_save()
+	PlaytestLog.path = "user://capture_playtest_log.json"  # keep the real log clean
+	PlaytestLog.clear()
 	var only: String = ""
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--only="):
@@ -38,6 +40,7 @@ func _cases() -> Array:
 		{"id": "menu_faction", "scene": "menu", "run": {}, "view": "faction"},
 		{"id": "menu_first_run", "scene": "menu", "run": {}, "view": "first_run"},
 		{"id": "menu_settings", "scene": "menu", "run": {}, "open": "settings"},
+		{"id": "menu_settings_playtest", "scene": "menu", "run": {}, "open": "settings_playtest"},
 		{"id": "menu_credits", "scene": "menu", "run": {}, "open": "credits"},
 		{"id": "reward_card", "scene": "run", "run": MetaFixtures.reward_slot("card"), "select": "first_offer"},
 		{"id": "reward_mutation", "scene": "run", "run": MetaFixtures.reward_slot("mutation")},
@@ -136,6 +139,14 @@ func _apply_open(screen: Node, what: String) -> void:
 		h.open()
 		return
 	match what:
+		"settings_playtest":
+			PlaytestLog.record_run(MetaFixtures.won())
+			PlaytestLog.record_run(MetaFixtures.lost())
+			var sp: SettingsPanel = screen.find_child("SettingsPanel", true, false) as SettingsPanel
+			sp.open()
+			sp.last_export = PlaytestLog.export_file()
+			sp.rebuild()
+			(sp.find_child("ClearPlaytestButton", true, false) as Control).grab_focus.call_deferred()
 		"abandon":
 			(screen.find_child("MenuButton", true, false) as Button).pressed.emit()
 			(screen.find_child("PauseMenu", true, false) as PauseMenu).ask_abandon()

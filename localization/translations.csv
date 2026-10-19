@@ -92,28 +92,37 @@ reaches the Heart,når Hjertet
 Your deck (%d cards),Dit dæk (%d kort)
 %d creatures played,%d væsner spillet
 %d turns,%d ture
+"Anything confusing, fun or frustrating? (optional)","Var noget forvirrende, sjovt eller frustrerende? (valgfrit)"
 Battles,Kampe
 Battles won,Vundne kampe
 Cards played,Spillede kort
 Deck size,Dækstørrelse
 Defeat in %s. The ash reached the Heart.,Nederlag i %s. Asken nåede Hjertet.
+Did the forecast make sense?,Gav prognosen mening?
 Final battle,Sidste kamp
 Heart,Hjerte
 Heart at the end,Hjerte til sidst
 Heart damage taken,Skade på Hjertet
+How was this run?,Hvordan var dette løb?
 Lost,Tabt
 Main menu,Hovedmenu
 Mutations,Mutationer
 New run,Nyt løb
+No,Nej
 No path chosen,Ingen retning valgt
 None,Ingen
+"Optional. Saved only on this device, in your playtest log.","Valgfrit. Gemmes kun på denne enhed, i din spiltestlog."
+Partly,Delvist
 Relics,Relikvier
 Run statistics,Statistik for løbet
+Save feedback,Gem feedback
+Thank you! Feedback saved.,Tak! Feedback gemt.
 The Heart has fallen,Hjertet er faldet
 The tree stands,Træet står
 Turns played,Spillede ture
 Victory. The Ash Crown is broken and the last world tree takes root again.,"Sejr. Askekronen er brudt, og det sidste verdenstræ slår rod igen."
 Won,Vundet
+Yes,Ja
 Your tree,Dit træ
 lost %d,mistede %d
 rank,trin
@@ -320,17 +329,27 @@ Bark faction,Barkvogterne
 Spore faction,Sporefolket
 "Armor, Thorns and sturdy bodies. The Barkwarden holds a floor like a wall and makes every blow cost the ash.","Panser, Torne og stærke kroppe. Barkvogteren holder en etage som en mur og lader hvert slag koste asken dyrt."
 "Poison, Growth and healing. The Spore Sage weakens the ash before it climbs and keeps the grove alive.","Gift, Vækst og heling. Sporevismanden svækker asken, før den klatrer, og holder lunden i live."
+%s: %d of %d won (%d%%),%s: %d af %d vundet (%d%%)
 3D backgrounds,3D-baggrunde
 Animated 3D scenes behind the menu and the route. Turn off for slow devices.,Animerede 3D-scener bag menuen og ruten. Slå fra på langsomme enheder.
 Animation speed,Animationshastighed
+Clear,Ryd
+Delete,Slet
+Delete all logged runs and feedback on this device?,Slet alle loggede løb og al feedback på denne enhed?
+Export,Eksportér
 How fast battle animations replay. The outcome never changes.,Hvor hurtigt kampanimationer afspilles. Udfaldet ændres aldrig.
+Keep the data,Behold dataene
 Keeps the camera still and turns off pulsing and drifting effects.,Holder kameraet stille og slår pulserende og drivende effekter fra.
 Language,Sprog
 Master,Samlet
 Music,Musik
+Nothing is sent anywhere. Export the file and send it to the developer yourself.,Intet sendes nogen steder hen. Eksportér filen og send den selv til udvikleren.
 Off,Fra
 On,Til
+Playtest data,Spiltestdata
 Reduced motion,Reduceret bevægelse
+Runs logged on this device: %d,Løb logget på denne enhed: %d
+Saved to:,Gemt i:
 Sound effects,Lydeffekter
 Text size,Tekststørrelse
 Volume,Lydstyrke
