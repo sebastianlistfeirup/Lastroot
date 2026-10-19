@@ -38,6 +38,8 @@ godot --headless --path . --export-release "Windows Desktop" builds/windows/Last
 ```
 `--setup` (DebugFixtures): `battle1`, `midbattle`, `battle2`..`battle6`, `boss`, `reward`, `route`, `node:<camp|card|encounter|removal>`, `won`, `lost`; `--faction=BARK|SPORE`, `--seed=N`.
 
+> Bemærk: tests og smokes skriver i `user://` (saves/settings). Kør aldrig to testsuiter samtidig på samme maskine (fx i to worktrees) — de deler den mappe og kan give falske fejl.
+
 ## Efter hjemkomst (FULL-profil)
 Én koordinator ejer `main`, scope og integration. Højst to specialister med adskilte filområder og egne worktrees; specialistcommits integreres først efter kontrakt- og gameplaykontrol (`templates/specialist_task.md`).
 

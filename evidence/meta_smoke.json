@@ -1,15 +1,10 @@
 {
   "checks": 461,
-  "duration_ms": 7364,
+  "duration_ms": 7236,
   "engine_version": "4.5.1-stable (official)",
-  "failed": 4,
-  "failures": [
-    "keyboard_menu: ui_accept on New Run opens champion select",
-    "keyboard_menu: champion select focuses the first champion (got @Button@7145)",
-    "keyboard_menu: ui_right moves to the other champion (got @Button@7158)",
-    "keyboard_menu: ui_accept starts the run with the focused champion"
-  ],
-  "status": "FAIL",
+  "failed": 0,
+  "failures": [],
+  "status": "PASS",
   "steps": [
     "menu_no_save: press SettingsButton",
     "menu_no_save: press CreditsButton",
@@ -118,5 +113,5 @@
     "first_run_show: press NewRunButton",
     "first_run_show: press ShowGuideButton"
   ],
-  "timestamp": "2026-10-19T22:51:09"
+  "timestamp": "2026-10-19T22:51:26"
 }
