@@ -1,0 +1,1139 @@
+{
+ "title": "proxies_baseline",
+ "items": [
+  {
+   "group": "battle",
+   "stem": "battle_boss_1080p",
+   "file": "battle/battle_boss_1080p.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle",
+   "stem": "battle_boss_portrait",
+   "file": "battle/battle_boss_portrait.jpg",
+   "source_size": [
+    390,
+    844
+   ]
+  },
+  {
+   "group": "battle",
+   "stem": "battle_mid_1080p",
+   "file": "battle/battle_mid_1080p.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle",
+   "stem": "battle_mid_portrait",
+   "file": "battle/battle_mid_portrait.jpg",
+   "source_size": [
+    390,
+    844
+   ]
+  },
+  {
+   "group": "battle",
+   "stem": "stage_mutations_all",
+   "file": "battle/stage_mutations_all.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle",
+   "stem": "stage_mutations_none",
+   "file": "battle/stage_mutations_none.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle_ui",
+   "stem": "battle_preview_champion",
+   "file": "battle_ui/battle_preview_champion.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle_ui",
+   "stem": "battle_preview_spell",
+   "file": "battle_ui/battle_preview_spell.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle_ui",
+   "stem": "battle_resolving",
+   "file": "battle_ui/battle_resolving.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle_ui",
+   "stem": "battle_select_champion",
+   "file": "battle_ui/battle_select_champion.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "battle_ui",
+   "stem": "battle_select_spell",
+   "file": "battle_ui/battle_select_spell.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "heart",
+   "stem": "heart_health_strip",
+   "file": "heart/heart_health_strip.jpg",
+   "source_size": [
+    1500,
+    700
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "epilog_lost_1080p",
+   "file": "dioramas/epilog_lost_1080p.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "epilog_lost_portrait",
+   "file": "dioramas/epilog_lost_portrait.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "epilog_won_1080p",
+   "file": "dioramas/epilog_won_1080p.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "epilog_won_portrait",
+   "file": "dioramas/epilog_won_portrait.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "menu_1080p",
+   "file": "dioramas/menu_1080p.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "menu_portrait",
+   "file": "dioramas/menu_portrait.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "route_1080p",
+   "file": "dioramas/route_1080p.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "dioramas",
+   "stem": "route_portrait",
+   "file": "dioramas/route_portrait.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "gallery",
+   "stem": "gallery_gate",
+   "file": "gallery/gallery_gate.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "gallery",
+   "stem": "gallery_lineup",
+   "file": "gallery/gallery_lineup.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "gallery",
+   "stem": "gallery_props",
+   "file": "gallery/gallery_props.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "gallery",
+   "stem": "gallery_stage",
+   "file": "gallery/gallery_stage.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "riglab",
+   "stem": "riglab_B01",
+   "file": "riglab/riglab_B01.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "riglab",
+   "stem": "riglab_B04",
+   "file": "riglab/riglab_B04.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "riglab",
+   "stem": "riglab_E06",
+   "file": "riglab/riglab_E06.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "riglab",
+   "stem": "riglab_S01",
+   "file": "riglab/riglab_S01.jpg",
+   "source_size": [
+    1600,
+    900
+   ]
+  },
+  {
+   "group": "riglab",
+   "stem": "riglab_states_sheet",
+   "file": "riglab/riglab_states_sheet.jpg",
+   "source_size": [
+    1920,
+    735
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "battle_mid_desktop",
+   "file": "meta/battle_mid_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "battle_mid_phone",
+   "file": "meta/battle_mid_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "battle_pause_desktop",
+   "file": "meta/battle_pause_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "battle_pause_phone",
+   "file": "meta/battle_pause_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_camp_desktop",
+   "file": "meta/da_camp_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_camp_phone",
+   "file": "meta/da_camp_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_faction_desktop",
+   "file": "meta/da_faction_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_faction_phone",
+   "file": "meta/da_faction_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_howto_status_desktop",
+   "file": "meta/da_howto_status_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_howto_status_phone",
+   "file": "meta/da_howto_status_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_route_desktop",
+   "file": "meta/da_route_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "da_route_phone",
+   "file": "meta/da_route_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_boss_desktop",
+   "file": "meta/howto_boss_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_boss_phone",
+   "file": "meta/howto_boss_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_climb_desktop",
+   "file": "meta/howto_climb_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_climb_phone",
+   "file": "meta/howto_climb_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_floors_desktop",
+   "file": "meta/howto_floors_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_floors_phone",
+   "file": "meta/howto_floors_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_forecast_desktop",
+   "file": "meta/howto_forecast_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_forecast_phone",
+   "file": "meta/howto_forecast_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_sap_desktop",
+   "file": "meta/howto_sap_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_sap_phone",
+   "file": "meta/howto_sap_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_status_desktop",
+   "file": "meta/howto_status_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_status_phone",
+   "file": "meta/howto_status_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_target_desktop",
+   "file": "meta/howto_target_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "howto_target_phone",
+   "file": "meta/howto_target_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_credits_desktop",
+   "file": "meta/menu_credits_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_credits_phone",
+   "file": "meta/menu_credits_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_demo_desktop",
+   "file": "meta/menu_demo_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_demo_phone",
+   "file": "meta/menu_demo_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_faction_desktop",
+   "file": "meta/menu_faction_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_faction_phone",
+   "file": "meta/menu_faction_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_first_run_desktop",
+   "file": "meta/menu_first_run_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_first_run_phone",
+   "file": "meta/menu_first_run_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_settings_desktop",
+   "file": "meta/menu_settings_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_settings_phone",
+   "file": "meta/menu_settings_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_settings_playtest_desktop",
+   "file": "meta/menu_settings_playtest_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_settings_playtest_phone",
+   "file": "meta/menu_settings_playtest_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_title_desktop",
+   "file": "meta/menu_title_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "menu_title_phone",
+   "file": "meta/menu_title_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_camp_desktop",
+   "file": "meta/node_camp_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_camp_phone",
+   "file": "meta/node_camp_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_card_desktop",
+   "file": "meta/node_card_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_card_phone",
+   "file": "meta/node_card_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_encounter_desktop",
+   "file": "meta/node_encounter_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_encounter_phone",
+   "file": "meta/node_encounter_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_removal_desktop",
+   "file": "meta/node_removal_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "node_removal_phone",
+   "file": "meta/node_removal_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "result_demo_desktop",
+   "file": "meta/result_demo_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "result_demo_phone",
+   "file": "meta/result_demo_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "result_lost_desktop",
+   "file": "meta/result_lost_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "result_lost_phone",
+   "file": "meta/result_lost_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "result_won_desktop",
+   "file": "meta/result_won_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "result_won_phone",
+   "file": "meta/result_won_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_card_desktop",
+   "file": "meta/reward_card_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_card_phone",
+   "file": "meta/reward_card_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_champion_desktop",
+   "file": "meta/reward_champion_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_champion_phone",
+   "file": "meta/reward_champion_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_champion_rank2_desktop",
+   "file": "meta/reward_champion_rank2_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_champion_rank2_phone",
+   "file": "meta/reward_champion_rank2_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_mutation_desktop",
+   "file": "meta/reward_mutation_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_mutation_phone",
+   "file": "meta/reward_mutation_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_relic_desktop",
+   "file": "meta/reward_relic_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "reward_relic_phone",
+   "file": "meta/reward_relic_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "route_b1_desktop",
+   "file": "meta/route_b1_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "route_b1_phone",
+   "file": "meta/route_b1_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "route_b4_desktop",
+   "file": "meta/route_b4_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "route_b4_phone",
+   "file": "meta/route_b4_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "route_boss_desktop",
+   "file": "meta/route_boss_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "route_boss_phone",
+   "file": "meta/route_boss_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_deck_desktop",
+   "file": "meta/run_deck_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_deck_phone",
+   "file": "meta/run_deck_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_detail_desktop",
+   "file": "meta/run_detail_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_detail_phone",
+   "file": "meta/run_detail_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_pause_abandon_desktop",
+   "file": "meta/run_pause_abandon_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_pause_abandon_phone",
+   "file": "meta/run_pause_abandon_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_pause_desktop",
+   "file": "meta/run_pause_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "run_pause_phone",
+   "file": "meta/run_pause_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "text130_reward_relic_desktop",
+   "file": "meta/text130_reward_relic_desktop.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "meta",
+   "stem": "text130_reward_relic_phone",
+   "file": "meta/text130_reward_relic_phone.jpg",
+   "source_size": [
+    430,
+    932
+   ]
+  },
+  {
+   "group": "cards",
+   "stem": "cards_badges",
+   "file": "cards/cards_badges.jpg",
+   "source_size": [
+    900,
+    260
+   ]
+  },
+  {
+   "group": "cards",
+   "stem": "cards_compact",
+   "file": "cards/cards_compact.jpg",
+   "source_size": [
+    430,
+    4300
+   ]
+  },
+  {
+   "group": "cards",
+   "stem": "cards_da",
+   "file": "cards/cards_da.jpg",
+   "source_size": [
+    1920,
+    1500
+   ]
+  },
+  {
+   "group": "cards",
+   "stem": "cards_desktop",
+   "file": "cards/cards_desktop.jpg",
+   "source_size": [
+    1920,
+    1500
+   ]
+  },
+  {
+   "group": "cards",
+   "stem": "cards_text130",
+   "file": "cards/cards_text130.jpg",
+   "source_size": [
+    1920,
+    2000
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "icon_png_icon_128",
+   "file": "branding/icon_png_icon_128.png",
+   "source_size": [
+    128,
+    128
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "icon_png_icon_16",
+   "file": "branding/icon_png_icon_16.png",
+   "source_size": [
+    16,
+    16
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "icon_png_icon_256",
+   "file": "branding/icon_png_icon_256.png",
+   "source_size": [
+    256,
+    256
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "icon_png_icon_32",
+   "file": "branding/icon_png_icon_32.png",
+   "source_size": [
+    32,
+    32
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "icon_png_icon_512",
+   "file": "branding/icon_png_icon_512.png",
+   "source_size": [
+    512,
+    512
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "icon_png_icon_64",
+   "file": "branding/icon_png_icon_64.png",
+   "source_size": [
+    64,
+    64
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "splash",
+   "file": "branding/splash.jpg",
+   "source_size": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "store_header_capsule_460x215_placeholder",
+   "file": "branding/store_header_capsule_460x215_placeholder.jpg",
+   "source_size": [
+    460,
+    215
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "store_library_hero_1920x620_placeholder",
+   "file": "branding/store_library_hero_1920x620_placeholder.jpg",
+   "source_size": [
+    1920,
+    620
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "store_library_logo_1280x720_placeholder",
+   "file": "branding/store_library_logo_1280x720_placeholder.png",
+   "source_size": [
+    1280,
+    720
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "store_main_capsule_616x353_placeholder",
+   "file": "branding/store_main_capsule_616x353_placeholder.jpg",
+   "source_size": [
+    616,
+    353
+   ]
+  },
+  {
+   "group": "branding",
+   "stem": "store_small_capsule_231x87_placeholder",
+   "file": "branding/store_small_capsule_231x87_placeholder.jpg",
+   "source_size": [
+    231,
+    87
+   ]
+  }
+ ]
+}

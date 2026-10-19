@@ -25,7 +25,24 @@ python3 tools/synty/match.py
 tools/synty/build.sh
 # 5. Se resultatet: scenes/tests/rig_lab.tscn (én figur) og scenes/tests/asset_gallery.tscn
 #    (style gate: alle figurer under samme lys). Rapport: evidence/asset_pipeline/build_report.json
+# 6. Se ALT side om side med dagens proxyer: én kommando kører alle capture-scener efter
+#    hinanden (kamp, hjerte, dioramaer, galleri, RigLab + tilstandsark, branding,
+#    metaskærme, kortgalleri, kampens interaktionstilstande) og laver en kontaktark-side
+#    og en før/efter-side mod baseline (procedurale proxyer, i git).
+tools/capture_all.sh synty --compare=proxies_baseline
+#    -> evidence/captures/<dato>_synty/index.html og compare_proxies_baseline.html
 ```
+
+**Trin 6 i detaljer** (`tools/capture_all.sh [label] [--compare=<label>] [--no-date] [--only=gruppe,gruppe]`):
+
+- Resultatet havner i `evidence/captures/<YYYY-MM-DD>_<label>/<gruppe>/`. Standard-label er `current`; med `--no-date` falder datoen væk. Alle billeder er skaleret ned til højst 1280 px bredde (JPEG q84, PNG når der er gennemsigtighed). `manifest.json` lister hvert billede med dets originale størrelse, og `capture.log` gemmer Godots output.
+- `index.html` viser alle billeder grupperet efter område med relative stier, så mappen kan zippes og sendes videre.
+- `--compare=proxies_baseline` skriver `compare_proxies_baseline.html`: før (baseline) og efter (denne kørsel) side om side, parret efter gruppe og filnavn. Et billede, der kun findes på den ene side, vises som "not captured". `--compare` virker med ethvert label: først leder den efter en mappe med præcis det navn, ellers den nyeste `*_<label>`.
+- Grupper: `battle heart dioramas gallery riglab branding meta cards battle_ui`. `--only=battle,gallery` er nyttigt, når man justerer én ting.
+- Scenerne køres altid **én ad gangen**, aldrig parallelt, fordi metaskærmene tager backup af gemt spil i `user://`. Kør heller ikke `tools/check.sh` samtidig.
+- `meta_capture`, `card_gallery` og `battle_capture` skriver til deres faste evidence-mapper. Scriptet kopierer det, kørslen lavede, og sætter de committede filer tilbage bagefter, så arbejdskopien forbliver ren. Branding renderes til arbejdsmappen og rører ikke `assets/branding/`.
+- Baseline `evidence/captures/proxies_baseline/` blev lavet med `tools/capture_all.sh proxies_baseline --no-date`, før der var importeret noget købt. Den forbliver i git som sammenligningsgrundlag. Nye kørsler med rigtige assets bør **ikke** committes: de viser købt indhold, og repoet er offentligt.
+- Det kræver godot 4.5 (`GODOT_BIN`), `xvfb-run`, python3 og Pillow. `evidence/captures/` har `.gdignore`, så Godot ikke importerer billederne.
 
 Afprøv kæden uden købte filer: `tools/synty/selftest.sh` (falske Synty-, PolyPerfect- og Mixamo-pakker → hele kæden → kontrol i en kørende scene → oprydning).
 

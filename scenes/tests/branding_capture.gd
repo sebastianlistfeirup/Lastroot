@@ -6,7 +6,9 @@ extends Node
 ## Each shot is a SubViewport with its own world, rendered supersampled and
 ## downscaled with Lanczos. Run via tools/synty/capture_branding.sh (needs xvfb).
 
-const OUT := "res://assets/branding/"
+const SRC := "res://assets/branding/"
+## Output folder; -- --out=<res-relative dir> redirects it (tools/capture_all.sh).
+var out_dir := "res://assets/branding/"
 const ICON_SIZES := [16, 32, 64, 128, 256, 512]
 const FRAMES := 70
 const TURQ := Color("3ff2d6")
@@ -31,6 +33,10 @@ var shots: Array[Dictionary] = [
 
 
 func _ready() -> void:
+	for a: String in OS.get_cmdline_user_args():
+		if a.begins_with("--out="):
+			var o := a.substr(6).trim_suffix("/") + "/"
+			out_dir = o if o.begins_with("res://") else "res://" + o
 	_icons()
 	for s: Dictionary in shots:
 		await _shot(s)
@@ -39,7 +45,7 @@ func _ready() -> void:
 
 
 func _icons() -> void:
-	var svg := FileAccess.get_file_as_string(OUT + "icon.svg")
+	var svg := FileAccess.get_file_as_string(SRC + "icon.svg")
 	for n: int in ICON_SIZES:
 		var img := Image.new()
 		var err := img.load_svg_from_string(svg, float(n) / 512.0)
@@ -101,7 +107,7 @@ func _shot(s: Dictionary) -> void:
 
 
 func _save(img: Image, rel: String) -> void:
-	var p := ProjectSettings.globalize_path(OUT + rel)
+	var p := ProjectSettings.globalize_path(out_dir + rel)
 	DirAccess.make_dir_recursive_absolute(p.get_base_dir())
 	img.save_png(p)
 	print("branding: ", rel, " ", img.get_size())
