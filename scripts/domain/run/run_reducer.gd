@@ -39,7 +39,7 @@ static func new_run(seed_value: int, faction: String) -> Dictionary:
 			"reward": RngStream.create(seed_value, "reward"),
 		},
 		"stats": {"turns": 0, "cards_played": 0, "heart_lost": 0, "battles_won": 0},
-		"result": "",
+		"result": "", "history": [],
 	}
 	_add_card(run, champion)
 	var counts: Dictionary = Catalog.data()["start_deck"]["normal_counts"]
@@ -71,6 +71,7 @@ static func _start_battle(run: Dictionary, index: int, ev: Array) -> void:
 	run["node"] = {}
 	var b: Dictionary = BattleFactory.create(run, index)
 	run["battle"] = b["state"]
+	run["heart_at_battle_start"] = run["heart"]
 	ev.append({"kind": "battle_started", "battle_index": index})
 	ev.append_array(b["events"])
 
@@ -165,6 +166,11 @@ static func _finish_battle(r: Dictionary, ev: Array) -> void:
 	r["heart"] = b["heart"]
 	r["stats"]["turns"] = int(r["stats"]["turns"]) + int(b["turn"])
 	r["last_battle"] = {"index": b["battle_index"], "result": b["terminal_result"], "turns": b["turn"], "heart": b["heart"]}
+	if not r.has("history"):
+		r["history"] = []
+	(r["history"] as Array).append({"index": b["battle_index"], "battle_def_id": b["battle_def_id"],
+		"result": b["terminal_result"], "turns": b["turn"], "heart_start": r.get("heart_at_battle_start", b["heart"]),
+		"heart_end": b["heart"], "deployed": (b["zones"]["deployed"] as Array).size()})
 	r["battle"] = {}
 	if b["terminal_result"] == "lost":
 		r["phase"] = "lost"
