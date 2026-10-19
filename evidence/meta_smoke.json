@@ -1,17 +1,27 @@
 {
-  "checks": 461,
-  "duration_ms": 7738,
+  "checks": 455,
+  "duration_ms": 7560,
   "engine_version": "4.5.1-stable (official)",
-  "failed": 0,
-  "failures": [],
-  "status": "PASS",
+  "failed": 11,
+  "failures": [
+    "menu_no_save: New Run opens champion select",
+    "menu_no_save: champion shown as CardView",
+    "menu_no_save: button BackButton exists",
+    "menu_no_save: button Choose_SPORE exists",
+    "menu_no_save: new run with the Spore faction",
+    "menu_no_save: new run goes to battle",
+    "first_run_skip: asked only once",
+    "first_run_show: button ShowGuideButton exists",
+    "first_run_show: Show me opens How to play at page 1",
+    "first_run_show: choice remembered",
+    "first_run_show: closing the guide continues to champion select"
+  ],
+  "status": "FAIL",
   "steps": [
     "menu_no_save: press SettingsButton",
     "menu_no_save: press CreditsButton",
     "menu_no_save: press NewRunButton",
-    "menu_no_save: press BackButton",
     "menu_no_save: press NewRunButton",
-    "menu_no_save: press Choose_SPORE",
     "menu_continue: press ContinueButton",
     "menu_continue: press NewRunButton",
     "menu_corrupt: press ContinueButton",
@@ -110,8 +120,7 @@
     "first_run_skip: press NewRunButton",
     "first_run_skip: press SkipGuideButton",
     "first_run_skip: press NewRunButton",
-    "first_run_show: press NewRunButton",
-    "first_run_show: press ShowGuideButton"
+    "first_run_show: press NewRunButton"
   ],
-  "timestamp": "2026-10-19T22:53:36"
+  "timestamp": "2026-10-19T22:56:54"
 }
