@@ -278,6 +278,7 @@ static func _claim(r: Dictionary, slot_id: String, choice: Variant, ev: Array) -
 	slot["status"] = "claimed"
 	slot["choice"] = c
 	r["reward_claims"][slot_id] = "claimed"
+	_record_choice(r, slot, c)
 	_advance(r, ev)
 	return ""
 
@@ -292,12 +293,20 @@ static func _skip(r: Dictionary, slot_id: String, ev: Array) -> String:
 		return "This choice cannot be skipped."
 	slot["status"] = "skipped"
 	r["reward_claims"][slot_id] = "skipped"
+	_record_choice(r, slot, "")
 	ev.append({"kind": "reward_skipped", "slot": slot_id})
 	_advance(r, ev)
 	return ""
 
 
 ## Moves the run forward once the current screen's slots are settled.
+## Offer vs. pick per slot, for playtest analysis (never read by the rules).
+static func _record_choice(r: Dictionary, slot: Dictionary, choice: String) -> void:
+	if not r.has("claimed_choices"):
+		r["claimed_choices"] = {}
+	r["claimed_choices"][slot["id"]] = {"type": slot["type"], "offer": (slot.get("offer", []) as Array).duplicate(), "choice": choice}
+
+
 static func _advance(r: Dictionary, ev: Array) -> void:
 	if r["phase"] == "reward":
 		if not current_slot(r).is_empty():
