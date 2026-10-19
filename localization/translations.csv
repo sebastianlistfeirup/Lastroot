@@ -1,27 +1,62 @@
 en,da
++1 Sap on the first turn of every battle.,+1 Saftkraft på første tur i hver kamp.
 +1 on-hit Poison per rank.,+1 Gift ved træf pr. trin.
+"+15 max and current Heart, once.","+15 maks. og nuværende Hjerte, én gang."
 +3 attack and +2 max HP per rank.,+3 angreb og +2 maks. liv pr. trin.
++3 attack damage against a poisoned target.,+3 angrebsskade mod et forgiftet mål.
 +8 max HP and +4 starting Armor per rank.,+8 maks. liv og +4 startpanser pr. trin.
-"At turn start, heal all allies on its floor 1 per rank.",Ved turstart heales alle allierede på dens etage 1 pr. trin.
+Allies on the Crown heal 2 at the start of each turn.,Allierede på Kronen helbredes 2 ved starten af hver tur.
+Allies on the Trunk get +1 attack while they stand there.,"Allierede på Stammen får +1 angreb, mens de står der."
+"At turn start, heal all allies on its floor 1 per rank.",Ved turstart helbredes alle allierede på dens etage 1 pr. trin.
+Champion. Starts with {armor} Armor.,Champion. Starter med {armor} Panser.
+Champion. Surviving attack targets get {on_hit_poison} Poison.,"Champion. Mål, der overlever dens angreb, får {on_hit_poison} Gift."
+Deal {damage} damage to all enemies on one floor.,Giv alle fjender på én etage {damage} skade.
+Deal {damage} damage to one enemy.,Giv én fjende {damage} skade.
+"Double a poisoned enemy's Poison, up to 12. Never lowers Poison.","Fordobl en forgiftet fjendes Gift, højst til 12. Sænker aldrig Gift."
+Draw one extra normal card on the first turn of a battle.,Træk ét ekstra normalt kort på kampens første tur.
+Give all enemies on one floor {poison} Poison.,Giv alle fjender på én etage {poison} Gift.
+Give every enemy on every floor {poison} Poison. Consume.,Giv alle fjender på alle etager {poison} Gift. Forbruges.
+Give one ally {armor} Armor.,Giv ét allieret væsen {armor} Panser.
+Give one enemy {poison} Poison.,Giv én fjende {poison} Gift.
+Growth 2.,Vækst 2.
+Heal all allies on one floor {heal}.,Helbred alle allierede på én etage {heal}.
+Heal one ally {heal} and give Growth 1.,"Helbred ét allieret væsen {heal}, og giv det Vækst 1."
+Heal the Heart 4 after a won battle.,Helbred Hjertet 4 efter hver vundet kamp.
+Move an ally one floor up if there is space. Does not use its move.,"Flyt et allieret væsen én etage op, hvis der er plads. Bruger ikke dets flytning."
+No extra effect.,Ingen ekstra effekt.
+On death: give all enemies on this floor 3 Poison.,Når det dør: alle fjender på etagen får 3 Gift.
+On play: heal another ally 3.,Når det spilles: helbred et andet allieret væsen 3.
+On play: other allies on this floor get Growth 1.,Når det spilles: andre allierede på etagen får Vækst 1.
+Remove one of your normal creatures (not a death). Draw 2. Consume.,Fjern et af dine normale væsner (tæller ikke som død). Træk 2. Forbruges.
+"Remove up to 8 Armor from one enemy, then deal {damage} damage.","Fjern op til 8 Panser fra én fjende, og giv den derefter {damage} skade."
+Starts with {armor} Armor.,Starter med {armor} Panser.
+Surviving attack targets get {on_hit_poison} Poison.,"Mål, der overlever dets angreb, får {on_hit_poison} Gift."
+The Roots gain +1 space.,Rødderne får +1 plads.
+The first normal move each turn is free.,Den første almindelige flytning hver tur er gratis.
+The first spell you play each turn costs 1 less (minimum 0).,"Den første besværgelse, du spiller hver tur, koster 1 mindre (mindst 0)."
+Thorns 2.,Torne 2.
+Your Bark creatures get 3 Armor when played (champion included).,"Dine Bark-væsner får 3 Panser, når de spilles (også championen)."
+Your first Poison each turn gives +1 to its first target (lowest id on areas).,Din første Gift hver tur giver +1 til det første mål (ved områder: det først indsatte).
+Your normal creatures get +3 max HP when played (not the champion).,"Dine normale væsner får +3 maks. liv, når de spilles (ikke championen)."
 Choose a different position.,Vælg en anden plads.
 Choose a floor.,Vælg en etage.
 Choose a poisoned enemy.,Vælg en forgiftet fjende.
 Choose an ally below the Crown with space on the floor above.,Vælg en allieret under Kronen med plads på etagen ovenover.
 Choose an ally.,Vælg en allieret.
 Choose an enemy.,Vælg en fjende.
-Choose another ally to heal.,Vælg en anden allieret at heale.
+Choose another ally to heal.,Vælg en anden allieret at helbrede.
 Choose one of your creatures.,Vælg et af dine væsner.
 Choose one of your normal creatures (not the champion).,Vælg et af dine normale væsner (ikke championen).
 Creatures move one floor at a time.,Væsner flytter én etage ad gangen.
 Invalid target.,Ugyldigt mål.
-That card is not in your hand.,Det kort er ikke på din hånd.
-The battle is not waiting for you.,Kampen venter ikke på dig lige nu.
-Choose Resin or healing.,Vælg Harpiks eller heling.
+That card is not in your hand.,Kortet er ikke på din hånd.
+The battle is not waiting for you.,Det er ikke din tur lige nu.
+Choose Resin or healing.,Vælg Harpiks eller helbredelse.
 Choose a card from your deck.,Vælg et kort fra dit dæk.
 Choose one of the offered options.,Vælg en af de tilbudte muligheder.
 Choose one of the two paths.,Vælg en af de to veje.
-Finish the earlier reward first.,Afslut den forrige belønning først.
-That card cannot get this upgrade.,Det kort kan ikke få denne opgradering.
+Finish the earlier reward first.,Tag stilling til den forrige belønning først.
+That card cannot get this upgrade.,Kortet kan ikke få denne opgradering.
 That reward is not available.,Den belønning er ikke tilgængelig.
 The champion's path is locked.,Championens retning er låst.
 There is no battle in progress.,Der er ingen kamp i gang.
@@ -29,10 +64,10 @@ There is no path to choose now.,Der er ingen vej at vælge nu.
 This choice cannot be skipped.,Dette valg kan ikke springes over.
 This place has already been used.,Dette sted er allerede brugt.
 Unknown command.,Ukendt kommando.
-You already own that relic.,Du ejer allerede det relikvie.
-You are not at a node.,Du er ikke ved en knude.
+You already own that relic.,Du har allerede det relikvie.
+You are not at a node.,Du er ikke på et sted på ruten.
 Anchored,Forankret
-Discard pile shuffled into the draw pile,Kassationsbunken blandes ind i trækbunken
+Discard pile shuffled into the draw pile,Kasserede kort blandes ind i trækbunken
 Spore Colossus bursts,Sporekolossen brister
 The Ash Crown has left the Crown!,Askekronen har forladt Kronen!
 The tree resolves,Træet afvikler turen
@@ -52,7 +87,7 @@ Discard pile,Kasserede kort
 Draw %d · Discard %d · Played %d,Træk %d · Kasseret %d · Spillet %d
 Draw pile (sorted; order hidden),Trækbunke (sorteret; rækkefølge skjult)
 End turn,Afslut tur
-Forecast — end of turn,Prognose — tur slut
+Forecast — end of turn,Prognose — ved turens slutning
 From turn 10 it gains +2 attack every turn.,Fra tur 10 får den +2 angreb hver tur.
 Full,Fuld
 Full %d/%d,Fuld %d/%d
@@ -62,33 +97,33 @@ If you confirm and then end the turn:,Hvis du bekræfter og derefter afslutter t
 In %d turns: %s,Om %d ture: %s
 It has already moved this turn.,Den har allerede flyttet denne tur.
 Last wave is in,Sidste bølge er ankommet
-Last wave is in · defeat every enemy,Sidste bølge er inde · besejr alle fjender
-Move: tap a + spot on this or a neighbouring floor (%d Sap).,Flyt: tryk på et +-felt på denne eller en nabo-etage (%d Saftkraft).
+Last wave is in · defeat every enemy,Sidste bølge er ankommet · besejr alle fjender
+Move: tap a + spot on this or a neighbouring floor (%d Sap).,Flyt: tryk på et +-felt på denne eller en naboetage (%d Saftkraft).
 Next turn: %s,Næste tur: %s
 Not enough Sap (needs %d).,Ikke nok Saftkraft (kræver %d).
-Now tap another ally to heal.,Tryk nu på en anden allieret for at heale.
+Now tap another ally to heal.,Tryk nu på en anden allieret for at helbrede.
 Played creatures (out for this battle),Spillede væsner (ude resten af kampen)
 "Preview shown. Confirm, or tap the same target again.","Forhåndsvisning vist. Bekræft, eller tryk på samme mål igen."
 Skip animation,Spring animation over
 "Spend your Sap: creatures guard a floor, spells act at once. Card → target → Confirm.","Brug din Saftkraft: væsner vogter en etage, besværgelser virker med det samme. Kort → mål → Bekræft."
-Stays on its floor while a living ally stands there.,Bliver på sin etage så længe et levende allieret væsen står der.
-Stays while a living ally shares its floor. Leaving the Crown means defeat. +2 attack each turn from turn 10.,"Bliver, så længe en levende allieret deler dens etage. Forlader den Kronen, er det nederlag. +2 angreb hver tur fra tur 10."
-Tap a + spot on a floor to place it. The front is next to the trunk.,Tryk på et +-felt på en etage for at placere den. Fronten er ved stammen.
-"Tap your champion, then a + spot on a floor. Champions cost 0 Sap and hold the line.",Tryk på din champion og derefter på et +-felt på en etage. Champions koster 0 Saftkraft og holder linjen.
+Stays on its floor while a living ally stands there.,"Bliver på sin etage, så længe et levende allieret væsen står dér."
+Stays while a living ally shares its floor. Leaving the Crown means defeat. +2 attack each turn from turn 10.,"Bliver, så længe en levende allieret står på dens etage. Forlader den Kronen, er det nederlag. +2 angreb hver tur fra tur 10."
+Tap a + spot on a floor to place it. The front is next to the trunk.,Tryk på et +-felt på en etage for at placere væsnet. Fronten er ved stammen.
+"Tap your champion, then a + spot on a floor. Champions cost 0 Sap and hold the line.",Tryk på din champion og derefter på et +-felt på en etage. Champions koster 0 Saftkraft og holder stand.
 The Ash Crown,Askekronen
 The forecast is exactly what ending the turn will do. Enemies climb a floor each turn; past the Crown they strike the Heart.,"Prognosen er præcis det, der sker, når du afslutter turen. Fjender klatrer én etage hver tur; forbi Kronen rammer de Hjertet."
 There are no enemies to affect.,Der er ingen fjender at ramme.
-Turns: %d · Heart: %d,Ture: %d · Hjerte: %d
+Turns: %d · Heart: %d,Ture: %d · Hjertet: %d
 Victory: every wave is defeated.,Sejr: alle bølger er besejret.
 Warning: the Ash Crown is on the Crown. Keep a defender there.,Advarsel: Askekronen er på Kronen. Hold en forsvarer der.
-World Heart,Verdenshjerte
+World Heart,Verdenshjertet
 dies,dør
 reaches the Heart,når Hjertet
 ◆ Armor %d: absorbs normal damage first. Poison ignores it.,◆ Panser %d: tager normal skade først. Gift ignorerer det.
-"☠ Poison %d: loses that much HP in its floor's poison phase, then −1.","☠ Gift %d: mister så meget liv i etagens giftfase, derefter −1."
-✚ Growth %d: heals that much at the end of its floor.,"✚ Vækst %d: heler så meget, når dens etage er færdig."
+"☠ Poison %d: loses that much HP in its floor's poison phase, then −1.",☠ Gift %d: mister så meget liv i etagens giftfase og falder derefter med 1.
+✚ Growth %d: heals that much at the end of its floor.,"✚ Vækst %d: helbreder så meget, når dens etage er færdig."
 ✶ Thorns %d: deals that much back to every direct attacker.,✶ Torne %d: giver så meget skade tilbage til hver direkte angriber.
-%d normal cards and your champion. A deck keeps at least %d normal cards.,%d normale kort og din champion. Et dæk beholder mindst %d normale kort.
+%d normal cards and your champion. A deck keeps at least %d normal cards.,%d normale kort og din champion. Et dæk har altid mindst %d normale kort.
 Your deck (%d cards),Dit dæk (%d kort)
 %d creatures played,%d væsner spillet
 %d turns,%d ture
@@ -100,8 +135,8 @@ Deck size,Dækstørrelse
 Defeat in %s. The ash reached the Heart.,Nederlag i %s. Asken nåede Hjertet.
 Did the forecast make sense?,Gav prognosen mening?
 Final battle,Sidste kamp
-Heart,Hjerte
-Heart at the end,Hjerte til sidst
+Heart,Hjertet
+Heart at the end,Hjertet til sidst
 Heart damage taken,Skade på Hjertet
 How was this run?,Hvordan var dette løb?
 Lost,Tabt
@@ -111,20 +146,20 @@ New run,Nyt løb
 No,Nej
 No path chosen,Ingen retning valgt
 None,Ingen
-"Optional. Saved only on this device, in your playtest log.","Valgfrit. Gemmes kun på denne enhed, i din spiltestlog."
+"Optional. Saved only on this device, in your playtest log.",Valgfrit. Gemmes kun på denne enhed i din spiltestlog.
 Partly,Delvist
 Relics,Relikvier
 Run statistics,Statistik for løbet
-Save feedback,Gem feedback
-Thank you! Feedback saved.,Tak! Feedback gemt.
+Save feedback,Gem svar
+Thank you! Feedback saved.,Tak! Dine svar er gemt.
 The Heart has fallen,Hjertet er faldet
 The tree stands,Træet står
-Turns played,Spillede ture
+Turns played,Ture
 Victory. The Ash Crown is broken and the last world tree takes root again.,"Sejr. Askekronen er brudt, og det sidste verdenstræ slår rod igen."
 Won,Vundet
 Yes,Ja
 Your tree,Dit træ
-lost %d,mistede %d
+lost %d,−%d
 rank,trin
 Choose,Vælg
 Chosen,Valgt
@@ -135,7 +170,7 @@ Selected,Valgt
 You,Dig
 Battle %d/6,Kamp %d/6
 Champion path: not chosen yet. You choose it after battle 2 and strengthen it after battle 4.,Championretning: ikke valgt endnu. Du vælger den efter kamp 2 og styrker den efter kamp 4.
-Current %d of %d.,Nu %d af %d.
+Current %d of %d.,Lige nu %d af %d.
 Deck (%d),Dæk (%d)
 "Five battles and the boss, The Ash Crown, are always fought. Battles won: %d.","Fem kampe og bossen, Askekronen, udkæmpes altid. Vundne kampe: %d."
 Rank %d of 2.,Trin %d af 2.
@@ -170,11 +205,11 @@ Close,Luk
 Continue,Fortsæt
 Encounter,Møde
 Gain 15 Resin,Få 15 Harpiks
-Grow %s,Lad %s gro
-Grow this mutation,Lad denne mutation gro
-Heal the Heart,Heal Hjertet
-Heal the Heart 8,Heal Hjertet 8
-Heart %d/%d → %d/%d,Hjerte %d/%d → %d/%d
+Grow %s,Lad %s vokse
+Grow this mutation,Lad denne mutation vokse
+Heal the Heart,Helbred Hjertet
+Heal the Heart 8,Helbred Hjertet 8
+Heart %d/%d → %d/%d,Hjertet %d/%d → %d/%d
 Leave camp,Forlad lejren
 Leave without a gift,Gå uden en gave
 Leave without removing,Gå uden at fjerne
@@ -198,15 +233,15 @@ Tap a card in your deck to choose what to remove.,"Tryk på et kort i dit dæk f
 Tap a card in your deck to see its upgrades.,Tryk på et kort i dit dæk for at se dets opgraderinger.
 "Tap a card to select it, then confirm.","Tryk på et kort for at vælge det, og bekræft derefter."
 "Tap an option to select it, then confirm.","Tryk på en mulighed for at vælge den, og bekræft derefter."
-The Heart is already full: healing would do nothing.,Hjertet er allerede fuldt: heling ville intet gøre.
+The Heart is already full: healing would do nothing.,Hjertet er allerede fuldt – helbredelse gør ingen forskel.
 The champion cannot be removed.,Championen kan ikke fjernes.
 The first choice locks the path for the rest of the run. After battle 4 the same path rises to rank 2.,Første valg låser retningen resten af løbet. Efter kamp 4 stiger samme retning til trin 2.
 "The last stop before the boss, %s.","Sidste stop før bossen, %s."
 The tree mutates,Træet muterer
 This card has no upgrade.,Dette kort har ingen opgradering.
 Travel to %s,Rejs til %s
-"Upgrade one card once by the fire, or rest and move on. You have %d Resin.","Opgradér ét kort én gang ved bålet, eller hvil og gå videre. Du har %d Harpiks."
-Upgrade: %s for %d Resin,Opgradér: %s for %d Harpiks
+"Upgrade one card once by the fire, or rest and move on. You have %d Resin.","Opgrader ét kort én gang ved bålet, eller hvil dig og gå videre. Du har %d Harpiks."
+Upgrade: %s for %d Resin,Opgrader: %s for %d Harpiks
 Victory,Sejr
 Waves arrive on the Roots at the start of their turn.,Bølger ankommer til Rødderne ved starten af deres tur.
 You went here.,Du gik hertil.
@@ -221,9 +256,9 @@ Card,Kort
 Champion path,Championretning
 Choose now,Vælg nu
 "Choose one of three cards for your deck, or skip. Free.","Vælg ét af tre kort til dit dæk, eller spring over. Gratis."
-"Choose: gain 15 Resin, or heal the Heart 8.","Vælg: få 15 Harpiks, eller heal Hjertet 8."
-Heal on its floor at turn start,Heling på dens etage ved turstart
-Heart healed,Hjerte healet
+"Choose: gain 15 Resin, or heal the Heart 8.",Vælg: få 15 Harpiks eller helbred Hjertet 8.
+Heal on its floor at turn start,Helbreder sin etage ved turstart
+Heart healed,Hjertet helbredt
 Max HP,Maks. liv
 No card in your deck can be upgraded.,Intet kort i dit dæk kan opgraderes.
 On-hit Poison,Gift ved træf
@@ -233,7 +268,7 @@ Skipped,Sprunget over
 Spore,Spore
 Starting Armor,Startpanser
 Tree mutation,Træmutation
-"Upgrade one card once: +2 attack or +5 max HP for creatures, a stronger effect for spells. Costs 25 or 35 Resin.","Opgradér ét kort én gang: +2 angreb eller +5 maks. liv for væsner, en stærkere effekt for besværgelser. Koster 25 eller 35 Harpiks."
+"Upgrade one card once: +2 attack or +5 max HP for creatures, a stronger effect for spells. Costs 25 or 35 Resin.","Opgrader ét kort én gang: +2 angreb eller +5 maks. liv for væsner, en stærkere effekt for besværgelser. Koster 25 eller 35 Harpiks."
 You cannot afford a removal yet (needs %d Resin).,Du har ikke råd til en fjernelse endnu (kræver %d Harpiks).
 You cannot afford an upgrade yet (needs %d Resin).,Du har ikke råd til en opgradering endnu (kræver %d Harpiks).
 Your deck is already at the minimum of %d normal cards.,Dit dæk er allerede nede på minimum %d normale kort.
@@ -243,12 +278,12 @@ Trunk,Stammen
 All current sounds and music are procedural placeholders generated by tools/gen_placeholder_audio.py. Final sounds are listed in docs/AUDIO_LEDGER.csv.,Alle nuværende lyde og al musik er procedurale pladsholdere genereret af tools/gen_placeholder_audio.py. De endelige lyde står i docs/AUDIO_LEDGER.csv.
 Audio,Lyd
 Credits,Medvirkende
-Engine,Motor
+Engine,Spilmotor
 Game direction,Spildesign og ledelse
 Godot Engine license,Godot Engine-licens
 MIT license,MIT-licens
 Planned art and animation,Planlagt grafik og animation
-Team,Hold
+Team,Holdet
 These packs are not in the game yet. Everything you see now is drawn in code.,"Disse pakker er ikke i spillet endnu. Alt, hvad du ser nu, er tegnet i kode."
 "planned, pending import","planlagt, afventer import"
 1. Tap a card,1. Tryk på et kort
@@ -278,72 +313,72 @@ Back,Tilbage
 "Card, target, confirm","Kort, mål, bekræft"
 Climbing ash and the Heart,Klatrende aske og Hjertet
 Done,Færdig
-"New waves arrive on the Roots. After all floors fight, every surviving enemy climbs one floor. Enemies that climb past the Crown strike the Heart for their attack. At 0 Heart the run is lost.","Nye bølger ankommer til Rødderne. Når alle etager har kæmpet, klatrer hver overlevende fjende én etage. Fjender, der klatrer forbi Kronen, rammer Hjertet med deres angreb. Ved 0 Hjerte er løbet tabt."
+"New waves arrive on the Roots. After all floors fight, every surviving enemy climbs one floor. Enemies that climb past the Crown strike the Heart for their attack. At 0 Heart the run is lost.","Nye bølger ankommer til Rødderne. Når alle etager har kæmpet, klatrer hver overlevende fjende én etage. Fjender, der klatrer forbi Kronen, rammer Hjertet med deres angreb. Når Hjertet når 0, er løbet tabt."
 Sap and space,Saftkraft og plads
 Statuses,Statusser
-"Tap a card, then a highlighted target or a + spot on a floor, then Confirm. An invalid target spends nothing. Cancel or tap elsewhere to change your mind.","Tryk på et kort, derefter på et fremhævet mål eller et +-felt på en etage, og så Bekræft. Et ugyldigt mål bruger intet. Annullér eller tryk et andet sted for at fortryde."
+"Tap a card, then a highlighted target or a + spot on a floor, then Confirm. An invalid target spends nothing. Cancel or tap elsewhere to change your mind.","Tryk på et kort, derefter på et fremhævet mål eller et +-felt på en etage, og tryk så Bekræft. Et ugyldigt mål bruger intet. Annuller eller tryk et andet sted for at fortryde."
 The forecast,Prognosen
-"The forecast panel shows exactly what ending the turn will do: deaths, climbs and Heart damage. It runs the same rules as the battle, so you can plan without surprises.","Prognosepanelet viser præcis, hvad det gør at afslutte turen: dødsfald, opstigninger og skade på Hjertet. Det bruger de samme regler som kampen, så du kan planlægge uden overraskelser."
+"The forecast panel shows exactly what ending the turn will do: deaths, climbs and Heart damage. It runs the same rules as the battle, so you can plan without surprises.","Prognosen viser præcis, hvad der sker, når du afslutter turen: dødsfald, opstigninger og skade på Hjertet. Det bruger de samme regler som kampen, så du kan planlægge uden overraskelser."
 "The sixth battle. After four waves the Ash Crown arrives on the Roots on turn %d. It stays on a floor while a living ally stands there; otherwise it climbs. If it leaves the Crown, the run is lost. From turn %d it gains +2 attack every turn.","Den sjette kamp. Efter fire bølger ankommer Askekronen til Rødderne på tur %d. Den bliver på en etage, så længe en levende allieret står dér; ellers klatrer den. Forlader den Kronen, er løbet tabt. Fra tur %d får den +2 angreb hver tur."
 "The tree has three floors: the Roots, the Trunk and the Crown. Your creatures stand left of the trunk, the ash on the right. Position 1, next to the trunk, is the front: it attacks first and is hit first. Floors fight from the Roots upward.","Træet har tre etager: Rødderne, Stammen og Kronen. Dine væsner står til venstre for stammen, asken til højre. Plads 1, ved stammen, er fronten: den angriber først og rammes først. Etagerne kæmper fra Rødderne og opad."
 Three floors and the front,Tre etager og fronten
 "You get 3 Sap at the start of every turn; unused Sap is lost. Cards cost Sap. Each floor has 5 space: a creature takes its space value, your champion takes 2 and costs 0. Moving a creature one floor costs 1 Sap, once per turn.","Du får 3 Saftkraft ved starten af hver tur; ubrugt Saftkraft går tabt. Kort koster Saftkraft. Hver etage har 5 plads: et væsen fylder sin pladsværdi, din champion fylder 2 og koster 0. At flytte et væsen én etage koster 1 Saftkraft, én gang pr. tur."
 ◆ Armor: absorbs normal damage first. Poison ignores it.,◆ Panser: tager normal skade først. Gift ignorerer det.
 "☠ Poison: deals its value at the floor's poison phase, then drops by 1.",☠ Gift: giver sin værdi i skade i etagens giftfase og falder derefter med 1.
-✚ Growth: heals its value at the end of the floor.,"✚ Vækst: heler sin værdi, når etagen er færdig."
+✚ Growth: heals its value at the end of the floor.,"✚ Vækst: helbreder sin værdi, når etagen er færdig."
 ✶ Thorns: deals its value back to every direct attacker.,✶ Torne: giver sin værdi i skade tilbage til hver direkte angriber.
 "A short illustrated guide shows the floors, Sap, cards, the forecast and the boss. You can open it again any time from the menu.","En kort illustreret guide viser etagerne, Saftkraft, kortene, prognosen og bossen. Du kan altid åbne den igen fra menuen."
 Battle %d of 6,Kamp %d af 6
 Before battle %d of 6,Før kamp %d af 6
-Cancel,Annullér
+Cancel,Annuller
 Champion,Champion
 Champion paths (chosen after battle 2):,Championretninger (vælges efter kamp 2):
 Choose your champion,Vælg din champion
 Creature,Væsen
-Damaged save,Beskadiget gemt spil
+Damaged save,Beskadiget gemmefil
 Defend the last world tree. Build a deck that can take root.,"Forsvar det sidste verdenstræ. Byg et dæk, der kan slå rod."
 Defend the tree as %s,Forsvar træet som %s
-Load backup,Indlæs backup
+Load backup,Indlæs sikkerhedskopi
 New Run,Nyt løb
 New to LASTROOT?,Ny i LASTROOT?
-Newer save,Nyere gemt spil
-No save,Intet gemt spil
+Newer save,Nyere gemmefil
+No save,Ingen gemmefil
 OK,OK
 Quit,Afslut
 Run lost,Løb tabt
 Run won,Løb vundet
 Sap,Saftkraft
-Show me how to play,"Vis mig, hvordan man spiller"
+Show me how to play,Vis guiden
 Spell,Besværgelse
 Start a new run?,Start et nyt løb?
 Starting deck (12 cards),Startdæk (12 kort)
-The backup could not be read either.,Backuppen kunne heller ikke læses.
+The backup could not be read either.,Sikkerhedskopien kunne heller ikke læses.
 The saved run needs attention.,Det gemte løb kræver opmærksomhed.
 There is no saved run to continue.,Der er intet gemt løb at fortsætte.
-This save was made by a newer version of LASTROOT. Update the game to continue it. The file is kept untouched.,Dette gemte spil er lavet af en nyere version af LASTROOT. Opdatér spillet for at fortsætte. Filen bevares urørt.
+This save was made by a newer version of LASTROOT. Update the game to continue it. The file is kept untouched.,Gemmefilen er lavet af en nyere version af LASTROOT. Opdater spillet for at fortsætte. Filen bevares urørt.
 Work in progress: placeholder art and sound,Under udvikling: midlertidig grafik og lyd
 Your current run will end. This cannot be undone.,Dit nuværende løb slutter. Det kan ikke fortrydes.
-Your save is damaged and no backup could be read. The file is kept so it can be recovered. You can start a new run.,"Dit gemte spil er beskadiget, og ingen backup kunne læses. Filen bevares, så den kan reddes. Du kan starte et nyt løb."
-Your save is damaged. A backup from one step earlier is available. The damaged file is kept.,Dit gemte spil er beskadiget. En backup fra ét skridt tidligere er tilgængelig. Den beskadigede fil bevares.
+Your save is damaged and no backup could be read. The file is kept so it can be recovered. You can start a new run.,"Gemmefilen er beskadiget, og ingen sikkerhedskopi kunne læses. Filen bevares, så den kan reddes. Du kan starte et nyt løb."
+Your save is damaged. A backup from one step earlier is available. The damaged file is kept.,Gemmefilen er beskadiget. Der findes en sikkerhedskopi fra ét skridt tidligere. Den beskadigede fil bevares.
 Bark faction,Barkvogterne
 Spore faction,Sporefolket
 "Armor, Thorns and sturdy bodies. The Barkwarden holds a floor like a wall and makes every blow cost the ash.","Panser, Torne og stærke kroppe. Barkvogteren holder en etage som en mur og lader hvert slag koste asken dyrt."
-"Poison, Growth and healing. The Spore Sage weakens the ash before it climbs and keeps the grove alive.","Gift, Vækst og heling. Sporevismanden svækker asken, før den klatrer, og holder lunden i live."
+"Poison, Growth and healing. The Spore Sage weakens the ash before it climbs and keeps the grove alive.","Gift, Vækst og helbredelse. Sporevismanden svækker asken, før den klatrer, og holder lunden i live."
 %s: %d of %d won (%d%%),%s: %d af %d vundet (%d%%)
 3D backgrounds,3D-baggrunde
 Animated 3D scenes behind the menu and the route. Turn off for slow devices.,Animerede 3D-scener bag menuen og ruten. Slå fra på langsomme enheder.
 Animation speed,Animationshastighed
 Clear,Ryd
 Delete,Slet
-Delete all logged runs and feedback on this device?,Slet alle loggede løb og al feedback på denne enhed?
-Export,Eksportér
+Delete all logged runs and feedback on this device?,Slet alle loggede løb og svar på denne enhed?
+Export,Eksporter
 How fast battle animations replay. The outcome never changes.,Hvor hurtigt kampanimationer afspilles. Udfaldet ændres aldrig.
 Keep the data,Behold dataene
 Keeps the camera still and turns off pulsing and drifting effects.,Holder kameraet stille og slår pulserende og drivende effekter fra.
 Language,Sprog
 Master,Samlet
 Music,Musik
-Nothing is sent anywhere. Export the file and send it to the developer yourself.,Intet sendes nogen steder hen. Eksportér filen og send den selv til udvikleren.
+Nothing is sent anywhere. Export the file and send it to the developer yourself.,Intet sendes nogen steder hen. Eksporter filen og send den selv til udvikleren.
 Off,Fra
 On,Til
 Playtest data,Spiltestdata
@@ -360,7 +395,7 @@ Keep playing,Spil videre
 Menu,Menu
 Paused,Pause
 Resume,Genoptag
-Save & quit to menu,Gem og gå til menu
+Save & quit to menu,Gem og gå til menuen
 Settings,Indstillinger
 Your run is saved after every action.,Dit løb gemmes efter hver handling.
 Cannot be upgraded,Kan ikke opgraderes
@@ -368,5 +403,5 @@ Upgraded,Opgraderet
 attack,angreb
 cost,pris
 damage,skade
-healing,heling
+healing,helbredelse
 max HP,maks. liv

@@ -66,6 +66,7 @@ static func build_record(run: Dictionary) -> Dictionary:
 		"mutations": run.get("mutations", []),
 		"deck": deck,
 		"reward_claims": run.get("reward_claims", {}),
+		"claimed_choices": run.get("claimed_choices", {}),  # slot_id -> {type, offer, choice ("" = skipped)}
 		"build": SaveCodec.BUILD_ID,
 		"language": Loc.language,
 		"logged_at": Time.get_datetime_string_from_system(true),

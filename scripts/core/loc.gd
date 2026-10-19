@@ -51,9 +51,17 @@ func t(en: String) -> String:
 
 
 ## Name/text field of a data definition in the active language.
+## The translation table wins over a definition's `<key>_<lang>` field: the
+## catalog's text_da is design-spec wording without {placeholders}, so it
+## could not show a card's upgraded numbers (fix: player text via the CSV).
 func field(def: Dictionary, key: String) -> String:
-	if language != "en" and def.has(key + "_" + language):
-		return str(def[key + "_" + language])
+	if language != "en":
+		var en: String = str(def.get(key, ""))
+		var tab: Dictionary = _table.get(language, {})
+		if en != "" and tab.has(en):
+			return tab[en]
+		if def.has(key + "_" + language):
+			return str(def[key + "_" + language])
 	return t(str(def.get(key, "")))
 
 

@@ -44,6 +44,7 @@ func _ready() -> void:
 	await _round5_cases()
 	await _audio_cases()
 	await _playtest_cases()
+	_danish_cases()
 	PlaytestLog.clear()
 	PlaytestLog.path = PlaytestLog.DEFAULT_PATH
 	_restore_save()
@@ -901,6 +902,7 @@ func _playtest_cases() -> void:
 	ok((rec.get("history", []) as Array).size() == (won.get("history", []) as Array).size(), "per-battle history copied")
 	ok((rec.get("deck", []) as Array).size() == (won["deck"] as Array).size() and rec.get("build", "") == SaveCodec.BUILD_ID, "deck and build id")
 	ok(int(rec.get("seed", -1)) == int(won["seed"]) and rec.get("champion", "") == won["champion_id"], "seed and champion")
+	ok(rec.has("claimed_choices") and (rec["claimed_choices"] as Dictionary).size() == (won.get("claimed_choices", {}) as Dictionary).size(), "offered/picked choices recorded")
 	await unmount(r)
 	r = await mount(RESULT, won)
 	ok(PlaytestLog.load_all().size() == 1, "never logged twice for the same run_id")
@@ -946,3 +948,19 @@ func _playtest_cases() -> void:
 	ok(PlaytestLog.load_all().is_empty(), "Delete clears the log")
 	sp.close()
 	await unmount(m)
+
+
+
+## Danish card text comes from the table and shows the instance's real numbers.
+func _danish_cases() -> void:
+	_case = "danish_cards"
+	Loc.set_language("da")
+	var cv := CardView.new().setup("B07", "damage_3")
+	var txt: String = cv._text.text
+	ok(txt.contains("8") and txt.contains("skade"), "upgraded Rodslag shows 8 damage in Danish (%s)" % txt)
+	var champ := CardView.new().setup("S01", "", "VENOM", 2)
+	ok(champ._text.text.contains("4"), "Venom Master rank 2 shows 4 Poison in Danish")
+	ok(Loc.field(Catalog.card("B07"), "name") == "Rodslag", "card names still from the catalog")
+	cv.free()
+	champ.free()
+	Loc.set_language("en")

@@ -8,8 +8,9 @@ has the columns en,da. Sources scanned:
   2. Values of label dictionaries listed in DICT_NAMES (const/var NAME := {...})
   3. Player-facing reason strings returned by the run/battle reducers
      (`return "..."` without format codes) - the UI shows them via Loc.t(reason)
-  4. data/definitions/catalog.json: every name/text that has no name_da/text_da
-     (those already carry their Danish), plus floor names (used via Loc.t)
+  4. data/definitions/catalog.json: every rules `text` (Loc.field prefers the
+     table over the terse spec text_da, so Danish shows real upgraded numbers),
+     names without name_da, plus floor names (used via Loc.t)
 
 Existing Danish cells are kept, new keys are added, keys that no longer exist
 are dropped. --check writes nothing and exits 1 if any key is missing from the
@@ -107,7 +108,9 @@ def from_data():
     def walk(o):
         if isinstance(o, dict):
             for key in ("name", "text"):
-                if isinstance(o.get(key), str) and o[key].strip() and key + "_da" not in o:
+                # Names keep their catalog name_da; rules text always goes
+                # through the table (player wording with {placeholders}).
+                if isinstance(o.get(key), str) and o[key].strip() and (key == "text" or key + "_da" not in o):
                     out.setdefault(o[key], "catalog.json")
             for v in o.values():
                 walk(v)
