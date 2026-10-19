@@ -45,6 +45,7 @@ func _ready() -> void:
 	await _audio_cases()
 	await _playtest_cases()
 	_danish_cases()
+	await _demo_cases()
 	PlaytestLog.clear()
 	PlaytestLog.path = PlaytestLog.DEFAULT_PATH
 	_restore_save()
@@ -964,3 +965,31 @@ func _danish_cases() -> void:
 	cv.free()
 	champ.free()
 	Loc.set_language("en")
+
+
+func _demo_cases() -> void:
+	_case = "demo_result"
+	var d: Dictionary = MetaFixtures.demo_done()
+	ok(d.get("result", "") == "demo_complete" and d.get("phase", "") == "won", "bot finishes a demo run")
+	ok(int(d["stats"]["battles_won"]) == RunReducer.DEMO_BATTLES, "demo ends after %d battles" % RunReducer.DEMO_BATTLES)
+	var r: Control = await mount(RESULT, d)
+	var head: Label = r.find_child("Headline", true, false) as Label
+	ok(head != null and head.text == Loc.t("End of the demo"), "demo headline, not 'The tree stands'")
+	ok(r.find_child("DemoPanel", true, false) != null, "what the full game adds")
+	var bw: Label = r.find_child("Stat_Battles_won", true, false) as Label
+	ok(bw != null and bw.text == "2 / 2", "battles won out of the demo's two")
+	var rec: Array = PlaytestLog.load_all()
+	ok(not rec.is_empty() and rec[-1].get("mode", "") == "demo" and rec[-1].get("result", "") == "demo_complete", "playtest log records demo mode")
+	await press(r, "NewRunButton")
+	ok((r as ResultScreen).pending_scene == "menu" and MainMenu.start_view == "faction", "New run from the demo ending")
+	MainMenu.start_view = "title"
+	await unmount(r)
+	_case = "demo_tag"
+	MainMenu.force_demo_tag = true
+	var m: Control = await mount(MENU, {})
+	ok(m.find_child("DemoTag", true, false) != null, "title shows the demo tag in demo builds")
+	await unmount(m)
+	MainMenu.force_demo_tag = false
+	m = await mount(MENU, {})
+	ok(m.find_child("DemoTag", true, false) == null or OS.has_feature("demo"), "no demo tag in the full game")
+	await unmount(m)

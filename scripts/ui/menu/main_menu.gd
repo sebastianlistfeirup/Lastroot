@@ -11,6 +11,8 @@ const FACTION_NAME := {"BARK": "Bark faction", "SPORE": "Spore faction"}
 
 ## View the next menu instance opens with (the result screen's "New run" sets "faction").
 static var start_view: String = "title"
+## Tests / captures can show the demo tag without a demo export.
+static var force_demo_tag: bool = false
 
 var view: String = "title"  # title | first_run | faction
 ## Tests set this false and read `pending_scene` instead of changing scenes.
@@ -136,6 +138,11 @@ func _build_title() -> void:
 	if portrait:
 		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	col.add_child(title)
+	if is_demo_build():
+		var chip := UiKit.chip(Loc.t("DEMO") + " · " + Loc.t("first two battles"), UiKit.AMBER, 18)
+		chip.name = "DemoTag"
+		chip.size_flags_horizontal = Control.SIZE_SHRINK_CENTER if portrait else Control.SIZE_SHRINK_BEGIN
+		col.add_child(chip)
 	var tag := UiKit.label(Loc.t("Defend the last world tree. Build a deck that can take root."), 22 if portrait else 28, UiKit.TEXT_DIM)
 	tag.name = "Tagline"
 	if portrait:
@@ -175,6 +182,10 @@ func _build_title() -> void:
 	var first: Button = buttons.get_child(0) as Button
 	if first:
 		first.grab_focus.call_deferred()
+
+
+static func is_demo_build() -> bool:
+	return force_demo_tag or OS.has_feature("demo")
 
 
 static func show_quit() -> bool:

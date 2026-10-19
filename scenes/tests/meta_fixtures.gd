@@ -99,3 +99,18 @@ static func lost(faction: String = "SPORE") -> Dictionary:
 		run = AutoPlayer.play_battle(run, 2000)
 		_cache[key] = run
 	return (_cache[key] as Dictionary).duplicate(true)
+
+
+
+## A real demo run: the bot plays RunReducer's demo mode to its end.
+static func demo_done(faction: String = "BARK") -> Dictionary:
+	var key := "demo_" + faction
+	if not _cache.has(key):
+		var best: Dictionary = {}
+		for s in [21, 5, 8, 13]:
+			var r: Dictionary = AutoPlayer.play_run(RunReducer.new_run(s, faction, "demo"))["run"]
+			best = r
+			if str(r.get("result", "")) == "demo_complete":
+				break
+		_cache[key] = best
+	return (_cache[key] as Dictionary).duplicate(true)

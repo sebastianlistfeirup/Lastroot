@@ -1,16 +1,18 @@
-# LASTROOT · Demoplan (LR-34, forslag)
+# LASTROOT · Demoplan (LR-34)
 
-Et forslag til omfang og bevis for en kort, spilbar demo. Intet her er besluttet; det skal godkendes af projektejeren.
+Omfang og bevis for en kort, spilbar demo. Demogrænsen er nu bygget (beslutning D27); resten af planen skal stadig godkendes af projektejeren.
 
 ## Omfang (forslag)
 
 - **Kampe:** kamp 1 og kamp 2 (de første to faste kampe fra kataloget).
 - **Rute:** én rutegren mellem kamp 1 og 2 (to knudetyper efter den gemte rute).
-- **Belønninger:** hele det faste flow efter kamp 1 (Harpiks → kortvalg → mutation) og efter kamp 2 (Harpiks → kortvalg → championretning → relikvie). Demoen slutter med en demo-resultatskærm efter kamp 2 eller efter belønningerne.
+- **Belønninger:** hele det faste flow efter kamp 1 (Harpiks → kortvalg → mutation). Demoen slutter, så snart kamp 2 er vundet, så belønningerne efter kamp 2 (championretning, relikvie) er ikke med; de nævnes på demo-resultatskærmen som en del af det fulde spil.
 - **Champions:** begge, Barkvogteren og Sporevismanden, så begge fraktioner kan prøves.
 - **Med:** hovedmenu, "Sådan spiller du", indstillinger (sprog, tekststørrelse, reduceret bevægelse, lyd), pause, gem/fortsæt.
 - **Ikke med:** kamp 3-5, Askekronen (kan vises som "kommer" på rutekortet), fuld kortpulje-balance ud over de to kampe.
-- **Teknisk:** kræver en demo-grænse i domænet (fx "efter kamp 2 → demo slut") — det findes **ikke** i dag og skal laves af den, der ejer `RunReducer`.
+- **Teknisk (bygget):** `RunReducer.new_run(seed, faction, "demo")` afslutter løbet efter `DEMO_BATTLES` = 2 vundne kampe med `phase = "won"` og `result = "demo_complete"`; reglerne er ellers identiske. `GameSession` vælger demotilstand, når buildet har featuren `demo` (eksportpreset "Web Demo").
+- **Hvad spilleren ser:** titelskærmen viser et lille "DEMO · de første to kampe"-mærke; efter kamp 2 vises "Demoen er slut" med det, spilleren nåede (rigtige tal), og et ærligt "I det fulde spil"-panel (tre kampe mere og Askekronen, championretning og trin 2, to relikvievalg og en mutation mere, fire valg mere på ruten). Knapper: Nyt løb / Hovedmenu.
+- **Spiltestlog:** hver post har `mode` (`full` eller `demo`), så demo- og fuldspilsdata kan adskilles.
 
 ## Hvad demoen skal bevise
 

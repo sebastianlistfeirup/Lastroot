@@ -55,6 +55,7 @@ static func build_record(run: Dictionary) -> Dictionary:
 		"champion_path": str(run.get("champion_path", "")),
 		"champion_rank": int(run.get("champion_rank", 0)),
 		"result": str(run.get("result", run.get("phase", ""))),
+		"mode": str(run.get("mode", "full")),
 		"battles_won": int(stats.get("battles_won", 0)),
 		"history": run.get("history", []),
 		"turns": int(stats.get("turns", 0)),

@@ -190,17 +190,33 @@ func _slider(title: String, key: String) -> void:
 	val.autowrap_mode = TextServer.AUTOWRAP_OFF
 	row.add_child(val)
 	# Live value while dragging; persist once the drag ends (and on tap/keys).
-	s.value_changed.connect(func(v: float) -> void:
-		val.text = "%d%%" % int(v)
-		var idx: int = AudioServer.get_bus_index({"master": "Master", "music": "Music", "sfx": "SFX"}[key])
-		if idx >= 0:
-			AudioServer.set_bus_volume_db(idx, linear_to_db(maxf(v / 100.0, 0.0001))))
-	s.drag_ended.connect(func(_changed: bool) -> void: _store_volume(key, s.value))
-	s.focus_exited.connect(func() -> void: _store_volume(key, s.value))
-	s.gui_input.connect(func(e: InputEvent) -> void:
-		if (e is InputEventMouseButton and not (e as InputEventMouseButton).pressed) or e is InputEventKey:
-			_store_volume.call_deferred(key, s.value))
+	# Bound methods (not lambdas): they disconnect when the panel is freed.
+	s.value_changed.connect(_on_volume_live.bind(key, val))
+	s.drag_ended.connect(_on_volume_drag_ended.bind(key, s))
+	s.focus_exited.connect(_on_volume_commit.bind(key, s))
+	s.gui_input.connect(_on_volume_input.bind(key, s))
 	body.add_child(row)
+
+
+func _on_volume_live(v: float, key: String, val: Label) -> void:
+	val.text = "%d%%" % int(v)
+	var idx: int = AudioServer.get_bus_index({"master": "Master", "music": "Music", "sfx": "SFX"}[key])
+	if idx >= 0:
+		AudioServer.set_bus_volume_db(idx, linear_to_db(maxf(v / 100.0, 0.0001)))
+
+
+func _on_volume_drag_ended(_changed: bool, key: String, s: HSlider) -> void:
+	_store_volume(key, s.value)
+
+
+func _on_volume_commit(key: String, s: HSlider) -> void:
+	if is_instance_valid(s):
+		_store_volume(key, s.value)
+
+
+func _on_volume_input(e: InputEvent, key: String, s: HSlider) -> void:
+	if (e is InputEventMouseButton and not (e as InputEventMouseButton).pressed) or e is InputEventKey:
+		_on_volume_commit.call_deferred(key, s)
 
 
 func _store_volume(key: String, v: float) -> void:

@@ -52,11 +52,11 @@ func _ready() -> void:
 	add_child(_root)
 	_settings = SettingsPanel.new()
 	_settings.name = "SettingsPanel"
-	_settings.closed.connect(func() -> void: _focus_first())
+	_settings.closed.connect(_focus_first)
 	add_child(_settings)
 	_howto = HowToPlayPanel.new()
 	_howto.name = "HowToPlayPanel"
-	_howto.closed.connect(func() -> void: _focus_first())
+	_howto.closed.connect(_focus_first)
 	add_child(_howto)
 	SettingsService.changed.connect(_rebuild)
 
