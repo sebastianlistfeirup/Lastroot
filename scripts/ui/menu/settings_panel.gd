@@ -26,8 +26,13 @@ func open() -> void:
 
 func _on_settings_changed() -> void:
 	if visible:
+		var fo: Control = get_viewport().gui_get_focus_owner()
+		var fname: String = fo.name if fo != null and is_ancestor_of(fo) else ""
 		title_text = Loc.t("Settings")
 		rebuild()
+		var t: Control = body.find_child(fname, true, false) as Control if fname != "" else null
+		if t:
+			t.grab_focus.call_deferred()
 
 
 func _build() -> void:
@@ -63,7 +68,8 @@ func _row(title: String, options: Array, current: Variant, on_pick: Callable, hi
 	for opt: Array in options:
 		var val: Variant = opt[0]
 		var sel: bool = _same(val, current)
-		var b := UiKit.button(str(opt[1]), UiKit.LIFE if sel else UiKit.ASH, 18)
+		var b := UiKit.button(("✓ " if sel else "") + str(opt[1]), UiKit.LIFE if sel else UiKit.ASH, 18)
+		b.name = "Opt_%s_%s" % [title.to_snake_case().left(12), str(val).replace(".", "_")]
 		b.custom_minimum_size = Vector2(UiKit.MIN_HIT * 2, UiKit.MIN_HIT)
 		b.toggle_mode = true
 		b.button_pressed = sel

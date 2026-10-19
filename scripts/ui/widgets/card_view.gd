@@ -38,6 +38,9 @@ var _upg: Label
 func _init() -> void:
 	custom_minimum_size = Vector2(W, H)
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	focus_mode = Control.FOCUS_ALL  # keyboard / pad: arrows move, ui_accept = tap
+	focus_entered.connect(_apply_style)
+	focus_exited.connect(_apply_style)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 3)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -257,7 +260,19 @@ func _apply_style() -> void:
 	if selected:
 		sb.shadow_color = Color(UiKit.LIFE, 0.35)
 		sb.shadow_size = 8
+	if has_focus():
+		# Focus ring: white outline outside the frame, independent of state colours.
+		sb.expand_margin_left = 4
+		sb.expand_margin_right = 4
+		sb.expand_margin_top = 4
+		sb.expand_margin_bottom = 4
+		sb.shadow_color = Color(1, 1, 1, 0.9)
+		sb.shadow_size = 3
 	add_theme_stylebox_override("panel", sb)
+	if _art:
+		_art.selected = selected
+		_art.unplayable = not playable
+		_art.queue_redraw()
 	modulate = Color(1, 1, 1, 1) if playable else Color(0.62, 0.62, 0.66, 1)
 
 
@@ -269,6 +284,8 @@ func _gui_input(event: InputEvent) -> void:
 	elif event is InputEventScreenTouch and not ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch", true):
 		# With mouse emulation on, the emulated click already arrives; don't fire twice.
 		press = (event as InputEventScreenTouch).pressed
+	elif event.is_action_pressed("ui_accept") and has_focus():
+		press = true
 	if press:
 		accept_event()
 		pressed.emit()

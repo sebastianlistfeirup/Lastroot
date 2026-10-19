@@ -27,6 +27,26 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_settings()
 	apply()
+	add_pad_ui_events()
+
+
+## Godot 4.5's default ui_accept / ui_cancel have no joypad buttons (the
+## d-pad and left stick are already on ui_up/down/left/right). Adds Xbox-style
+## A = accept, B and Start = cancel/back at runtime; project.godot stays as is.
+static func add_pad_ui_events() -> void:
+	var want := {"ui_accept": [JOY_BUTTON_A], "ui_cancel": [JOY_BUTTON_B, JOY_BUTTON_START]}
+	for action: String in want.keys():
+		if not InputMap.has_action(action):
+			continue
+		for btn: int in want[action]:
+			var has := false
+			for e: InputEvent in InputMap.action_get_events(action):
+				if e is InputEventJoypadButton and (e as InputEventJoypadButton).button_index == btn:
+					has = true
+			if not has:
+				var ev := InputEventJoypadButton.new()
+				ev.button_index = btn as JoyButton
+				InputMap.action_add_event(action, ev)
 
 
 ## Pushes the values into the engine-side singletons (Loc, UiKit, audio buses).

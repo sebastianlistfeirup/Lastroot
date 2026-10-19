@@ -30,6 +30,7 @@ func _ready() -> void:
 	await _pause_cases()
 	await _resume_cases()
 	await _howto_cases()
+	await _keyboard_cases()
 	_restore_save()
 	var ms: int = Time.get_ticks_msec() - t0
 	for f in failures:
@@ -589,3 +590,132 @@ func _howto_cases() -> void:
 	await press(p, "PauseHowToButton")
 	ok((p.find_child("HowToPlayPanel", true, false) as Control).visible, "How to play from the pause menu")
 	await unmount(s)
+
+
+# ------------------------------------------------- LR-28 keyboard / pad
+
+## Sends a ui_* action (press + release, as a key or pad button would) into
+## the screen's own viewport, like a real keyboard or controller.
+func key(screen: Node, action: String) -> void:
+	var vp: Viewport = screen.get_viewport()
+	for pressed: bool in [true, false]:
+		var ev := InputEventAction.new()
+		ev.action = action
+		ev.pressed = pressed
+		vp.push_input(ev)
+		await _frames(1)
+	step("key " + action)
+	await _frames(1)
+
+
+func focus_name(screen: Node) -> String:
+	var f: Control = screen.get_viewport().gui_get_focus_owner()
+	return str(f.name) if f else ""
+
+
+func _keyboard_cases() -> void:
+	_case = "pad_events"
+	var accept_pad := false
+	for e: InputEvent in InputMap.action_get_events("ui_accept"):
+		if e is InputEventJoypadButton and (e as InputEventJoypadButton).button_index == JOY_BUTTON_A:
+			accept_pad = true
+	ok(accept_pad, "pad A is mapped to ui_accept")
+	var cancel_pad := false
+	for e: InputEvent in InputMap.action_get_events("ui_cancel"):
+		if e is InputEventJoypadButton and (e as InputEventJoypadButton).button_index == JOY_BUTTON_B:
+			cancel_pad = true
+	ok(cancel_pad, "pad B is mapped to ui_cancel")
+
+	_case = "keyboard_menu"
+	SaveService.delete_run()
+	var m: Control = await mount(MENU, {})
+	await _frames(2)
+	ok(focus_name(m) == "NewRunButton", "initial focus on New Run (got %s)" % focus_name(m))
+	await key(m, "ui_down")
+	ok(focus_name(m) == "HowToButton", "ui_down moves to the next menu button (got %s)" % focus_name(m))
+	await key(m, "ui_accept")
+	var h: HowToPlayPanel = m.find_child("HowToPlayPanel", true, false) as HowToPlayPanel
+	ok(h.visible and focus_name(m) == "NextPage", "How to play opens with focus on Next")
+	await key(m, "ui_right")
+	ok(h.page == 1, "ui_right flips the page")
+	await key(m, "ui_cancel")
+	ok(not h.visible, "ui_cancel closes How to play")
+	await _frames(1)
+	(m.find_child("NewRunButton", true, false) as Control).grab_focus()
+	await key(m, "ui_accept")
+	ok((m as MainMenu).view == "faction", "ui_accept on New Run opens champion select")
+	await _frames(2)
+	ok(focus_name(m) == "Choose_BARK", "champion select focuses the first champion (got %s)" % focus_name(m))
+	await key(m, "ui_cancel")
+	ok((m as MainMenu).view == "title", "ui_cancel goes back to the title")
+	(m.find_child("NewRunButton", true, false) as Control).grab_focus()
+	await key(m, "ui_accept")
+	await _frames(2)
+	await key(m, "ui_right")
+	var chosen: String = focus_name(m)
+	ok(chosen == "Choose_SPORE", "ui_right moves to the other champion (got %s)" % chosen)
+	await key(m, "ui_accept")
+	ok(GameSession.phase() == "battle" and GameSession.run.get("main_faction", "") == chosen.trim_prefix("Choose_"), "ui_accept starts the run with the focused champion")
+	await unmount(m)
+
+	_case = "keyboard_reward"
+	var s: Control = await mount(RUN, MetaFixtures.reward_slot("card"))
+	await _frames(2)
+	var slot: Dictionary = RunReducer.current_slot(GameSession.run)
+	ok(focus_name(s) == "Offer_" + str(slot["offer"][0]), "initial focus on the first offer (got %s)" % focus_name(s))
+	await key(s, "ui_right")
+	var picked: String = focus_name(s).trim_prefix("Offer_")
+	ok(picked == str(slot["offer"][1]), "ui_right moves to the next card (got %s)" % picked)
+	await key(s, "ui_accept")
+	await _frames(2)
+	ok((s as RunScreen).sel_offer == picked, "ui_accept selects the focused card")
+	ok(focus_name(s) == "ConfirmButton", "focus jumps to the enabled confirm button (got %s)" % focus_name(s))
+	var deck_n: int = (GameSession.run["deck"] as Array).size()
+	await key(s, "ui_accept")
+	await _frames(2)
+	ok((GameSession.run["deck"] as Array).size() == deck_n + 1 and str(GameSession.run["deck"][-1]["def_id"]) == picked, "ui_accept claims the card")
+	ok(RunReducer.current_slot(GameSession.run).get("type", "") == "mutation", "next slot shown")
+	ok(focus_name(s).begins_with("Offer_"), "focus lands on the new offers (got %s)" % focus_name(s))
+	await key(s, "ui_cancel")
+	var p: PauseMenu = _pause_of(s)
+	ok(p.is_open, "ui_cancel opens the pause menu on the run screen")
+	await _frames(2)
+	ok(focus_name(s) == "ResumeButton", "pause focuses Resume (got %s)" % focus_name(s))
+	await key(s, "ui_cancel")
+	ok(not p.is_open, "ui_cancel closes the pause menu")
+	await unmount(s)
+
+	_case = "keyboard_route"
+	s = await mount(RUN, MetaFixtures.route(1))
+	await _frames(2)
+	ok(focus_name(s).begins_with("Go_"), "route focuses a Travel button (got %s)" % focus_name(s))
+	var go: String = focus_name(s).trim_prefix("Go_")
+	await key(s, "ui_accept")
+	ok(GameSession.phase() == "node" and GameSession.run["node"]["id"] == go, "ui_accept travels to the focused node")
+	await unmount(s)
+
+	_case = "keyboard_overlays"
+	s = await mount(RUN, MetaFixtures.route(4))
+	await press(s, "DeckButton")
+	var dv: DeckViewer = s.find_child("DeckViewer", true, false) as DeckViewer
+	await _frames(2)
+	ok(dv.visible and dv.close_button.has_focus(), "deck viewer focuses Close")
+	await key(s, "ui_cancel")
+	ok(not dv.visible, "ui_cancel closes the deck viewer")
+	await unmount(s)
+	var r: Control = await mount(RESULT, MetaFixtures.won())
+	await _frames(2)
+	ok(focus_name(r) == "NewRunButton", "result focuses New run (got %s)" % focus_name(r))
+	await key(r, "ui_right")
+	ok(focus_name(r) == "MainMenuButton", "ui_right reaches Main menu")
+	await key(r, "ui_accept")
+	ok((r as ResultScreen).pending_scene == "menu", "ui_accept on Main menu")
+	await unmount(r)
+	var m2: Control = await mount(MENU, {})
+	(m2.find_child("SettingsButton", true, false) as Control).grab_focus()
+	await key(m2, "ui_accept")
+	var sp: SettingsPanel = m2.find_child("SettingsPanel", true, false) as SettingsPanel
+	ok(sp.visible, "settings opens from the keyboard")
+	await key(m2, "ui_cancel")
+	ok(not sp.visible, "ui_cancel closes settings")
+	await unmount(m2)

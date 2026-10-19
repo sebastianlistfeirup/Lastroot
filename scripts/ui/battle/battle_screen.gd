@@ -767,6 +767,7 @@ func _refresh_hand() -> void:
 		cv.selected = iid == selected_card
 		cv.playable = (not locked) and _card_playable(iid)
 		cv.pressed.connect(_on_card_pressed.bind(iid))
+		cv.focus_mode = Control.FOCUS_NONE  # battle uses its own 1-9 / LB-RB shortcuts
 		if portrait:
 			cv.set_compact(true)
 		hand_box.add_child(cv)

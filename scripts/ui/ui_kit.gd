@@ -186,6 +186,7 @@ static func dimmer(alpha: float = 0.72) -> ColorRect:
 static func vscroll() -> ScrollContainer:
 	var s := ScrollContainer.new()
 	s.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	s.follow_focus = true  # keyboard / pad focus scrolls into view
 	s.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return s

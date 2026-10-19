@@ -25,7 +25,9 @@ func build(p_run: Dictionary, portrait: bool) -> void:
 	var heart: int = int(run.get("heart", 0))
 	var heart_max: int = int(run.get("heart_max", 0))
 	var heart_col: Color = UiKit.LIFE if heart * 3 > heart_max else UiKit.DANGER
-	row.add_child(_item("HeartChip", "heart", "%d/%d" % [heart, heart_max], heart_col, Loc.t("Heart"),
+	# Low Heart: a warning mark in the text, not only the red colour.
+	var heart_txt: String = ("! %d/%d" if heart * 3 <= heart_max else "%d/%d") % [heart, heart_max]
+	row.add_child(_item("HeartChip", "heart", heart_txt, heart_col, Loc.t("Heart"),
 		Loc.t("The world tree's Heart. Enemies that climb past the Crown damage it. At 0 the run is lost.") + "\n" +
 		Loc.t("Current %d of %d.") % [heart, heart_max]))
 	row.add_child(_item("ResinChip", "resin", str(int(run.get("resin", 0))), UiKit.AMBER, Loc.t("Resin"),

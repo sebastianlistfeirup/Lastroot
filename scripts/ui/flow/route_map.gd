@@ -217,6 +217,8 @@ func _label(n: Dictionary) -> String:
 
 
 func _sublabel(n: Dictionary) -> String:
+	if n["id"] == selected:
+		return "✓ " + Loc.t("Selected")
 	match str(n["state"]):
 		"won": return Loc.t("Won")
 		"next": return Loc.t("Next")

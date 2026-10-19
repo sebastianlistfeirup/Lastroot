@@ -31,8 +31,14 @@ func _ready() -> void:
 func open() -> void:
 	visible = true
 	rebuild()
-	if close_button:
-		close_button.grab_focus.call_deferred()
+	var f: Control = initial_focus()
+	if f:
+		f.grab_focus.call_deferred()
+
+
+## Control that gets keyboard / pad focus when the overlay opens.
+func initial_focus() -> Control:
+	return close_button
 
 
 func close() -> void:

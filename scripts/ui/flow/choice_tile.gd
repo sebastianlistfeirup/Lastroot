@@ -10,6 +10,22 @@ var accent: Color = UiKit.LIFE
 var selected: bool = false: set = set_selected
 var enabled: bool = true: set = set_enabled
 var box: VBoxContainer
+var _mark: ChoiceMark
+
+
+## Draws the "selected" check badge in the corner (glyph, not just colour).
+class ChoiceMark extends Control:
+	var tile: ChoiceTile
+
+	func _init() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func _draw() -> void:
+		if tile == null or not tile.selected:
+			return
+		var c := Vector2(size.x - 6, 6)
+		draw_circle(c, 13.0, UiKit.LIFE)
+		MetaIcon.draw_icon(self, "check", c - Vector2(9, 9), 18.0, UiKit.BG)
 
 
 func _init() -> void:
@@ -19,6 +35,11 @@ func _init() -> void:
 	box = UiKit.vbox(8)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
+	_mark = ChoiceMark.new()
+	_mark.tile = self
+	add_child(_mark)
+	focus_entered.connect(_style)
+	focus_exited.connect(_style)
 	_style()
 
 
@@ -88,8 +109,17 @@ func _style() -> void:
 	sb.content_margin_right = 16
 	sb.content_margin_top = 14
 	sb.content_margin_bottom = 14
+	if has_focus():
+		sb.expand_margin_left = 4
+		sb.expand_margin_right = 4
+		sb.expand_margin_top = 4
+		sb.expand_margin_bottom = 4
+		sb.shadow_color = Color(1, 1, 1, 0.9)
+		sb.shadow_size = 3
 	add_theme_stylebox_override("panel", sb)
 	modulate = Color.WHITE if enabled else Color(0.7, 0.7, 0.75, 1)
+	if _mark:
+		_mark.queue_redraw()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -99,7 +129,7 @@ func _gui_input(event: InputEvent) -> void:
 		press = mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT
 	elif event is InputEventScreenTouch and not ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch", true):
 		press = (event as InputEventScreenTouch).pressed  # otherwise the emulated mouse press handles it
-	elif event.is_action_pressed("ui_accept"):
+	elif event.is_action_pressed("ui_accept") and has_focus():
 		press = true
 	if press:
 		accept_event()
