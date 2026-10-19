@@ -25,6 +25,9 @@ func setup(u: Dictionary) -> UnitView:
 	add_child(root)
 	visual = VisualBridge.make(slot_id)
 	root.add_child(visual)
+	var vs: GDScript = load(VisualBridge.VS_PATH) if ResourceLoader.exists(VisualBridge.VS_PATH) else null
+	if vs != null and vs.has_method("apply_side"):
+		vs.call("apply_side", visual, StringName(side), not OS.has_feature("web"))
 	# Models face -Z; allies look right (+X) toward the enemies, enemies look left.
 	root.rotation_degrees.y = -90.0 if side == "ally" else 90.0
 	head_height = VisualBridge.head_height(slot_id)

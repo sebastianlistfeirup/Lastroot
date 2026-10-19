@@ -709,8 +709,8 @@ func _refresh_all() -> void:
 		return
 	_refresh_top()
 	_refresh_hand()
-	_refresh_targets()
 	_refresh_forecast()
+	_refresh_targets()
 	_refresh_hints()
 	btn_confirm.disabled = locked or pending.is_empty()
 	btn_cancel.disabled = locked or (mode == "idle")
@@ -778,8 +778,15 @@ func _refresh_targets() -> void:
 			h = "selected"
 		(badges[uid] as UnitBadge).set_highlight(h)
 		if views.has(uid):
-			(views[uid] as UnitView).set_ring(StringName(h) if h != "" else &"none")
+			var ring: String = h
+			if ring == "" and _forecast_deaths.has(uid):
+				ring = "danger"
+			(views[uid] as UnitView).set_ring(StringName(ring) if ring != "" else &"none")
 	for f in 3:
+		var strip_kind: StringName = &"none"
+		if mode == "card" and legal_floors.has(f) and not awaiting_heal_target:
+			strip_kind = &"selected" if pending.get("floor", -1) == f and not pending.has("position") else &"target"
+		_set_floor_strip(f, strip_kind)
 		var show: bool = mode == "card" and legal_floors.has(f) and not awaiting_heal_target
 		floor_buttons[f].visible = show
 		floor_buttons[f].text = Catalog.floor_name(f) if show else ""
@@ -802,6 +809,7 @@ func _refresh_forecast() -> void:
 		forecast_box.add_child(UiKit.label(str(fc.get("error", "")), 16, UiKit.DANGER))
 		return
 	var sm: Dictionary = fc["summary"]
+	_forecast_deaths = {}
 	forecast_box.add_child(UiKit.label(title, 16, UiKit.TEXT_DIM))
 	var heart_line := UiKit.label("%s %s %d → %d" % [UiKit.status_glyph("hp"), Loc.t("Heart"), battle["heart"], sm["heart_after"]], 20,
 		UiKit.DANGER if int(sm["heart_damage"]) > 0 else UiKit.GOOD, true)
@@ -822,6 +830,8 @@ func _refresh_forecast() -> void:
 		var col: Color = UiKit.TEXT
 		var badge_text := ""
 		var danger := false
+		if d["dies"] and u["side"] == "ally":
+			_forecast_deaths[int(key)] = true
 		if d["dies"]:
 			line = "✝ %s %s" % [nm, Loc.t("dies")]
 			col = UiKit.GOOD if u["side"] == "enemy" else UiKit.DANGER
@@ -1076,6 +1086,22 @@ func _open_menu() -> void:
 
 
 var _target_cursor: int = -1
+var _forecast_deaths: Dictionary = {}
+var _floor_strips: Array = [null, null, null]
+
+
+func _set_floor_strip(f: int, kind: StringName) -> void:
+	if _floor_strips[f] == null:
+		if kind == &"none":
+			return
+		var n: Node3D = VisualBridge.make("fx.floor_target")
+		if not n.has_method("set_kind"):
+			n.queue_free()
+			return
+		n.position = Vector3(0, StageLayout.floor_y(f), 0)
+		stage.add_child(n)
+		_floor_strips[f] = n
+	(_floor_strips[f] as Node).call("set_kind", kind)
 
 
 ## Every target the current selection allows, in screen order, as callables.
