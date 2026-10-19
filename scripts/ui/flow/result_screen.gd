@@ -84,6 +84,9 @@ func render() -> void:
 	right.custom_minimum_size = Vector2(0 if portrait else 760, 0)
 	main.add_child(right)
 	right.add_child(_stats_panel(stats, portrait))
+	var bp: Control = _battles_panel()
+	if bp:
+		right.add_child(bp)
 	right.add_child(_build_panel())
 	var buttons := UiKit.flow(16)
 	buttons.name = "Actions"
@@ -137,6 +140,47 @@ func _stats_panel(stats: Dictionary, portrait: bool) -> Control:
 		c.add_child(val)
 		h.add_child(c)
 		grid.add_child(cell)
+	return p
+
+
+## Per-battle rows. Uses run["battle_log"] when the domain provides it
+## (list of {index, result, turns, heart, heart_lost}); otherwise the one
+## battle the run records, run["last_battle"]. Never invents numbers.
+static func battle_rows(run: Dictionary) -> Array:
+	var entries: Array = run.get("battle_log", [])
+	if not entries.is_empty():
+		return entries
+	var lb: Dictionary = run.get("last_battle", {})
+	return [] if lb.is_empty() else [lb]
+
+
+func _battles_panel() -> Control:
+	var rows: Array = battle_rows(run)
+	if rows.is_empty():
+		return null
+	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), UiKit.LINE)
+	p.name = "BattlesPanel"
+	var v := UiKit.vbox(6)
+	p.add_child(v)
+	v.add_child(UiKit.heading(Loc.t("Battles") if rows.size() > 1 else Loc.t("Final battle"), 22))
+	for b: Dictionary in rows:
+		var won_b: bool = str(b.get("result", "")) == "won"
+		var h := UiKit.hbox(10)
+		h.name = "BattleRow_%d" % int(b.get("index", 0))
+		var ic := MetaIcon.make("check" if won_b else "skip", UiKit.LIFE if won_b else UiKit.DANGER, UiKit.px(22))
+		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		h.add_child(ic)
+		var name_l := UiKit.label(RunText.battle_name(int(b.get("index", 0))), 17, UiKit.TEXT, true)
+		name_l.custom_minimum_size = Vector2(UiKit.px(150), 0)
+		h.add_child(name_l)
+		var parts: PackedStringArray = [Loc.t("Won") if won_b else Loc.t("Lost"), Loc.t("%d turns") % int(b.get("turns", 0)),
+			"%s %d" % [Loc.t("Heart"), int(b.get("heart", 0))]]
+		if b.has("heart_lost"):
+			parts.append("−%d" % int(b["heart_lost"]))
+		var d := UiKit.label(" · ".join(parts), 16, UiKit.TEXT_DIM)
+		d.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(d)
+		v.add_child(h)
 	return p
 
 

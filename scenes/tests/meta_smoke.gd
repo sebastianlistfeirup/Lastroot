@@ -18,8 +18,16 @@ var _saved: Dictionary = {}
 var _case: String = ""
 
 
+var _onboarding_was: bool = false
+var _settings_bytes: PackedByteArray = PackedByteArray()
+
+
 func _ready() -> void:
 	_backup_save()
+	if FileAccess.file_exists(SettingsService.PATH):
+		_settings_bytes = FileAccess.get_file_as_bytes(SettingsService.PATH)
+	_onboarding_was = SettingsService.onboarding_done
+	SettingsService.onboarding_done = true  # the first-run prompt has its own case
 	var t0: int = Time.get_ticks_msec()
 	await _menu_cases()
 	await _reward_cases()
@@ -31,7 +39,13 @@ func _ready() -> void:
 	await _resume_cases()
 	await _howto_cases()
 	await _keyboard_cases()
+	await _round5_cases()
 	_restore_save()
+	SettingsService.onboarding_done = _onboarding_was
+	if not _settings_bytes.is_empty():
+		var sf := FileAccess.open(SettingsService.PATH, FileAccess.WRITE)
+		sf.store_buffer(_settings_bytes)
+		sf.close()
 	var ms: int = Time.get_ticks_msec() - t0
 	for f in failures:
 		print("FAIL ", f)
@@ -719,3 +733,72 @@ func _keyboard_cases() -> void:
 	await key(m2, "ui_cancel")
 	ok(not sp.visible, "ui_cancel closes settings")
 	await unmount(m2)
+
+
+
+# ------------------------------------------- onboarding, focus mode, battles
+
+func _round5_cases() -> void:
+	_case = "first_run_skip"
+	SettingsService.onboarding_done = false
+	SaveService.delete_run()
+	var m: Control = await mount(MENU, {})
+	await press(m, "NewRunButton")
+	ok((m as MainMenu).view == "first_run" and m.find_child("FirstRunPrompt", true, false) != null, "first run offers the guide before champion select")
+	await press(m, "SkipGuideButton")
+	ok((m as MainMenu).view == "faction" and SettingsService.onboarding_done, "Skip goes to champion select and is remembered")
+	await unmount(m)
+	m = await mount(MENU, {})
+	await press(m, "NewRunButton")
+	ok((m as MainMenu).view == "faction", "asked only once")
+	await unmount(m)
+
+	_case = "first_run_show"
+	SettingsService.onboarding_done = false
+	m = await mount(MENU, {})
+	await press(m, "NewRunButton")
+	await press(m, "ShowGuideButton")
+	var h: HowToPlayPanel = m.find_child("HowToPlayPanel", true, false) as HowToPlayPanel
+	ok(h.visible and h.page == 0, "Show me opens How to play at page 1")
+	ok(SettingsService.onboarding_done, "choice remembered")
+	h.close()
+	await _frames(1)
+	ok((m as MainMenu).view == "faction", "closing the guide continues to champion select")
+	await unmount(m)
+	var cfg := ConfigFile.new()
+	ok(cfg.load(SettingsService.path) == OK and bool(cfg.get_value("settings", "onboarding_done", false)), "flag persisted in settings.cfg")
+	SettingsService.onboarding_done = true
+
+	_case = "focus_ring_mode"
+	SettingsService.set_keyboard_nav(false)
+	ok(not UiKit.focus_visible and UiKit.focus_box().border_color.a == 0.0, "no ring for mouse/touch users")
+	var kev := InputEventKey.new()
+	kev.keycode = KEY_DOWN
+	kev.pressed = true
+	SettingsService._input(kev)
+	ok(UiKit.focus_visible and UiKit.focus_box().border_color.a == 1.0, "first key shows the ring")
+	var mev := InputEventMouseButton.new()
+	mev.button_index = MOUSE_BUTTON_LEFT
+	mev.pressed = true
+	SettingsService._input(mev)
+	ok(not UiKit.focus_visible, "mouse hides it again")
+	var pev := InputEventJoypadButton.new()
+	pev.button_index = JOY_BUTTON_A
+	pev.pressed = true
+	SettingsService._input(pev)
+	ok(UiKit.focus_visible, "pad shows it")
+	SettingsService.set_keyboard_nav(false)
+
+	_case = "result_battles"
+	for kind: String in ["won", "lost"]:
+		var run: Dictionary = MetaFixtures.won() if kind == "won" else MetaFixtures.lost()
+		var r: Control = await mount(RESULT, run)
+		var lb: Dictionary = run["last_battle"]
+		var row: Node = r.find_child("BattleRow_%d" % int(lb["index"]), true, false)
+		ok(row != null, "%s: last battle row shown" % kind)
+		var txt: String = ""
+		if row:
+			for l: Node in row.find_children("*", "Label", true, false):
+				txt += (l as Label).text + " "
+		ok(txt.contains(Loc.t("%d turns") % int(lb["turns"])) and txt.contains("%s %d" % [Loc.t("Heart"), int(lb["heart"])]), "%s: real turns and Heart (%s)" % [kind, txt.strip_edges()])
+		await unmount(r)

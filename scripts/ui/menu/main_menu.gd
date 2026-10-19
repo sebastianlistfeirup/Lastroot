@@ -12,7 +12,7 @@ const FACTION_NAME := {"BARK": "Bark faction", "SPORE": "Spore faction"}
 ## View the next menu instance opens with (the result screen's "New run" sets "faction").
 static var start_view: String = "title"
 
-var view: String = "title"  # title | faction
+var view: String = "title"  # title | first_run | faction
 ## Tests set this false and read `pending_scene` instead of changing scenes.
 var auto_navigate: bool = true
 var pending_scene: String = ""
@@ -71,6 +71,8 @@ func _build() -> void:
 	_backdrop.tree_scale = 0.62 if _last_portrait else 0.86
 	if view == "faction":
 		_build_faction()
+	elif view == "first_run":
+		_build_first_run()
 	else:
 		_build_title()
 
@@ -211,8 +213,62 @@ func _on_load_backup() -> void:
 func _on_new_run() -> void:
 	if SaveService.has_save() and SaveService.load_run().get("ok", false) and not (str(SaveService.load_run()["run"].get("phase", "")) in ["won", "lost"]):
 		_dialog.show_message(Loc.t("Start a new run?"), Loc.t("Your current run will end. This cannot be undone."),
-			[[Loc.t("Cancel"), UiKit.ASH, func() -> void: pass], [Loc.t("New Run"), UiKit.AMBER, show_faction_select]])
+			[[Loc.t("Cancel"), UiKit.ASH, func() -> void: pass], [Loc.t("New Run"), UiKit.AMBER, _start_new_run_flow]])
 		return
+	_start_new_run_flow()
+
+
+## First run ever: offer the guide before champion select (asked once).
+func _start_new_run_flow() -> void:
+	if not SettingsService.onboarding_done:
+		view = "first_run"
+		_build()
+		return
+	show_faction_select()
+
+
+func _build_first_run() -> void:
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_content.add_child(center)
+	var p := UiKit.panel(Color(UiKit.PANEL, 0.96), UiKit.LIFE.darkened(0.2))
+	p.name = "FirstRunPrompt"
+	center.add_child(p)
+	var v := UiKit.vbox(14)
+	v.custom_minimum_size = Vector2(minf(620.0, get_viewport().get_visible_rect().size.x - 48.0), 0)
+	p.add_child(v)
+	var art := HowToArt.new()
+	art.kind = "floors"
+	art.custom_minimum_size = Vector2(0, 200)
+	v.add_child(art)
+	v.add_child(UiKit.heading(Loc.t("New to LASTROOT?"), 30))
+	v.add_child(UiKit.label(Loc.t("A short illustrated guide shows the floors, Sap, cards, the forecast and the boss. You can open it again any time from the menu."), 19, UiKit.TEXT))
+	var row := UiKit.flow(12, false)
+	v.add_child(row)
+	var show_b := UiKit.button(Loc.t("Show me how to play"), UiKit.LIFE, 22)
+	show_b.name = "ShowGuideButton"
+	show_b.custom_minimum_size = Vector2(0, 60)
+	show_b.pressed.connect(_on_show_guide)
+	row.add_child(show_b)
+	var skip := UiKit.button(Loc.t("Skip"), UiKit.ASH, 22)
+	skip.name = "SkipGuideButton"
+	skip.custom_minimum_size = Vector2(160, 60)
+	skip.pressed.connect(_on_skip_guide)
+	row.add_child(skip)
+	show_b.grab_focus.call_deferred()
+
+
+func _on_show_guide() -> void:
+	AudioService.play("ui_confirm")
+	SettingsService.set_onboarding_done(true)
+	_howto.page = 0
+	_howto.open()
+	_howto.closed.connect(show_faction_select, CONNECT_ONE_SHOT)
+
+
+func _on_skip_guide() -> void:
+	AudioService.play("ui_click")
+	SettingsService.set_onboarding_done(true)
 	show_faction_select()
 
 
@@ -241,7 +297,7 @@ func _on_quit() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _settings.visible or _credits.visible or _howto.visible or _dialog.visible:
 		return
-	if view == "faction" and event.is_action_pressed("ui_cancel"):
+	if view in ["faction", "first_run"] and event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		AudioService.play("ui_cancel")
 		show_title()

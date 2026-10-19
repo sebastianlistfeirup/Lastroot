@@ -3,6 +3,8 @@ extends Node
 ## Persisted to user://settings.cfg. Screens listen to `changed` and rebuild.
 
 signal changed
+## Keyboard/pad vs mouse/touch; drives the focus ring (UiKit.focus_visible).
+signal nav_mode_changed(keyboard: bool)
 
 const PATH := "user://settings.cfg"
 const VERSION := 1
@@ -21,6 +23,9 @@ var anim_speed: float = 1.0
 var volumes: Dictionary = {"master": 0.8, "music": 0.6, "sfx": 0.9}
 
 var path: String = PATH  # tests point this at a scratch file
+## Set once the first-run "How to play" offer was answered (shown or skipped).
+var onboarding_done: bool = false
+var keyboard_nav: bool = false
 
 
 func _ready() -> void:
@@ -28,6 +33,39 @@ func _ready() -> void:
 	load_settings()
 	apply()
 	add_pad_ui_events()
+
+
+## Focus ring only for keyboard / pad users: shown after the first key or pad
+## input, hidden again by mouse or touch.
+func _input(event: InputEvent) -> void:
+	var kb := false
+	var pointer := false
+	if event is InputEventKey or event is InputEventJoypadButton:
+		kb = event.is_pressed()
+	elif event is InputEventJoypadMotion:
+		kb = absf((event as InputEventJoypadMotion).axis_value) > 0.5
+	elif event is InputEventMouseButton or event is InputEventScreenTouch:
+		pointer = event.is_pressed()
+	if kb and not keyboard_nav:
+		set_keyboard_nav(true)
+	elif pointer and keyboard_nav:
+		set_keyboard_nav(false)
+
+
+func set_keyboard_nav(v: bool) -> void:
+	keyboard_nav = v
+	UiKit.set_focus_visible(v)
+	# Cards and tiles draw their own ring: restyle the focused one.
+	var vp: Viewport = get_viewport() if is_inside_tree() else null
+	var fo: Control = vp.gui_get_focus_owner() if vp else null
+	if fo and fo.has_method("_on_focus_style"):
+		fo.call("_on_focus_style")
+	nav_mode_changed.emit(v)
+
+
+func set_onboarding_done(v: bool = true) -> void:
+	onboarding_done = v
+	save_settings()
 
 
 ## Godot 4.5's default ui_accept / ui_cancel have no joypad buttons (the
@@ -120,6 +158,7 @@ func load_settings() -> bool:
 	text_scale = clampf(float(cfg.get_value("settings", "text_scale", text_scale)), 0.8, 1.5)
 	reduced_motion = bool(cfg.get_value("settings", "reduced_motion", reduced_motion))
 	anim_speed = clampf(float(cfg.get_value("settings", "anim_speed", anim_speed)), 0.25, 4.0)
+	onboarding_done = bool(cfg.get_value("settings", "onboarding_done", onboarding_done))
 	for k: String in VOLUME_KEYS:
 		volumes[k] = clampf(float(cfg.get_value("volume", k, volumes[k])), 0.0, 1.0)
 	return true
@@ -132,6 +171,7 @@ func save_settings() -> bool:
 	cfg.set_value("settings", "text_scale", text_scale)
 	cfg.set_value("settings", "reduced_motion", reduced_motion)
 	cfg.set_value("settings", "anim_speed", anim_speed)
+	cfg.set_value("settings", "onboarding_done", onboarding_done)
 	for k: String in VOLUME_KEYS:
 		cfg.set_value("volume", k, volumes[k])
 	return cfg.save(path) == OK
@@ -140,7 +180,7 @@ func save_settings() -> bool:
 ## Plain snapshot (tests, debug).
 func snapshot() -> Dictionary:
 	return {"language": language, "text_scale": text_scale, "reduced_motion": reduced_motion,
-		"anim_speed": anim_speed, "volumes": volumes.duplicate()}
+		"anim_speed": anim_speed, "volumes": volumes.duplicate(), "onboarding_done": onboarding_done}
 
 
 func reset_defaults() -> void:

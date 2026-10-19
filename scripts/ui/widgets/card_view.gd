@@ -260,7 +260,7 @@ func _apply_style() -> void:
 	if selected:
 		sb.shadow_color = Color(UiKit.LIFE, 0.35)
 		sb.shadow_size = 8
-	if has_focus():
+	if has_focus() and UiKit.focus_visible:
 		# Focus ring: white outline outside the frame, independent of state colours.
 		sb.expand_margin_left = 4
 		sb.expand_margin_right = 4
@@ -289,3 +289,8 @@ func _gui_input(event: InputEvent) -> void:
 	if press:
 		accept_event()
 		pressed.emit()
+
+
+## Called by SettingsService when keyboard / pointer mode flips.
+func _on_focus_style() -> void:
+	_apply_style()

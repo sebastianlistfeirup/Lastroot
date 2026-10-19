@@ -94,12 +94,7 @@ func _make_buttons() -> void:
 		b.flat = true
 		for st in ["normal", "hover", "pressed", "disabled"]:
 			b.add_theme_stylebox_override(st, empty)
-		var ring := StyleBoxFlat.new()
-		ring.draw_center = false
-		ring.border_color = Color.WHITE
-		ring.set_border_width_all(3)
-		ring.set_corner_radius_all(40)
-		b.add_theme_stylebox_override("focus", ring)
+		b.add_theme_stylebox_override("focus", UiKit.focus_round())
 		b.custom_minimum_size = Vector2(64, 64)
 		var nid: String = n["id"]
 		b.pressed.connect(func() -> void: node_tapped.emit(nid))
