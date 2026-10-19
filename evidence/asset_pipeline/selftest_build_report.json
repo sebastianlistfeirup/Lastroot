@@ -118,7 +118,7 @@
         2.05
       ],
       "reimport": false,
-      "rig": "own (quadruped, no retarget)",
+      "rig": "own rig (no retarget)",
       "scale": 1.9573,
       "scene": "res://art/prefabs/_selftest/unit.B04.tscn",
       "size_m": [

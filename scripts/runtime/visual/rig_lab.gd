@@ -33,6 +33,8 @@ func _ready() -> void:
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--slot="):
 			want = a.substr(7)
+		elif a.begins_with("--slot-scenes="):
+			VisualSlots.set_built_path(a.substr(14))
 		elif a.begins_with("--capture="):
 			_capture = a.substr(10)
 	if not want.is_empty() and slots.has(want):
@@ -73,6 +75,10 @@ static func audit(slot_id: String) -> Dictionary:
 		issues.append("faces +Z: set rotation_y 180 for this slot")
 	if anim == null:
 		issues.append("no UnitAnimator child")
+	if str(s.get("rig_family", "")) == "humanoid" and not v.get_meta("is_proxy", true) \
+			and not v.find_children("*", "Skeleton3D", true, false).is_empty() \
+			and v.find_children("GeneralSkeleton", "Skeleton3D", true, false).is_empty():
+		issues.append("slot expects a humanoid but the rig has no humanoid bone map: shared Mixamo clips cannot play (own clips only)")
 	if not missing.is_empty():
 		issues.append("missing clips: " + ", ".join(missing))
 	if str(s.get("rig_family", "")) == "quadruped" and player and v.find_children("GeneralSkeleton", "Skeleton3D", true, false).size() > 0:

@@ -104,6 +104,22 @@ Docken viser alle slots (● model / ○ proxy), pakke- og søgeforslag, matcher
 | "import settings updated" | Normalt; `build.sh` importerer og bygger op til tre gange af sig selv. |
 | Wrapper findes, men proxy vises | Pakken er ikke staget på denne maskine (fx efter `git clone`): kør `tools/synty/build.sh`. |
 
+## 6b. Første rigtige import (lært af en ægte FBX)
+
+Kæden er kørt mod to rigtige FBX-filer (assimp's BSD-licenserede testmodeller, slettet igen efter kørslen) i Godot 4.5.1. Resultatet står i `evidence/asset_pipeline/fbx_dryrun.json`. Det her er, hvad der faktisk skete, og hvad du skal gøre:
+
+1. **Start med at se, hvad filen indeholder:**
+   `godot --headless --path . --script res://tools/synty/model_probe.gd -- res://assets/imported/<pakke>/<fil>.fbx`
+   Den viser knogler, om de kan mappes til humanoid, clips (navn, længde), mål (cm eller m?) og op-akse.
+2. **FBX går gennem Godots indbyggede FBX-import (ufbx).** Det virker uden Blender. Filer, der henviser til eksterne `.jpg`/`.png` via sti, giver advarsler og bliver hvide, hvis billederne ikke ligger ved siden af. Kopiér de nævnte teksturer ind ved siden af FBX'en (stage.py tager kun `*Texture*` og `Textures/`-mapper med).
+3. **FBX-scener har ofte deres eget kamera og lys** (testfilerne havde `Camera` og `Lamp`). Byggeren sætter dem nu til "skip import" i `.import`-filen, og `VisualSlots.make` fjerner resten ved kørsel. Du skal ikke gøre noget, men vid at et ekstra import-pas er normalt.
+4. **Knoglenavne afgør retarget.** Synty-/Mixamo-navne mappes automatisk. Generiske navne (`Bone`, `Bone.001` …) kan ikke. Byggeren nægter nu at skrive et tomt bone map (over 4 manglende kerneknogler) og falder tilbage til modellens egne clips. RigLab skriver tydeligt: "slot expects a humanoid but the rig has no humanoid bone map". Løsning: vælg en anden model, omdøb knoglerne i Blender, eller brug modellens egne clips.
+5. **Egne clips med generiske navne** (fx `Armature|Action`) matcher ingen tilstand. Skriv dem selv i valget: `"clips": {"idle": "Armature|Action", "attack": "…"}` i `synty_choices.json`. Rapporten lister de indlejrede clipnavne.
+6. **Cm og flade modeller:** et objekt i centimeter, der skaleres efter højde, kan blive kæmpestort i fodaftryk, hvis det ligger ned eller er eksporteret Z-op. Byggeren advarer nu ("footprint … too wide"). Løsning: `"rotation_y"`/en anden model, `"fit": "natural"` eller `"extra_scale"`.
+7. **Facing** kan ikke gættes ud fra generiske knogler (`facing unknown`). Se på "front = −Z"-pilen i RigLab og sæt `"rotation_y"`.
+
+Ikke verificeret endnu: retarget af en rigtig humanoid FBX (Synty/Mixamo). Den del er kun bevist med glTF-selvtesten. Første gang du importerer en købt figur, så kør `model_probe.gd` på den og kig i RigLab, før du godkender den.
+
 ## 7. Filer
 
 * `data/art/asset_slots.json` — slotregister (genereres af `tools/synty/gen_slots.py`; dine `scene/scale/offset/rotation_y` bevares).

@@ -1,0 +1,52 @@
+{
+  "attack_missing_clip_finished_s": 0.62,
+  "cameras_in_instance": 0,
+  "has_clip_attack": false,
+  "has_clip_idle": true,
+  "idle_max_bone_rotation_deg": 100.4,
+  "is_model": true,
+  "lights_in_instance": 0,
+  "riglab_audit": {
+    "animation_player": true,
+    "clips": [
+      "Armature|Action"
+    ],
+    "declared_m": 2.6,
+    "facing": "unknown",
+    "feet_y": 0.0,
+    "footprint_m": [
+      2.56,
+      1.54
+    ],
+    "head_height": 2.85,
+    "height_m": 2.6,
+    "issues": [
+      "slot expects a humanoid but the rig has no humanoid bone map: shared Mixamo clips cannot play (own clips only)",
+      "missing clips: summon, attack, hit, death, defend, victory, move"
+    ],
+    "missing_clips": [
+      "summon",
+      "attack",
+      "hit",
+      "death",
+      "defend",
+      "victory",
+      "move"
+    ],
+    "ok": false,
+    "proxy": false,
+    "rig_family": "humanoid",
+    "slot": "unit.B01",
+    "states": {
+      "attack": "MISSING (procedural fallback)",
+      "death": "MISSING (procedural fallback)",
+      "defend": "MISSING (procedural fallback)",
+      "hit": "MISSING (procedural fallback)",
+      "idle": "clip:lr/idle",
+      "move": "MISSING (procedural fallback)",
+      "summon": "MISSING (procedural fallback)",
+      "victory": "MISSING (procedural fallback)"
+    }
+  },
+  "slot": "unit.B01"
+}

@@ -95,21 +95,40 @@ func build_one(slot_id: String, c: Dictionary, prefab_dir: String = PREFABS, lib
 	var lib_path := ""
 	var has_skel := not model.find_children("*", "Skeleton3D", true, false).is_empty()
 	var reimport := false
+	var own_clips := false
 	if character and has_skel and family == "humanoid":
 		rig = HumanoidBoneMapper.apply_retarget(model_path)
-		reimport = bool(rig.get("changed", false))
-		if reimport:
-			notes.append("humanoid bone map set (re-import, then build again)")
-		if not Array(rig.get("missing_core", [])).is_empty():
-			notes.append("bone map missing: " + ", ".join(rig["missing_core"]))
-		lib_path = str(libs.get("humanoid", ""))
-	elif character and family == "quadruped":
+		if not rig.get("ok", false) and rig.get("humanoid", true) == false:
+			# Real-FBX lesson: generic bone names cannot be retargeted. Fall back to the
+			# model's own embedded clips (map them via the choice's "clips": {state: clip}).
+			notes.append(str(rig.get("error", "")))
+			own_clips = true
+		else:
+			reimport = bool(rig.get("changed", false))
+			if reimport:
+				notes.append("humanoid bone map set (re-import, then build again)")
+			if not Array(rig.get("missing_core", [])).is_empty():
+				notes.append("bone map missing: " + ", ".join(rig["missing_core"]))
+			lib_path = str(libs.get("humanoid", ""))
+	if character and (family == "quadruped" or own_clips):
 		var sets: Variant = JSON.parse_string(FileAccess.get_file_as_string(UnitAnimator.SETS_PATH)) if FileAccess.file_exists(UnitAnimator.SETS_PATH) else {}
 		var kw: Dictionary = (sets as Dictionary).get("keywords", {}) if sets is Dictionary else {}
-		var names: Dictionary = (((sets as Dictionary).get("sets", {}) as Dictionary).get("quadruped", {}) as Dictionary).get("clips", {}) if sets is Dictionary else {}
+		var names: Dictionary = {}
+		if sets is Dictionary and family == "quadruped":
+			names = ((((sets as Dictionary).get("sets", {}) as Dictionary).get("quadruped", {}) as Dictionary).get("clips", {}) as Dictionary).duplicate()
+		names.merge(c.get("clips", {}) as Dictionary, true)
 		var lr := AnimationLibraryBuilder.build_from_embedded(slot_id, model_path, kw, names, lib_dir)
-		rig = {"skeleton": "own (quadruped, no retarget)", "clips": lr.get("clips", {}), "errors": lr.get("errors", [])}
+		var prev_missing: Array = rig.get("missing_core", []) as Array
+		rig = {"skeleton": "own rig (no retarget)", "clips": lr.get("clips", {}), "errors": lr.get("errors", []),
+			"embedded_clips": lr.get("embedded", []), "missing_core": prev_missing}
 		lib_path = str(lr.get("library", ""))
+		if (lr.get("clips", {}) as Dictionary).is_empty():
+			notes.append("no embedded clip matched a state; set \"clips\": {\"idle\": \"<clip>\"} in the choice. Embedded: " + ", ".join(lr.get("embedded", [])))
+	# Vendor scenes often carry their own Camera3D/lights: skip them on import.
+	var extra := _skip_cameras_lights(model, model_path)
+	if extra > 0:
+		notes.append("%d camera/light node(s) skipped via import settings" % extra)
+		reimport = true
 	if not lib_path.is_empty() and ResourceLoader.exists(lib_path) and not reimport:
 		var ap := AnimationPlayer.new()
 		ap.name = "LRAnimations"
@@ -142,6 +161,9 @@ func build_one(slot_id: String, c: Dictionary, prefab_dir: String = PREFABS, lib
 	var warn: Array = []
 	if mode == "natural" and proxy.size.y > 0.01 and (final.size.y / proxy.size.y < 0.4 or final.size.y / proxy.size.y > 2.5):
 		warn.append("height %.0f%% of the proxy: check scale or choose another model" % (final.size.y / proxy.size.y * 100.0))
+	var limit := 1.2 * float(s.get("space", 1)) + 0.8 if kind == "unit" else 3.2
+	if character and maxf(final.size.x, final.size.z) > limit:
+		warn.append("footprint %.1f m is too wide for this slot (max ~%.1f): wrong model, lying/Z-up export, or use \"fit\": \"natural\"/\"extra_scale\"" % [maxf(final.size.x, final.size.z), limit])
 	if character and facing == "+Z":
 		warn.append("faces +Z: set rotation_y (0 or 180) in synty_choices.json")
 	return {"slot": slot_id, "ok": true, "scene": scene_path, "source": src, "fit": mode, "scale": snappedf(sc, 0.0001),
@@ -199,6 +221,32 @@ func _untextured_materials(n: Node, out: Dictionary) -> void:
 				out[mat.resource_name] = true
 	for ch: Node in n.get_children():
 		_untextured_materials(ch, out)
+
+
+## Marks Camera3D/Light3D nodes of an imported scene as "skip import" in its .import
+## file. Returns how many were newly marked (re-import needed when > 0).
+func _skip_cameras_lights(model: Node, model_path: String) -> int:
+	var found: Array = model.find_children("*", "Camera3D", true, false) + model.find_children("*", "Light3D", true, false)
+	if found.is_empty():
+		return 0
+	var cfg := ConfigFile.new()
+	if cfg.load(model_path + ".import") != OK:
+		return 0
+	var sub: Dictionary = cfg.get_value("params", "_subresources", {})
+	var nodes: Dictionary = sub.get("nodes", {})
+	var changed := 0
+	for n: Node in found:
+		var key := "PATH:" + str(model.get_path_to(n))
+		var cur: Dictionary = nodes.get(key, {})
+		if not cur.get("import/skip_import", false):
+			cur["import/skip_import"] = true
+			nodes[key] = cur
+			changed += 1
+	if changed > 0:
+		sub["nodes"] = nodes
+		cfg.set_value("params", "_subresources", sub)
+		cfg.save(model_path + ".import")
+	return changed
 
 
 ## Points named materials of a model at an external material in its .import file

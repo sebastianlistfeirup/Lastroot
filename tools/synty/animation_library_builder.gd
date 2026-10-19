@@ -47,6 +47,7 @@ static func build_from_embedded(name: String, model_path: String, keywords: Dict
 		return report
 	var ap := players[0] as AnimationPlayer
 	var names: Array = Array(ap.get_animation_list()).filter(func(n: StringName) -> bool: return n != &"RESET")
+	report["embedded"] = names.map(func(n: StringName) -> String: return String(n))
 	for state: String in STATES:
 		var pick := ""
 		var exact := str(clip_names.get(state, ""))

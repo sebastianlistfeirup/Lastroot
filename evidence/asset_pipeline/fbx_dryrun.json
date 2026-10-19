@@ -1,0 +1,257 @@
+{
+ "status": "RUN",
+ "date": "2026-10-19 22:46:28",
+ "godot": "4.5.1.stable.official.f62fdbde1",
+ "importer": "Godot 4.5.1 built-in FBX importer (modules/fbx, FBXDocument; ufbx-based) - .import importer=\"scene\"",
+ "licence": "BSD-3-Clause (assimp LICENSE; the only exception is test/models-nonbsd, these files are in test/models/FBX). Kept only in assets/quarantine + assets/imported (gitignored), deleted after the run.",
+ "note_honest": "No permissively licensed skinned HUMANOID FBX with clips was found reachable (GitHub API listing is blocked in this session; guessed paths 404). huesitos.fbx is a skinned 11-bone bendy test shape with one clip, spider.fbx a static multi-mesh in centimetres. So the FBX chain was exercised end to end, but humanoid retargeting of a real FBX was NOT: it is covered only by the glTF selftest.",
+ "files": [
+  {
+   "file": "huesitos.fbx",
+   "url": "https://raw.githubusercontent.com/assimp/assimp/master/test/models/FBX/huesitos.fbx",
+   "sha256": "1f15e2f0e0b637e97ecd37102330f311d04a95389d3cb009a0309cbd5f4f171d",
+   "slot_tested": "unit.B01 (manual choice)",
+   "probe": {
+    "bounds_m_as_imported": {
+     "min": [
+      -1.064,
+      -1.256,
+      -5.263
+     ],
+     "size": [
+      5.358,
+      5.438,
+      3.215
+     ]
+    },
+    "scale_hint": "metres",
+    "up_axis_hint": "Y up",
+    "facing_guess": "unknown",
+    "node_counts": {
+     "AnimationPlayer": 1,
+     "Camera3D": 1,
+     "MeshInstance3D": 1,
+     "Node3D": 1,
+     "OmniLight3D": 1,
+     "Skeleton3D": 1
+    },
+    "skeleton": {
+     "bones": 11,
+     "bone_names": [
+      "Bone",
+      "Bone.001",
+      "Bone.002",
+      "Bone.004",
+      "Bone.005",
+      "Bone.006",
+      "Bone.006_end",
+      "Bone.003",
+      "Bone.007",
+      "Bone.008",
+      "Bone.008_end"
+     ],
+     "humanoid_core_found": 0,
+     "humanoid_core_missing": 17
+    },
+    "animations": [
+     {
+      "length_s": 1.56,
+      "max_position_travel": 0.0,
+      "name": "Armature|Action",
+      "tracks": 8
+     }
+    ]
+   },
+   "build": {
+    "anim": {
+     "idle": {
+      "length_s": 1.56,
+      "removed_travel_m": 0.0,
+      "retargeted": false,
+      "source": "res://assets/imported/AssimpFBX/huesitos.fbx::Armature|Action"
+     }
+    },
+    "atlas_materials": 1,
+    "facing": "unknown",
+    "fit": "height",
+    "height_m": 2.6,
+    "library": "res://art/animations/_fbx/unit.B01.res",
+    "min_m": [
+     -1.28,
+     0.0,
+     -0.77
+    ],
+    "notes": [
+     "not a humanoid rig (17 of 17 core bones unmapped): keep its own clips or rename bones",
+     "no atlas texture staged for AssimpFBX"
+    ],
+    "ok": true,
+    "proxy_m": [
+     2.96,
+     2.72,
+     1.22
+    ],
+    "reimport": false,
+    "rig": "own rig (no retarget)",
+    "scale": 0.4781,
+    "scene": "res://art/prefabs/_fbx/unit.B01.tscn",
+    "size_m": [
+     2.56,
+     2.6,
+     1.54
+    ],
+    "slot": "unit.B01",
+    "source": "AssimpFBX/huesitos.fbx",
+    "summary": "height x0.4781 -> 2.56x2.60x1.54 m, facing unknown \u00b7 lib unit.B01.res",
+    "uses_atlas": false,
+    "warnings": []
+   }
+  },
+  {
+   "file": "spider.fbx",
+   "url": "https://raw.githubusercontent.com/assimp/assimp/master/test/models/FBX/spider.fbx",
+   "sha256": "37ca4979dec31f5fbf41eaac2594918d56459cad3461e4b35425396142d4fe0a",
+   "slot_tested": "unit.B04 (manual choice)",
+   "probe": {
+    "bounds_m_as_imported": {
+     "min": [
+      -92.655,
+      -42.234,
+      -106.691
+     ],
+     "size": [
+      150.591,
+      79.738,
+      193.382
+     ]
+    },
+    "scale_hint": "centimetres? (x0.01)",
+    "up_axis_hint": "flat/lying (Z-up export? check rotation)",
+    "facing_guess": "unknown",
+    "node_counts": {
+     "Camera3D": 1,
+     "MeshInstance3D": 19,
+     "OmniLight3D": 1
+    },
+    "skeleton": null,
+    "animations": []
+   },
+   "build": {
+    "anim": {},
+    "atlas_materials": 4,
+    "facing": "unknown",
+    "fit": "height",
+    "height_m": 2.29,
+    "library": "",
+    "min_m": [
+     -2.16,
+     0.0,
+     -2.78
+    ],
+    "notes": [
+     "no embedded clip matched a state; set \"clips\": {\"idle\": \"<clip>\"} in the choice. Embedded: ",
+     "no atlas texture staged for AssimpFBX"
+    ],
+    "ok": true,
+    "proxy_m": [
+     1.31,
+     2.29,
+     2.05
+    ],
+    "reimport": false,
+    "rig": "own rig (no retarget)",
+    "scale": 0.0287,
+    "scene": "res://art/prefabs/_fbx/unit.B04.tscn",
+    "size_m": [
+     4.32,
+     2.29,
+     5.55
+    ],
+    "slot": "unit.B04",
+    "source": "AssimpFBX/spider.fbx",
+    "summary": "height x0.0287 -> 4.32x2.29x5.55 m, facing unknown  \u25b2 footprint 5.6 m is too wide for this slot (max ~3.2): wrong model, lying/Z-up export, or use \"fit\": \"natural\"/\"extra_scale\"",
+    "uses_atlas": false,
+    "warnings": [
+     "footprint 5.6 m is too wide for this slot (max ~3.2): wrong model, lying/Z-up export, or use \"fit\": \"natural\"/\"extra_scale\""
+    ]
+   }
+  }
+ ],
+ "chain": {
+  "unpack": "OK - folder source, 2 models, 0 textures (the FBX reference external jpgs that are not in the repo -> importer warnings, untextured)",
+  "match": "no auto match (names huesitos/spider fit no slot pattern) -> manual choices with status manual",
+  "stage": "OK - only the 2 chosen files copied to assets/imported/AssimpFBX",
+  "import": "OK - both import as PackedScene; the FBX files also contain a Camera and a Lamp node",
+  "retarget": "refused for huesitos: 17/17 humanoid core bones unmapped (generic Bone, Bone.001 ... names) -> own-clip fallback",
+  "animation_library": "built from the embedded clip 'Armature|Action' mapped to idle via the choice's new \"clips\" field",
+  "wrappers_built": {
+   "unit.B01": true,
+   "unit.B04": true
+  },
+  "runtime": {
+   "attack_missing_clip_finished_s": 0.62,
+   "cameras_in_instance": 0,
+   "has_clip_attack": false,
+   "has_clip_idle": true,
+   "idle_max_bone_rotation_deg": 100.4,
+   "is_model": true,
+   "lights_in_instance": 0,
+   "riglab_audit": {
+    "animation_player": true,
+    "clips": [
+     "Armature|Action"
+    ],
+    "declared_m": 2.6,
+    "facing": "unknown",
+    "feet_y": 0.0,
+    "footprint_m": [
+     2.56,
+     1.54
+    ],
+    "head_height": 2.85,
+    "height_m": 2.6,
+    "issues": [
+     "slot expects a humanoid but the rig has no humanoid bone map: shared Mixamo clips cannot play (own clips only)",
+     "missing clips: summon, attack, hit, death, defend, victory, move"
+    ],
+    "missing_clips": [
+     "summon",
+     "attack",
+     "hit",
+     "death",
+     "defend",
+     "victory",
+     "move"
+    ],
+    "ok": false,
+    "proxy": false,
+    "rig_family": "humanoid",
+    "slot": "unit.B01",
+    "states": {
+     "attack": "MISSING (procedural fallback)",
+     "death": "MISSING (procedural fallback)",
+     "defend": "MISSING (procedural fallback)",
+     "hit": "MISSING (procedural fallback)",
+     "idle": "clip:lr/idle",
+     "move": "MISSING (procedural fallback)",
+     "summon": "MISSING (procedural fallback)",
+     "victory": "MISSING (procedural fallback)"
+    }
+   },
+   "slot": "unit.B01"
+  }
+ },
+ "riglab_capture": "evidence/asset_pipeline/riglab_fbx_huesitos.png",
+ "problems_found_and_fixed": [
+  "Vendor FBX scenes bring their own Camera3D/OmniLight3D: the builder now marks them import/skip_import in the .import file (re-import), and VisualSlots.make strips any camera/light left in a wrapper at runtime.",
+  "HumanoidBoneMapper wrote a bone map even when no core bone matched, which would break the import: it now refuses rigs with more than 4 unmapped core bones (MAX_MISSING_CORE) and the builder falls back to the model's own clips.",
+  "Embedded clips with generic names (Armature|Action) matched no state keyword: choices now accept \"clips\": {state: clip name}, and the report lists the embedded clip names.",
+  "A flat model fitted by height became 5.5 m long (spider): the builder now warns when a unit/enemy footprint exceeds its slot (1.2 m x space + 0.8).",
+  "RigLab now flags a humanoid slot whose rig has no humanoid bone map (shared Mixamo clips cannot play)."
+ ],
+ "problems_open": [
+  "facing_of() cannot tell the facing of a rig with generic bone names (reported 'unknown'): check the -Z arrow in RigLab and set rotation_y by hand.",
+  "Missing external textures: the FBX reference .jpg files by path; stage only copies files named *Texture* or in a Textures folder. Copy referenced textures next to the FBX manually.",
+  "Real humanoid FBX retargeting (Synty/Mixamo bone names through ufbx) still unverified against real files."
+ ]
+}
