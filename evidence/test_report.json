@@ -1,0 +1,15 @@
+{
+  "engine_version": "4.5.1-stable (official)",
+  "failures": [],
+  "files": {
+    "test_battle_matrix.gd": 25,
+    "test_catalog.gd": 8,
+    "test_forecast.gd": 5,
+    "test_rng.gd": 5,
+    "test_run.gd": 10,
+    "test_save.gd": 6
+  },
+  "status": "PASS",
+  "tests": 59,
+  "timestamp": "2026-10-19T20:45:50"
+}

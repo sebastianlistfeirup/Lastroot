@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bapo0ailff6ds"
+
+[deps]
+
+files=["res://templates/animation_ledger.source.translation", "res://templates/animation_ledger.rig.translation", "res://templates/animation_ledger.state.translation", "res://templates/animation_ledger.duration.translation", "res://templates/animation_ledger.loop.translation", "res://templates/animation_ledger.id.translation", "res://templates/animation_ledger.event.translation", "res://templates/animation_ledger.interrupt.translation", "res://templates/animation_ledger.blend.translation", "res://templates/animation_ledger.blend.translation", "res://templates/animation_ledger.review.translation"]
+
+source_file="res://templates/animation_ledger.csv"
+dest_files=["res://templates/animation_ledger.source.translation", "res://templates/animation_ledger.rig.translation", "res://templates/animation_ledger.state.translation", "res://templates/animation_ledger.duration.translation", "res://templates/animation_ledger.loop.translation", "res://templates/animation_ledger.id.translation", "res://templates/animation_ledger.event.translation", "res://templates/animation_ledger.interrupt.translation", "res://templates/animation_ledger.blend.translation", "res://templates/animation_ledger.blend.translation", "res://templates/animation_ledger.review.translation"]
+
+[params]
+
+compress=true
+delimiter=0
