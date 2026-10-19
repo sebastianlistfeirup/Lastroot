@@ -108,7 +108,15 @@ func pulse_heart(strength: float = 1.0) -> void:
 	s.tween_property(heart, "scale", Vector3.ONE, 0.3)
 
 
-func hurt_heart() -> void:
+## Heart look follows the real Heart HP (visual only).
+func set_heart_health(ratio: float) -> void:
+	if heart != null and heart.has_method("set_health"):
+		heart.call("set_health", clampf(ratio, 0.0, 1.0))
+
+
+func hurt_heart(amount_ratio: float = 0.1) -> void:
+	if heart != null and heart.has_method("hurt"):
+		heart.call("hurt", amount_ratio)
 	var t := create_tween()
 	_heart_light.light_color = UiKit.DANGER
 	t.tween_property(_heart_light, "light_energy", 4.0, 0.06)

@@ -196,7 +196,7 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 			screen.remove_view(aid)
 			if disp.has(str(aid)):
 				disp[str(aid)]["alive"] = false
-			screen.stage.hurt_heart()
+			screen.stage.hurt_heart(float(e["amount"]) / 60.0)
 			screen.heart_hit(int(e["amount"]), int(e["after"]), str(disp.get(str(aid), {}).get("def_id", "")))
 			AudioBridge.play("heart_hit")
 			await _wait(0.4)

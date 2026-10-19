@@ -368,6 +368,7 @@ func _full_sync() -> void:
 	for uid: int in living.keys():
 		refresh_badge(uid)
 	stage.apply_mutations(battle.get("mutations", []))
+	stage.set_heart_health(float(battle["heart"]) / maxf(1.0, float(battle["heart_max"])))
 	_clear_selection()
 	_refresh_all()
 
@@ -936,6 +937,7 @@ func boss_intro() -> void:
 
 
 func heart_hit(amount: int, after: int, def_id: String) -> void:
+	stage.set_heart_health(float(after) / maxf(1.0, float(battle.get("heart_max", 60))))
 	lbl_heart.text = "%s %d/%d" % [UiKit.status_glyph("hp"), after, battle.get("heart_max", 60)]
 	var nm: String = Loc.field(Catalog.enemy(def_id), "name") if def_id != "" else Loc.t("An enemy")
 	toast(Loc.t("%s reached the Heart: −%d") % [nm, amount], UiKit.DANGER)
