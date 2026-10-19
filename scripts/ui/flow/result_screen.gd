@@ -67,6 +67,11 @@ func won() -> bool:
 	return str(run.get("phase", "")) == "won" or str(run.get("result", "")) == "won"
 
 
+## Demo builds end after two won battles (RunReducer DEMO_BATTLES).
+func demo() -> bool:
+	return str(run.get("result", "")) == "demo_complete"
+
+
 func render() -> void:
 	if not is_inside_tree():
 		return
@@ -107,13 +112,18 @@ func render() -> void:
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(col)
 	var accent: Color = UiKit.LIFE if won() else UiKit.DANGER
-	var head := UiKit.heading(Loc.t("The tree stands") if won() else Loc.t("The Heart has fallen"), 40 if portrait else 64, accent.lightened(0.1))
+	var head_text: String = Loc.t("The tree stands") if won() else Loc.t("The Heart has fallen")
+	if demo():
+		head_text = Loc.t("End of the demo")
+	var head := UiKit.heading(head_text, 40 if portrait else 64, accent.lightened(0.1))
 	head.name = "Headline"
 	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	col.add_child(head)
 	var stats: Dictionary = run.get("stats", {})
 	var sub: String
-	if won():
+	if demo():
+		sub = Loc.t("You won both demo battles. The tree holds — for now. The ash is still climbing.")
+	elif won():
 		sub = Loc.t("Victory. The Ash Crown is broken and the last world tree takes root again.")
 	else:
 		var lb: Dictionary = run.get("last_battle", {})
@@ -135,6 +145,8 @@ func render() -> void:
 	var right := UiKit.vbox(16)
 	right.custom_minimum_size = Vector2(0 if portrait else 760, 0)
 	main.add_child(right)
+	if demo():
+		right.add_child(_demo_panel())
 	right.add_child(_stats_panel(stats, portrait))
 	var bp: Control = _battles_panel()
 	if bp:
@@ -166,7 +178,7 @@ func _stats_panel(stats: Dictionary, portrait: bool) -> Control:
 	var grid := UiKit.flow(12, false)
 	v.add_child(grid)
 	var rows := [
-		["check", Loc.t("Battles won"), "%d / 6" % int(stats.get("battles_won", 0)), UiKit.LIFE],
+		["check", Loc.t("Battles won"), "%d / %d" % [int(stats.get("battles_won", 0)), RunReducer.DEMO_BATTLES if demo() else 6], UiKit.LIFE],
 		["battle", Loc.t("Turns played"), str(int(stats.get("turns", 0))), UiKit.TEXT],
 		["card", Loc.t("Cards played"), str(int(stats.get("cards_played", 0))), UiKit.ARMOR],
 		["heart", Loc.t("Heart damage taken"), str(int(stats.get("heart_lost", 0))), UiKit.DANGER],
@@ -318,6 +330,25 @@ func save_feedback() -> void:
 	render()
 
 
+## What the full game adds after the demo (only things that exist in the full build).
+func _demo_panel() -> Control:
+	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), UiKit.AMBER.darkened(0.3))
+	p.name = "DemoPanel"
+	var v := UiKit.vbox(8)
+	p.add_child(v)
+	v.add_child(UiKit.heading(Loc.t("In the full game"), 22, UiKit.AMBER))
+	var lines: Array = [
+		["battle", Loc.t("Three more battles on the route, then the boss: the Ash Crown.")],
+		["champion", Loc.t("Choose your champion's path after battle 2 and raise it to rank 2 after battle 4.")],
+		["relic", Loc.t("Two relic choices and a second tree mutation.")],
+		["camp", Loc.t("Four more route choices: camps, card rewards, encounters and removals.")],
+	]
+	for l: Array in lines:
+		v.add_child(_line(str(l[0]), UiKit.AMBER, str(l[1]), ""))
+	v.add_child(UiKit.label(Loc.t("Same rules as the demo. Your demo progress is not carried over."), 15, UiKit.TEXT_DIM))
+	return p
+
+
 func _build_panel() -> Control:
 	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), UiKit.LINE)
 	p.name = "BuildPanel"
@@ -354,7 +385,8 @@ func _line(icon: String, accent: Color, title: String, text: String) -> Control:
 	var v := UiKit.vbox(0)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.add_child(UiKit.label(title, 18, UiKit.TEXT, true))
-	v.add_child(UiKit.label(text, 16, UiKit.TEXT_DIM))
+	if text != "":
+		v.add_child(UiKit.label(text, 16, UiKit.TEXT_DIM))
 	h.add_child(v)
 	return h
 

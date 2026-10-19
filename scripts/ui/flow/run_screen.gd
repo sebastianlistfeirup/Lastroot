@@ -1021,7 +1021,7 @@ func _build_toast() -> void:
 	add_child(_toast)
 	_toast_timer = Timer.new()
 	_toast_timer.one_shot = true
-	_toast_timer.timeout.connect(func() -> void: _toast.visible = false)
+	_toast_timer.timeout.connect(_hide_toast)
 	add_child(_toast_timer)
 
 
@@ -1039,3 +1039,7 @@ func toast(text: String) -> void:
 
 func last_toast() -> String:
 	return _toast_label.text if _toast.visible else ""
+
+
+func _hide_toast() -> void:
+	_toast.visible = false

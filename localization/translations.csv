@@ -131,14 +131,18 @@ Your deck (%d cards),Dit dæk (%d kort)
 Battles,Kampe
 Battles won,Vundne kampe
 Cards played,Spillede kort
+Choose your champion's path after battle 2 and raise it to rank 2 after battle 4.,"Vælg din champions retning efter kamp 2, og løft den til trin 2 efter kamp 4."
 Deck size,Dækstørrelse
 Defeat in %s. The ash reached the Heart.,Nederlag i %s. Asken nåede Hjertet.
 Did the forecast make sense?,Gav prognosen mening?
+End of the demo,Demoen er slut
 Final battle,Sidste kamp
+"Four more route choices: camps, card rewards, encounters and removals.","Fire valg mere på ruten: lejre, kortbelønninger, møder og fjernelser."
 Heart,Hjertet
 Heart at the end,Hjertet til sidst
 Heart damage taken,Skade på Hjertet
 How was this run?,Hvordan var dette løb?
+In the full game,I det fulde spil
 Lost,Tabt
 Main menu,Hovedmenu
 Mutations,Mutationer
@@ -150,14 +154,18 @@ None,Ingen
 Partly,Delvist
 Relics,Relikvier
 Run statistics,Statistik for løbet
+Same rules as the demo. Your demo progress is not carried over.,Samme regler som i demoen. Dit fremskridt i demoen overføres ikke.
 Save feedback,Gem svar
 Thank you! Feedback saved.,Tak! Dine svar er gemt.
 The Heart has fallen,Hjertet er faldet
 The tree stands,Træet står
+"Three more battles on the route, then the boss: the Ash Crown.",Tre kampe mere på ruten og derefter bossen: Askekronen.
 Turns played,Ture
+Two relic choices and a second tree mutation.,To relikvievalg og en træmutation mere.
 Victory. The Ash Crown is broken and the last world tree takes root again.,"Sejr. Askekronen er brudt, og det sidste verdenstræ slår rod igen."
 Won,Vundet
 Yes,Ja
+You won both demo battles. The tree holds — for now. The ash is still climbing.,Du vandt begge demokampe. Træet holder – indtil videre. Asken klatrer stadig.
 Your tree,Dit træ
 lost %d,−%d
 rank,trin
@@ -335,6 +343,7 @@ Champion,Champion
 Champion paths (chosen after battle 2):,Championretninger (vælges efter kamp 2):
 Choose your champion,Vælg din champion
 Creature,Væsen
+DEMO,DEMO
 Damaged save,Beskadiget gemmefil
 Defend the last world tree. Build a deck that can take root.,"Forsvar det sidste verdenstræ. Byg et dæk, der kan slå rod."
 Defend the tree as %s,Forsvar træet som %s
@@ -360,6 +369,7 @@ Work in progress: placeholder art and sound,Under udvikling: midlertidig grafik 
 Your current run will end. This cannot be undone.,Dit nuværende løb slutter. Det kan ikke fortrydes.
 Your save is damaged and no backup could be read. The file is kept so it can be recovered. You can start a new run.,"Gemmefilen er beskadiget, og ingen sikkerhedskopi kunne læses. Filen bevares, så den kan reddes. Du kan starte et nyt løb."
 Your save is damaged. A backup from one step earlier is available. The damaged file is kept.,Gemmefilen er beskadiget. Der findes en sikkerhedskopi fra ét skridt tidligere. Den beskadigede fil bevares.
+first two battles,de første to kampe
 Bark faction,Barkvogterne
 Spore faction,Sporefolket
 "Armor, Thorns and sturdy bodies. The Barkwarden holds a floor like a wall and makes every blow cost the ash.","Panser, Torne og stærke kroppe. Barkvogteren holder en etage som en mur og lader hvert slag koste asken dyrt."

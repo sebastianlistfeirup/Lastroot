@@ -58,6 +58,8 @@ func _cases() -> Array:
 		{"id": "run_pause", "scene": "run", "run": MetaFixtures.route(1), "open": "pause"},
 		{"id": "result_won", "scene": "result", "run": MetaFixtures.won()},
 		{"id": "result_lost", "scene": "result", "run": MetaFixtures.lost()},
+		{"id": "result_demo", "scene": "result", "run": MetaFixtures.demo_done()},
+		{"id": "menu_demo", "scene": "menu", "run": {}, "demo": true},
 		{"id": "da_route", "scene": "run", "run": MetaFixtures.route(4), "lang": "da"},
 		{"id": "da_camp", "scene": "run", "run": MetaFixtures.node("camp", 1), "select": "first_upgradable", "lang": "da"},
 		{"id": "da_faction", "scene": "menu", "run": {}, "view": "faction", "lang": "da"},
@@ -92,6 +94,7 @@ func _capture(c: Dictionary, size_name: String, sz: Vector2i) -> void:
 	add_child(sv)
 	var path: String = {"menu": "res://scenes/menu/main_menu.tscn", "run": "res://scenes/flow/run_screen.tscn",
 		"result": "res://scenes/flow/result_screen.tscn", "battle": "res://scenes/battle/battle.tscn"}[c["scene"]]
+	MainMenu.force_demo_tag = bool(c.get("demo", false))
 	if c.has("view"):
 		MainMenu.start_view = str(c["view"])
 	var screen: Node = (load(path) as PackedScene).instantiate()
