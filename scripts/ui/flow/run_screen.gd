@@ -394,12 +394,63 @@ func _render_route() -> void:
 	options.name = "RouteOptions"
 	for opt: Dictionary in route.get("options", []):
 		options.add_child(_route_option(opt))
+	var next_panel: Control = next_battle_panel(k)
 	if portrait:
 		_body.add_child(options)
+		_body.add_child(next_panel)
 		_body.add_child(_map_frame(map))
 	else:
 		_body.add_child(_map_frame(map))
-		_body.add_child(options)
+		var row := UiKit.hbox(20)
+		options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(options)
+		next_panel.custom_minimum_size = Vector2(420, 0)
+		next_panel.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		row.add_child(next_panel)
+		_body.add_child(row)
+
+
+## The coming battle's waves (or the boss rules), so the path can be planned.
+func next_battle_panel(index: int) -> Control:
+	var boss: bool = index >= 5
+	var p := UiKit.panel(Color(UiKit.PANEL, 0.94), (UiKit.DANGER if boss else UiKit.LINE))
+	p.name = "NextBattlePanel"
+	var v := UiKit.vbox(8)
+	p.add_child(v)
+	var h := UiKit.hbox(10)
+	var ic := MetaIcon.make("boss" if boss else "battle", UiKit.DANGER if boss else UiKit.TEXT, UiKit.px(30))
+	ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(ic)
+	var t := UiKit.heading(Loc.t("Next: %s") % RunText.battle_name(index), 22)
+	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(t)
+	v.add_child(h)
+	if boss:
+		var b: Dictionary = Catalog.boss()
+		var st := UiKit.label("%s  %s %d   %s %d   %s %d" % [Loc.field(b, "name"), UiKit.status_glyph("attack"), int(b["attack"]),
+			UiKit.status_glyph("hp"), int(b["max_hp"]), UiKit.status_glyph("armor"), int(b["start_armor"])], 18, UiKit.AMBER, true)
+		v.add_child(st)
+		var rules := UiKit.label(RunText.boss_rules(), 16, UiKit.TEXT)
+		rules.name = "BossRules"
+		v.add_child(rules)
+	for row: Array in RunText.wave_rows(index):
+		var line := UiKit.hbox(8)
+		line.name = "Wave_%d" % int(row[0])
+		var turn := UiKit.label(Loc.t("Turn %d") % int(row[0]), 15, UiKit.TEXT_DIM, true)
+		turn.custom_minimum_size = Vector2(UiKit.px(64), 0)
+		turn.autowrap_mode = TextServer.AUTOWRAP_OFF
+		line.add_child(turn)
+		var desc := UiKit.vbox(0)
+		desc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		desc.add_child(UiKit.label(str(row[1]), 16, UiKit.TEXT))
+		var stats: PackedStringArray = []
+		for eid: String in row[2]:
+			stats.append("%s %s" % [Loc.field(Catalog.enemy(eid), "name"), RunText.enemy_stats(eid)])
+		desc.add_child(UiKit.label("  ·  ".join(stats), 14, UiKit.TEXT_DIM))
+		line.add_child(desc)
+		v.add_child(line)
+	v.add_child(UiKit.label(Loc.t("Waves arrive on the Roots at the start of their turn."), 14, UiKit.TEXT_DIM))
+	return p
 
 
 func _map_frame(map: RouteMap) -> Control:
@@ -412,7 +463,7 @@ func _route_option(opt: Dictionary) -> Control:
 	var type: String = opt["type"]
 	var t := ChoiceTile.make(MetaIcon.node_color(type))
 	t.name = "Option_" + str(opt["id"])
-	t.custom_minimum_size = Vector2(_tile_w(2, 640.0), 0)
+	t.custom_minimum_size = Vector2(_tile_w(2, 520.0), 0)
 	t.add_title(type, RunText.node_name(type), 26)
 	t.add_text(RunText.node_gives(type), 18, UiKit.TEXT)
 	var warn: String = RunText.node_warning(type, run)
@@ -447,10 +498,12 @@ func _on_map_tapped(node_id: String) -> void:
 	# Any other node: explain it in the detail panel.
 	if node_id.begins_with("B"):
 		var i: int = int(node_id.substr(1))
-		var waves: Array = BattleFactory.waves_for(i)
-		var text: String = Loc.t("%d enemy waves.") % waves.size()
+		var lines: PackedStringArray = []
+		for row: Array in RunText.wave_rows(i):
+			lines.append("%s: %s" % [Loc.t("Turn %d") % int(row[0]), row[1]])
+		var text: String = "\n".join(lines)
 		if i == 5:
-			text = Loc.t("The boss arrives on turn %d after four waves. It escalates from turn %d.") % [int(Catalog.boss()["arrival_turn"]), int(Catalog.boss()["escalate_from_turn"])]
+			text = RunText.boss_rules() + "\n" + text
 		show_detail("boss" if i == 5 else "battle", RunText.battle_name(i), text, UiKit.DANGER if i == 5 else UiKit.TEXT)
 		return
 	for r: Dictionary in run.get("route", []):
@@ -484,6 +537,10 @@ func _render_node() -> void:
 				_leave_row(Loc.t("Continue"))
 			else:
 				_card_choice(slot, Loc.t("Choose a card for your deck"), Loc.t("Or skip it and move on to the next battle."))
+	var nb: Control = next_battle_panel(int(run["battle_index"]) + 1)
+	nb.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN if not portrait else Control.SIZE_FILL
+	nb.custom_minimum_size = Vector2(0 if portrait else 560, 0)
+	_body.add_child(nb)
 
 
 func _render_camp() -> void:

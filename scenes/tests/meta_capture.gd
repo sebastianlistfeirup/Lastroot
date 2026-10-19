@@ -57,6 +57,17 @@ func _cases() -> Array:
 		{"id": "da_route", "scene": "run", "run": MetaFixtures.route(4), "lang": "da"},
 		{"id": "da_camp", "scene": "run", "run": MetaFixtures.node("camp", 1), "select": "first_upgradable", "lang": "da"},
 		{"id": "da_faction", "scene": "menu", "run": {}, "view": "faction", "lang": "da"},
+		{"id": "route_boss", "scene": "run", "run": MetaFixtures.route(5)},
+		{"id": "howto_floors", "scene": "menu", "run": {}, "open": "howto:0"},
+		{"id": "howto_sap", "scene": "menu", "run": {}, "open": "howto:1"},
+		{"id": "howto_target", "scene": "menu", "run": {}, "open": "howto:2"},
+		{"id": "howto_forecast", "scene": "menu", "run": {}, "open": "howto:3"},
+		{"id": "howto_climb", "scene": "menu", "run": {}, "open": "howto:4"},
+		{"id": "howto_status", "scene": "menu", "run": {}, "open": "howto:5"},
+		{"id": "howto_boss", "scene": "menu", "run": {}, "open": "howto:6"},
+		{"id": "da_howto_status", "scene": "menu", "run": {}, "open": "howto:5", "lang": "da"},
+		{"id": "run_pause_abandon", "scene": "run", "run": MetaFixtures.route(1), "open": "abandon"},
+		{"id": "battle_pause", "scene": "battle", "run": DebugFixtures.make("midbattle", "BARK", 1), "open": "battle_pause"},
 		{"id": "text130_reward_relic", "scene": "run", "run": MetaFixtures.reward_slot("relic"), "scale": 1.3},
 	]
 
@@ -75,13 +86,13 @@ func _capture(c: Dictionary, size_name: String, sz: Vector2i) -> void:
 	sv.transparent_bg = false
 	add_child(sv)
 	var path: String = {"menu": "res://scenes/menu/main_menu.tscn", "run": "res://scenes/flow/run_screen.tscn",
-		"result": "res://scenes/flow/result_screen.tscn"}[c["scene"]]
+		"result": "res://scenes/flow/result_screen.tscn", "battle": "res://scenes/battle/battle.tscn"}[c["scene"]]
 	if c.has("view"):
 		MainMenu.start_view = str(c["view"])
-	var screen: Control = (load(path) as PackedScene).instantiate()
+	var screen: Node = (load(path) as PackedScene).instantiate()
 	screen.set("auto_navigate", false)
 	sv.add_child(screen)
-	await _frames(3)
+	await _frames(3 if c["scene"] != "battle" else 30)
 	_apply_select(screen, str(c.get("select", "")))
 	_apply_open(screen, str(c.get("open", "")))
 	await _frames(6)
@@ -93,7 +104,7 @@ func _capture(c: Dictionary, size_name: String, sz: Vector2i) -> void:
 	await _frames(1)
 
 
-func _apply_select(screen: Control, sel: String) -> void:
+func _apply_select(screen: Node, sel: String) -> void:
 	if not (screen is RunScreen):
 		return
 	var rs: RunScreen = screen
@@ -116,8 +127,18 @@ func _apply_select(screen: Control, sel: String) -> void:
 					return
 
 
-func _apply_open(screen: Control, what: String) -> void:
+func _apply_open(screen: Node, what: String) -> void:
+	if what.begins_with("howto:"):
+		var h: HowToPlayPanel = screen.find_child("HowToPlayPanel", true, false) as HowToPlayPanel
+		h.page = int(what.substr(6))
+		h.open()
+		return
 	match what:
+		"abandon":
+			(screen.find_child("MenuButton", true, false) as Button).pressed.emit()
+			(screen.find_child("PauseMenu", true, false) as PauseMenu).ask_abandon()
+		"battle_pause":
+			screen.call("_open_menu")
 		"settings":
 			(screen.find_child("SettingsPanel", true, false) as SettingsPanel).open()
 		"credits":

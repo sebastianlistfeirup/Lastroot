@@ -17,10 +17,16 @@ signal opened
 @export var esc_opens: bool = true
 
 var is_open: bool = false
+## Tests set this false and read `pending_scene` instead of changing scenes.
+var auto_navigate: bool = true
+var pending_scene: String = ""
+## True while the in-page "Abandon this run?" confirmation is shown.
+var confirming_abandon: bool = false
 
 var _root: Control
 var _corner: Button
 var _settings: SettingsPanel
+var _howto: HowToPlayPanel
 var _panel_box: VBoxContainer
 
 
@@ -48,6 +54,10 @@ func _ready() -> void:
 	_settings.name = "SettingsPanel"
 	_settings.closed.connect(func() -> void: _focus_first())
 	add_child(_settings)
+	_howto = HowToPlayPanel.new()
+	_howto.name = "HowToPlayPanel"
+	_howto.closed.connect(func() -> void: _focus_first())
+	add_child(_howto)
 	SettingsService.changed.connect(_rebuild)
 
 
@@ -55,6 +65,7 @@ func open() -> void:
 	if is_open:
 		return
 	is_open = true
+	confirming_abandon = false
 	AudioService.play("ui_click")
 	_rebuild()
 	_root.visible = true
@@ -67,6 +78,7 @@ func close() -> void:
 		return
 	is_open = false
 	_settings.visible = false
+	_howto.visible = false
 	_root.visible = false
 	_corner.visible = corner_button
 	AudioService.play("ui_cancel")
@@ -77,12 +89,42 @@ func open_settings() -> void:
 	_settings.open()
 
 
+func open_how_to_play() -> void:
+	_howto.open()
+
+
 func save_and_quit() -> void:
 	AudioService.play("ui_confirm")
+	_leave_to_menu()
+
+
+## First press asks in the same panel; "Abandon run" there ends the run.
+func ask_abandon() -> void:
+	AudioService.play("ui_click")
+	confirming_abandon = true
+	_rebuild()
+
+
+func cancel_abandon() -> void:
+	AudioService.play("ui_cancel")
+	confirming_abandon = false
+	_rebuild()
+
+
+func abandon_run() -> void:
+	AudioService.play("ui_confirm")
+	GameSession.abandon_run()
+	_leave_to_menu()
+
+
+func _leave_to_menu() -> void:
 	is_open = false
+	confirming_abandon = false
 	_root.visible = false
 	closed.emit()
-	AppFlow.goto("menu")
+	pending_scene = "menu"
+	if auto_navigate:
+		AppFlow.goto("menu")
 
 
 func _rebuild() -> void:
@@ -103,9 +145,19 @@ func _rebuild() -> void:
 	var note := UiKit.label(Loc.t("Your run is saved after every action."), 16, UiKit.TEXT_DIM)
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_panel_box.add_child(note)
-	_panel_box.add_child(_btn(Loc.t("Resume"), UiKit.LIFE, "ResumeButton", close))
-	_panel_box.add_child(_btn(Loc.t("Settings"), UiKit.ASH, "PauseSettingsButton", open_settings))
-	_panel_box.add_child(_btn(Loc.t("Save & quit to menu"), UiKit.AMBER, "SaveQuitButton", save_and_quit))
+	if confirming_abandon:
+		var warn := UiKit.label(Loc.t("Abandon this run? It ends now and cannot be continued."), 20, UiKit.DANGER, true)
+		warn.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_panel_box.add_child(warn)
+		_panel_box.add_child(_btn(Loc.t("Keep playing"), UiKit.LIFE, "KeepPlayingButton", cancel_abandon))
+		_panel_box.add_child(_btn(Loc.t("Abandon run"), UiKit.DANGER, "ConfirmAbandonButton", abandon_run))
+	else:
+		_panel_box.add_child(_btn(Loc.t("Resume"), UiKit.LIFE, "ResumeButton", close))
+		_panel_box.add_child(_btn(Loc.t("How to play"), UiKit.ASH, "PauseHowToButton", open_how_to_play))
+		_panel_box.add_child(_btn(Loc.t("Settings"), UiKit.ASH, "PauseSettingsButton", open_settings))
+		_panel_box.add_child(_btn(Loc.t("Save & quit to menu"), UiKit.AMBER, "SaveQuitButton", save_and_quit))
+		if GameSession.has_run() and not (GameSession.phase() in ["won", "lost"]):
+			_panel_box.add_child(_btn(Loc.t("Abandon run"), UiKit.DANGER, "AbandonButton", ask_abandon))
 	if is_open:
 		_focus_first()
 
@@ -119,8 +171,12 @@ func _btn(text: String, accent: Color, node_name: String, cb: Callable) -> Butto
 
 
 func _focus_first() -> void:
-	if _panel_box and _panel_box.get_child_count() > 2:
-		(_panel_box.get_child(2) as Control).grab_focus.call_deferred()
+	if _panel_box == null:
+		return
+	for c in _panel_box.get_children():
+		if c is Button:
+			(c as Button).grab_focus.call_deferred()
+			return
 
 
 func find_button(node_name: String) -> Button:
@@ -130,8 +186,12 @@ func find_button(node_name: String) -> Button:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("ui_cancel"):
 		return
-	if _settings.visible:
-		return  # the settings panel closes itself
+	if _settings.visible or _howto.visible:
+		return  # the overlay closes itself
+	if confirming_abandon:
+		get_viewport().set_input_as_handled()
+		cancel_abandon()
+		return
 	if is_open:
 		get_viewport().set_input_as_handled()
 		close()
