@@ -130,6 +130,10 @@ static func make(slot_id: String) -> Node3D:
 		if inst is Node3D:
 			root = inst as Node3D
 			is_proxy = false
+			# Safety net: never let a vendor scene's own camera or lights into the game.
+			for extra: Node in root.find_children("*", "Camera3D", true, false) + root.find_children("*", "Light3D", true, false):
+				extra.get_parent().remove_child(extra)
+				extra.free()
 			var model := root.get_node_or_null("Model") as Node3D
 			if model:
 				# Owner fine-tuning on top of what the builder normalised.

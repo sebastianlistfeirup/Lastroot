@@ -1,0 +1,93 @@
+{
+  "animations": [],
+  "built": 2,
+  "failed": 0,
+  "reimport_needed": false,
+  "slots": [
+    {
+      "anim": {
+        "idle": {
+          "length_s": 1.56,
+          "removed_travel_m": 0.0,
+          "retargeted": false,
+          "source": "res://assets/imported/AssimpFBX/huesitos.fbx::Armature|Action"
+        }
+      },
+      "atlas_materials": 1,
+      "facing": "unknown",
+      "fit": "height",
+      "height_m": 2.6,
+      "library": "res://art/animations/_fbx/unit.B01.res",
+      "min_m": [
+        -1.28,
+        0.0,
+        -0.77
+      ],
+      "notes": [
+        "not a humanoid rig (17 of 17 core bones unmapped): keep its own clips or rename bones",
+        "no atlas texture staged for AssimpFBX"
+      ],
+      "ok": true,
+      "proxy_m": [
+        2.96,
+        2.72,
+        1.22
+      ],
+      "reimport": false,
+      "rig": "own rig (no retarget)",
+      "scale": 0.4781,
+      "scene": "res://art/prefabs/_fbx/unit.B01.tscn",
+      "size_m": [
+        2.56,
+        2.6,
+        1.54
+      ],
+      "slot": "unit.B01",
+      "source": "AssimpFBX/huesitos.fbx",
+      "summary": "height x0.4781 -> 2.56x2.60x1.54 m, facing unknown · lib unit.B01.res",
+      "uses_atlas": false,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 4,
+      "facing": "unknown",
+      "fit": "height",
+      "height_m": 2.29,
+      "library": "",
+      "min_m": [
+        -2.16,
+        0.0,
+        -2.78
+      ],
+      "notes": [
+        "no embedded clip matched a state; set \"clips\": {\"idle\": \"<clip>\"} in the choice. Embedded: ",
+        "no atlas texture staged for AssimpFBX"
+      ],
+      "ok": true,
+      "proxy_m": [
+        1.31,
+        2.29,
+        2.05
+      ],
+      "reimport": false,
+      "rig": "own rig (no retarget)",
+      "scale": 0.0287,
+      "scene": "res://art/prefabs/_fbx/unit.B04.tscn",
+      "size_m": [
+        4.32,
+        2.29,
+        5.55
+      ],
+      "slot": "unit.B04",
+      "source": "AssimpFBX/spider.fbx",
+      "summary": "height x0.0287 -> 4.32x2.29x5.55 m, facing unknown  ▲ footprint 5.6 m is too wide for this slot (max ~3.2): wrong model, lying/Z-up export, or use \"fit\": \"natural\"/\"extra_scale\"",
+      "uses_atlas": false,
+      "warnings": [
+        "footprint 5.6 m is too wide for this slot (max ~3.2): wrong model, lying/Z-up export, or use \"fit\": \"natural\"/\"extra_scale\""
+      ]
+    }
+  ]
+}

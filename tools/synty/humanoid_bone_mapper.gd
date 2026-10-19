@@ -13,6 +13,9 @@ const CORE := ["Hips", "Spine", "Chest", "Neck", "Head", "LeftUpperArm", "LeftLo
 	"RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot",
 	"RightUpperLeg", "RightLowerLeg", "RightFoot"]
 
+## More unmapped core bones than this = not treated as a humanoid (no bone map written).
+const MAX_MISSING_CORE := 4
+
 ## part (side-less, normalised) -> profile bone suffix. Order matters only for ties.
 const PARTS := {
 	"hips": "Hips", "hip": "Hips", "pelvis": "Hips", "root_hips": "Hips",
@@ -145,6 +148,11 @@ static func apply_retarget(model_path: String, rig_dir: String = "res://art/rigs
 		return {"ok": true, "changed": false, "skeleton": path, "missing_core": [], "bone_map": ""}
 	var r := build(skel)
 	root.free()
+	# A rig with generic names (Bone, Bone.001 ... from Blender) or a non-biped would
+	# get an almost empty bone map, which breaks the import. Refuse instead.
+	if (r["missing_core"] as Array).size() > MAX_MISSING_CORE:
+		return {"ok": false, "humanoid": false, "skeleton": path, "missing_core": r["missing_core"], "found": r["found"],
+			"error": "not a humanoid rig (%d of %d core bones unmapped): keep its own clips or rename bones" % [(r["missing_core"] as Array).size(), CORE.size()]}
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(rig_dir))
 	var pack := model_path.trim_prefix("res://assets/imported/").get_slice("/", 0) if model_path.begins_with("res://assets/imported/") else "local"
 	var bm_path := rig_dir.path_join("%s__%s.bonemap.tres" % [pack, model_path.get_file().get_basename()])
