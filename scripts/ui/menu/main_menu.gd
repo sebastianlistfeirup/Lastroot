@@ -18,6 +18,7 @@ var auto_navigate: bool = true
 var pending_scene: String = ""
 
 var _backdrop: MenuBackdrop
+var _dio: DioramaLayer = null
 var _content: Control
 var _settings: SettingsPanel
 var _credits: CreditsPanel
@@ -49,6 +50,7 @@ func _ready() -> void:
 	_dialog.name = "MessageDialog"
 	add_child(_dialog)
 	SettingsService.changed.connect(_build)
+	tree_exiting.connect(_free_diorama)
 	get_viewport().size_changed.connect(_on_resize)
 	AudioService.play_music("music_menu")
 	_build()
@@ -63,9 +65,40 @@ func is_portrait() -> bool:
 	return UiKit.is_portrait(get_viewport().get_visible_rect().size)
 
 
+## 3D menu diorama behind everything (child 0), or the 2D backdrop.
+func _sync_diorama() -> void:
+	var want: bool = DioramaLayer.allowed(get_viewport().get_visible_rect().size)
+	if want and _dio == null:
+		_dio = DioramaLayer.make(DioramaLayer.MENU, 0.25)
+		if _dio:
+			add_child(_dio)
+			move_child(_dio, 0)
+	elif not want and _dio != null:
+		_free_diorama()
+	_backdrop.visible = _dio == null
+	if _dio:
+		_dio.set_portrait(_last_portrait)
+		_dio.set_dim(0.55 if (view != "title" or _last_portrait) else 0.2)
+		if view != "faction":
+			set_champion("")
+
+
+func _free_diorama() -> void:
+	if _dio:
+		_dio.queue_free()
+		_dio = null
+
+
+## Highlights a champion in the 3D scene ("" = none).
+func set_champion(f: String) -> void:
+	if _dio and _dio.diorama and _dio.diorama.has_method("set_champion"):
+		_dio.diorama.call("set_champion", f)
+
+
 func _build() -> void:
 	_last_portrait = is_portrait()
 	UiKit.clear(_content)
+	_sync_diorama()
 	_backdrop.tree_x = 0.5 if _last_portrait else 0.7
 	_backdrop.tree_alpha = 0.35 if (_last_portrait or view == "faction") else 1.0
 	_backdrop.tree_scale = 0.62 if _last_portrait else 0.86
@@ -333,7 +366,9 @@ func _build_faction() -> void:
 	for f: String in ["BARK", "SPORE"]:
 		holder.add_child(_faction_panel(f, portrait))
 	var first: Button = holder.find_child("Choose_BARK", true, false) as Button
-	(first if first else back).grab_focus.call_deferred()
+	# Portrait: start at the top (Back), so the first champion is not scrolled past.
+	(back if portrait or first == null else first).grab_focus.call_deferred()
+	set_champion("BARK")
 
 
 func _faction_panel(faction: String, portrait: bool) -> Control:
@@ -384,6 +419,9 @@ func _faction_panel(faction: String, portrait: bool) -> Control:
 	choose.custom_minimum_size = Vector2(0, 64)
 	choose.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	choose.pressed.connect(func() -> void: choose_faction(faction))
+	choose.focus_entered.connect(func() -> void: set_champion(faction))
+	choose.mouse_entered.connect(func() -> void: set_champion(faction))
+	p.mouse_entered.connect(func() -> void: set_champion(faction))
 	v.add_child(choose)
 	return p
 

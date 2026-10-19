@@ -20,6 +20,7 @@ var sel_node: String = ""
 var _sel_owner: String = ""
 
 var _backdrop: MenuBackdrop
+var _dio: DioramaLayer = null
 var _header: RunHeader
 var _scroll: ScrollContainer
 var _body: VBoxContainer
@@ -35,6 +36,7 @@ var _offer_views: Array = []
 var _confirm: Button
 var _last_size: Vector2 = Vector2.ZERO
 var _focus_confirm: bool = false
+var _dio_portrait: bool = false
 
 
 func _ready() -> void:
@@ -77,6 +79,7 @@ func _ready() -> void:
 	GameSession.run_changed.connect(_on_run_changed)
 	GameSession.command_rejected.connect(_on_rejected)
 	SettingsService.changed.connect(render)
+	tree_exiting.connect(_free_diorama)
 	get_viewport().size_changed.connect(_on_resize)
 	AudioService.play_music("music_menu")
 	render()
@@ -158,6 +161,7 @@ func render() -> void:
 			_render_node()
 	_backdrop.tree_x = 0.86
 	_backdrop.show_tree = not portrait
+	_sync_diorama()
 	_set_scroll.call_deferred(keep_scroll)
 	if _focus_confirm and _confirm != null and not _confirm.disabled:
 		focus_name = "ConfirmButton"
@@ -177,6 +181,18 @@ func _restore_focus(focus_name: String) -> void:
 		target = default_focus()
 	if target != null:
 		target.grab_focus()
+		if focus_name == "":
+			_top_if_visible.call_deferred(target)
+
+
+## A new screen starts at the top when its focused control is already in the
+## first screenful (follow_focus would otherwise hide the title).
+func _top_if_visible(target: Control) -> void:
+	if not is_instance_valid(target) or not target.is_inside_tree():
+		return
+	var bottom: float = target.get_global_rect().end.y - _scroll.get_global_rect().position.y + float(_scroll.scroll_vertical)
+	if bottom <= _scroll.size.y:
+		_scroll.scroll_vertical = 0
 
 
 func default_focus() -> Control:
@@ -207,6 +223,34 @@ func default_focus() -> Control:
 				continue
 			return c
 	return null
+
+
+## 3D route diorama behind the screen (the 2D map stays the information
+## layer): brighter on the route, darker behind reward and node panels.
+func _sync_diorama() -> void:
+	var want: bool = DioramaLayer.allowed(_last_size)
+	if want and _dio == null:
+		_dio = DioramaLayer.make(DioramaLayer.ROUTE, 0.35)
+		if _dio:
+			add_child(_dio)
+			move_child(_dio, 0)
+			_dio_portrait = not portrait  # force set_portrait below
+	elif not want and _dio != null:
+		_free_diorama()
+	_backdrop.visible = _dio == null
+	if _dio == null:
+		return
+	if _dio_portrait != portrait:
+		_dio.set_portrait(portrait)
+		_dio_portrait = portrait
+	_dio.set_dim(0.35 if GameSession.phase() == "route" else 0.62)
+	_dio.show_run(run)
+
+
+func _free_diorama() -> void:
+	if _dio:
+		_dio.queue_free()
+		_dio = null
 
 
 func _set_scroll(v: int) -> void:

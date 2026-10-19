@@ -811,3 +811,26 @@ func _round5_cases() -> void:
 				rows += 1
 		ok(rows == hist.size(), "%s: one row per battle (%d/%d)" % [kind, rows, hist.size()])
 		await unmount(r)
+
+	_case = "diorama_fallback"
+	ok(not DioramaLayer.allowed(Vector2(1920, 1080)), "headless never builds a 3D SubViewport")
+	var was3d: bool = SettingsService.backgrounds_3d
+	SettingsService.backgrounds_3d = false
+	ok(not DioramaLayer.allowed(Vector2(1920, 1080)), "setting off -> 2D backdrop")
+	SettingsService.backgrounds_3d = was3d
+	var mm: Control = await mount(MENU, {})
+	ok(mm.find_child("Diorama3D", true, false) == null, "menu uses the 2D backdrop here")
+	var bd: MenuBackdrop = null
+	for c: Node in mm.get_children():
+		if c is MenuBackdrop:
+			bd = c
+	ok(bd != null and bd.visible, "2D backdrop visible as fallback")
+	await unmount(mm)
+	var rr := MetaFixtures.route(4)
+	var ch: Array = DioramaLayer.chosen_nodes(rr)
+	var chosen_routes := 0
+	for r: Dictionary in rr["route"]:
+		if r["status"] == "chosen":
+			chosen_routes += 1
+	ok(ch.size() == chosen_routes and (ch.is_empty() or ch[0] is Vector2i), "route diorama gets one chosen node per passed branch")
+	ok(ch.is_empty() or (int((ch[0] as Vector2i).x) == 1 and absi(int((ch[0] as Vector2i).y)) == 1), "route_map coordinates (col 2k-1, lane -1/+1)")
