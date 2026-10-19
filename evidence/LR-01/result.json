@@ -1,9 +1,9 @@
 {
   "task_id": "LR-01",
-  "commit": "c964ada",
+  "commit": "42e0b9f",
   "engine_version": "4.5.1-stable (official)",
   "command": "tools/check.sh",
-  "exit_code": 1,
+  "exit_code": 0,
   "expected": "Ren opstart og lukning uden parserfejl. VERSION_MATRIX og baselinecommit findes. menu->battle->result->menu.",
   "observed": [
     {
@@ -19,27 +19,31 @@
     },
     {
       "kind": "compile",
-      "ok": false,
-      "scripts": null
+      "ok": true,
+      "scripts": 84
     },
     {
-      "kind": "meta_smoke",
+      "kind": "scene_smoke",
       "match": [
         "menu_to_battle_to_result_to_menu"
       ],
-      "missing": [
-        "menu_to_battle_to_result_to_menu"
-      ],
+      "missing": [],
       "failures": [],
-      "ok": false
+      "ok": true
+    },
+    {
+      "kind": "meta_smoke",
+      "ok": true,
+      "checks": 208
     }
   ],
   "open": [],
   "fixture": null,
-  "timestamp": "2026-10-19T21:06:56+00:00",
-  "status": "FAIL",
+  "timestamp": "2026-10-19T21:36:42+00:00",
+  "status": "PASS",
   "artifacts": [
     "evidence/test_report.json",
-    "evidence/scene_smoke.json"
+    "evidence/scene_smoke.json",
+    "evidence/compile_report.json"
   ]
 }

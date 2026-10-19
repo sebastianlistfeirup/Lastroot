@@ -1,6 +1,6 @@
 {
   "task_id": "LR-10",
-  "commit": "c964ada",
+  "commit": "42e0b9f",
   "engine_version": "4.5.1-stable (official)",
   "command": "tests + scene smoke",
   "exit_code": 0,
@@ -33,10 +33,11 @@
   ],
   "open": [],
   "fixture": null,
-  "timestamp": "2026-10-19T21:06:56+00:00",
+  "timestamp": "2026-10-19T21:36:42+00:00",
   "status": "PASS",
   "artifacts": [
     "evidence/test_report.json",
-    "evidence/scene_smoke.json"
+    "evidence/scene_smoke.json",
+    "evidence/compile_report.json"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "task_id": "LR-03",
-  "commit": "c964ada",
+  "commit": "42e0b9f",
   "engine_version": "4.5.1-stable (official)",
   "command": "godot --headless --path . --script res://tests/run_tests.gd",
   "exit_code": 0,
@@ -22,10 +22,11 @@
   ],
   "open": [],
   "fixture": null,
-  "timestamp": "2026-10-19T21:06:56+00:00",
+  "timestamp": "2026-10-19T21:36:42+00:00",
   "status": "PASS",
   "artifacts": [
     "evidence/test_report.json",
-    "evidence/scene_smoke.json"
+    "evidence/scene_smoke.json",
+    "evidence/compile_report.json"
   ]
 }

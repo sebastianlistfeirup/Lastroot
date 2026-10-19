@@ -1,14 +1,14 @@
 {
   "task_id": "LR-11",
-  "commit": "c964ada",
+  "commit": "42e0b9f",
   "engine_version": "4.5.1-stable (official)",
   "command": "tools/synty/selftest.sh",
-  "exit_code": 1,
+  "exit_code": 0,
   "expected": "Importprøve har beviser hvis assets findes. Første kamp/save virker stadig. Manglende assets stopper ikke domænearbejdet.",
   "observed": [
     {
       "kind": "asset_selftest",
-      "ok": false
+      "ok": true
     },
     {
       "kind": "files",
@@ -16,11 +16,8 @@
         "docs/ASSET_LEDGER.csv",
         "docs/ANIMATION_LEDGER.csv"
       ],
-      "missing": [
-        "docs/ASSET_LEDGER.csv",
-        "docs/ANIMATION_LEDGER.csv"
-      ],
-      "ok": false
+      "missing": [],
+      "ok": true
     }
   ],
   "open": [
@@ -28,10 +25,11 @@
     "Visuel godkendelse forbliver åben."
   ],
   "fixture": null,
-  "timestamp": "2026-10-19T21:06:56+00:00",
-  "status": "FAIL",
+  "timestamp": "2026-10-19T21:36:42+00:00",
+  "status": "VERIFYING",
   "artifacts": [
     "evidence/test_report.json",
-    "evidence/scene_smoke.json"
+    "evidence/scene_smoke.json",
+    "evidence/compile_report.json"
   ]
 }

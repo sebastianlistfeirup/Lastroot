@@ -1,6 +1,6 @@
 {
   "task_id": "LR-12",
-  "commit": "c964ada",
+  "commit": "42e0b9f",
   "engine_version": "4.5.1-stable (official)",
   "command": "godot --headless --path . --export-release Linux/Windows; Linux-build kørt under Xvfb",
   "exit_code": 0,
@@ -30,10 +30,11 @@
     "LR-11 visuel/import-del."
   ],
   "fixture": null,
-  "timestamp": "2026-10-19T21:06:56+00:00",
+  "timestamp": "2026-10-19T21:36:42+00:00",
   "status": "VERIFYING",
   "artifacts": [
     "evidence/test_report.json",
-    "evidence/scene_smoke.json"
+    "evidence/scene_smoke.json",
+    "evidence/compile_report.json"
   ]
 }
