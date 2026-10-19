@@ -739,6 +739,9 @@ func _refresh_top() -> void:
 		lbl_wave.text = (Loc.t("Next turn: %s") if when <= 1 else Loc.t("In %d turns: %s").replace("%d", str(when))) % ", ".join(parts)
 	else:
 		lbl_wave.text = Loc.t("Last wave is in") if portrait else Loc.t("Last wave is in · defeat every enemy")
+	if battle.get("is_boss", false) and int(battle.get("boss_unit_id", -1)) < 0:
+		var arrive: int = int(Catalog.boss()["arrival_turn"])
+		lbl_wave.text += "  ♛ " + (Loc.t("Ash Crown: turn %d") % arrive)
 	var z: Dictionary = battle["zones"]
 	lbl_piles.text = Loc.t("Draw %d · Discard %d · Played %d") % [(z["draw"] as Array).size(), (z["discard"] as Array).size(), (z["deployed"] as Array).size() + (z["consumed"] as Array).size()]
 	var rel: PackedStringArray = []
