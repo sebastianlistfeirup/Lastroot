@@ -30,7 +30,7 @@ func battle() -> Dictionary:
 func new_run(faction: String, seed_value: int = -1) -> void:
 	if seed_value < 0:
 		seed_value = int(Time.get_unix_time_from_system() * 1000.0) & 0x7FFFFFFF
-	run = RunReducer.new_run(seed_value, faction)
+	run = RunReducer.new_run(seed_value, faction, "demo" if OS.has_feature("demo") else "full")
 	presentation_pending = false
 	last_events = []
 	SaveService.save_run(run, _presentation())

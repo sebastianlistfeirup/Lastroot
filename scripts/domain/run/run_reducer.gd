@@ -18,7 +18,11 @@ const FACTIONS: PackedStringArray = ["BARK", "SPORE"]
 
 # ------------------------------------------------------------------ new run
 
-static func new_run(seed_value: int, faction: String) -> Dictionary:
+## Demo runs end after DEMO_BATTLES won battles (docs/DEMO_PLAN.md); rules are identical.
+const DEMO_BATTLES := 2
+
+
+static func new_run(seed_value: int, faction: String, mode: String = "full") -> Dictionary:
 	var rules: Dictionary = Catalog.rules()
 	var champion: String = Catalog.champion_for(faction)
 	var run := {
@@ -39,7 +43,7 @@ static func new_run(seed_value: int, faction: String) -> Dictionary:
 			"reward": RngStream.create(seed_value, "reward"),
 		},
 		"stats": {"turns": 0, "cards_played": 0, "heart_lost": 0, "battles_won": 0},
-		"result": "", "history": [],
+		"result": "", "history": [], "mode": mode,
 	}
 	_add_card(run, champion)
 	var counts: Dictionary = Catalog.data()["start_deck"]["normal_counts"]
@@ -178,6 +182,11 @@ static func _finish_battle(r: Dictionary, ev: Array) -> void:
 		ev.append({"kind": "run_lost", "battle_index": b["battle_index"]})
 		return
 	r["stats"]["battles_won"] = int(r["stats"]["battles_won"]) + 1
+	if str(r.get("mode", "full")) == "demo" and int(r["stats"]["battles_won"]) >= DEMO_BATTLES:
+		r["phase"] = "won"
+		r["result"] = "demo_complete"
+		ev.append({"kind": "demo_complete"})
+		return
 	if b["is_boss"]:
 		r["phase"] = "won"
 		r["result"] = "won"

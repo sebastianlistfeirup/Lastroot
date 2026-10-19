@@ -141,3 +141,12 @@ func test_full_runs_with_both_champions() -> void:
 				eq(int(run["stats"]["battles_won"]), 6, "six battles won")
 	check(wins["BARK"] > 0, "Barkwarden wins at least one bot run %s" % [wins])
 	check(wins["SPORE"] > 0, "Spore Sage wins at least one bot run %s" % [wins])
+
+
+func test_demo_mode_ends_after_two_battles() -> void:
+	var res := AutoPlayer.play_run(RunReducer.new_run(101, "BARK", "demo"))
+	var run: Dictionary = res["run"]
+	eq(run["phase"], "won", "demo run finishes")
+	eq(run["result"], "demo_complete", "marked as demo complete")
+	eq(int(run["stats"]["battles_won"]), 2, "after two battles")
+	eq(RunReducer.new_run(101, "BARK")["mode"], "full", "default is the full game")
