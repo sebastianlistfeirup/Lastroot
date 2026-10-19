@@ -170,7 +170,7 @@ static func wave_rows(battle_index: int) -> Array:
 		var parts: PackedStringArray = []
 		for eid: String in order:
 			parts.append("%d× %s" % [int(counts[eid]), Loc.field(Catalog.enemy(eid), "name")])
-		out.append([int(w["turn"]), ", ".join(parts), order])
+		out.append([int(w["turn"]), ", ".join(parts), order, counts])
 	return out
 
 

@@ -87,6 +87,7 @@ func rebuild() -> void:
 	_build()
 	footer.visible = footer.get_child_count() > 0
 	_layout()
+	_relayout_after_wrap.call_deferred()
 
 
 ## Override: add content to `body` (and optional buttons to `footer`).
@@ -101,6 +102,15 @@ func _layout() -> void:
 	var gutter: float = 16.0 if vp.x < 700 else 48.0
 	var w: float = minf(max_size.x, vp.x - gutter * 2.0)
 	var h: float = minf(max_size.y, vp.y - gutter * 2.0)
+	# Shrink to the content when it is shorter (measured at the final width).
+	if body:
+		_panel.custom_minimum_size = Vector2(w, 0)
+		body.custom_minimum_size.x = w - 48.0
+		var chrome: float = 16.0 * 2.0 + 12.0 * 3.0 + 2.0 + close_button.get_combined_minimum_size().y
+		if footer and footer.visible:
+			chrome += footer.get_combined_minimum_size().y + 12.0
+		var need: float = chrome + body.get_combined_minimum_size().y + 8.0
+		h = minf(h, maxf(need, 200.0))
 	_panel.position = (vp - Vector2(w, h)) * 0.5
 	_panel.size = Vector2(w, h)
 	_panel.custom_minimum_size = Vector2(w, h)
@@ -114,3 +124,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		close()
+
+
+## Wrapped labels know their height only after one layout pass at the real
+## width; measure again then (twice: the first pass may change the width).
+func _relayout_after_wrap() -> void:
+	if not is_inside_tree():
+		return
+	await get_tree().process_frame
+	_layout()
+	await get_tree().process_frame
+	_layout()
