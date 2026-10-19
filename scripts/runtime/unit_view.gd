@@ -78,5 +78,7 @@ func move_to(pos: Vector3, duration: float) -> void:
 	_move_tween.tween_property(self, "position", pos, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
+## Badge anchor: above the head, but never up into the floor above
+## (floors are 4.5 m apart; the badge must read as belonging to this floor).
 func head_world() -> Vector3:
-	return global_position + Vector3(0, head_height + 0.15, 0)
+	return global_position + Vector3(0, minf(head_height + 0.15, 2.7), 0)
