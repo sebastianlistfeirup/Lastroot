@@ -114,6 +114,7 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 				else:
 					v.play(&"hit", speed)
 			if kind == "thorns":
+				AudioBridge.play("thorns")
 				screen.popup(tid, "%s%d" % [UiKit.status_glyph("thorns"), int(e["amount"])], UiKit.AMBER)
 			if absorbed > 0:
 				screen.popup(tid, "%s-%d" % [UiKit.status_glyph("armor"), absorbed], UiKit.ARMOR)
@@ -153,6 +154,8 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 			_snap_into(disp, tid, e.get("after"))
 			await _wait(0.14)
 		"growth_gained", "max_hp_gained":
+			if kind == "growth_gained":
+				AudioBridge.play("growth")
 			screen.popup(tid, "%s+%d" % [UiKit.status_glyph("growth" if kind == "growth_gained" else "hp"), int(e["amount"])], UiKit.LIFE)
 			_snap_into(disp, tid, e.get("after"))
 			await _wait(0.1)
