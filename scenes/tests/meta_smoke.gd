@@ -71,6 +71,8 @@ func ok(cond: bool, msg: String) -> void:
 
 
 func step(msg: String) -> void:
+	if OS.get_environment("META_VERBOSE") != "":
+		print("STEP ", _case, ": ", msg)
 	log_lines.append("%s: %s" % [_case, msg])
 
 
@@ -801,4 +803,11 @@ func _round5_cases() -> void:
 			for l: Node in row.find_children("*", "Label", true, false):
 				txt += (l as Label).text + " "
 		ok(txt.contains(Loc.t("%d turns") % int(lb["turns"])) and txt.contains("%s %d" % [Loc.t("Heart"), int(lb["heart"])]), "%s: real turns and Heart (%s)" % [kind, txt.strip_edges()])
+		var hist: Array = run.get("history", [])
+		ok(hist.size() == int(run["stats"]["battles_won"]) + (1 if kind == "lost" else 0), "%s: history has every battle" % kind)
+		var rows := 0
+		for he: Dictionary in hist:
+			if r.find_child("BattleRow_%d" % int(he["index"]), true, false) != null:
+				rows += 1
+		ok(rows == hist.size(), "%s: one row per battle (%d/%d)" % [kind, rows, hist.size()])
 		await unmount(r)

@@ -52,7 +52,11 @@ func render() -> void:
 	m.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_content.add_child(m)
 	var scroll := UiKit.vscroll()
-	m.add_child(scroll)
+	# Buttons live in a fixed bar under the scrolling summary: always visible,
+	# always reachable by keyboard / pad, and the headline stays in view.
+	var outer := UiKit.vbox(12)
+	m.add_child(outer)
+	outer.add_child(scroll)
 	var col := UiKit.vbox(18)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(col)
@@ -90,7 +94,7 @@ func render() -> void:
 	right.add_child(_build_panel())
 	var buttons := UiKit.flow(16)
 	buttons.name = "Actions"
-	col.add_child(buttons)
+	outer.add_child(buttons)
 	var nb := UiKit.button(Loc.t("New run"), UiKit.AMBER, 24)
 	nb.name = "NewRunButton"
 	nb.custom_minimum_size = Vector2(280, 64)
@@ -143,13 +147,21 @@ func _stats_panel(stats: Dictionary, portrait: bool) -> Control:
 	return p
 
 
-## Per-battle rows. Uses run["battle_log"] when the domain provides it
-## (list of {index, result, turns, heart, heart_lost}); otherwise the one
-## battle the run records, run["last_battle"]. Never invents numbers.
+## Per-battle rows from run["history"] ({index, battle_def_id, result, turns,
+## heart_start, heart_end, deployed}); old saves without it fall back to the
+## one battle they record, run["last_battle"]. Never invents numbers.
 static func battle_rows(run: Dictionary) -> Array:
-	var entries: Array = run.get("battle_log", [])
-	if not entries.is_empty():
-		return entries
+	var out: Array = []
+	for h: Dictionary in run.get("history", []):
+		var row := {"index": int(h.get("index", 0)), "result": str(h.get("result", "")), "turns": int(h.get("turns", 0)),
+			"heart": int(h.get("heart_end", 0))}
+		if h.has("heart_start"):
+			row["heart_lost"] = maxi(0, int(h["heart_start"]) - int(h.get("heart_end", 0)))
+		if h.has("deployed"):
+			row["deployed"] = int(h["deployed"])
+		out.append(row)
+	if not out.is_empty():
+		return out
 	var lb: Dictionary = run.get("last_battle", {})
 	return [] if lb.is_empty() else [lb]
 
@@ -175,8 +187,10 @@ func _battles_panel() -> Control:
 		h.add_child(name_l)
 		var parts: PackedStringArray = [Loc.t("Won") if won_b else Loc.t("Lost"), Loc.t("%d turns") % int(b.get("turns", 0)),
 			"%s %d" % [Loc.t("Heart"), int(b.get("heart", 0))]]
-		if b.has("heart_lost"):
-			parts.append("−%d" % int(b["heart_lost"]))
+		if b.has("heart_lost") and int(b["heart_lost"]) > 0:
+			parts.append(Loc.t("lost %d") % int(b["heart_lost"]))
+		if b.has("deployed"):
+			parts.append(Loc.t("%d creatures played") % int(b["deployed"]))
 		var d := UiKit.label(" · ".join(parts), 16, UiKit.TEXT_DIM)
 		d.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		h.add_child(d)

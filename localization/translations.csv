@@ -40,6 +40,7 @@ Turn %d,Tur %d
 Wave %d of %d arrives on the Roots,Bølge %d af %d ankommer til Rødderne
 %s reached the Heart: −%d,%s nåede Hjertet: −%d
 An enemy,En fjende
+Ash Crown: turn %d,Askekronen: tur %d
 B%d · T%d,K%d · T%d
 Battle %d/6 · Turn %d,Kamp %d/6 · Tur %d
 Choose a highlighted target.,Vælg et fremhævet mål.
@@ -89,12 +90,18 @@ reaches the Heart,når Hjertet
 ✶ Thorns %d: deals that much back to every direct attacker.,✶ Torne %d: giver så meget skade tilbage til hver direkte angriber.
 %d normal cards and your champion. A deck keeps at least %d normal cards.,%d normale kort og din champion. Et dæk beholder mindst %d normale kort.
 Your deck (%d cards),Dit dæk (%d kort)
+%d creatures played,%d væsner spillet
+%d turns,%d ture
+Battles,Kampe
 Battles won,Vundne kampe
 Cards played,Spillede kort
 Deck size,Dækstørrelse
 Defeat in %s. The ash reached the Heart.,Nederlag i %s. Asken nåede Hjertet.
+Final battle,Sidste kamp
+Heart,Hjerte
 Heart at the end,Hjerte til sidst
 Heart damage taken,Skade på Hjertet
+Lost,Tabt
 Main menu,Hovedmenu
 Mutations,Mutationer
 New run,Nyt løb
@@ -106,7 +113,9 @@ The Heart has fallen,Hjertet er faldet
 The tree stands,Træet står
 Turns played,Spillede ture
 Victory. The Ash Crown is broken and the last world tree takes root again.,"Sejr. Askekronen er brudt, og det sidste verdenstræ slår rod igen."
+Won,Vundet
 Your tree,Dit træ
+lost %d,mistede %d
 rank,trin
 Choose,Vælg
 Chosen,Valgt
@@ -114,14 +123,12 @@ Next,Næste
 Not taken,Ikke valgt
 Now,Nu
 Selected,Valgt
-Won,Vundet
 You,Dig
 Battle %d/6,Kamp %d/6
 Champion path: not chosen yet. You choose it after battle 2 and strengthen it after battle 4.,Championretning: ikke valgt endnu. Du vælger den efter kamp 2 og styrker den efter kamp 4.
 Current %d of %d.,Nu %d af %d.
 Deck (%d),Dæk (%d)
 "Five battles and the boss, The Ash Crown, are always fought. Battles won: %d.","Fem kampe og bossen, Askekronen, udkæmpes altid. Vundne kampe: %d."
-Heart,Hjerte
 Rank %d of 2.,Trin %d af 2.
 Resin,Harpiks
 Route progress,Fremskridt på ruten
@@ -276,6 +283,7 @@ Three floors and the front,Tre etager og fronten
 "☠ Poison: deals its value at the floor's poison phase, then drops by 1.",☠ Gift: giver sin værdi i skade i etagens giftfase og falder derefter med 1.
 ✚ Growth: heals its value at the end of the floor.,"✚ Vækst: heler sin værdi, når etagen er færdig."
 ✶ Thorns: deals its value back to every direct attacker.,✶ Torne: giver sin værdi i skade tilbage til hver direkte angriber.
+"A short illustrated guide shows the floors, Sap, cards, the forecast and the boss. You can open it again any time from the menu.","En kort illustreret guide viser etagerne, Saftkraft, kortene, prognosen og bossen. Du kan altid åbne den igen fra menuen."
 Battle %d of 6,Kamp %d af 6
 Before battle %d of 6,Før kamp %d af 6
 Cancel,Annullér
@@ -288,6 +296,7 @@ Defend the last world tree. Build a deck that can take root.,"Forsvar det sidste
 Defend the tree as %s,Forsvar træet som %s
 Load backup,Indlæs backup
 New Run,Nyt løb
+New to LASTROOT?,Ny i LASTROOT?
 Newer save,Nyere gemt spil
 No save,Intet gemt spil
 OK,OK
@@ -295,6 +304,7 @@ Quit,Afslut
 Run lost,Løb tabt
 Run won,Løb vundet
 Sap,Saftkraft
+Show me how to play,"Vis mig, hvordan man spiller"
 Spell,Besværgelse
 Start a new run?,Start et nyt løb?
 Starting deck (12 cards),Startdæk (12 kort)
@@ -339,4 +349,3 @@ cost,pris
 damage,skade
 healing,heling
 max HP,maks. liv
-Ash Crown: turn %d,Askekronen: tur %d
