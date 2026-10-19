@@ -1,0 +1,380 @@
+{
+ "_note": "Rig family -> clip name hints. 'clips' maps a state to a clip name inside the model's own AnimationPlayer (used when no 'lr/<state>' library clip exists, e.g. PolyPerfect animals with built-in clips). 'contact' = seconds from start to the hit frame at speed 1.0 (UnitAnimator.contact_time). Per-slot overrides under 'slots'. tools/synty/build_wrappers.gd fills 'lr' libraries from Mixamo/Synty clips; you rarely need to edit this. unverified — check actual pack contents.",
+ "keywords": {
+  "idle": [
+   "idle",
+   "breathing",
+   "stand"
+  ],
+  "summon": [
+   "summon",
+   "spawn",
+   "emerge",
+   "getting_up",
+   "standing_up",
+   "stand_up",
+   "jump_down",
+   "appear"
+  ],
+  "attack": [
+   "attack",
+   "punch",
+   "slash",
+   "swing",
+   "stab",
+   "bite",
+   "strike",
+   "swipe",
+   "melee"
+  ],
+  "cast": [
+   "cast",
+   "spell",
+   "magic"
+  ],
+  "hit": [
+   "hit",
+   "react",
+   "impact",
+   "damage",
+   "hurt"
+  ],
+  "death": [
+   "death",
+   "dying",
+   "die",
+   "dead"
+  ],
+  "defend": [
+   "block",
+   "defend",
+   "guard",
+   "shield"
+  ],
+  "victory": [
+   "victory",
+   "cheer",
+   "celebrat",
+   "roar",
+   "win"
+  ],
+  "move": [
+   "walk",
+   "jog",
+   "run",
+   "move",
+   "trot",
+   "gallop"
+  ]
+ },
+ "sets": {
+  "humanoid": {
+   "rig": "humanoid",
+   "retarget": "SkeletonProfileHumanoid",
+   "clips": {},
+   "contact": {
+    "attack": 0.3,
+    "cast": 0.38
+   },
+   "mixamo": {
+    "idle": [
+     "Breathing Idle",
+     "Standing Idle",
+     "Happy Idle"
+    ],
+    "summon": [
+     "Standing Up",
+     "Getting Up",
+     "Jumping Down"
+    ],
+    "attack": [
+     "Punching",
+     "Standing Melee Attack Downward",
+     "Sword And Shield Slash"
+    ],
+    "cast": [
+     "Standing 1H Magic Attack 01",
+     "Standing 2H Magic Attack 01",
+     "Magic Spell Casting"
+    ],
+    "hit": [
+     "Hit Reaction",
+     "Standing React Small From Front",
+     "Big Hit To Head"
+    ],
+    "death": [
+     "Dying",
+     "Standing Death Backward 01",
+     "Falling Back Death"
+    ],
+    "defend": [
+     "Standing Block Idle",
+     "Sword And Shield Block",
+     "Blocking"
+    ],
+    "victory": [
+     "Victory",
+     "Cheering",
+     "Victory Idle"
+    ],
+    "move": [
+     "Walking",
+     "Standing Walk Forward",
+     "Jog Forward"
+    ]
+   },
+   "notes": "Mixamo: download FBX, 30 fps, 'In Place' ticked, 'Without Skin' for clip files. Synty and Mixamo bone names both map."
+  },
+  "quadruped": {
+   "rig": "quadruped",
+   "retarget": "none",
+   "clips": {
+    "idle": "Idle",
+    "attack": "Attack",
+    "hit": "Hit",
+    "death": "Death",
+    "move": "Walk"
+   },
+   "contact": {
+    "attack": 0.32
+   },
+   "notes": "PolyPerfect-style animals ship their own clips; names vary (e.g. Idle_A, Attack_1) — set the real names here or let the builder match by keyword."
+  },
+  "static": {
+   "rig": "none",
+   "clips": {},
+   "contact": {},
+   "notes": "No skeleton: UnitAnimator uses procedural motion."
+  }
+ },
+ "slots": {
+  "unit.B01": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.B02": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.B03": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.B04": {
+   "set": "quadruped",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move"
+   ]
+  },
+  "unit.B05": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.B06": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.S01": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "cast",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.S02": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.S03": {
+   "set": "static",
+   "states": [
+    "idle",
+    "summon",
+    "hit",
+    "death",
+    "defend"
+   ]
+  },
+  "unit.S04": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.S05": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "cast",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "unit.S06": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "defend",
+    "victory",
+    "move"
+   ]
+  },
+  "enemy.E01": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move"
+   ],
+   "speed": 1.3
+  },
+  "enemy.E02": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move"
+   ]
+  },
+  "enemy.E03": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move"
+   ]
+  },
+  "enemy.E04": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move"
+   ]
+  },
+  "enemy.E05": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move"
+   ]
+  },
+  "enemy.E06": {
+   "set": "humanoid",
+   "states": [
+    "idle",
+    "summon",
+    "attack",
+    "hit",
+    "death",
+    "move",
+    "victory"
+   ]
+  },
+  "stage.heart": {
+   "set": "static",
+   "states": [
+    "idle",
+    "hit"
+   ]
+  }
+ }
+}
