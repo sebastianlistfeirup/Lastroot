@@ -19,7 +19,9 @@ func _ready() -> void:
 	else:
 		AppFlow.goto("menu")
 	if args.has("autoplay"):
-		get_tree().root.call_deferred("add_child", AutoDriver.new())
+		var ad := AutoDriver.new()
+		ad.battles = maxi(1, int(args["autoplay"]))
+		get_tree().root.call_deferred("add_child", ad)
 	if args.has("capture"):
 		var cap := DebugCapture.new()
 		cap.path = args["capture"]
