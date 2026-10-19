@@ -9,6 +9,9 @@ const VERSION := 1
 const TEXT_SCALES: PackedFloat32Array = [0.9, 1.0, 1.15, 1.3]
 const ANIM_SPEEDS: PackedFloat32Array = [0.5, 1.0, 2.0]
 const VOLUME_KEYS: PackedStringArray = ["master", "music", "sfx"]
+## Same list as Loc.LANGUAGES; kept here so this script also compiles without
+## autoloads (unit tests instantiate it directly).
+const LANGUAGES: PackedStringArray = ["en", "da"]
 
 var language: String = "en"
 var text_scale: float = 1.0
@@ -28,8 +31,9 @@ func _ready() -> void:
 
 ## Pushes the values into the engine-side singletons (Loc, UiKit, audio buses).
 func apply() -> void:
-	if Loc.language != language:
-		Loc.set_language(language)
+	var loc: Node = get_node_or_null("/root/Loc") if is_inside_tree() else null
+	if loc != null and str(loc.get("language")) != language:
+		loc.call("set_language", language)
 	UiKit.font_scale = text_scale
 	for k: String in VOLUME_KEYS:
 		var bus: String = {"master": "Master", "music": "Music", "sfx": "SFX"}[k]
@@ -41,7 +45,7 @@ func apply() -> void:
 
 
 func set_language(lang: String) -> void:
-	if not Loc.LANGUAGES.has(lang):
+	if not LANGUAGES.has(lang):
 		lang = "en"
 	language = lang
 	_commit()
@@ -91,7 +95,7 @@ func load_settings() -> bool:
 	if cfg.load(path) != OK:
 		return false
 	language = str(cfg.get_value("settings", "language", language))
-	if not Loc.LANGUAGES.has(language):
+	if not LANGUAGES.has(language):
 		language = "en"
 	text_scale = clampf(float(cfg.get_value("settings", "text_scale", text_scale)), 0.8, 1.5)
 	reduced_motion = bool(cfg.get_value("settings", "reduced_motion", reduced_motion))
