@@ -1,0 +1,1644 @@
+{
+  "bot": "AutoPlayer greedy",
+  "content_version": "0.1.0+lastroot-v2-baseline",
+  "engine_version": "4.5.1-stable (official)",
+  "experiment": {
+    "enemy_atk": 1.25,
+    "enemy_hp": 1.3
+  },
+  "runs": [
+    {
+      "battles_won": 6,
+      "cards_played": 85,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B06",
+        "B12",
+        "B06",
+        "B04",
+        "B04",
+        "S10",
+        "S11"
+      ],
+      "faction": "BARK",
+      "heart_end": 48,
+      "heart_lost": 24,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R05",
+        "R02"
+      ],
+      "seed": 1000,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 104,
+      "deck": [
+        "B01",
+        "B02",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B03",
+        "B03",
+        "S12",
+        "S12",
+        "B05",
+        "B12",
+        "B06",
+        "S08",
+        "B02"
+      ],
+      "faction": "BARK",
+      "heart_end": 29,
+      "heart_lost": 31,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R02",
+        "R08"
+      ],
+      "seed": 1001,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 71,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B06",
+        "S04",
+        "B06",
+        "S05",
+        "B03",
+        "B09"
+      ],
+      "faction": "BARK",
+      "heart_end": 35,
+      "heart_lost": 37,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R05",
+        "R03"
+      ],
+      "seed": 1002,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 82,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B10",
+        "B06",
+        "B04",
+        "S08",
+        "B03",
+        "S05"
+      ],
+      "faction": "BARK",
+      "heart_end": 25,
+      "heart_lost": 43,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R06",
+        "R04"
+      ],
+      "seed": 1003,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 76,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07+",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "B06",
+        "S05",
+        "S04",
+        "S04",
+        "S07"
+      ],
+      "faction": "BARK",
+      "heart_end": 27,
+      "heart_lost": 33,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R01",
+        "R02"
+      ],
+      "seed": 1004,
+      "turns": 28,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 70,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S04",
+        "B06",
+        "S06",
+        "S09",
+        "S06",
+        "B12"
+      ],
+      "faction": "BARK",
+      "heart_end": 27,
+      "heart_lost": 33,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R03",
+        "R01"
+      ],
+      "seed": 1005,
+      "turns": 28,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 80,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "S04",
+        "S09",
+        "B10",
+        "B02",
+        "B06",
+        "S06"
+      ],
+      "faction": "BARK",
+      "heart_end": 25,
+      "heart_lost": 39,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R04",
+        "R05"
+      ],
+      "seed": 1006,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 81,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "B09",
+        "S10",
+        "B04",
+        "B02",
+        "S07",
+        "S07",
+        "B06"
+      ],
+      "faction": "BARK",
+      "heart_end": 31,
+      "heart_lost": 41,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R05",
+        "R08"
+      ],
+      "seed": 1007,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 76,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B04",
+        "B03",
+        "S07",
+        "S06",
+        "B12",
+        "S03",
+        "S10"
+      ],
+      "faction": "BARK",
+      "heart_end": 22,
+      "heart_lost": 46,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R01",
+        "R07"
+      ],
+      "seed": 1008,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 77,
+      "deck": [
+        "B01",
+        "B02",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B04",
+        "B12",
+        "S04",
+        "S11",
+        "B09",
+        "B07",
+        "S06",
+        "S04",
+        "B09"
+      ],
+      "faction": "BARK",
+      "heart_end": 39,
+      "heart_lost": 21,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R04",
+        "R03"
+      ],
+      "seed": 1009,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 83,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "B12",
+        "B03",
+        "S04",
+        "S06",
+        "S05",
+        "B11"
+      ],
+      "faction": "BARK",
+      "heart_end": 16,
+      "heart_lost": 44,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R04",
+        "R03"
+      ],
+      "seed": 1010,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 78,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S04",
+        "S05",
+        "S09",
+        "S06",
+        "S06",
+        "S07",
+        "S05"
+      ],
+      "faction": "BARK",
+      "heart_end": 23,
+      "heart_lost": 37,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R06",
+        "R08"
+      ],
+      "seed": 1011,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 80,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S09",
+        "B12",
+        "S06",
+        "S04",
+        "B06",
+        "B10",
+        "B08"
+      ],
+      "faction": "BARK",
+      "heart_end": 26,
+      "heart_lost": 34,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R06",
+        "R03"
+      ],
+      "seed": 1012,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 88,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B10",
+        "S03",
+        "B03",
+        "S05",
+        "S05",
+        "B08",
+        "B04",
+        "S08"
+      ],
+      "faction": "BARK",
+      "heart_end": 22,
+      "heart_lost": 46,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R08",
+        "R04"
+      ],
+      "seed": 1013,
+      "turns": 33,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 84,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B06",
+        "S04",
+        "B03",
+        "B04",
+        "S05",
+        "B04",
+        "B06"
+      ],
+      "faction": "BARK",
+      "heart_end": 56,
+      "heart_lost": 4,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R02",
+        "R04"
+      ],
+      "seed": 1014,
+      "turns": 28,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 82,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07+",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B12",
+        "S12",
+        "S11",
+        "B06",
+        "B03",
+        "B06"
+      ],
+      "faction": "BARK",
+      "heart_end": 23,
+      "heart_lost": 37,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R01",
+        "R06"
+      ],
+      "seed": 1015,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 83,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B04",
+        "B05",
+        "S03",
+        "B10",
+        "B12",
+        "B12",
+        "B07"
+      ],
+      "faction": "BARK",
+      "heart_end": 35,
+      "heart_lost": 33,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R03",
+        "R01"
+      ],
+      "seed": 1016,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 79,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S11",
+        "S10",
+        "S05",
+        "B06",
+        "S06"
+      ],
+      "faction": "BARK",
+      "heart_end": 15,
+      "heart_lost": 45,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R01",
+        "R03"
+      ],
+      "seed": 1017,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 97,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07+",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S05",
+        "B08",
+        "S06",
+        "B04",
+        "B07",
+        "B09"
+      ],
+      "faction": "BARK",
+      "heart_end": 40,
+      "heart_lost": 24,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R02",
+        "R05"
+      ],
+      "seed": 1018,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 87,
+      "deck": [
+        "B01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "S06",
+        "B03",
+        "B04",
+        "B12",
+        "B04",
+        "B07"
+      ],
+      "faction": "BARK",
+      "heart_end": 33,
+      "heart_lost": 27,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "BULWARK 2",
+      "relics": [
+        "R02",
+        "R04"
+      ],
+      "seed": 1019,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 85,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B06",
+        "B12",
+        "B06",
+        "B04",
+        "B04",
+        "S10",
+        "S11"
+      ],
+      "faction": "SPORE",
+      "heart_end": 54,
+      "heart_lost": 18,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R05",
+        "R02"
+      ],
+      "seed": 1000,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 108,
+      "deck": [
+        "S01",
+        "B02",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B03",
+        "B03",
+        "S12",
+        "S12",
+        "B05",
+        "B12",
+        "B06",
+        "S08",
+        "B02"
+      ],
+      "faction": "SPORE",
+      "heart_end": 21,
+      "heart_lost": 39,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R02",
+        "R08"
+      ],
+      "seed": 1001,
+      "turns": 32,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 72,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B06",
+        "S04",
+        "B06",
+        "S05",
+        "B03",
+        "B09"
+      ],
+      "faction": "SPORE",
+      "heart_end": 41,
+      "heart_lost": 31,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R05",
+        "R03"
+      ],
+      "seed": 1002,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 79,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B10",
+        "B06",
+        "B04",
+        "S08",
+        "B03",
+        "S05"
+      ],
+      "faction": "SPORE",
+      "heart_end": 21,
+      "heart_lost": 47,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R06",
+        "R04"
+      ],
+      "seed": 1003,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 81,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07+",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "B06",
+        "S05",
+        "S04",
+        "S04",
+        "S07"
+      ],
+      "faction": "SPORE",
+      "heart_end": 35,
+      "heart_lost": 25,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R01",
+        "R02"
+      ],
+      "seed": 1004,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 71,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S04",
+        "B06",
+        "S06",
+        "S09",
+        "S06",
+        "B12"
+      ],
+      "faction": "SPORE",
+      "heart_end": 35,
+      "heart_lost": 25,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R03",
+        "R01"
+      ],
+      "seed": 1005,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 78,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "S04",
+        "S09",
+        "B10",
+        "B02",
+        "B06",
+        "S06"
+      ],
+      "faction": "SPORE",
+      "heart_end": 21,
+      "heart_lost": 43,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R04",
+        "R05"
+      ],
+      "seed": 1006,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 80,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "B09",
+        "S10",
+        "B04",
+        "B02",
+        "S07",
+        "S07",
+        "B06"
+      ],
+      "faction": "SPORE",
+      "heart_end": 43,
+      "heart_lost": 29,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R05",
+        "R08"
+      ],
+      "seed": 1007,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 79,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B04",
+        "B03",
+        "S07",
+        "S06",
+        "B12",
+        "S03",
+        "S10"
+      ],
+      "faction": "SPORE",
+      "heart_end": 25,
+      "heart_lost": 43,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R01",
+        "R07"
+      ],
+      "seed": 1008,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 82,
+      "deck": [
+        "S01",
+        "B02",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B04",
+        "B12",
+        "S04",
+        "S11",
+        "B09",
+        "B07",
+        "S06",
+        "S04",
+        "B09"
+      ],
+      "faction": "SPORE",
+      "heart_end": 23,
+      "heart_lost": 37,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R04",
+        "R03"
+      ],
+      "seed": 1009,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 81,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "B12",
+        "B03",
+        "S04",
+        "S06",
+        "S05",
+        "B11"
+      ],
+      "faction": "SPORE",
+      "heart_end": 26,
+      "heart_lost": 34,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R04",
+        "R03"
+      ],
+      "seed": 1010,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 74,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S04",
+        "S05",
+        "S09",
+        "S06",
+        "S06",
+        "S07",
+        "S05"
+      ],
+      "faction": "SPORE",
+      "heart_end": 34,
+      "heart_lost": 34,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R06",
+        "R08"
+      ],
+      "seed": 1011,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 78,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S09",
+        "B12",
+        "S06",
+        "S04",
+        "B06",
+        "B10",
+        "B08"
+      ],
+      "faction": "SPORE",
+      "heart_end": 12,
+      "heart_lost": 48,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R06",
+        "R03"
+      ],
+      "seed": 1012,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 86,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B10",
+        "S03",
+        "B03",
+        "S05",
+        "S05",
+        "B08",
+        "B04",
+        "S08"
+      ],
+      "faction": "SPORE",
+      "heart_end": 14,
+      "heart_lost": 54,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R08",
+        "R04"
+      ],
+      "seed": 1013,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 88,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B06",
+        "S04",
+        "B03",
+        "B04",
+        "S05",
+        "B04",
+        "B06"
+      ],
+      "faction": "SPORE",
+      "heart_end": 40,
+      "heart_lost": 20,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R02",
+        "R04"
+      ],
+      "seed": 1014,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 80,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07+",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B12",
+        "S12",
+        "S11",
+        "B06",
+        "B03",
+        "B06"
+      ],
+      "faction": "SPORE",
+      "heart_end": 17,
+      "heart_lost": 43,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R01",
+        "R06"
+      ],
+      "seed": 1015,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 85,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02",
+        "B02",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "B04",
+        "B05",
+        "S03",
+        "B10",
+        "B12",
+        "B12",
+        "B07"
+      ],
+      "faction": "SPORE",
+      "heart_end": 36,
+      "heart_lost": 40,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R03",
+        "R01"
+      ],
+      "seed": 1016,
+      "turns": 30,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 85,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S11",
+        "S10",
+        "S05",
+        "B06",
+        "S06"
+      ],
+      "faction": "SPORE",
+      "heart_end": 15,
+      "heart_lost": 45,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R01",
+        "R03"
+      ],
+      "seed": 1017,
+      "turns": 31,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 94,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07+",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S05",
+        "B08",
+        "S06",
+        "B04",
+        "B07",
+        "B09"
+      ],
+      "faction": "SPORE",
+      "heart_end": 30,
+      "heart_lost": 34,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R02",
+        "R05"
+      ],
+      "seed": 1018,
+      "turns": 29,
+      "won": true
+    },
+    {
+      "battles_won": 6,
+      "cards_played": 92,
+      "deck": [
+        "S01",
+        "B02+",
+        "B02+",
+        "B02+",
+        "B07",
+        "B07",
+        "B08",
+        "B08",
+        "S02",
+        "S02",
+        "S07",
+        "S07",
+        "S06",
+        "S06",
+        "B03",
+        "B04",
+        "B12",
+        "B04",
+        "B07"
+      ],
+      "faction": "SPORE",
+      "heart_end": 27,
+      "heart_lost": 33,
+      "mutations": [
+        "M01",
+        "M02"
+      ],
+      "path": "VENOM 2",
+      "relics": [
+        "R02",
+        "R04"
+      ],
+      "seed": 1019,
+      "turns": 29,
+      "won": true
+    }
+  ],
+  "summary": {
+    "BARK": {
+      "avg_heart_lost": 33.95,
+      "avg_turns": 29.75,
+      "battles_won_histogram": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20
+      ],
+      "ms": 35492,
+      "runs": 20,
+      "winrate": 1.0,
+      "wins": 20
+    },
+    "SPORE": {
+      "avg_heart_lost": 36.1,
+      "avg_turns": 29.95,
+      "battles_won_histogram": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20
+      ],
+      "ms": 35158,
+      "runs": 20,
+      "winrate": 1.0,
+      "wins": 20
+    }
+  },
+  "timestamp": "2026-10-19T21:41:17"
+}

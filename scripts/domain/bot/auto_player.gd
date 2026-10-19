@@ -16,6 +16,8 @@ static func legal_commands(s: Dictionary) -> Array:
 			continue
 		if Catalog.is_creature(def):
 			for f in 3:
+				if BattleReducer.used_space(s, f) + int(def["space"]) > BattleReducer.capacity(s, f):
+					continue
 				var base := {"type": "play_card", "card": iid, "floor": f, "position": 0}
 				if def.get("on_play", {}).get("op", "") == "heal_other_ally" and not BattleReducer.all_allies(s).is_empty():
 					base["target"] = _most_hurt_ally(s)
@@ -73,8 +75,27 @@ static func score(s: Dictionary) -> float:
 	return v
 
 
-## Best next command, or end_turn when nothing improves the forecast.
+## "greedy" uses the real forecast; "casual" plays random legal cards and
+## moves without looking ahead (a rough stand-in for a new player).
+static var style: String = "greedy"
+static var _casual_rng: Dictionary = RngStream.create(7, "casual")
+
+
 static func choose(s: Dictionary) -> Dictionary:
+	if style == "casual":
+		return _choose_casual(s)
+	return _choose_greedy(s)
+
+
+static func _choose_casual(s: Dictionary) -> Dictionary:
+	var cmds: Array = legal_commands(s).filter(func(c: Dictionary) -> bool: return c["type"] == "play_card")
+	if cmds.is_empty() or RngStream.next_int(_casual_rng, 10) == 0:
+		return {"type": "end_turn"}
+	return cmds[RngStream.next_int(_casual_rng, cmds.size())]
+
+
+## Best next command, or end_turn when nothing improves the forecast.
+static func _choose_greedy(s: Dictionary) -> Dictionary:
 	var best_cmd := {"type": "end_turn"}
 	var best: float = score(Forecast.end_turn(s)["state"]) + float(s["energy"]) * -0.5
 	for cmd: Dictionary in legal_commands(s):

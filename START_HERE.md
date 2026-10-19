@@ -39,7 +39,7 @@ Et spilbart **greybox-gennemløb** af hele LASTROOT:
 | Domæne + prognose | `godot --headless --path . --script res://tests/run_tests.gd` | se `evidence/test_report.json` |
 | Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | se `evidence/scene_smoke.json` |
 | Prognose = virkelighed | 120 gemte scenarier i `fixtures/forecast/` | state-hash og eventrækkefølge matcher |
-| Balance (bot) | `godot --headless --path . --script res://tools/balance/run_balance.gd` | `evidence/balance/balance_report.json` |
+| Balance (bot) | `godot --headless --path . --script res://tools/balance/run_balance.gd` | `evidence/balance/balance_report_greedy.json` |
 | Grafikpipeline | `tools/synty/selftest.sh` | `evidence/asset_pipeline/selftest.json` |
 | Screenshots / video | `evidence/shots/`, `evidence/meta_screens/`, `evidence/video/battle1_spore_autoplay.mp4` | Xvfb-software-rendering, ikke din GPU |
 

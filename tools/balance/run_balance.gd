@@ -9,6 +9,28 @@ func _init() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--seeds="):
 			n = int(a.get_slice("=", 1))
+		if a.begins_with("--bot="):
+			AutoPlayer.style = a.get_slice("=", 1)
+	# Balance experiments run on an in-memory copy of the catalog only; the
+	# baseline files are never touched (AGENTS.md: balance changes need a decision).
+	var exp := {}
+	for a in OS.get_cmdline_user_args():
+		for key in ["enemy_hp", "enemy_atk", "heart", "resin", "boss_hp"]:
+			if a.begins_with("--%s=" % key):
+				exp[key] = float(a.get_slice("=", 1))
+	if not exp.is_empty():
+		var d: Dictionary = Catalog.data().duplicate(true)
+		for e: Dictionary in d["enemies"]:
+			e["max_hp"] = int(round(float(e["max_hp"]) * exp.get("enemy_hp", 1.0)))
+			e["attack"] = int(round(float(e["attack"]) * exp.get("enemy_atk", 1.0)))
+		d["boss"]["max_hp"] = int(round(float(d["boss"]["max_hp"]) * exp.get("boss_hp", exp.get("enemy_hp", 1.0))))
+		d["boss"]["attack"] = int(round(float(d["boss"]["attack"]) * exp.get("enemy_atk", 1.0)))
+		if exp.has("heart"):
+			d["rules"]["heart_start"] = int(exp["heart"])
+		if exp.has("resin"):
+			d["rules"]["resin_start"] = int(exp["resin"])
+		Catalog.install(d)
+		print("EXPERIMENT ", exp)
 	var rows: Array = []
 	var summary := {}
 	for faction in ["BARK", "SPORE"]:
@@ -40,9 +62,12 @@ func _init() -> void:
 		print("%s: %d/%d wins, avg heart lost %.1f, avg turns %.1f, reached %s" % [faction, wins, n,
 			float(heart_lost) / float(n), float(turns) / float(n), reached])
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://evidence/balance"))
-	var f := FileAccess.open("res://evidence/balance/balance_report.json", FileAccess.WRITE)
+	var tag: String = AutoPlayer.style
+	for k: String in exp.keys():
+		tag += "_%s%s" % [k, str(exp[k])]
+	var f := FileAccess.open("res://evidence/balance/balance_report_%s.json" % tag, FileAccess.WRITE)
 	f.store_string(JSON.stringify({"engine_version": Engine.get_version_info()["string"],
-		"content_version": Catalog.data()["content_version"], "bot": "AutoPlayer greedy forecast v1",
+		"content_version": Catalog.data()["content_version"], "bot": "AutoPlayer " + AutoPlayer.style, "experiment": exp,
 		"timestamp": Time.get_datetime_string_from_system(true), "summary": summary, "runs": rows}, "  ", true))
 	f.close()
 	quit()
