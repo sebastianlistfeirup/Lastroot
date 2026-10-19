@@ -1,6 +1,6 @@
 {
   "task_id": "LR-01",
-  "commit": "42e0b9f",
+  "commit": "0c6e186",
   "engine_version": "4.5.1-stable (official)",
   "command": "tools/check.sh",
   "exit_code": 0,
@@ -20,7 +20,7 @@
     {
       "kind": "compile",
       "ok": true,
-      "scripts": 84
+      "scripts": 95
     },
     {
       "kind": "scene_smoke",
@@ -34,12 +34,12 @@
     {
       "kind": "meta_smoke",
       "ok": true,
-      "checks": 208
+      "checks": 387
     }
   ],
   "open": [],
   "fixture": null,
-  "timestamp": "2026-10-19T21:36:42+00:00",
+  "timestamp": "2026-10-19T22:12:58+00:00",
   "status": "PASS",
   "artifacts": [
     "evidence/test_report.json",

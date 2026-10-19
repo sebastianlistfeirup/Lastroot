@@ -59,7 +59,7 @@ func test_fuzzed_saves_never_load_wrong_state() -> void:
 	var accepted_wrong := 0
 	for i in 200:
 		var pos: int = RngStream.next_int(rng, text.length())
-		var ch: String = "0123456789abcdef{}[]\",:x"[RngStream.next_int(rng, 25)]
+		var ch: String = "0123456789abcdef{}[]\",:x"[RngStream.next_int(rng, 24)]
 		var bad: String = text.substr(0, pos) + ch + text.substr(pos + 1)
 		var d := SaveCodec.decode(bad)
 		if d["ok"] and JsonUtil.canonical(d["run"]) != canon:
