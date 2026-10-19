@@ -1,0 +1,37 @@
+{
+  "task_id": "LR-11",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "tools/synty/selftest.sh",
+  "exit_code": 1,
+  "expected": "Importprøve har beviser hvis assets findes. Første kamp/save virker stadig. Manglende assets stopper ikke domænearbejdet.",
+  "observed": [
+    {
+      "kind": "asset_selftest",
+      "ok": false
+    },
+    {
+      "kind": "files",
+      "match": [
+        "docs/ASSET_LEDGER.csv",
+        "docs/ANIMATION_LEDGER.csv"
+      ],
+      "missing": [
+        "docs/ASSET_LEDGER.csv",
+        "docs/ANIMATION_LEDGER.csv"
+      ],
+      "ok": false
+    }
+  ],
+  "open": [
+    "Ingen købte Synty/PolyPerfect-filer i containeren: rigtig importprøve (én træ-/klippeprøve + én rigget figur) udestår.",
+    "Visuel godkendelse forbliver åben."
+  ],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "FAIL",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

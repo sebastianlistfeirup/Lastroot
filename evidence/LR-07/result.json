@@ -1,0 +1,44 @@
+{
+  "task_id": "LR-07",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . res://scenes/tests/scene_smoke.tscn",
+  "exit_code": 0,
+  "expected": "Ét klik/tap giver højst én handling. Ingen nødvendig hover. UI viser årsag til ugyldigt mål. Resize nulstiller ikke BattleState.",
+  "observed": [
+    {
+      "kind": "scene_smoke",
+      "match": [
+        "champion shows insert slots",
+        "slot sets a pending command",
+        "preview forecast rendered",
+        "second confirm does nothing (one tap, one action)",
+        "invalid command shows a reason",
+        "invalid command changes nothing",
+        "input locked while resolving",
+        "no command accepted while locked",
+        "resize keeps BattleState"
+      ],
+      "missing": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "kind": "files",
+      "match": [
+        "evidence/shots/battle_mid_1080p.png",
+        "evidence/shots/battle_mid_portrait.png"
+      ],
+      "missing": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

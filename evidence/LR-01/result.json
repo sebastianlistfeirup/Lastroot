@@ -1,0 +1,45 @@
+{
+  "task_id": "LR-01",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "tools/check.sh",
+  "exit_code": 1,
+  "expected": "Ren opstart og lukning uden parserfejl. VERSION_MATRIX og baselinecommit findes. menu->battle->result->menu.",
+  "observed": [
+    {
+      "kind": "files",
+      "match": [
+        "docs/VERSION_MATRIX.md",
+        "docs/CAPABILITY_MATRIX.md",
+        "project.godot",
+        "tools/check.sh"
+      ],
+      "missing": [],
+      "ok": true
+    },
+    {
+      "kind": "compile",
+      "ok": false,
+      "scripts": null
+    },
+    {
+      "kind": "meta_smoke",
+      "match": [
+        "menu_to_battle_to_result_to_menu"
+      ],
+      "missing": [
+        "menu_to_battle_to_result_to_menu"
+      ],
+      "failures": [],
+      "ok": false
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "FAIL",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

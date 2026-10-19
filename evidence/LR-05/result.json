@@ -1,0 +1,47 @@
+{
+  "task_id": "LR-05",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "tests + scene smoke",
+  "exit_code": 0,
+  "expected": "Begge champions kan spille første kamp. Ugyldigt mål bruger intet. Kort i præcis én zone; døde væsner kommer ikke tilbage.",
+  "observed": [
+    {
+      "kind": "unit",
+      "match": [
+        "test_battle_matrix/test_t09",
+        "test_battle_matrix/test_card_in_exactly",
+        "test_battle_matrix/test_invalid_target",
+        "test_battle_matrix/test_full_floor",
+        "test_cards/test_b01",
+        "test_cards/test_s01",
+        "test_cards/test_b02",
+        "test_cards/test_b07",
+        "test_cards/test_b08",
+        "test_cards/test_s02",
+        "test_cards/test_s07"
+      ],
+      "found": 11,
+      "failures": [],
+      "ok": true
+    },
+    {
+      "kind": "scene_smoke",
+      "match": [
+        "BARK wins battle 1 through the scene (phase reward)",
+        "SPORE wins battle 1 through the scene (phase reward)"
+      ],
+      "missing": [],
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

@@ -1,0 +1,101 @@
+# LASTROOT · Assetplan (Synty, PolyPerfect, Mixamo)
+
+*Genereret af `tools/synty/gen_slots.py` fra samme data som spillet bruger (`data/art/asset_slots.json`, `data/art/vendor_suggestions.json`). Ret i scriptet, ikke her.*
+
+> **Ærlighedsnote:** Ingen pakke er åbnet endnu. Pakkenavnene er rigtige produktlinjer, men **alle model- og clipnavne er søgemønstre — unverified — check actual pack contents**. Biblen forbyder at opfinde leverandørfilnavne som fakta. Om en Synty-pakke findes i en Godot-klar udgave (Synty er begyndt at udgive Godot-versioner af nogle pakker) er **usikkert** pr. pakke: tjek downloadsiden. Ellers bruges FBX "Source Files". PolyPerfect leveres typisk som Unity-pakke med FBX indeni; `unpack.py` trækker FBX og teksturer ud.
+
+## Hurtig vej
+
+1. Pak købte pakker ud i karantæne: `python3 tools/synty/unpack.py <pakke.unitypackage|.zip|mappe>` (også en mappe med Mixamo-FBX).
+2. `python3 tools/synty/match.py` foreslår en model pr. slot og Mixamo-clips pr. tilstand → `data/art/synty_choices.json`.
+3. Ret/godkend valgene (`"status": "approved"`, `"skip"` = behold proxy, `"rotation_y"`).
+4. `tools/synty/build.sh` → wrappers i `art/prefabs/`, spillet bruger dem straks. Tjek i `scenes/tests/rig_lab.tscn` og style gate `scenes/tests/asset_gallery.tscn`.
+
+Detaljer: `docs/SYNTY_INTEGRATION.md`. Placering i kampscenen: `docs/SCENE_ASSEMBLY.md`.
+
+## Strategi (biblen: "Synty og PolyPerfect: konkret assetplan")
+
+* **Identitet før pakker.** Bark/rav, svampe/violet, turkis liv, mørke aske-silhuetter. Vælg konsistens frem for at vise alle købte pakker; én materialestil (pakkens atlas + vores emissive farver fra `data/art/palette.json`).
+* **Få rigfamilier.** *humanoid* (én familie for alle tobenede: Synty- og Mixamo-knoglenavne mappes til Godots `SkeletonProfileHumanoid`, så ét Mixamo-clipsæt spiller på alle), *quadruped* (Tornhjort: PolyPerfect-dyr med egne clips — **aldrig** humanoid retarget på fire ben), *static* (Svampevæg: ingen knogler, proceduralt).
+* **Askefjender** genbruger 2–3 humanoide rigs (lille / kompakt / tung) med forkullet omfarvning, ember-emissive øjne og egne attachments (skjold, spyd, sæk, plader). Visuelle varianter giver aldrig nye evner (EnemyDef bestemmer tal).
+* **Bossen (Askekronen)** er en stor humanoid rig skaleret til ~3 m + en egen forkullet krone af grene og sten som attachment på hovedknoglen + emissive kerne. Den må ikke skjule sit eget hp-/pansertal.
+* **Barkvogter/Sporevismand**: verificeret basismodel + egne attachments (bark-/stenplader; stor svampehat og stav). Hat og stav skal kunne læses ved kampkameraet.
+* **Manglende clip = ingen blokering.** `UnitAnimator` falder tilbage til procedural bevægelse og sender altid `finished`. Ledger viser, hvad der mangler.
+
+## Mixamo-indstillinger
+
+FBX Binary, 30 fps, **In Place** slået til for gang/løb, "Without Skin" for rene clip-filer (én karakter "With Skin" er nok som reference). Læg alle clips i én mappe, fx `Mixamo/`, og kør `unpack.py` på mappen. Clipnavnet i Mixamo-filer er typisk `mixamo.com`; tilstanden læses af filnavnet (Breathing Idle → idle, Punching → attack, Hit Reaction → hit, Dying → death …, se `data/art/animation_sets.json` → `keywords`).
+
+
+## Allierede væsner
+
+| Slot | Navn | Proxy / mål | Rig | Pakker (forslag) | Søg (basismodel) | Attachments | Animation (hint pr. tilstand) |
+|---|---|---|---|---|---|---|---|
+| `unit.B01` | The Barkwarden | 2.60 m, 2 plads<br>Champion. Heavy bark/stone golem, broad chest, amber eyes, plank shield (REF_02/03). | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Fantasy Rivals<br>Synty POLYGON Nature | `*Golem*`, `*Rock*Giant*`, `*Treant*`, `SK_Chr_*Giant*` | — | idle: Mutant Breathing Idle<br>summon: Mutant Jumping<br>attack: Mutant Punch<br>hit: Mutant Hit Reaction<br>death: Mutant Dying<br>defend: Standing Block Idle<br>victory: Mutant Roaring<br>move: Mutant Walking |
+| `unit.B02` | Root Sprout | 1.22 m, 1 plads<br>Small sapling with root feet; smallest bark unit. | humanoid | Synty POLYGON Nature<br>PolyPerfect Low Poly Ultimate Pack<br>Synty POLYGON Elven Realm | `*Sapling*`, `*Sprout*`, `*Stump*`, `SK_Chr_*Goblin*` | — | idle: Happy Idle<br>summon: Standing Up<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>defend: Standing Block Idle<br>victory: Jumping<br>move: Sneak Walk |
+| `unit.B03` | Barkshield | 1.57 m, 2 plads<br>Squat wide guardian behind a tall plank shield (6 start armor). | humanoid | Synty POLYGON Fantasy Kingdom<br>Synty POLYGON Fantasy Characters<br>Synty POLYGON Nature | `SK_Chr_*Knight*`, `*Shield*Tower*` | `SM_Wep_Shield_*Wood*` | idle: Breathing Idle<br>summon: Standing Up<br>attack: Sword And Shield Bash<br>hit: Hit Reaction<br>death: Dying<br>defend: Sword And Shield Block<br>victory: Victory<br>move: Walking |
+| `unit.B04` | Thornhart | 2.29 m, 2 plads<br>QUADRUPED stag of bark with thorn antlers (Thorns 2). Never a humanoid retarget. | quadruped | PolyPerfect Low Poly Animated Animals<br>PolyPerfect Low Poly Ultimate Pack<br>Synty POLYGON Nature | `*Deer*`, `*Stag*`, `*Elk*`, `*Moose*` | — | egne clips (idle/attack/hit/death/move), ingen retarget |
+| `unit.B05` | Sapbearer | 1.29 m, 1 plads<br>Round healer carrying a glowing amber sap orb. | humanoid | Synty POLYGON Nature<br>Synty POLYGON Fantasy Characters<br>PolyPerfect Low Poly Ultimate Pack | `SK_Chr_*Dwarf*`, `*Jar*`, `*Barrel*Small*`, `*Honey*` | — | idle: Happy Idle<br>summon: Standing Up<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>defend: Standing Block Idle<br>victory: Jumping<br>move: Sneak Walk |
+| `unit.B06` | Old Oak | 2.56 m, 3 plads<br>3-space walking oak; wide, low crown so its numbers stay visible. | humanoid | Synty POLYGON Nature<br>Synty POLYGON Dark Fantasy | `*Treant*`, `*Tree*Monster*` | `SM_Env_Tree_Oak*`, `SM_Env_Tree_*Large*` | idle: Mutant Breathing Idle<br>summon: Mutant Jumping<br>attack: Mutant Punch<br>hit: Mutant Hit Reaction<br>death: Mutant Dying<br>defend: Standing Block Idle<br>victory: Mutant Roaring<br>move: Mutant Walking |
+| `unit.S01` | The Spore Sage | 1.73 m, 2 plads<br>Champion. Small robed figure, huge violet-white mushroom hat, staff with turquoise glow (REF_02). | humanoid | Synty POLYGON Fantasy Characters<br>Synty POLYGON Elven Realm<br>Synty POLYGON Nature | `SK_Chr_*Wizard*`, `SK_Chr_*Druid*` | `SM_Env_Mushroom*`, `SM_Wep_Staff_*` | idle: Breathing Idle<br>summon: Standing Up<br>cast: Standing 1H Magic Attack 01<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>defend: Standing Block Idle<br>victory: Victory<br>move: Walking |
+| `unit.S02` | Sporeling | 0.93 m, 1 plads<br>Tiny mushroom creature with glowing antenna spores. | humanoid | Synty POLYGON Nature<br>PolyPerfect Low Poly Ultimate Pack | `*Mushroom*`, `SK_Chr_*Goblin*`, `*Imp*` | — | idle: Happy Idle<br>summon: Standing Up<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>defend: Standing Block Idle<br>victory: Jumping<br>move: Sneak Walk |
+| `unit.S03` | Fungal Wall | 1.56 m, 2 plads<br>Wide stack of shelf fungi; no skeleton needed (procedural motion only). | static | Synty POLYGON Nature<br>Synty POLYGON Dungeons | `*Fungus*`, `*Shelf*Mushroom*` | `SM_Env_Mushroom*` | procedural (ingen rig) |
+| `unit.S04` | Nightcap | 1.39 m, 1 plads<br>Dark indigo assassin with pointed cap and thorn daggers (+3 vs poisoned). | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Fantasy Characters | `SK_Chr_*Assassin*`, `SK_Chr_*Rogue*` | `SM_Wep_Dagger*` | idle: Sneaking Idle<br>summon: Standing Up<br>attack: Stabbing<br>hit: Hit Reaction<br>death: Dying<br>defend: Standing Block Idle<br>victory: Victory<br>move: Walking |
+| `unit.S05` | Mycelium Keeper | 1.54 m, 2 plads<br>Keeper with a turquoise spore lantern; mycelium threads at the feet. | humanoid | Synty POLYGON Elven Realm<br>Synty POLYGON Fantasy Characters<br>Synty POLYGON Nature | `SK_Chr_*Druid*`, `SK_Chr_*Monk*` | `SM_Prop_Lantern*` | idle: Breathing Idle<br>summon: Standing Up<br>cast: Standing 1H Magic Attack 01<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>defend: Standing Block Idle<br>victory: Victory<br>move: Walking |
+| `unit.S06` | Spore Colossus | 2.33 m, 3 plads<br>3-space mushroom giant with glowing spore sacs. | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Nature | `SK_Chr_*Giant*`, `SK_Chr_*Ogre*`, `*Troll*` | `SM_Env_Mushroom_Large*` | idle: Mutant Breathing Idle<br>summon: Mutant Jumping<br>attack: Mutant Punch<br>hit: Mutant Hit Reaction<br>death: Mutant Dying<br>defend: Standing Block Idle<br>victory: Mutant Roaring<br>move: Mutant Walking |
+
+## Askefjender og boss
+
+| Slot | Navn | Proxy / mål | Rig | Pakker (forslag) | Søg (basismodel) | Attachments | Animation (hint pr. tilstand) |
+|---|---|---|---|---|---|---|---|
+| `enemy.E01` | Ashling | 0.95 m<br>Small and quick: hunched ash imp with a long tail. | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Fantasy Rivals<br>Synty POLYGON Dungeons | `SK_Chr_*Imp*`, `SK_Chr_*Goblin*`, `*Ghoul*` | — | idle: Happy Idle<br>summon: Standing Up<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>move: Sneak Walk |
+| `enemy.E02` | Coalshield | 1.13 m<br>Compact coal block behind a slab shield with ember rim (4 start armor). | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Dungeons | `SK_Chr_*Skeleton*Shield*`, `SK_Chr_*Golem*` | `SM_Wep_Shield_*` | idle: Breathing Idle<br>summon: Standing Up<br>attack: Punching<br>hit: Hit Reaction<br>death: Dying<br>move: Walking |
+| `enemy.E03` | Emberhunter | 1.68 m<br>Spiky, offensive, forward-leaning; ember spear. | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Fantasy Rivals | `SK_Chr_*Hunter*`, `SK_Chr_*Demon*` | `SM_Wep_Spear*` | idle: Breathing Idle<br>summon: Standing Up<br>attack: Standing Melee Attack Downward<br>hit: Hit Reaction<br>death: Dying<br>move: Walking |
+| `enemy.E04` | Sootbearer | 1.54 m<br>Round and heavy soot sack with an ember belly and chimney vents. | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Dungeons | `SK_Chr_*Fat*`, `SK_Chr_*Ogre*`, `*Blob*` | — | idle: Mutant Breathing Idle<br>summon: Mutant Jumping<br>attack: Mutant Punch<br>hit: Mutant Hit Reaction<br>death: Mutant Dying<br>move: Mutant Walking |
+| `enemy.E05` | Stonebreaker | 2.03 m<br>Wide, armoured basalt brute with huge fists (6 start armor). | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Dungeons<br>Synty POLYGON Fantasy Rivals | `SK_Chr_*Golem*`, `SK_Chr_*Brute*`, `SK_Chr_*Giant*` | — | idle: Mutant Breathing Idle<br>summon: Mutant Jumping<br>attack: Mutant Punch<br>hit: Mutant Hit Reaction<br>death: Mutant Dying<br>move: Mutant Walking |
+| `enemy.E06` | The Ash Crown | 3.41 m<br>Boss ~3 m: charred crown of branches and stone, inner ember glow, clear face. | humanoid | Synty POLYGON Dark Fantasy<br>Synty POLYGON Fantasy Rivals | `SK_Chr_*King*`, `SK_Chr_*Lich*`, `SK_Chr_*Giant*`, `*Crown*` | — | idle: Mutant Breathing Idle<br>summon: Mutant Jumping<br>attack: Mutant Punch<br>hit: Mutant Hit Reaction<br>death: Mutant Dying<br>move: Mutant Walking<br>victory: Mutant Roaring |
+
+## TreeStage
+
+| Slot | Navn | Proxy / mål | Pakker (forslag) | Søg | Noter |
+|---|---|---|---|---|---|
+| `stage.floor_roots` | Roots floor | 0.20 m | Synty POLYGON Nature<br>Synty POLYGON Fantasy Kingdom | `SM_Env_Rock_Flat*`, `SM_Env_Tree_Root*`, `SM_Env_Ground_*`, `*Platform*` | Build TreeStage from rocks, roots and flagstones; top must be flat at y=0 and 11 m wide usable. Terrace: top y=0, usable x -5.5..5.5, depth 3.2 (z -1.6..1.6). Roots hang below. Props only on back edge. |
+| `stage.floor_trunk` | Trunk floor | 0.20 m | Synty POLYGON Nature<br>Synty POLYGON Fantasy Kingdom | `SM_Env_Rock_Flat*`, `SM_Env_Path_*`, `*Platform*` | Same as Roots floor; mushrooms at back edge. Same terrace rules; violet mushrooms on the back edge. |
+| `stage.floor_crown` | Crown floor | 0.20 m | Synty POLYGON Nature<br>Synty POLYGON Elven Realm | `SM_Env_Rock_Flat*`, `*Platform*`, `SM_Env_Tree_Branch*` | Same; crystals/blossoms at back edge. Same terrace rules; crystals and golden blossoms on the back edge. |
+| `stage.trunk` | Trunk segment | 4.50 m | Synty POLYGON Nature<br>Synty POLYGON Elven Realm | `SM_Env_Tree_Trunk*`, `SM_Env_Tree_Dead*`, `SM_Env_Tree_Giant*`, `SM_Bld_*Door*` | Giant trunk segments (scaled tree trunks) + doorway with amber light. Segment y 0..4.5 centred x=0, z ~-2.9 (front z ~-1.3): always behind units. Amber doorway faces camera. |
+| `stage.heart` | Heart of the tree | 2.00 m | Synty POLYGON Elven Realm<br>Synty POLYGON Dungeons<br>Synty POLYGON Particle FX | `*Gem*`, `*Heart*` | Keep the procedural faceted heart unless a crystal heart model exists; recolour turquoise emissive. Faceted turquoise heart crystal ~1.6 m on a branch cradle, own OmniLight. Has a UnitAnimator (idle/hit). |
+| `stage.backdrop` | Backdrop | 30.00 m | Synty POLYGON Nature<br>Synty POLYGON Elven Realm | `SM_Env_Rock_Large*`, `SM_Env_Cliff*`, `*Floating*Island*`, `SM_Env_Rock_Spire*` | Floating islands and spires far behind (z < -15); low detail is fine. Floating islands, rock spires, violet haze, moon. Everything at z < -15. |
+
+## Props (kun bagkant)
+
+| Slot | Navn | Proxy / mål | Pakker (forslag) | Søg | Noter |
+|---|---|---|---|---|---|
+| `prop.lantern` | Amber lantern | 1.25 m | Synty POLYGON Fantasy Kingdom<br>Synty POLYGON Elven Realm<br>Synty POLYGON Dungeons | `SM_Prop_Lantern*`, `SM_Prop_Lamp*` | Amber emissive lantern. Hanging amber lantern on a bent post. |
+| `prop.mushroom_cluster` | Glowing mushrooms | 0.75 m | Synty POLYGON Nature<br>Synty POLYGON Elven Realm | `SM_Env_Mushroom*`, `*Mushroom*Group*` | Violet recolour with emissive gills. Violet caps, glowing gills, turquoise dots. |
+| `prop.crystal` | Turquoise crystal | 1.00 m | Synty POLYGON Dungeons<br>Synty POLYGON Elven Realm<br>Synty POLYGON Dark Fantasy | `SM_Prop_Crystal*`, `SM_Env_Crystal*` | Turquoise emissive crystals. Cluster of faceted turquoise crystals. |
+| `prop.root_arch` | Root arch | 1.70 m | Synty POLYGON Nature | `SM_Env_Tree_Root*`, `*Arch*Root*`, `SM_Env_Rock_Arch*` | Root/rock arch for the back edge. Arch of bark root ~1.7 m wide. |
+| `prop.rock` | Mossy rock | 0.55 m | Synty POLYGON Nature<br>PolyPerfect Low Poly Ultimate Pack | `SM_Env_Rock_0*`, `SM_Env_Rock_Small*`, `*Rock*` | Mossy rocks. Low mossy boulder pair. |
+
+## Træmutationer (kun visuelt)
+
+| Slot | Navn | Proxy / mål | Pakker (forslag) | Søg | Noter |
+|---|---|---|---|---|---|
+| `mutation.M01` | Deep Roots | 1.00 m | Synty POLYGON Nature | — | Extra roots placed in the Roots-floor frame. Extra roots over the Roots back edge and hanging below (floor frame). Visual only: never changes collision or click targets. |
+| `mutation.M02` | Strong Trunk | 1.00 m | Synty POLYGON Nature<br>Synty POLYGON Elven Realm | `*Vine*`, `*Ring*` | Band around the trunk + emissive veins. Thick bark band with turquoise glow ring and veins (trunk-segment frame). Visual only: never changes collision or click targets. |
+| `mutation.M03` | Gentle Crown | 1.00 m | Synty POLYGON Nature<br>Synty POLYGON Elven Realm | `*Blossom*` | Blossoms along the Crown back edge. Blossom clusters and golden flowers on the Crown back edge (floor frame). Visual only: never changes collision or click targets. |
+| `mutation.M04` | Great Heart | 1.00 m | Synty POLYGON Particle FX<br>Synty POLYGON Elven Realm | `FX_*Glow*` | Bigger glow/halo around the heart. Bigger halo, extra shards, stronger light (heart frame). Visual only: never changes collision or click targets. |
+
+## Effekter (bygges i Godot)
+
+| Slot | Navn | Proxy / mål | Pakker (forslag) | Søg | Noter |
+|---|---|---|---|---|---|
+| `fx.poison` | poison | loop | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Toxic green/violet bubbles rising around the unit (status loop). |
+| `fx.heal` | heal | one-shot | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Green-turquoise sparkles rising + expanding ring (one-shot). |
+| `fx.armor` | armor | loop | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Faint faceted shell + slow sparkles (status loop). |
+| `fx.thorns` | thorns | loop | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Ring of thorn spikes at the feet (status loop). |
+| `fx.growth` | growth | loop | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Rising green leaves (status loop). |
+| `fx.spore_bolt` | spore bolt | one-shot | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Turquoise orb with a world-space trail; fly it with FxBuilder.launch(). |
+| `fx.bark_hit` | bark hit | one-shot | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Wood chips and amber sparks burst at the strike (one-shot). |
+| `fx.ash_death` | ash death | one-shot | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Ash cloud and rising embers when an ash enemy dies (one-shot). |
+| `fx.heart_pulse` | heart pulse | loop | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Turquoise ring pulse around the heart (loop). |
+| `fx.heart_damage` | heart damage | one-shot | Synty POLYGON Particle FX | `FX_*Poison*`, `FX_*Heal*`, `FX_*Magic*`, `FX_*Smoke*`, `FX_*Spark*`, `FX_*Hit*` | Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures. Red/turquoise shard burst + ring when the heart is hit (one-shot). |

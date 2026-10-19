@@ -1,0 +1,41 @@
+{
+  "task_id": "LR-08",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . res://scenes/tests/scene_smoke.tscn",
+  "exit_code": 0,
+  "expected": "Alle tre etager synlige. Skip og 2x giver samme state som normal afvikling. Ingen præsentationscallback ændrer skade eller reward.",
+  "observed": [
+    {
+      "kind": "scene_smoke",
+      "match": [
+        "three floor views",
+        "unlocked after playback",
+        "no view for a dead unit",
+        "2x playback and skip end in identical view state",
+        "presentation checkpoint cleared"
+      ],
+      "missing": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "kind": "files",
+      "match": [
+        "evidence/shots/battle_mid_1080p.png"
+      ],
+      "missing": [],
+      "ok": true
+    }
+  ],
+  "open": [
+    "Visuel kontrol på rigtig skærm (headless/Xvfb er ikke visuel godkendelse)."
+  ],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "VERIFYING",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

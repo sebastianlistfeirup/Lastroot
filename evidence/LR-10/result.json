@@ -1,0 +1,42 @@
+{
+  "task_id": "LR-10",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "tests + scene smoke",
+  "exit_code": 0,
+  "expected": "Load reroller ikke hånd og afregner ikke events igen. Korrupt save tilbyder backup. Fremtidig version afvises uden at slette original.",
+  "observed": [
+    {
+      "kind": "unit",
+      "match": [
+        "test_save/"
+      ],
+      "found": 6,
+      "failures": [],
+      "ok": true
+    },
+    {
+      "kind": "scene_smoke",
+      "match": [
+        "corrupt save offers the backup",
+        "backup holds the previous good save",
+        "future version refused",
+        "future-version file is not deleted",
+        "JSON export/import",
+        "saved with presentation_pending during playback",
+        "load shows the finished result, nothing re-settled"
+      ],
+      "missing": [],
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

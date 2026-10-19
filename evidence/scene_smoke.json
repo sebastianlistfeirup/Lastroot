@@ -1,0 +1,145 @@
+{
+  "checks": 34,
+  "engine_version": "4.5.1-stable (official)",
+  "failures": [],
+  "results": [
+    {
+      "name": "save writes",
+      "ok": true
+    },
+    {
+      "name": "second save writes (first becomes backup)",
+      "ok": true
+    },
+    {
+      "name": "corrupt save offers the backup",
+      "ok": true
+    },
+    {
+      "name": "backup holds the previous good save",
+      "ok": true
+    },
+    {
+      "name": "future version refused",
+      "ok": true
+    },
+    {
+      "name": "future-version file is not deleted",
+      "ok": true
+    },
+    {
+      "name": "JSON export/import",
+      "ok": true
+    },
+    {
+      "name": "saved with presentation_pending during playback",
+      "ok": true
+    },
+    {
+      "name": "saved state is already the final result",
+      "ok": true
+    },
+    {
+      "name": "load shows the finished result, nothing re-settled",
+      "ok": true
+    },
+    {
+      "name": "three floor views",
+      "ok": true
+    },
+    {
+      "name": "one view per living unit at start",
+      "ok": true
+    },
+    {
+      "name": "champion shows insert slots",
+      "ok": true
+    },
+    {
+      "name": "an enabled slot exists",
+      "ok": true
+    },
+    {
+      "name": "slot sets a pending command",
+      "ok": true
+    },
+    {
+      "name": "preview forecast rendered",
+      "ok": true
+    },
+    {
+      "name": "champion on the board",
+      "ok": true
+    },
+    {
+      "name": "champion cost 0",
+      "ok": true
+    },
+    {
+      "name": "second confirm does nothing (one tap, one action)",
+      "ok": true
+    },
+    {
+      "name": "views match units",
+      "ok": true
+    },
+    {
+      "name": "invalid command shows a reason",
+      "ok": true
+    },
+    {
+      "name": "invalid command changes nothing",
+      "ok": true
+    },
+    {
+      "name": "input locked while resolving",
+      "ok": true
+    },
+    {
+      "name": "no command accepted while locked",
+      "ok": true
+    },
+    {
+      "name": "unlocked after playback",
+      "ok": true
+    },
+    {
+      "name": "turn 2 after one end turn",
+      "ok": true
+    },
+    {
+      "name": "presentation checkpoint cleared",
+      "ok": true
+    },
+    {
+      "name": "no view for a dead unit",
+      "ok": true
+    },
+    {
+      "name": "resize keeps BattleState",
+      "ok": true
+    },
+    {
+      "name": "BARK wins battle 1 through the scene (phase reward)",
+      "ok": true
+    },
+    {
+      "name": "BARK end banner shown",
+      "ok": true
+    },
+    {
+      "name": "SPORE wins battle 1 through the scene (phase reward)",
+      "ok": true
+    },
+    {
+      "name": "SPORE end banner shown",
+      "ok": true
+    },
+    {
+      "name": "2x playback and skip end in identical view state",
+      "ok": true
+    }
+  ],
+  "status": "PASS",
+  "timestamp": "2026-10-19T21:03:46"
+}

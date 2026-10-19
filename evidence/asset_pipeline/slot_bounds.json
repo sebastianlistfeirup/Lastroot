@@ -1,0 +1,733 @@
+[
+ {
+  "declared_height": 0.95,
+  "head_height": 1.15,
+  "min": [
+   -0.27,
+   -0.03,
+   -0.28
+  ],
+  "proxy": true,
+  "size": [
+   0.54,
+   0.97,
+   0.93
+  ],
+  "slot": "enemy.E01",
+  "top": 0.95
+ },
+ {
+  "declared_height": 1.13,
+  "head_height": 1.35,
+  "min": [
+   -0.38,
+   0.0,
+   -0.6
+  ],
+  "proxy": true,
+  "size": [
+   0.86,
+   1.13,
+   1.07
+  ],
+  "slot": "enemy.E02",
+  "top": 1.13
+ },
+ {
+  "declared_height": 1.68,
+  "head_height": 1.9,
+  "min": [
+   -0.31,
+   -0.03,
+   -1.11
+  ],
+  "proxy": true,
+  "size": [
+   0.61,
+   1.7,
+   1.58
+  ],
+  "slot": "enemy.E03",
+  "top": 1.68
+ },
+ {
+  "declared_height": 1.54,
+  "head_height": 1.75,
+  "min": [
+   -0.75,
+   0.0,
+   -0.52
+  ],
+  "proxy": true,
+  "size": [
+   1.49,
+   1.54,
+   1.09
+  ],
+  "slot": "enemy.E04",
+  "top": 1.54
+ },
+ {
+  "declared_height": 2.03,
+  "head_height": 2.25,
+  "min": [
+   -1.27,
+   0.0,
+   -0.6
+  ],
+  "proxy": true,
+  "size": [
+   2.51,
+   2.03,
+   1.16
+  ],
+  "slot": "enemy.E05",
+  "top": 2.03
+ },
+ {
+  "declared_height": 3.41,
+  "head_height": 3.6,
+  "min": [
+   -1.4,
+   -0.11,
+   -0.94
+  ],
+  "proxy": true,
+  "size": [
+   2.73,
+   3.53,
+   1.6
+  ],
+  "slot": "enemy.E06",
+  "top": 3.41
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -0.66,
+   -0.07,
+   -0.76
+  ],
+  "proxy": true,
+  "size": [
+   1.32,
+   1.84,
+   1.52
+  ],
+  "slot": "fx.armor",
+  "top": 1.77
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "proxy": true,
+  "size": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "slot": "fx.ash_death",
+  "top": 0.0
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "proxy": true,
+  "size": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "slot": "fx.bark_hit",
+  "top": 0.0
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "proxy": true,
+  "size": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "slot": "fx.growth",
+  "top": 0.0
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -0.59,
+   0.02,
+   -0.59
+  ],
+  "proxy": true,
+  "size": [
+   1.17,
+   0.05,
+   1.17
+  ],
+  "slot": "fx.heal",
+  "top": 0.08
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -0.98,
+   0.02,
+   -0.04
+  ],
+  "proxy": true,
+  "size": [
+   1.95,
+   1.95,
+   0.09
+  ],
+  "slot": "fx.heart_damage",
+  "top": 1.98
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "proxy": true,
+  "size": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "slot": "fx.heart_pulse",
+  "top": 0.0
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "proxy": true,
+  "size": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "slot": "fx.poison",
+  "top": 0.0
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -0.22,
+   -0.24,
+   -0.21
+  ],
+  "proxy": true,
+  "size": [
+   0.45,
+   0.48,
+   0.43
+  ],
+  "slot": "fx.spore_bolt",
+  "top": 0.24
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -0.66,
+   -0.05,
+   -0.66
+  ],
+  "proxy": true,
+  "size": [
+   1.32,
+   0.34,
+   1.32
+  ],
+  "slot": "fx.thorns",
+  "top": 0.29
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -5.24,
+   -3.09,
+   -2.79
+  ],
+  "proxy": true,
+  "size": [
+   10.37,
+   4.34,
+   1.96
+  ],
+  "slot": "mutation.M01",
+  "top": 1.25
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -1.82,
+   0.65,
+   -5.02
+  ],
+  "proxy": true,
+  "size": [
+   3.63,
+   2.96,
+   3.63
+  ],
+  "slot": "mutation.M02",
+  "top": 3.6
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -5.37,
+   -0.01,
+   -2.09
+  ],
+  "proxy": true,
+  "size": [
+   10.5,
+   1.19,
+   0.87
+  ],
+  "slot": "mutation.M03",
+  "top": 1.18
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -1.69,
+   -0.42,
+   -0.97
+  ],
+  "proxy": true,
+  "size": [
+   3.41,
+   2.94,
+   1.93
+  ],
+  "slot": "mutation.M04",
+  "top": 2.52
+ },
+ {
+  "declared_height": 1.0,
+  "head_height": 1.25,
+  "min": [
+   -0.47,
+   -0.07,
+   -0.26
+  ],
+  "proxy": true,
+  "size": [
+   0.98,
+   1.02,
+   0.5
+  ],
+  "slot": "prop.crystal",
+  "top": 0.95
+ },
+ {
+  "declared_height": 1.25,
+  "head_height": 1.5,
+  "min": [
+   -0.13,
+   -0.09,
+   -0.19
+  ],
+  "proxy": true,
+  "size": [
+   0.63,
+   1.33,
+   0.38
+  ],
+  "slot": "prop.lantern",
+  "top": 1.24
+ },
+ {
+  "declared_height": 0.75,
+  "head_height": 1.0,
+  "min": [
+   -0.46,
+   0.0,
+   -0.39
+  ],
+  "proxy": true,
+  "size": [
+   0.98,
+   0.74,
+   0.71
+  ],
+  "slot": "prop.mushroom_cluster",
+  "top": 0.74
+ },
+ {
+  "declared_height": 0.55,
+  "head_height": 0.8,
+  "min": [
+   -0.43,
+   -0.09,
+   -0.42
+  ],
+  "proxy": true,
+  "size": [
+   1.08,
+   0.6,
+   0.9
+  ],
+  "slot": "prop.rock",
+  "top": 0.52
+ },
+ {
+  "declared_height": 1.7,
+  "head_height": 1.95,
+  "min": [
+   -1.21,
+   -0.32,
+   -0.32
+  ],
+  "proxy": true,
+  "size": [
+   2.41,
+   1.98,
+   0.71
+  ],
+  "slot": "prop.root_arch",
+  "top": 1.66
+ },
+ {
+  "declared_height": 30.0,
+  "head_height": 30.25,
+  "min": [
+   -51.84,
+   -23.0,
+   -63.94
+  ],
+  "proxy": true,
+  "size": [
+   103.68,
+   53.0,
+   43.99
+  ],
+  "slot": "stage.backdrop",
+  "top": 30.0
+ },
+ {
+  "declared_height": 0.2,
+  "head_height": 0.45,
+  "min": [
+   -7.27,
+   -1.87,
+   -3.81
+  ],
+  "proxy": true,
+  "size": [
+   14.53,
+   2.79,
+   5.8
+  ],
+  "slot": "stage.floor_crown",
+  "top": 0.93
+ },
+ {
+  "declared_height": 0.2,
+  "head_height": 0.45,
+  "min": [
+   -7.27,
+   -3.74,
+   -2.68
+  ],
+  "proxy": true,
+  "size": [
+   14.53,
+   4.99,
+   4.64
+  ],
+  "slot": "stage.floor_roots",
+  "top": 1.25
+ },
+ {
+  "declared_height": 0.2,
+  "head_height": 0.45,
+  "min": [
+   -7.27,
+   -2.19,
+   -3.81
+  ],
+  "proxy": true,
+  "size": [
+   14.53,
+   3.11,
+   5.8
+  ],
+  "slot": "stage.floor_trunk",
+  "top": 0.93
+ },
+ {
+  "declared_height": 2.0,
+  "head_height": 2.25,
+  "min": [
+   -1.15,
+   -0.14,
+   -0.71
+  ],
+  "proxy": true,
+  "size": [
+   2.37,
+   2.14,
+   1.44
+  ],
+  "slot": "stage.heart",
+  "top": 2.0
+ },
+ {
+  "declared_height": 4.5,
+  "head_height": 4.75,
+  "min": [
+   -1.7,
+   -0.3,
+   -4.94
+  ],
+  "proxy": true,
+  "size": [
+   3.39,
+   4.85,
+   3.64
+  ],
+  "slot": "stage.trunk",
+  "top": 4.55
+ },
+ {
+  "declared_height": 2.6,
+  "head_height": 2.8,
+  "min": [
+   -1.59,
+   -0.12,
+   -0.67
+  ],
+  "proxy": true,
+  "size": [
+   2.96,
+   2.72,
+   1.22
+  ],
+  "slot": "unit.B01",
+  "top": 2.6
+ },
+ {
+  "declared_height": 1.22,
+  "head_height": 1.42,
+  "min": [
+   -0.3,
+   -0.05,
+   -0.23
+  ],
+  "proxy": true,
+  "size": [
+   0.61,
+   1.26,
+   0.46
+  ],
+  "slot": "unit.B02",
+  "top": 1.22
+ },
+ {
+  "declared_height": 1.57,
+  "head_height": 1.8,
+  "min": [
+   -0.73,
+   0.0,
+   -0.76
+  ],
+  "proxy": true,
+  "size": [
+   1.54,
+   1.57,
+   1.26
+  ],
+  "slot": "unit.B03",
+  "top": 1.57
+ },
+ {
+  "declared_height": 2.29,
+  "head_height": 2.5,
+  "min": [
+   -0.65,
+   0.0,
+   -1.29
+  ],
+  "proxy": true,
+  "size": [
+   1.31,
+   2.29,
+   2.05
+  ],
+  "slot": "unit.B04",
+  "top": 2.29
+ },
+ {
+  "declared_height": 1.29,
+  "head_height": 1.5,
+  "min": [
+   -0.44,
+   0.0,
+   -0.31
+  ],
+  "proxy": true,
+  "size": [
+   0.88,
+   1.29,
+   0.78
+  ],
+  "slot": "unit.B05",
+  "top": 1.29
+ },
+ {
+  "declared_height": 2.56,
+  "head_height": 2.8,
+  "min": [
+   -1.29,
+   -0.1,
+   -0.77
+  ],
+  "proxy": true,
+  "size": [
+   2.58,
+   2.66,
+   1.62
+  ],
+  "slot": "unit.B06",
+  "top": 2.56
+ },
+ {
+  "declared_height": 1.73,
+  "head_height": 1.95,
+  "min": [
+   -0.67,
+   0.0,
+   -0.69
+  ],
+  "proxy": true,
+  "size": [
+   1.53,
+   1.73,
+   1.37
+  ],
+  "slot": "unit.S01",
+  "top": 1.73
+ },
+ {
+  "declared_height": 0.93,
+  "head_height": 1.15,
+  "min": [
+   -0.32,
+   0.0,
+   -0.33
+  ],
+  "proxy": true,
+  "size": [
+   0.63,
+   0.93,
+   0.67
+  ],
+  "slot": "unit.S02",
+  "top": 0.93
+ },
+ {
+  "declared_height": 1.56,
+  "head_height": 1.8,
+  "min": [
+   -0.9,
+   -0.14,
+   -0.52
+  ],
+  "proxy": true,
+  "size": [
+   1.81,
+   1.69,
+   1.14
+  ],
+  "slot": "unit.S03",
+  "top": 1.56
+ },
+ {
+  "declared_height": 1.39,
+  "head_height": 1.6,
+  "min": [
+   -0.39,
+   -0.01,
+   -0.48
+  ],
+  "proxy": true,
+  "size": [
+   0.79,
+   1.39,
+   0.86
+  ],
+  "slot": "unit.S04",
+  "top": 1.39
+ },
+ {
+  "declared_height": 1.54,
+  "head_height": 1.78,
+  "min": [
+   -0.51,
+   -0.02,
+   -0.45
+  ],
+  "proxy": true,
+  "size": [
+   1.03,
+   1.57,
+   0.91
+  ],
+  "slot": "unit.S05",
+  "top": 1.54
+ },
+ {
+  "declared_height": 2.33,
+  "head_height": 2.55,
+  "min": [
+   -1.15,
+   0.0,
+   -0.93
+  ],
+  "proxy": true,
+  "size": [
+   2.29,
+   2.33,
+   1.86
+  ],
+  "slot": "unit.S06",
+  "top": 2.33
+ }
+]

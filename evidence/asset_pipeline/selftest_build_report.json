@@ -1,0 +1,468 @@
+{
+  "animations": [
+    {
+      "clips": {
+        "attack": {
+          "length_s": 0.9,
+          "removed_travel_m": 1.0,
+          "retargeted": true,
+          "source": "res://assets/imported/SelfTestMixamo/Mixamo/Punching.gltf"
+        },
+        "death": {
+          "length_s": 1.4,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/SelfTestMixamo/Mixamo/Dying.gltf"
+        },
+        "hit": {
+          "length_s": 0.6,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/SelfTestMixamo/Mixamo/Hit Reaction.gltf"
+        },
+        "idle": {
+          "length_s": 2.0,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/SelfTestMixamo/Mixamo/Breathing Idle.gltf"
+        }
+      },
+      "errors": [],
+      "library": "res://art/animations/_selftest/humanoid.res",
+      "ok": true,
+      "set": "humanoid"
+    }
+  ],
+  "built": 11,
+  "failed": 0,
+  "reimport_needed": false,
+  "slots": [
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 2.6,
+      "library": "res://art/animations/_selftest/humanoid.res",
+      "min_m": [
+        -1.19,
+        0.0,
+        -0.18
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        2.96,
+        2.72,
+        1.22
+      ],
+      "reimport": false,
+      "rig": "Armature/GeneralSkeleton",
+      "scale": 1.4857,
+      "scene": "res://art/prefabs/_selftest/unit.B01.tscn",
+      "size_m": [
+        2.38,
+        2.6,
+        0.36
+      ],
+      "slot": "unit.B01",
+      "source": "SelfTestSynty/PolygonNature/Models/Characters/SK_Chr_Golem_01.gltf",
+      "summary": "height x1.4857 -> 2.38x2.60x0.36 m, facing -Z · lib humanoid.res",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+        "attack": {
+          "length_s": 0.8,
+          "removed_travel_m": 0.0,
+          "retargeted": false,
+          "source": "res://assets/imported/SelfTestPolyPerfect/PolyPerfect/Animals/Models/Deer_Animated_01.gltf::Attack_1"
+        },
+        "death": {
+          "length_s": 1.0,
+          "removed_travel_m": 0.0,
+          "retargeted": false,
+          "source": "res://assets/imported/SelfTestPolyPerfect/PolyPerfect/Animals/Models/Deer_Animated_01.gltf::Death"
+        },
+        "idle": {
+          "length_s": 2.0,
+          "removed_travel_m": 0.0,
+          "retargeted": false,
+          "source": "res://assets/imported/SelfTestPolyPerfect/PolyPerfect/Animals/Models/Deer_Animated_01.gltf::Idle_A"
+        },
+        "move": {
+          "length_s": 1.0,
+          "removed_travel_m": 1.2,
+          "retargeted": false,
+          "source": "res://assets/imported/SelfTestPolyPerfect/PolyPerfect/Animals/Models/Deer_Animated_01.gltf::Walk"
+        }
+      },
+      "atlas_materials": 0,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 2.29,
+      "library": "res://art/animations/_selftest/unit.B04.res",
+      "min_m": [
+        -0.47,
+        0.0,
+        -1.54
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        1.31,
+        2.29,
+        2.05
+      ],
+      "reimport": false,
+      "rig": "own (quadruped, no retarget)",
+      "scale": 1.9573,
+      "scene": "res://art/prefabs/_selftest/unit.B04.tscn",
+      "size_m": [
+        0.94,
+        2.29,
+        3.07
+      ],
+      "slot": "unit.B04",
+      "source": "SelfTestPolyPerfect/PolyPerfect/Animals/Models/Deer_Animated_01.gltf",
+      "summary": "height x1.9573 -> 0.94x2.29x3.07 m, facing -Z · lib unit.B04.res",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 1.13,
+      "library": "res://art/animations/_selftest/humanoid.res",
+      "min_m": [
+        -0.52,
+        0.0,
+        -0.08
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        0.86,
+        1.13,
+        1.07
+      ],
+      "reimport": false,
+      "rig": "Armature/GeneralSkeleton",
+      "scale": 0.6457,
+      "scene": "res://art/prefabs/_selftest/enemy.E02.tscn",
+      "size_m": [
+        1.03,
+        1.13,
+        0.15
+      ],
+      "slot": "enemy.E02",
+      "source": "SelfTestSynty/PolygonNature/Models/Characters/SK_Chr_Golem_01.gltf",
+      "summary": "height x0.6457 -> 1.03x1.13x0.15 m, facing -Z · lib humanoid.res",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 2.03,
+      "library": "res://art/animations/_selftest/humanoid.res",
+      "min_m": [
+        -0.93,
+        0.0,
+        -0.14
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        2.51,
+        2.03,
+        1.16
+      ],
+      "reimport": false,
+      "rig": "Armature/GeneralSkeleton",
+      "scale": 1.16,
+      "scene": "res://art/prefabs/_selftest/enemy.E05.tscn",
+      "size_m": [
+        1.86,
+        2.03,
+        0.28
+      ],
+      "slot": "enemy.E05",
+      "source": "SelfTestSynty/PolygonNature/Models/Characters/SK_Chr_Golem_01.gltf",
+      "summary": "height x1.1600 -> 1.86x2.03x0.28 m, facing -Z · lib humanoid.res",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "footprint",
+      "height_m": 0.0,
+      "library": "",
+      "min_m": [
+        -5.8,
+        -0.61,
+        -2.02
+      ],
+      "notes": [
+        "file looks like centimetres (scale 0.0101)"
+      ],
+      "ok": true,
+      "proxy_m": [
+        14.53,
+        4.99,
+        4.64
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 0.0101,
+      "scene": "res://art/prefabs/_selftest/stage.floor_roots.tscn",
+      "size_m": [
+        11.6,
+        0.61,
+        3.33
+      ],
+      "slot": "stage.floor_roots",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Env_Rock_Flat_Platform_01.gltf",
+      "summary": "footprint x0.0101 -> 11.60x0.61x3.33 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "footprint",
+      "height_m": 0.0,
+      "library": "",
+      "min_m": [
+        -5.8,
+        -0.61,
+        -2.57
+      ],
+      "notes": [
+        "file looks like centimetres (scale 0.0101)"
+      ],
+      "ok": true,
+      "proxy_m": [
+        14.53,
+        3.11,
+        5.8
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 0.0101,
+      "scene": "res://art/prefabs/_selftest/stage.floor_trunk.tscn",
+      "size_m": [
+        11.6,
+        0.61,
+        3.33
+      ],
+      "slot": "stage.floor_trunk",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Env_Rock_Flat_Platform_01.gltf",
+      "summary": "footprint x0.0101 -> 11.60x0.61x3.33 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "footprint",
+      "height_m": 0.0,
+      "library": "",
+      "min_m": [
+        -5.8,
+        -0.61,
+        -2.58
+      ],
+      "notes": [
+        "file looks like centimetres (scale 0.0101)"
+      ],
+      "ok": true,
+      "proxy_m": [
+        14.53,
+        2.79,
+        5.8
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 0.0101,
+      "scene": "res://art/prefabs/_selftest/stage.floor_crown.tscn",
+      "size_m": [
+        11.6,
+        0.61,
+        3.33
+      ],
+      "slot": "stage.floor_crown",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Env_Rock_Flat_Platform_01.gltf",
+      "summary": "footprint x0.0101 -> 11.60x0.61x3.33 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "height",
+      "height_m": 4.5,
+      "library": "",
+      "min_m": [
+        -0.94,
+        0.0,
+        -4.06
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        3.39,
+        4.85,
+        3.64
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 0.75,
+      "scene": "res://art/prefabs/_selftest/stage.trunk.tscn",
+      "size_m": [
+        1.88,
+        4.5,
+        1.88
+      ],
+      "slot": "stage.trunk",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Env_Tree_Trunk_01.gltf",
+      "summary": "height x0.7500 -> 1.88x4.50x1.88 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "natural",
+      "height_m": 1.2,
+      "library": "",
+      "min_m": [
+        -0.15,
+        0.0,
+        -0.15
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        0.63,
+        1.33,
+        0.38
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 1.0,
+      "scene": "res://art/prefabs/_selftest/prop.lantern.tscn",
+      "size_m": [
+        0.3,
+        1.2,
+        0.3
+      ],
+      "slot": "prop.lantern",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Prop_Lantern_01.gltf",
+      "summary": "natural x1.0000 -> 0.30x1.20x0.30 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "natural",
+      "height_m": 1.0,
+      "library": "",
+      "min_m": [
+        -0.3,
+        0.0,
+        -0.25
+      ],
+      "notes": [
+        "centimetres -> metres (x0.01)"
+      ],
+      "ok": true,
+      "proxy_m": [
+        0.98,
+        1.02,
+        0.5
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 0.01,
+      "scene": "res://art/prefabs/_selftest/prop.crystal.tscn",
+      "size_m": [
+        0.6,
+        1.0,
+        0.5
+      ],
+      "slot": "prop.crystal",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Prop_Crystal_01.gltf",
+      "summary": "natural x0.0100 -> 0.60x1.00x0.50 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "unknown",
+      "fit": "natural",
+      "height_m": 0.6,
+      "library": "",
+      "min_m": [
+        -0.5,
+        0.0,
+        -0.45
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        1.08,
+        0.6,
+        0.9
+      ],
+      "reimport": false,
+      "rig": "",
+      "scale": 1.0,
+      "scene": "res://art/prefabs/_selftest/prop.rock.tscn",
+      "size_m": [
+        1.0,
+        0.6,
+        0.9
+      ],
+      "slot": "prop.rock",
+      "source": "SelfTestSynty/PolygonNature/Models/SM_Env_Rock_01.gltf",
+      "summary": "natural x1.0000 -> 1.00x0.60x0.90 m, facing unknown",
+      "uses_atlas": true,
+      "warnings": []
+    }
+  ]
+}
