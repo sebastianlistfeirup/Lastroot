@@ -14,6 +14,7 @@ func _init() -> void:
 	var total := 0
 	var failed: PackedStringArray = []
 	var per_file := {}
+	var names: PackedStringArray = []
 	for f in files:
 		var script: GDScript = load(DIR + f)
 		if script == null or not script.can_instantiate():
@@ -43,6 +44,7 @@ func _init() -> void:
 			count += 1
 			total += 1
 			tc.current = "%s/%s" % [f.get_basename(), name]
+			names.append(tc.current)
 			var t0 := Time.get_ticks_msec()
 			if OS.get_environment("LR_TEST_VERBOSE") != "":
 				print("> ", tc.current)
@@ -59,7 +61,7 @@ func _init() -> void:
 	rep.store_string(JSON.stringify({
 		"engine_version": Engine.get_version_info()["string"],
 		"timestamp": Time.get_datetime_string_from_system(true),
-		"tests": total, "failures": failed, "files": per_file,
+		"tests": total, "failures": failed, "files": per_file, "names": names,
 		"status": "PASS" if failed.is_empty() else "FAIL",
 	}, "  ", true))
 	rep.close()
