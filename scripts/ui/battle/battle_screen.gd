@@ -953,9 +953,8 @@ func fx_at(uid: int, slot_id: String) -> void:
 	if n.get_meta("is_proxy", false) and not n.has_method("emit") and n.get_child_count() == 0:
 		n.queue_free()
 		return
-	get_tree().create_timer(2.5).timeout.connect(func() -> void:
-		if is_instance_valid(n):
-			n.queue_free())
+	# Bound to the node itself, so the connection dies with it (no freed-lambda errors).
+	get_tree().create_timer(2.5).timeout.connect(n.queue_free)
 
 
 ## Spore bolt from attacker to target (cast feedback, never decides a hit).
