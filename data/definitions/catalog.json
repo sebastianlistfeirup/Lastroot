@@ -1,0 +1,1140 @@
+{
+ "schema_version": 1,
+ "content_version": "0.1.0+lastroot-v2-baseline",
+ "cards": [
+  {
+   "id": "B01",
+   "name": "The Barkwarden",
+   "name_da": "Barkvogteren",
+   "faction": "BARK",
+   "kind": "champion",
+   "cost": 0,
+   "space": 2,
+   "consume": false,
+   "text": "Champion. Starts with 8 Armor.",
+   "text_da": "Champion; 8 startpanser",
+   "attack": 4,
+   "max_hp": 20,
+   "start_armor": 8,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [],
+   "upgrade_rule": "champion_path"
+  },
+  {
+   "id": "B02",
+   "name": "Root Sprout",
+   "name_da": "Rodspire",
+   "faction": "BARK",
+   "kind": "unit",
+   "cost": 1,
+   "space": 1,
+   "consume": false,
+   "text": "No extra effect.",
+   "text_da": "Ingen ekstra effekt",
+   "attack": 2,
+   "max_hp": 5,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "B03",
+   "name": "Barkshield",
+   "name_da": "Barkskjold",
+   "faction": "BARK",
+   "kind": "unit",
+   "cost": 2,
+   "space": 2,
+   "consume": false,
+   "text": "Starts with 6 Armor.",
+   "text_da": "6 startpanser",
+   "attack": 2,
+   "max_hp": 14,
+   "start_armor": 6,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "B04",
+   "name": "Thornhart",
+   "name_da": "Tornhjort",
+   "faction": "BARK",
+   "kind": "unit",
+   "cost": 2,
+   "space": 2,
+   "consume": false,
+   "text": "Thorns 2.",
+   "text_da": "Torne 2",
+   "attack": 5,
+   "max_hp": 8,
+   "start_armor": 0,
+   "thorns": 2,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "B05",
+   "name": "Sapbearer",
+   "name_da": "Saftbærer",
+   "faction": "BARK",
+   "kind": "unit",
+   "cost": 1,
+   "space": 1,
+   "consume": false,
+   "text": "On play: heal another ally 3.",
+   "text_da": "Ved spil: heal et andet allieret væsen 3",
+   "attack": 1,
+   "max_hp": 7,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "on_play": {
+    "op": "heal_other_ally",
+    "amount": 3
+   },
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "B06",
+   "name": "Old Oak",
+   "name_da": "Gammel Eg",
+   "faction": "BARK",
+   "kind": "unit",
+   "cost": 3,
+   "space": 3,
+   "consume": false,
+   "text": "No extra effect.",
+   "text_da": "Ingen ekstra effekt",
+   "attack": 8,
+   "max_hp": 22,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "B07",
+   "name": "Root Strike",
+   "name_da": "Rodslag",
+   "faction": "BARK",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Deal {damage} damage to one enemy.",
+   "text_da": "5 normal skade til én fjende",
+   "spell": {
+    "op": "damage",
+    "target": "enemy",
+    "damage": 5
+   },
+   "upgrades": [
+    {
+     "id": "damage_3",
+     "stat": "damage",
+     "delta": 3,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "B08",
+   "name": "Barkskin",
+   "name_da": "Barkhud",
+   "faction": "BARK",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Give one ally {armor} Armor.",
+   "text_da": "6 panser til ét allieret væsen",
+   "spell": {
+    "op": "armor",
+    "target": "ally",
+    "armor": 6
+   },
+   "upgrades": [
+    {
+     "id": "armor_2",
+     "stat": "armor",
+     "delta": 2,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "B09",
+   "name": "Root Net",
+   "name_da": "Rodnet",
+   "faction": "BARK",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Deal {damage} damage to all enemies on one floor.",
+   "text_da": "3 normal skade til alle fjender på én etage",
+   "spell": {
+    "op": "damage",
+    "target": "enemy_floor",
+    "damage": 3
+   },
+   "upgrades": [
+    {
+     "id": "damage_3",
+     "stat": "damage",
+     "delta": 3,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "B10",
+   "name": "Branch Lift",
+   "name_da": "Grenløft",
+   "faction": "BARK",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Move an ally one floor up if there is space. Does not use its move.",
+   "text_da": "Flyt allieret én etage op, hvis plads; separat flytning",
+   "spell": {
+    "op": "lift",
+    "target": "ally"
+   },
+   "upgrades": [
+    {
+     "id": "cost_-1",
+     "stat": "cost",
+     "delta": -1,
+     "price": 35
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "B11",
+   "name": "Sap Flood",
+   "name_da": "Saftflod",
+   "faction": "BARK",
+   "kind": "spell",
+   "cost": 2,
+   "space": 0,
+   "consume": false,
+   "text": "Heal all allies on one floor {heal}.",
+   "text_da": "Heal alle allierede på én etage 5",
+   "spell": {
+    "op": "heal",
+    "target": "ally_floor",
+    "heal": 5
+   },
+   "upgrades": [
+    {
+     "id": "heal_2",
+     "stat": "heal",
+     "delta": 2,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "B12",
+   "name": "Last Twig",
+   "name_da": "Sidste Kvist",
+   "faction": "BARK",
+   "kind": "spell",
+   "cost": 0,
+   "space": 0,
+   "consume": true,
+   "text": "Remove one of your normal creatures (not a death). Draw 2. Consume.",
+   "text_da": "Fjern normalt eget væsen; træk 2; Forbrug; ikke død",
+   "spell": {
+    "op": "remove_draw",
+    "target": "ally_normal",
+    "draw": 2
+   },
+   "upgrades": [],
+   "upgrade_rule": "none"
+  },
+  {
+   "id": "S01",
+   "name": "The Spore Sage",
+   "name_da": "Sporevismanden",
+   "faction": "SPORE",
+   "kind": "champion",
+   "cost": 0,
+   "space": 2,
+   "consume": false,
+   "text": "Champion. Surviving attack targets get {on_hit_poison} Poison.",
+   "text_da": "Champion; Gift 2 til overlevende angrebsmål",
+   "attack": 2,
+   "max_hp": 16,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 2,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [],
+   "upgrade_rule": "champion_path"
+  },
+  {
+   "id": "S02",
+   "name": "Sporeling",
+   "name_da": "Sporeunge",
+   "faction": "SPORE",
+   "kind": "unit",
+   "cost": 1,
+   "space": 1,
+   "consume": false,
+   "text": "Surviving attack targets get {on_hit_poison} Poison.",
+   "text_da": "Gift 1 til overlevende angrebsmål",
+   "attack": 1,
+   "max_hp": 6,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 1,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "S03",
+   "name": "Fungal Wall",
+   "name_da": "Svampevæg",
+   "faction": "SPORE",
+   "kind": "unit",
+   "cost": 2,
+   "space": 2,
+   "consume": false,
+   "text": "Growth 2.",
+   "text_da": "Vækst 2",
+   "attack": 1,
+   "max_hp": 16,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 2,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "S04",
+   "name": "Nightcap",
+   "name_da": "Nattehætte",
+   "faction": "SPORE",
+   "kind": "unit",
+   "cost": 2,
+   "space": 1,
+   "consume": false,
+   "text": "+3 attack damage against a poisoned target.",
+   "text_da": "+3 normal angrebsskade mod forgiftet mål",
+   "attack": 5,
+   "max_hp": 5,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 3,
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "S05",
+   "name": "Mycelium Keeper",
+   "name_da": "Mycelievogter",
+   "faction": "SPORE",
+   "kind": "unit",
+   "cost": 2,
+   "space": 2,
+   "consume": false,
+   "text": "On play: other allies on this floor get Growth 1.",
+   "text_da": "Ved spil: andre allierede på etagen får Vækst 1",
+   "attack": 3,
+   "max_hp": 11,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "on_play": {
+    "op": "growth_floor_others",
+    "amount": 1
+   },
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "S06",
+   "name": "Spore Colossus",
+   "name_da": "Sporekolos",
+   "faction": "SPORE",
+   "kind": "unit",
+   "cost": 3,
+   "space": 3,
+   "consume": false,
+   "text": "On death: give all enemies on this floor 3 Poison.",
+   "text_da": "Ved død: Gift 3 til alle fjender på etagen",
+   "attack": 6,
+   "max_hp": 20,
+   "start_armor": 0,
+   "thorns": 0,
+   "growth": 0,
+   "on_hit_poison": 0,
+   "bonus_vs_poisoned": 0,
+   "on_death": {
+    "op": "poison_enemy_floor",
+    "amount": 3
+   },
+   "upgrades": [
+    {
+     "id": "attack_2",
+     "stat": "attack",
+     "delta": 2,
+     "price": 25
+    },
+    {
+     "id": "max_hp_5",
+     "stat": "max_hp",
+     "delta": 5,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "unit_choice"
+  },
+  {
+   "id": "S07",
+   "name": "Toxic Breath",
+   "name_da": "Giftpust",
+   "faction": "SPORE",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Give one enemy {poison} Poison.",
+   "text_da": "Gift 3 til én fjende",
+   "spell": {
+    "op": "poison",
+    "target": "enemy",
+    "poison": 3
+   },
+   "upgrades": [
+    {
+     "id": "poison_1",
+     "stat": "poison",
+     "delta": 1,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "S08",
+   "name": "Spore Fog",
+   "name_da": "Sporetåge",
+   "faction": "SPORE",
+   "kind": "spell",
+   "cost": 2,
+   "space": 0,
+   "consume": false,
+   "text": "Give all enemies on one floor {poison} Poison.",
+   "text_da": "Gift 2 til alle fjender på én etage",
+   "spell": {
+    "op": "poison",
+    "target": "enemy_floor",
+    "poison": 2
+   },
+   "upgrades": [
+    {
+     "id": "poison_1",
+     "stat": "poison",
+     "delta": 1,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "S09",
+   "name": "Lifethread",
+   "name_da": "Livstråd",
+   "faction": "SPORE",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Heal one ally {heal} and give Growth 1.",
+   "text_da": "Heal ét allieret væsen 4 og giv Vækst 1",
+   "spell": {
+    "op": "heal_growth",
+    "target": "ally",
+    "heal": 4,
+    "growth": 1
+   },
+   "upgrades": [
+    {
+     "id": "heal_2",
+     "stat": "heal",
+     "delta": 2,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "S10",
+   "name": "Decompose",
+   "name_da": "Nedbrydning",
+   "faction": "SPORE",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": false,
+   "text": "Remove up to 8 Armor from one enemy, then deal {damage} damage.",
+   "text_da": "Fjern op til 8 panser fra én fjende; derefter 3 normal skade",
+   "spell": {
+    "op": "strip_damage",
+    "target": "enemy",
+    "strip": 8,
+    "damage": 3
+   },
+   "upgrades": [
+    {
+     "id": "damage_3",
+     "stat": "damage",
+     "delta": 3,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "S11",
+   "name": "Bloom",
+   "name_da": "Blomstring",
+   "faction": "SPORE",
+   "kind": "spell",
+   "cost": 2,
+   "space": 0,
+   "consume": false,
+   "text": "Double a poisoned enemy's Poison, up to 12. Never lowers Poison.",
+   "text_da": "Fordobl Gift mod loft 12; sænker aldrig eksisterende Gift",
+   "spell": {
+    "op": "bloom",
+    "target": "enemy_poisoned",
+    "cap": 12
+   },
+   "upgrades": [
+    {
+     "id": "cost_-1",
+     "stat": "cost",
+     "delta": -1,
+     "price": 35
+    }
+   ],
+   "upgrade_rule": "spell"
+  },
+  {
+   "id": "S12",
+   "name": "Spore Rain",
+   "name_da": "Sporeregn",
+   "faction": "SPORE",
+   "kind": "spell",
+   "cost": 1,
+   "space": 0,
+   "consume": true,
+   "text": "Give every enemy on every floor {poison} Poison. Consume.",
+   "text_da": "Gift 1 til alle fjender på alle etager; Forbrug",
+   "spell": {
+    "op": "poison",
+    "target": "all_enemies",
+    "poison": 1
+   },
+   "upgrades": [
+    {
+     "id": "poison_1",
+     "stat": "poison",
+     "delta": 1,
+     "price": 25
+    }
+   ],
+   "upgrade_rule": "spell"
+  }
+ ],
+ "start_deck": {
+  "champion": "MAIN_FACTION_CHAMPION",
+  "normal_counts": {
+   "B02": 3,
+   "B07": 2,
+   "B08": 2,
+   "S02": 2,
+   "S07": 2
+  }
+ },
+ "enemies": [
+  {
+   "id": "E01",
+   "name": "Ashling",
+   "attack": 2,
+   "max_hp": 5,
+   "start_armor": 0,
+   "name_da": "Askeling"
+  },
+  {
+   "id": "E02",
+   "name": "Coalshield",
+   "attack": 3,
+   "max_hp": 9,
+   "start_armor": 4,
+   "name_da": "Kulskjold"
+  },
+  {
+   "id": "E03",
+   "name": "Emberhunter",
+   "attack": 5,
+   "max_hp": 7,
+   "start_armor": 0,
+   "name_da": "Glødjæger"
+  },
+  {
+   "id": "E04",
+   "name": "Sootbearer",
+   "attack": 2,
+   "max_hp": 12,
+   "start_armor": 0,
+   "name_da": "Sodbærer"
+  },
+  {
+   "id": "E05",
+   "name": "Stonebreaker",
+   "attack": 6,
+   "max_hp": 16,
+   "start_armor": 6,
+   "name_da": "Stenbrud"
+  }
+ ],
+ "boss": {
+  "id": "E06",
+  "name": "The Ash Crown",
+  "attack": 8,
+  "max_hp": 60,
+  "start_armor": 8,
+  "arrival_turn": 5,
+  "escalate_from_turn": 10,
+  "attack_per_escalation": 2,
+  "waves": [
+   [
+    "E01",
+    "E01"
+   ],
+   [
+    "E02"
+   ],
+   [
+    "E03",
+    "E04"
+   ],
+   [
+    "E05"
+   ]
+  ],
+  "name_da": "Askekronen"
+ },
+ "normal_battles": [
+  {
+   "id": "BATTLE_01",
+   "waves": [
+    {
+     "turn": 1,
+     "groups": [
+      {
+       "enemy_id": "E01",
+       "count": 1
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "groups": [
+      {
+       "enemy_id": "E01",
+       "count": 2
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "groups": [
+      {
+       "enemy_id": "E02",
+       "count": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "BATTLE_02",
+   "waves": [
+    {
+     "turn": 1,
+     "groups": [
+      {
+       "enemy_id": "E02",
+       "count": 1
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "groups": [
+      {
+       "enemy_id": "E01",
+       "count": 2
+      },
+      {
+       "enemy_id": "E03",
+       "count": 1
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "groups": [
+      {
+       "enemy_id": "E04",
+       "count": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "BATTLE_03",
+   "waves": [
+    {
+     "turn": 1,
+     "groups": [
+      {
+       "enemy_id": "E02",
+       "count": 2
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "groups": [
+      {
+       "enemy_id": "E03",
+       "count": 2
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "groups": [
+      {
+       "enemy_id": "E05",
+       "count": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "BATTLE_04",
+   "waves": [
+    {
+     "turn": 1,
+     "groups": [
+      {
+       "enemy_id": "E04",
+       "count": 1
+      },
+      {
+       "enemy_id": "E01",
+       "count": 2
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "groups": [
+      {
+       "enemy_id": "E02",
+       "count": 1
+      },
+      {
+       "enemy_id": "E03",
+       "count": 1
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "groups": [
+      {
+       "enemy_id": "E05",
+       "count": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "BATTLE_05",
+   "waves": [
+    {
+     "turn": 1,
+     "groups": [
+      {
+       "enemy_id": "E04",
+       "count": 2
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "groups": [
+      {
+       "enemy_id": "E02",
+       "count": 2
+      },
+      {
+       "enemy_id": "E03",
+       "count": 1
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "groups": [
+      {
+       "enemy_id": "E05",
+       "count": 1
+      },
+      {
+       "enemy_id": "E03",
+       "count": 2
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "relics": [
+  {
+   "id": "R01",
+   "name": "Bark Pearl",
+   "name_da": "Barkperlen",
+   "text_da": "Egne Bark-væsner får 3 panser ved indsættelse; Barkchampion inkluderet.",
+   "text": "Your Bark creatures get 3 Armor when played (champion included)."
+  },
+  {
+   "id": "R02",
+   "name": "Dewdrop",
+   "name_da": "Dugdråben",
+   "text_da": "Første spillede besværgelse pr. tur koster 1 mindre, minimum 0.",
+   "text": "The first spell you play each turn costs 1 less (minimum 0)."
+  },
+  {
+   "id": "R03",
+   "name": "Spore Lantern",
+   "name_da": "Sporelyset",
+   "text_da": "Første faktiske spillerforårsagede Gift-tildeling pr. tur får +1 på første mål; ved område vælges laveste instance_id.",
+   "text": "Your first Poison each turn gives +1 to its first target (lowest id on areas)."
+  },
+  {
+   "id": "R04",
+   "name": "Sun Seed",
+   "name_da": "Solfrøet",
+   "text_da": "+1 saftkraft på første tur i hver kamp.",
+   "text": "+1 Sap on the first turn of every battle."
+  },
+  {
+   "id": "R05",
+   "name": "Home Root",
+   "name_da": "Hjemmeroden",
+   "text_da": "Heal hjertet 4 efter vundet kamp, højst max_hp.",
+   "text": "Heal the Heart 4 after a won battle."
+  },
+  {
+   "id": "R06",
+   "name": "Leaf Book",
+   "name_da": "Bladbogen",
+   "text_da": "Træk ét ekstra normalt kort på kampens første tur.",
+   "text": "Draw one extra normal card on the first turn of a battle."
+  },
+  {
+   "id": "R07",
+   "name": "Amber Core",
+   "name_da": "Ravkernen",
+   "text_da": "Egne normale væsner får +3 max_hp ved indsættelse; champion undtaget.",
+   "text": "Your normal creatures get +3 max HP when played (not the champion)."
+  },
+  {
+   "id": "R08",
+   "name": "Wanderer's Ring",
+   "name_da": "Vandrerringen",
+   "text_da": "Første almindelige flytning pr. tur er gratis.",
+   "text": "The first normal move each turn is free."
+  }
+ ],
+ "mutations": [
+  {
+   "id": "M01",
+   "name": "Deep Roots",
+   "effect_text": "Rødderne +1 pladspoint.",
+   "name_da": "Dybe rødder",
+   "text": "The Roots gain +1 space.",
+   "text_da": "Rødderne +1 pladspoint."
+  },
+  {
+   "id": "M02",
+   "name": "Strong Trunk",
+   "effect_text": "Allierede på Stammen +1 attack som afledt positionsbonus.",
+   "name_da": "Stærk stamme",
+   "text": "Allies on the Trunk get +1 attack while they stand there.",
+   "text_da": "Allierede på Stammen +1 attack som afledt positionsbonus."
+  },
+  {
+   "id": "M03",
+   "name": "Gentle Crown",
+   "effect_text": "Allierede på Kronen heales 2 ved turstart.",
+   "name_da": "Mild krone",
+   "text": "Allies on the Crown heal 2 at the start of each turn.",
+   "text_da": "Allierede på Kronen heales 2 ved turstart."
+  },
+  {
+   "id": "M04",
+   "name": "Great Heart",
+   "effect_text": "Max- og aktuelt hjerteliv +15 én gang ved valg.",
+   "name_da": "Stort hjerte",
+   "text": "+15 max and current Heart, once.",
+   "text_da": "Max- og aktuelt hjerteliv +15 én gang ved valg."
+  }
+ ],
+ "champion_paths": {
+  "B01": [
+   {
+    "max_hp_per_rank": 8,
+    "start_armor_per_rank": 4,
+    "id": "BULWARK",
+    "name": "Bulwark",
+    "name_da": "Værn",
+    "text": "+8 max HP and +4 starting Armor per rank."
+   },
+   {
+    "attack_per_rank": 3,
+    "max_hp_per_rank": 2,
+    "id": "WRATH",
+    "name": "Wrath",
+    "name_da": "Vrede",
+    "text": "+3 attack and +2 max HP per rank."
+   }
+  ],
+  "S01": [
+   {
+    "on_hit_poison_per_rank": 1,
+    "id": "VENOM",
+    "name": "Venom Master",
+    "name_da": "Giftmester",
+    "text": "+1 on-hit Poison per rank."
+   },
+   {
+    "floor_start_heal_per_rank": 1,
+    "id": "LIFEWEAVER",
+    "name": "Lifeweaver",
+    "name_da": "Livsvæver",
+    "text": "At turn start, heal all allies on its floor 1 per rank."
+   }
+  ]
+ },
+ "rules": {
+  "heart_start": 60,
+  "resin_start": 30,
+  "base_energy": 3,
+  "floor_capacity": [
+   5,
+   5,
+   5
+  ],
+  "draw_per_turn": 5,
+  "normal_win_resin": 20,
+  "remove_cost": 15,
+  "min_normal_cards": 7,
+  "champion_choice_after_battles": [
+   2,
+   4
+  ],
+  "relic_choice_after_battles": [
+   2,
+   4
+  ],
+  "mutation_choice_after_battles": [
+   1,
+   3
+  ],
+  "max_upgrade_per_instance": 1,
+  "retain_unplayed_champion": true
+ },
+ "floors": [
+  {
+   "id": 0,
+   "name": "Roots",
+   "name_da": "Rødderne"
+  },
+  {
+   "id": 1,
+   "name": "Trunk",
+   "name_da": "Stammen"
+  },
+  {
+   "id": 2,
+   "name": "Crown",
+   "name_da": "Kronen"
+  }
+ ]
+}

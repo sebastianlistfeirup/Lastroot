@@ -1,0 +1,77 @@
+[
+  {
+    "id": "REF_01",
+    "title": "Tre etager og kort",
+    "path": "references/REF_01.jpeg",
+    "status": "SOURCE_REFERENCE_NOT_GAMEPLAY",
+    "keep": "Tre tydelige kampetager, allierede til venstre og fjender til højre. Turkist hjerte er højeste visuelle prioritet; ravlys guider øjet gennem stammen.",
+    "godot_translation": "Byg et modulært træ omkring tre faste FloorView. Hold forreste gulvkanter fri. Kortviften er kun kompositionsreference: første hånd har faktisk champion + fem normale kort, og R06 kan øge den. Spillets UI skal kunne vise hele hånden læseligt.",
+    "sha256": "6764018c23e14e328e81d5fe0f2633ea9a382bfaf491af046119b46b3a6b29b9"
+  },
+  {
+    "id": "REF_02",
+    "title": "Barkvogter og Sporevismand",
+    "path": "references/REF_02.jpeg",
+    "status": "SOURCE_REFERENCE_NOT_GAMEPLAY",
+    "keep": "Kontrasten mellem en tung bark-/stenfigur og en lille violet svampefigur er identiteten. Ravblik og turkis magi binder dem til træet.",
+    "godot_translation": "Vælg to rigfamilier med kompatible clips. Svampehat/stav og barkplader kan være egne attachments på verificerede basismodeller. Den store scene i baggrunden er ikke et krav om fri udforskning eller enorme realtime-miljøer.",
+    "sha256": "65af329e8a517d1fcf1b389e75cae64a63f1656276e5474ad704e17a00cdd988"
+  },
+  {
+    "id": "REF_03",
+    "title": "Kampens komposition",
+    "path": "references/REF_03.jpeg",
+    "status": "SOURCE_REFERENCE_NOT_GAMEPLAY",
+    "keep": "Bevar tydelig front, etagekant, kontrast mellem levende natur og askefjender samt en kort spore-/giftmarkering.",
+    "godot_translation": "Kampkameraet viser alle etager før beslutning. Billedets nærbillede er en valgfri kort fremhævelse under afvikling. Gift får et genkendeligt ikon/tal; røg og effekter må ikke skjule prognosen. Fjendernes design ændrer ikke deres katalogevner.",
+    "sha256": "ae7bc0cf84db06cad5071bbb0e6a31400f33ff2c128ba386a651be375da6962f"
+  },
+  {
+    "id": "REF_04",
+    "title": "Vejvalg gennem løbet",
+    "path": "references/REF_04.jpeg",
+    "status": "SOURCE_REFERENCE_NOT_GAMEPLAY",
+    "keep": "Flydende øer, varme lejrsteder og broer visualiserer et forgrenet gennemløb. Den aktuelle position skal stå tydeligt.",
+    "godot_translation": "Lav et 2D-nodekort med valgfri 3D-dioramabaggrund. Fem normale kampe og boss er obligatoriske; billedets frie stier bestemmer ikke reglerne. Kun én af to mellemknuder vælges. UI viser type, pris, reward og låst/valgt tilstand.",
+    "sha256": "69bbeb5f49f820a6b5e194ccc86c9a38420eca4c151a619c6071a4b24c8e02a3"
+  },
+  {
+    "id": "REF_05",
+    "title": "Træets hjerte og lag",
+    "path": "references/REF_05.jpeg",
+    "status": "SOURCE_REFERENCE_NOT_GAMEPLAY",
+    "keep": "Tre adskilte terrasser, pulserende turkist hjerte, violette svampe og barkfigurer. Levende detaljer giver identitet uden fotorealisme.",
+    "godot_translation": "Brug som art-gate for TreeStage: form først, lys bagefter, små props til sidst. Placér aldrig træstamme, hat eller krystaller foran enhedstal. Mutationer ændrer visuals på samme scene; de tilføjer ikke flere etager.",
+    "sha256": "c1ced36ac9065d13258f7d887d8be5989f16361f087ebe24e195ee7384ddb3d1"
+  },
+  {
+    "id": "REF_06",
+    "title": "Kortvalg og gyldige mål",
+    "path": null,
+    "status": "BRIEF_ONLY_IMAGE_NOT_SUPPLIED"
+  },
+  {
+    "id": "REF_07",
+    "title": "Championforbedring",
+    "path": null,
+    "status": "BRIEF_ONLY_IMAGE_NOT_SUPPLIED"
+  },
+  {
+    "id": "REF_08",
+    "title": "Lejr og separate bonusvalg",
+    "path": null,
+    "status": "BRIEF_ONLY_IMAGE_NOT_SUPPLIED"
+  },
+  {
+    "id": "REF_09",
+    "title": "Askekronen",
+    "path": null,
+    "status": "BRIEF_ONLY_IMAGE_NOT_SUPPLIED"
+  },
+  {
+    "id": "REF_10",
+    "title": "Runafslutning",
+    "path": null,
+    "status": "BRIEF_ONLY_IMAGE_NOT_SUPPLIED"
+  }
+]

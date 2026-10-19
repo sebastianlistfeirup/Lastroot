@@ -1,0 +1,53 @@
+; Engine configuration file.
+; LASTROOT — locked engine: Godot 4.5.1-stable (see docs/VERSION_MATRIX.md)
+
+config_version=5
+
+[application]
+
+config/name="LASTROOT"
+config/description="Defend the last world tree. Build a deck that can take root."
+config/version="0.1.0"
+run/main_scene="res://scenes/boot/boot.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.051, 0.063, 0.098, 1)
+boot_splash/show_image=false
+
+[autoload]
+
+Loc="*res://scripts/core/loc.gd"
+SettingsService="*res://scripts/autoload/settings_service.gd"
+AudioService="*res://scripts/autoload/audio_service.gd"
+SaveService="*res://scripts/autoload/save_service.gd"
+GameSession="*res://scripts/autoload/game_session.gd"
+AppFlow="*res://scripts/autoload/app_flow.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/unsafe_property_access=0
+gdscript/warnings/unsafe_method_access=0
+gdscript/warnings/unsafe_call_argument=0
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1600
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=6
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=false
+
+[rendering]
+
+rendering_device/fallback_to_opengl3=true
+renderer/rendering_method.web="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/msaa_3d=1
+environment/defaults/default_clear_color=Color(0.051, 0.063, 0.098, 1)

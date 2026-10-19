@@ -1,0 +1,12 @@
+{
+  "task_id": "LR-01",
+  "commit": null,
+  "engine_version": null,
+  "command": null,
+  "exit_code": null,
+  "expected": "Indsæt opgavens acceptkrav",
+  "observed": null,
+  "fixture": null,
+  "status": "NOT_RUN",
+  "artifacts": []
+}

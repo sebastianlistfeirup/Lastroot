@@ -1,0 +1,19 @@
+# Godot
+.godot/
+*.import.tmp
+/builds/*
+!/builds/README.md
+export_credentials.cfg
+*.translation
+
+# Purchased asset packs never go into git (bible p.18/27, AGENTS.md rule 8).
+/assets/quarantine/
+/assets/vendor_raw/
+*.unitypackage
+/assets/imported/*
+!/assets/imported/README.md
+
+.DS_Store
+Thumbs.db
+*.tmp
+__pycache__/
