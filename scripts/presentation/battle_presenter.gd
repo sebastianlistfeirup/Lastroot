@@ -76,8 +76,10 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 			v.play(&"move", speed)
 			screen.layout_floor(0, disp, 0.45 / speed)
 			if u.get("is_boss", false):
-				screen.toast(Loc.t("The Ash Crown has arrived"), UiKit.DANGER)
 				AudioBridge.play("boss_arrive")
+				if not _skip:
+					screen.boss_intro()
+					await _wait(1.6)
 			await _wait(0.3)
 		"card_played":
 			var def: Dictionary = Catalog.card(str(e["def_id"]))

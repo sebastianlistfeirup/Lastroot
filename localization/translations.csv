@@ -34,7 +34,6 @@ You are not at a node.,Du er ikke ved en knude.
 Anchored,Forankret
 Discard pile shuffled into the draw pile,Kassationsbunken blandes ind i trækbunken
 Spore Colossus bursts,Sporekolossen brister
-The Ash Crown has arrived,Askekronen er ankommet
 The Ash Crown has left the Crown!,Askekronen har forladt Kronen!
 The tree resolves,Træet afvikler turen
 Turn %d,Tur %d
@@ -53,9 +52,11 @@ Draw %d · Discard %d · Played %d,Træk %d · Kasseret %d · Spillet %d
 Draw pile (sorted; order hidden),Trækbunke (sorteret; rækkefølge skjult)
 End turn,Afslut tur
 Forecast — end of turn,Prognose — tur slut
+From turn 10 it gains +2 attack every turn.,Fra tur 10 får den +2 angreb hver tur.
 Full,Fuld
 Full %d/%d,Fuld %d/%d
 Got it,Forstået
+"If it leaves the Crown, the run is lost.","Forlader den Kronen, er løbet tabt."
 If you confirm and then end the turn:,Hvis du bekræfter og derefter afslutter turen:
 In %d turns: %s,Om %d ture: %s
 It has already moved this turn.,Den har allerede flyttet denne tur.
@@ -69,9 +70,11 @@ Played creatures (out for this battle),Spillede væsner (ude resten af kampen)
 "Preview shown. Confirm, or tap the same target again.","Forhåndsvisning vist. Bekræft, eller tryk på samme mål igen."
 Skip animation,Spring animation over
 "Spend your Sap: creatures guard a floor, spells act at once. Card → target → Confirm.","Brug din Saftkraft: væsner vogter en etage, besværgelser virker med det samme. Kort → mål → Bekræft."
+Stays on its floor while a living ally stands there.,Bliver på sin etage så længe et levende allieret væsen står der.
 Stays while a living ally shares its floor. Leaving the Crown means defeat. +2 attack each turn from turn 10.,"Bliver, så længe en levende allieret deler dens etage. Forlader den Kronen, er det nederlag. +2 angreb hver tur fra tur 10."
 Tap a + spot on a floor to place it. The front is next to the trunk.,Tryk på et +-felt på en etage for at placere den. Fronten er ved stammen.
 "Tap your champion, then a + spot on a floor. Champions cost 0 Sap and hold the line.",Tryk på din champion og derefter på et +-felt på en etage. Champions koster 0 Saftkraft og holder linjen.
+The Ash Crown,Askekronen
 The forecast is exactly what ending the turn will do. Enemies climb a floor each turn; past the Crown they strike the Heart.,"Prognosen er præcis det, der sker, når du afslutter turen. Fjender klatrer én etage hver tur; forbi Kronen rammer de Hjertet."
 There are no enemies to affect.,Der er ingen fjender at ramme.
 Turns: %d · Heart: %d,Ture: %d · Hjerte: %d

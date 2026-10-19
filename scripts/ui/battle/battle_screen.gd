@@ -897,6 +897,27 @@ func toast(text: String, color: Color) -> void:
 	t.tween_callback(p.queue_free)
 
 
+## Short, skippable boss introduction with the rules that matter (bible p.14).
+func boss_intro() -> void:
+	var p := UiKit.panel(Color(0.08, 0.05, 0.05, 0.95), UiKit.DANGER)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 6)
+	p.add_child(v)
+	v.add_child(UiKit.label(Loc.t("The Ash Crown"), 34, UiKit.DANGER, true))
+	for line in [Loc.t("Stays on its floor while a living ally stands there."), Loc.t("If it leaves the Crown, the run is lost."), Loc.t("From turn 10 it gains +2 attack every turn.")]:
+		v.add_child(UiKit.label("• " + line, 18, UiKit.TEXT))
+	root.add_child(p)
+	var vp: Vector2 = root.get_viewport_rect().size
+	p.size = Vector2(minf(560.0, vp.x - 24), 0)
+	p.reset_size()
+	p.position = Vector2((vp.x - p.size.x) * 0.5 - (0.0 if portrait else 220.0), vp.y * 0.28)
+	var t := p.create_tween()
+	t.tween_interval(2.4 / _anim_speed())
+	t.tween_property(p, "modulate:a", 0.0, 0.4)
+	t.tween_callback(p.queue_free)
+
+
 func heart_hit(amount: int, after: int, def_id: String) -> void:
 	lbl_heart.text = "%s %d/%d" % [UiKit.status_glyph("hp"), after, battle.get("heart_max", 60)]
 	var nm: String = Loc.field(Catalog.enemy(def_id), "name") if def_id != "" else Loc.t("An enemy")
