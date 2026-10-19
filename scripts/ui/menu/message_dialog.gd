@@ -32,6 +32,12 @@ func _build() -> void:
 		footer.add_child(b)
 
 
+func initial_focus() -> Control:
+	if footer and footer.get_child_count() > 0:
+		return footer.get_child(footer.get_child_count() - 1) as Control
+	return close_button
+
+
 func _layout() -> void:
 	max_size.y = 380.0 if not is_portrait() else 520.0
 	super()

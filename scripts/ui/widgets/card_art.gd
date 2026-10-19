@@ -8,6 +8,9 @@ extends Control
 var def: Dictionary = {}
 var upgraded: bool = false
 var portrait: Texture2D = null
+## State markers drawn as glyphs, so selection / unplayable never rely on colour.
+var selected: bool = false
+var unplayable: bool = false
 
 
 func _init() -> void:
@@ -60,6 +63,15 @@ func _draw() -> void:
 	draw_rect(Rect2(0, h - 3.0, w, 3.0), Color(fc, 0.55))
 	if champ:
 		_star(Vector2(12, 12), 7.0, UiKit.AMBER)
+	if selected:
+		var sc := Vector2(13, h - 13)
+		draw_circle(sc, 11.0, UiKit.LIFE)
+		MetaIcon.draw_icon(self, "check", sc - Vector2(8, 8), 16.0, UiKit.BG)
+	if unplayable:
+		var uc := Vector2(w - 13, h - 13)
+		draw_circle(uc, 11.0, Color(UiKit.BG, 0.95))
+		draw_arc(uc, 10.0, 0, TAU, 20, UiKit.TEXT_DIM, 2.0, true)
+		draw_line(uc + Vector2(-6, 6), uc + Vector2(6, -6), UiKit.TEXT_DIM, 2.5, true)
 	if upgraded:
 		# Upgrade ribbon in the corner (plus the text line on the card).
 		var r := PackedVector2Array([Vector2(w - 34, 0), Vector2(w, 0), Vector2(w, 34)])

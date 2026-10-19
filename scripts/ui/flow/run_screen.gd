@@ -34,6 +34,7 @@ var _detail_key: String = ""
 var _offer_views: Array = []
 var _confirm: Button
 var _last_size: Vector2 = Vector2.ZERO
+var _focus_confirm: bool = false
 
 
 func _ready() -> void:
@@ -129,12 +130,17 @@ func render() -> void:
 	_last_size = vp
 	portrait = UiKit.is_portrait(vp)
 	var key: String = _selection_owner()
+	var same_screen: bool = key == _sel_owner
 	if key != _sel_owner:
 		sel_offer = ""
 		sel_instance = -1
 		sel_node = ""
 		_sel_owner = key
 	var keep_scroll: int = _scroll.scroll_vertical
+	var focus_name: String = ""
+	var fo: Control = get_viewport().gui_get_focus_owner()
+	if fo != null and _body.is_ancestor_of(fo) and same_screen:
+		focus_name = fo.name
 	_header.build(run, portrait)
 	var side: int = maxi(0, int((vp.x - 1560.0) * 0.5)) if not portrait else 0
 	_pad.add_theme_constant_override("margin_left", side)
@@ -153,6 +159,54 @@ func render() -> void:
 	_backdrop.tree_x = 0.86
 	_backdrop.show_tree = not portrait
 	_set_scroll.call_deferred(keep_scroll)
+	if _focus_confirm and _confirm != null and not _confirm.disabled:
+		focus_name = "ConfirmButton"
+	_focus_confirm = false
+	_restore_focus.call_deferred(focus_name)
+
+
+## Keyboard / pad: keep focus on the same control across re-renders, or put
+## it on the most useful control of the new screen.
+func _restore_focus(focus_name: String) -> void:
+	if not is_inside_tree() or _pause.is_open or _deck.visible:
+		return
+	var target: Control = null
+	if focus_name != "":
+		target = _body.find_child(focus_name, true, false) as Control
+	if target == null or not target.is_visible_in_tree() or (target is BaseButton and (target as BaseButton).disabled):
+		target = default_focus()
+	if target != null:
+		target.grab_focus()
+
+
+func default_focus() -> Control:
+	var order: Array = []
+	if _confirm != null and not _confirm.disabled:
+		order.append(_confirm)
+	for n in ["Upgrade_attack_2", "RemoveButton"]:
+		order.append(_body.find_child(n, true, false))
+	if sel_node != "":
+		order.append(_body.find_child("Go_" + sel_node, true, false))
+	var offers: Node = _body.find_child("Offers", true, false)
+	if offers and offers.get_child_count() > 0:
+		order.append(offers.get_child(0))
+	var opts: Node = _body.find_child("RouteOptions", true, false)
+	if opts and opts.get_child_count() > 0:
+		order.append(opts.get_child(0).find_child("Go_*", true, false))
+	if sel_instance >= 0:
+		var panel: Node = _body.find_child("UpgradePanel", true, false)
+		if panel:
+			order.append(panel.find_child("Upgrade_*", true, false))
+	var grid: Node = _body.find_child("DeckGrid", true, false)
+	if grid and grid.get_child_count() > 0:
+		order.append(grid.get_child(0))
+	order.append(_body.find_child("LeaveButton", true, false))
+	for c: Variant in order:
+		if c is Control and (c as Control).focus_mode != Control.FOCUS_NONE and (c as Control).is_visible_in_tree():
+			if c is BaseButton and (c as BaseButton).disabled:
+				continue
+			return c
+	return null
 
 
 func _set_scroll(v: int) -> void:
@@ -257,6 +311,9 @@ func _card_choice(slot: Dictionary, heading: String, sub: String) -> void:
 func select_offer(id: String) -> void:
 	AudioService.play("card_hover")
 	sel_offer = id
+	# Keyboard / pad: after choosing, the next step (confirm) gets focus.
+	var fo: Control = get_viewport().gui_get_focus_owner()
+	_focus_confirm = fo != null and _body.is_ancestor_of(fo)
 	render()
 
 
@@ -323,7 +380,6 @@ func _champion_choice(slot: Dictionary) -> void:
 		before.name = "Before"
 		var after := CardView.new().setup(champ_id, "", pid, to_rank)
 		after.name = "After"
-		after.selected = true
 		cards.add_child(_labelled(before, Loc.t("Now")))
 		cards.add_child(_arrow())
 		cards.add_child(_labelled(after, Loc.t("After")))
@@ -468,7 +524,7 @@ func _route_option(opt: Dictionary) -> Control:
 	t.add_text(RunText.node_gives(type), 18, UiKit.TEXT)
 	var warn: String = RunText.node_warning(type, run)
 	if warn != "":
-		t.add_text(warn, 16, UiKit.AMBER)
+		t.add_text("⚠ " + warn, 16, UiKit.AMBER)
 	t.selected = sel_node == opt["id"]
 	var oid: String = opt["id"]
 	t.pressed.connect(func() -> void:
@@ -589,7 +645,6 @@ func _upgrade_row(inst: Dictionary, def: Dictionary, u: Dictionary) -> Control:
 	cards.add_child(_labelled(CardView.new().setup(inst["def_id"], "", "", 0, int(inst["instance_id"])), Loc.t("Now")))
 	cards.add_child(_arrow())
 	var after := CardView.new().setup(inst["def_id"], str(u["id"]), "", 0, int(inst["instance_id"]))
-	after.selected = true
 	cards.add_child(_labelled(after, Loc.t("After")))
 	v.add_child(cards)
 	var b := UiKit.button(Loc.t("Upgrade: %s for %d Resin") % [CardView._upgrade_label(def, u["id"]), price], UiKit.AMBER, 20)
@@ -601,7 +656,7 @@ func _upgrade_row(inst: Dictionary, def: Dictionary, u: Dictionary) -> Control:
 	b.pressed.connect(func() -> void: send({"type": "camp_upgrade", "card": iid, "upgrade": uid}))
 	v.add_child(b)
 	if resin < price:
-		v.add_child(UiKit.label(Loc.t("Not enough Resin: you need %d more.") % (price - resin), 16, UiKit.DANGER))
+		v.add_child(UiKit.label("✕ " + Loc.t("Not enough Resin: you need %d more.") % (price - resin), 16, UiKit.DANGER))
 	return p
 
 
@@ -638,7 +693,7 @@ func _render_removal() -> void:
 		b.pressed.connect(func() -> void: send({"type": "remove_card", "card": iid}))
 		v.add_child(b)
 		if block != "":
-			v.add_child(UiKit.label(block, 16, UiKit.DANGER))
+			v.add_child(UiKit.label("✕ " + block, 16, UiKit.DANGER))
 		h.add_child(v)
 		panel.add_child(h)
 	if block != "" and sel.is_empty():
@@ -675,7 +730,7 @@ func _render_encounter() -> void:
 	t2.add_title("heart", Loc.t("Heal the Heart 8"))
 	t2.add_text(Loc.t("Heart %d/%d → %d/%d") % [heart, hmax, mini(hmax, heart + 8), hmax], 20, UiKit.TEXT)
 	if heart >= hmax:
-		t2.add_text(Loc.t("The Heart is already full: healing would do nothing."), 16, UiKit.AMBER)
+		t2.add_text("⚠ " + Loc.t("The Heart is already full: healing would do nothing."), 16, UiKit.AMBER)
 	var b2 := UiKit.button(Loc.t("Heal the Heart"), UiKit.LIFE, 20)
 	b2.name = "Encounter_heal"
 	b2.custom_minimum_size = Vector2(0, 56)

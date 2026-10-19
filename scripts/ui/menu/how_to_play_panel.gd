@@ -84,6 +84,27 @@ func goto_page(i: int) -> void:
 	AudioService.play("ui_click")
 	page = clampi(i, 0, pages().size() - 1)
 	rebuild()
+	var f: Control = initial_focus()
+	if f:
+		f.grab_focus.call_deferred()
+
+
+func initial_focus() -> Control:
+	var n: Button = footer.find_child("NextPage", true, false) as Button if footer else null
+	return n if n else close_button
+
+
+## Left / right flip pages too.
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed("ui_right") and page < page_count() - 1 and not (get_viewport().gui_get_focus_owner() is Slider):
+		get_viewport().set_input_as_handled()
+		goto_page(page + 1)
+		return
+	if visible and event.is_action_pressed("ui_left") and page > 0:
+		get_viewport().set_input_as_handled()
+		goto_page(page - 1)
+		return
+	super(event)
 
 
 func page_count() -> int:

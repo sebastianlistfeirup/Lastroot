@@ -239,6 +239,8 @@ func _on_quit() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _settings.visible or _credits.visible or _howto.visible or _dialog.visible:
+		return
 	if view == "faction" and event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		AudioService.play("ui_cancel")
@@ -274,7 +276,8 @@ func _build_faction() -> void:
 	scroll.add_child(holder)
 	for f: String in ["BARK", "SPORE"]:
 		holder.add_child(_faction_panel(f, portrait))
-	back.grab_focus.call_deferred()
+	var first: Button = holder.find_child("Choose_BARK", true, false) as Button
+	(first if first else back).grab_focus.call_deferred()
 
 
 func _faction_panel(faction: String, portrait: bool) -> Control:
