@@ -67,6 +67,7 @@ func _cases() -> Array:
 		{"id": "howto_boss", "scene": "menu", "run": {}, "open": "howto:6"},
 		{"id": "da_howto_status", "scene": "menu", "run": {}, "open": "howto:5", "lang": "da"},
 		{"id": "run_pause_abandon", "scene": "run", "run": MetaFixtures.route(1), "open": "abandon"},
+		{"id": "battle_mid", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3)},
 		{"id": "battle_pause", "scene": "battle", "run": DebugFixtures.make("midbattle", "BARK", 1), "open": "battle_pause"},
 		{"id": "text130_reward_relic", "scene": "run", "run": MetaFixtures.reward_slot("relic"), "scale": 1.3},
 	]
