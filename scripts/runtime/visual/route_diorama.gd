@@ -25,6 +25,7 @@ extends Node3D
 const BATTLES := 6
 
 var portrait: bool = false
+var screen_anchor: float = 0.5
 var _islands: Dictionary = {}   # Vector2i(col, lane) -> {node, fire, lit, particles}
 var _bridges: Array = []        # {a: Vector2i, b: Vector2i, node, lamps}
 var _cam: Camera3D
@@ -239,6 +240,12 @@ func set_progress(battle_index: int, chosen_nodes: Array) -> void:
 		var a: Vector2i = br["a"]
 		var b: Vector2i = br["b"]
 		_light_bridge(br, bool(_islands[a]["lit"]) and bool(_islands[b]["lit"]))
+
+
+## API parity with the other dioramas. The route spans the whole width, so the
+## anchor is stored but does not move the camera.
+func set_screen_anchor(x: float) -> void:
+	screen_anchor = clampf(x, 0.0, 1.0)
 
 
 func focus(i: int) -> void:

@@ -103,7 +103,7 @@ move_child(box, 0)                                   # bag UI'et
 dio.set_portrait(size.x < size.y)
 ```
 
-Hver scene har sin egen WorldEnvironment, ≤ 3 lys (sol, hjerte, ét accentlys), ingen skygger, kun CPUParticles; testet i `test_dioramas_api_and_budget`. En `CanvasLayer` med en mørk `ColorRect` (`dim`) ligger i SubViewporten. Billeder: `tools/synty/capture_dioramas.sh` → `evidence/asset_pipeline/diorama_*.png` (inkl. `diorama_epilog_{won,lost}_{1080p,portrait}.png`).
+Alle tre har `set_screen_anchor(x: float)` (0..1): hvor træets midte skal stå vandret, fx 0,24 på desktop når paneler dækker højre side, 0,5 i portræt. Det er en sideforskydning af kameraet (`h_offset`), beregnet ud fra aspekt og fov, så hjertet bliver i billedet. På RouteDiorama gemmes værdien kun (stien fylder hele bredden). Hver scene har sin egen WorldEnvironment, ≤ 3 lys (sol, hjerte, ét accentlys), ingen skygger, kun CPUParticles; testet i `test_dioramas_api_and_budget`. En `CanvasLayer` med en mørk `ColorRect` (`dim`) ligger i SubViewporten. Billeder: `tools/synty/capture_dioramas.sh` → `evidence/asset_pipeline/diorama_*.png` (inkl. `diorama_epilog_{won,lost}_{1080p,portrait}.png`).
 
 ## Kamera og lys (forslag, matcher style gate)
 
