@@ -186,16 +186,14 @@ func play(state: StringName, speed: float = 1.0) -> void:
 		dur = 0.0
 	var ct := contact_time(state)
 	if ct > 0.0 and is_inside_tree():
-		get_tree().create_timer(ct / speed).timeout.connect(func() -> void:
-			if token == _token:
-				contact.emit(state))
+		_after(ct / speed, _emit_contact.bind(token, state))
 	if not is_inside_tree():
 		_finish.call_deferred(token, state)
 		return
 	var wait := (DURATION.get(state, 0.5) as float) if state in LOOPING else dur
 	# Normal end and the safety net share one path; the token makes it fire once.
-	get_tree().create_timer(wait / speed).timeout.connect(_finish.bind(token, state))
-	get_tree().create_timer(wait / speed + TIMEOUT_MARGIN).timeout.connect(_finish.bind(token, state))
+	_after(wait / speed, _finish.bind(token, state))
+	_after(wait / speed + TIMEOUT_MARGIN, _finish.bind(token, state))
 
 
 ## Hit reaction scaled by the damage actually dealt: bigger hit, bigger recoil
@@ -217,6 +215,30 @@ func snap(state: StringName) -> void:
 	_set_overlay(Color(0, 0, 0, 0))
 	if state != &"death":
 		play(&"idle")
+
+
+## Delayed call owned by this node: a Tween dies with the node, so nothing fires
+## (and nothing captures) after the unit view is freed. Callbacks are bound methods.
+func _after(t: float, cb: Callable) -> void:
+	var tw := create_tween()
+	tw.tween_interval(maxf(t, 0.0))
+	tw.tween_callback(cb)
+
+
+func _emit_contact(token: int, state: StringName) -> void:
+	if token == _token:
+		contact.emit(state)
+
+
+func _fx_if(token: int, id: String, local: Vector3, on_model: bool) -> void:
+	if token == _token:
+		_spawn_fx(id, local, on_model)
+
+
+func _cast_flare(token: int, k: float) -> void:
+	if token == _token:
+		_glow_pulse(1.0 + 0.9 * k, 0.08, 0.3)
+		_flash(Color(0.25, 1.0, 0.85, 0.4), 0.35)
 
 
 func _finish(token: int, state: StringName) -> void:
@@ -374,9 +396,7 @@ func _procedural(state: StringName, speed: float) -> void:
 			_tween.parallel().tween_property(_model, "rotation:x", rx - deg_to_rad(18.0 * k), 0.13)
 			_tween.tween_property(_model, "position", p0, 0.32).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 			_tween.parallel().tween_property(_model, "rotation:x", rx, 0.32)
-			get_tree().create_timer(0.15 / speed).timeout.connect(func() -> void:
-				if current == &"attack":
-					_spawn_fx("fx.ember_trail", Vector3(0, _height() * 0.5, 0), true))
+			_after(0.15 / speed, _fx_if.bind(_token, "fx.ember_trail", Vector3(0, _height() * 0.5, 0), true))
 			_head_dip(0.3, k)
 		&"attack", &"cast" when fam == &"spore":
 			_spore_cast(speed, k, big, state)
@@ -394,9 +414,7 @@ func _procedural(state: StringName, speed: float) -> void:
 			_tween.tween_property(_model, "position", p0, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 			_tween.parallel().tween_property(_model, "rotation:x", rx, 0.26)
 			_tween.parallel().tween_property(_model, "scale", s0, 0.26)
-			get_tree().create_timer(0.3 / speed).timeout.connect(func() -> void:
-				if current == &"attack":
-					_spawn_fx("fx.summon_bark", fwd * 0.55 * big))
+			_after(0.3 / speed, _fx_if.bind(_token, "fx.summon_bark", fwd * 0.55 * big, false))
 			_head_dip(0.3, k)
 		&"cast":
 			_spore_cast(speed, k, big, state)
@@ -541,10 +559,7 @@ func _spore_cast(speed: float, k: float, big: float, state: StringName) -> void:
 	_tween.parallel().tween_property(_model, "rotation:x", rx, 0.3)
 	if staff:
 		_tween.parallel().tween_property(staff, "rotation", staff.rotation, 0.3)
-	get_tree().create_timer(ct / speed).timeout.connect(func() -> void:
-		if current == state:
-			_glow_pulse(1.0 + 0.9 * k, 0.08, 0.3)
-			_flash(Color(0.25, 1.0, 0.85, 0.4), 0.35))
+	_after(ct / speed, _cast_flare.bind(_token, k))
 
 
 ## Quadrupeds and creatures with a "Head" node dip it on the strike.
