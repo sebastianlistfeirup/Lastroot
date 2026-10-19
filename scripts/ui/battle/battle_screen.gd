@@ -479,6 +479,7 @@ func _cancel() -> void:
 
 
 func _clear_selection() -> void:
+	_target_cursor = -1
 	mode = "idle"
 	selected_card = -1
 	selected_unit = -1
@@ -1074,6 +1075,44 @@ func _open_menu() -> void:
 		AppFlow.goto("menu")
 
 
+var _target_cursor: int = -1
+
+
+## Every target the current selection allows, in screen order, as callables.
+func _target_actions() -> Array:
+	var acts: Array = []
+	for g in ghost_nodes:
+		if g is Button and not (g as Button).disabled and not awaiting_heal_target:
+			acts.append((g as Button).pressed.emit)
+	if mode == "card" or awaiting_heal_target:
+		var us: Array = legal_units.duplicate()
+		us.sort()
+		for uid: int in us:
+			acts.append(_on_badge_pressed.bind(uid))
+		if not awaiting_heal_target:
+			for f: int in legal_floors:
+				acts.append(_on_floor_pressed.bind(f))
+	return acts
+
+
+func _cycle_target(dir: int) -> void:
+	var acts: Array = _target_actions()
+	if acts.is_empty():
+		return
+	_target_cursor = posmod(_target_cursor + dir, acts.size())
+	# Selecting the same target twice confirms, so never re-fire the current one.
+	(acts[_target_cursor] as Callable).call()
+
+
+func _select_card_index(i: int) -> void:
+	var hand: Array = battle.get("zones", {}).get("hand", [])
+	if i >= 0 and i < hand.size():
+		_target_cursor = -1
+		_on_card_pressed(hand[i])
+
+
+## Keyboard: 1-9 card, Tab/arrows target, Enter confirm, E end turn, Esc cancel/menu.
+## Gamepad: LB/RB card, D-pad target, A confirm, Y end turn, B cancel, Start menu.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if _pause != null and bool(_pause.get("is_open")):
@@ -1082,4 +1121,50 @@ func _unhandled_input(event: InputEvent) -> void:
 			_cancel()
 		else:
 			_open_menu()
+		get_viewport().set_input_as_handled()
+		return
+	if locked or battle_over or (_pause != null and bool(_pause.get("is_open"))):
+		return
+	var handled := true
+	if event is InputEventKey and (event as InputEventKey).pressed and not (event as InputEventKey).echo:
+		var k: Key = (event as InputEventKey).keycode
+		if k >= KEY_1 and k <= KEY_9:
+			_select_card_index(int(k - KEY_1))
+		elif k == KEY_TAB or k == KEY_RIGHT or k == KEY_DOWN:
+			_cycle_target(-1 if (event as InputEventKey).shift_pressed else 1)
+		elif k == KEY_LEFT or k == KEY_UP:
+			_cycle_target(-1)
+		elif k == KEY_ENTER or k == KEY_KP_ENTER or k == KEY_SPACE:
+			if not pending.is_empty():
+				_confirm()
+			else:
+				handled = false
+		elif k == KEY_E:
+			_end_turn()
+		else:
+			handled = false
+	elif event is InputEventJoypadButton and (event as InputEventJoypadButton).pressed:
+		var hand: Array = battle.get("zones", {}).get("hand", [])
+		var cur: int = hand.find(selected_card)
+		match (event as InputEventJoypadButton).button_index:
+			JOY_BUTTON_LEFT_SHOULDER:
+				_select_card_index(posmod(cur - 1, maxi(1, hand.size())))
+			JOY_BUTTON_RIGHT_SHOULDER:
+				_select_card_index(posmod(cur + 1, maxi(1, hand.size())))
+			JOY_BUTTON_DPAD_RIGHT, JOY_BUTTON_DPAD_DOWN:
+				_cycle_target(1)
+			JOY_BUTTON_DPAD_LEFT, JOY_BUTTON_DPAD_UP:
+				_cycle_target(-1)
+			JOY_BUTTON_A:
+				if not pending.is_empty():
+					_confirm()
+			JOY_BUTTON_Y:
+				_end_turn()
+			JOY_BUTTON_START:
+				_open_menu()
+			_:
+				handled = false
+	else:
+		handled = false
+	if handled:
 		get_viewport().set_input_as_handled()

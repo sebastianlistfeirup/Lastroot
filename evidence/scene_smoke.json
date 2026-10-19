@@ -1,5 +1,5 @@
 {
-  "checks": 36,
+  "checks": 40,
   "engine_version": "4.5.1-stable (official)",
   "failures": [],
   "results": [
@@ -128,6 +128,22 @@
       "ok": true
     },
     {
+      "name": "key selects a card",
+      "ok": true
+    },
+    {
+      "name": "Tab chooses a target",
+      "ok": true
+    },
+    {
+      "name": "Enter confirms the action",
+      "ok": true
+    },
+    {
+      "name": "E ends the turn",
+      "ok": true
+    },
+    {
       "name": "BARK wins battle 1 through the scene (phase reward)",
       "ok": true
     },
@@ -149,5 +165,5 @@
     }
   ],
   "status": "PASS",
-  "timestamp": "2026-10-19T22:05:45"
+  "timestamp": "2026-10-19T22:07:38"
 }

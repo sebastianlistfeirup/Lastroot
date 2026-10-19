@@ -177,6 +177,25 @@ func _run() -> void:
 	await _frames(2)
 	scr.queue_free()
 	await _frames(2)
+	# --- keyboard: 1 selects the first card, Tab picks a target, Enter confirms, E ends the turn
+	var kb: BattleScreen = await _open_battle("BARK", 1717)
+	var before_units: int = BattleReducer.all_allies(GameSession.battle()).size()
+	var champ_pos: int = (GameSession.battle()["zones"]["hand"] as Array).find(int(GameSession.battle()["champion_iid"]))
+	_key(KEY_1 + champ_pos)
+	await _frames(2)
+	ok(kb.mode == "card", "key selects a card")
+	_key(KEY_TAB)
+	await _frames(2)
+	ok(not kb.pending.is_empty(), "Tab chooses a target")
+	_key(KEY_ENTER)
+	await _settle(kb)
+	ok(BattleReducer.all_allies(GameSession.battle()).size() == before_units + 1, "Enter confirms the action")
+	_key(KEY_E)
+	await get_tree().process_frame
+	await _settle(kb)
+	ok(int(GameSession.battle()["turn"]) == 2, "E ends the turn")
+	kb.queue_free()
+	await _frames(2)
 	# --- complete battle 1 with both champions via the screen's command path
 	for faction in ["BARK", "SPORE"]:
 		var s2: BattleScreen = await _open_battle(faction, 777)
@@ -209,6 +228,16 @@ func _run() -> void:
 	await _frames(30)
 	ok(_positions(s3) == pos_skip, "2x playback and skip end in identical view state")
 	s3.queue_free()
+
+
+func _key(k: Key) -> void:
+	var e := InputEventKey.new()
+	e.keycode = k
+	e.pressed = true
+	get_viewport().push_input(e)
+	var u := e.duplicate()
+	u.pressed = false
+	get_viewport().push_input(u)
 
 
 func _positions(s: BattleScreen) -> Dictionary:
