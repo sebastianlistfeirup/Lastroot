@@ -106,10 +106,13 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 				await _wait(contact * speed)
 		"damage", "thorns":
 			var v: UnitView = screen.view(tid)
-			if v != null:
-				v.play(&"hit", speed)
 			var absorbed: int = int(e.get("absorbed", 0))
 			var dealt: int = int(e["amount"]) - absorbed
+			if v != null:
+				if v.animator != null and v.animator.has_method("play_hit"):
+					v.animator.call("play_hit", dealt, speed)
+				else:
+					v.play(&"hit", speed)
 			if kind == "thorns":
 				screen.popup(tid, "%s%d" % [UiKit.status_glyph("thorns"), int(e["amount"])], UiKit.AMBER)
 			if absorbed > 0:
@@ -162,7 +165,7 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 				screen.fx_at(tid, "fx.ash_death")
 			if disp.has(str(tid)):
 				disp[str(tid)]["alive"] = false
-			await _wait(0.35)
+			await _wait(0.55)
 			screen.remove_view(tid)
 			screen.layout_floor(int(e["floor"]), disp, 0.25 / speed)
 		"unit_removed":
@@ -177,6 +180,9 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 			screen.layout_all(disp, 0.35 / speed)
 			await _wait(0.3)
 		"enemy_climbed":
+			var cv: UnitView = screen.view(aid)
+			if cv != null:
+				cv.play(&"move", speed)
 			if disp.has(str(aid)):
 				disp[str(aid)]["floor"] = int(e["to_floor"])
 			screen.layout_all(disp, 0.45 / speed)
