@@ -18,3 +18,5 @@ run 390x844 -- --setup=midbattle --capture=$EV/battle_mid_portrait.png --frames=
 run 1920x1080 res://scenes/tests/stage_mutations.tscn -- --capture=$EV/stage_mutations_all.png --frames=60
 run 1920x1080 res://scenes/tests/stage_mutations.tscn -- --mutations= --capture=$EV/stage_mutations_none.png --frames=60
 ls -la $EV/battle_*.png $EV/stage_mutations_*.png
+run 1500x700 res://scenes/tests/heart_strip.tscn -- --capture=$EV/heart_health_strip.png --frames=40
+run 390x844 -- --setup=boss --capture=$EV/battle_boss_portrait.png --frames=90

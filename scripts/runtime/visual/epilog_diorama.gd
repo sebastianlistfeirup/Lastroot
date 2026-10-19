@@ -184,8 +184,19 @@ func _place_champion(faction: String, path: String) -> void:
 	_victory_timer = 0.4
 
 
-## Lost: dim the gem, hide the halo, lay dark cracks across it, weak light.
+## Lost: the heart's own health visual at near zero (heavy cracks, cold tint,
+## flicker), smaller and with a weak light.
 func _crack_heart(hl: OmniLight3D) -> void:
+	if _heart.has_method("set_health"):
+		_heart.call("set_health", 0.08)
+		_heart.scale = Vector3.ONE * 0.92
+		if hl:
+			hl.light_energy = 0.45
+		return
+	_crack_heart_fallback(hl)
+
+
+func _crack_heart_fallback(hl: OmniLight3D) -> void:
 	for n: Node in _heart.find_children("Gem*", "MeshInstance3D", true, false):
 		var mi := n as MeshInstance3D
 		var m := (mi.material_override as StandardMaterial3D).duplicate() as StandardMaterial3D

@@ -380,7 +380,7 @@ func test_dioramas_api_and_budget() -> Array:
 				f.append("epilog won SPORE: Spore Sage missing on the Crown")
 			_check_lights(d, path + " (won)", f)
 			d.call("set_run", [], "BARK", "BULWARK", "lost")
-			if d.find_children("Cracks", "Node3D", true, false).is_empty():
+			if d.find_children("Crack*", "Node3D", true, false).filter(func(n: Node) -> bool: return (n as Node3D).visible).is_empty():
 				f.append("epilog lost: heart not cracked")
 			if d.find_children("*", "", true, false).filter(func(n: Node) -> bool: return str(n.get_meta("slot_id", "")) == "enemy.E06").is_empty():
 				f.append("epilog lost: no Ash Crown on the Crown")
@@ -405,3 +405,42 @@ func _check_lights(d: Node, label: String, f: Array) -> void:
 	for l: Node in lights:
 		if (l as Light3D).shadow_enabled:
 			f.append("%s: %s casts shadows" % [label, l.name])
+
+
+## Heart health visual: cracks/halo/pulse follow the health bands; hurt() is safe anywhere.
+func test_heart_health_bands() -> Array:
+	var f: Array = []
+	var h := VisualSlots.make("stage.heart")
+	if not h.has_method("set_health") or not h.has_method("hurt"):
+		h.free()
+		return ["stage.heart lacks set_health()/hurt()"]
+	var vis := func() -> int:
+		return h.find_children("Crack*", "Node3D", true, false).filter(func(n: Node) -> bool: return (n as Node3D).visible).size()
+	var halo := func() -> bool:
+		return h.find_children("Glow_Halo*", "Node3D", true, false).any(func(n: Node) -> bool: return (n as Node3D).visible)
+	h.call("set_health", 1.0)
+	if int(vis.call()) != 0 or not bool(halo.call()):
+		f.append("health 1.0: expected no cracks and a halo")
+	h.call("set_health", 0.5)
+	var mid: int = vis.call()
+	if mid < 2 or mid > 4:
+		f.append("health 0.5: expected a few cracks, got %d" % mid)
+	var an := h.get_node("UnitAnimator") as UnitAnimator
+	if an.idle_rate >= 1.0:
+		f.append("health 0.5: pulse should be slower")
+	h.call("set_health", 0.2)
+	if int(vis.call()) <= mid or bool(halo.call()):
+		f.append("health 0.2: expected heavy cracks and no halo")
+	h.call("hurt", 0.5)
+	if h.find_children("*", "Light3D", true, false).size() > 1:
+		f.append("heart must keep a single light")
+	h.free()
+	var b := VisualSlots.make("stage.backdrop")
+	if b.find_children("*", "Light3D", true, false).size() > 1:
+		f.append("backdrop: more than 1 light")
+	if not b.find_children("*", "GPUParticles3D", true, false).is_empty():
+		f.append("backdrop: GPUParticles3D")
+	if b.find_children("Shaft*", "Node3D", true, false).is_empty() or b.find_children("MistBand*", "Node3D", true, false).is_empty():
+		f.append("backdrop: depth layers missing")
+	b.free()
+	return f
