@@ -1045,6 +1045,120 @@
    ],
    "rotation_y": 0
   },
+  "fx.summon_bark": {
+   "kind": "fx",
+   "name": "summon bark",
+   "one_shot": true,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "summon_bark"
+   },
+   "notes": "Leaves and bark chips burst from the floor when a Bark unit grows in (UnitAnimator summon; also the slam dust).",
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
+  "fx.summon_spore": {
+   "kind": "fx",
+   "name": "summon spore",
+   "one_shot": true,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "summon_spore"
+   },
+   "notes": "Violet/turquoise spores rise when a Spore unit grows in (UnitAnimator summon, S01 victory).",
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
+  "fx.ash_puff": {
+   "kind": "fx",
+   "name": "ash puff",
+   "one_shot": true,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "ash_puff"
+   },
+   "notes": "Smoky ash puff with a few embers: an enemy's first appearance (UnitAnimator summon/first move).",
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
+  "fx.wilt": {
+   "kind": "fx",
+   "name": "wilt",
+   "one_shot": true,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "wilt"
+   },
+   "notes": "Falling leaves when a Bark ally wilts into the floor (UnitAnimator death).",
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
+  "fx.wilt_spore": {
+   "kind": "fx",
+   "name": "wilt spore",
+   "one_shot": true,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "wilt_spore"
+   },
+   "notes": "Falling violet cap flakes when a Spore ally wilts (UnitAnimator death).",
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
+  "fx.ember_trail": {
+   "kind": "fx",
+   "name": "ember trail",
+   "one_shot": true,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "ember_trail"
+   },
+   "notes": "Short world-space ember trail behind a lunging enemy (UnitAnimator attack).",
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
   "fx.ring": {
    "kind": "fx",
    "name": "ring",
