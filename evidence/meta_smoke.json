@@ -1,6 +1,6 @@
 {
   "checks": 461,
-  "duration_ms": 7092,
+  "duration_ms": 7292,
   "engine_version": "4.5.1-stable (official)",
   "failed": 0,
   "failures": [],
@@ -113,5 +113,5 @@
     "first_run_show: press NewRunButton",
     "first_run_show: press ShowGuideButton"
   ],
-  "timestamp": "2026-10-19T22:45:17"
+  "timestamp": "2026-10-19T22:48:23"
 }
