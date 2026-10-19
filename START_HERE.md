@@ -60,4 +60,4 @@ Se `docs/STATUS.md` (porte, opgaver, tests, blokeringer, næste tre opgaver) og 
 
 ## 7. Dokumenter
 
-`README.md` · `AGENTS.md`/`CLAUDE.md` (regler for kodeagenter) · `plan/tasks.json` + `tools/validate_plan.py` · `docs/BIBLE.md` + PDF · `docs/STATUS.md` · `docs/DECISIONS.md` · `docs/RISKS.md` · `docs/VERSION_MATRIX.md` · `docs/CAPABILITY_MATRIX.md` · `docs/ASSET_PLAN.md` · `docs/SYNTY_INTEGRATION.md` · `docs/SCENE_ASSEMBLY.md` · `docs/ASSET_LEDGER.csv` · `docs/ANIMATION_LEDGER.csv` · `docs/AUDIO_LEDGER.csv` · `archive/` (startpakkens originaler)
+`docs/PRODUCTION_PLAN.md` (plan til udgivelse) · `docs/BALANCE_NOTES.md` · `README.md` · `AGENTS.md`/`CLAUDE.md` (regler for kodeagenter) · `plan/tasks.json` + `tools/validate_plan.py` · `docs/BIBLE.md` + PDF · `docs/STATUS.md` · `docs/DECISIONS.md` · `docs/RISKS.md` · `docs/VERSION_MATRIX.md` · `docs/CAPABILITY_MATRIX.md` · `docs/ASSET_PLAN.md` · `docs/SYNTY_INTEGRATION.md` · `docs/SCENE_ASSEMBLY.md` · `docs/ASSET_LEDGER.csv` · `docs/ANIMATION_LEDGER.csv` · `docs/AUDIO_LEDGER.csv` · `archive/` (startpakkens originaler)
