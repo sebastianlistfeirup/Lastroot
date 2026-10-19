@@ -1,0 +1,28 @@
+{
+  "task_id": "LR-02",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "expected": "24 unikke typer, 22+2. Begge startdecks 12 instanser. Dublet-ID og ukendt effekt afvises med præcis årsag.",
+  "observed": [
+    {
+      "kind": "unit",
+      "match": [
+        "test_catalog/",
+        "test_rng/"
+      ],
+      "found": 13,
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

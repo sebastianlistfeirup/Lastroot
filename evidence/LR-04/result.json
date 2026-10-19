@@ -1,0 +1,32 @@
+{
+  "task_id": "LR-04",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "expected": "T01/T02/T05 består. Død behandles én gang, Torne rekursiverer ikke, ny Gift tickes ikke to gange.",
+  "observed": [
+    {
+      "kind": "unit",
+      "match": [
+        "test_battle_matrix/test_t01",
+        "test_battle_matrix/test_t02",
+        "test_battle_matrix/test_t05",
+        "test_battle_matrix/test_new_poison",
+        "test_battle_matrix/test_growth",
+        "test_cards/test_s06"
+      ],
+      "found": 6,
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "task_id": "LR-12",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . --export-release Linux/Windows; Linux-build kørt under Xvfb",
+  "exit_code": 0,
+  "expected": "Gate 1 bestået med faktisk kørbar kamp og korrekt prognose/save. Ingen P0/P1. Headless alene tæller ikke som visuelt kontrolleret demo.",
+  "observed": [
+    {
+      "kind": "files",
+      "match": [
+        "evidence/build_checksums.txt",
+        "evidence/shots/linux_build_boss.png"
+      ],
+      "missing": [],
+      "ok": true
+    },
+    {
+      "kind": "unit",
+      "ok": true
+    },
+    {
+      "kind": "scene_smoke",
+      "ok": true
+    }
+  ],
+  "open": [
+    "Windows-build køres på referencemaskinen.",
+    "Video af første kamp fra ren profil.",
+    "LR-11 visuel/import-del."
+  ],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "VERIFYING",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

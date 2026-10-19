@@ -1,0 +1,41 @@
+{
+  "task_id": "LR-09",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "scene smoke (bot sender de samme kommandoer som UI'et)",
+  "exit_code": 0,
+  "expected": "Første kamp kan gennemføres med begge champions uden debug. Ingen tidlig sejr, dobbelt opstigning eller uvarslet bølge.",
+  "observed": [
+    {
+      "kind": "scene_smoke",
+      "match": [
+        "BARK wins battle 1 through the scene (phase reward)",
+        "SPORE wins battle 1 through the scene (phase reward)",
+        "BARK end banner shown",
+        "SPORE end banner shown"
+      ],
+      "missing": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "kind": "unit",
+      "match": [
+        "test_battle_matrix/test_t10"
+      ],
+      "found": 1,
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [
+    "Én menneskelig gennemspilning af kamp 1 med hver champion (onboarding-hints vurderes)."
+  ],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "VERIFYING",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

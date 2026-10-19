@@ -1,0 +1,31 @@
+{
+  "task_id": "LR-03",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "expected": "Overlevende fjende rykker højst én etage og kæmper én gang. Tomt bræt før sidste bølge er ikke sejr. Samme input samme resultat.",
+  "observed": [
+    {
+      "kind": "unit",
+      "match": [
+        "test_battle_matrix/test_t03",
+        "test_battle_matrix/test_t10",
+        "test_battle_matrix/test_deterministic",
+        "test_battle_matrix/test_boss",
+        "test_battle_matrix/test_heart"
+      ],
+      "found": 9,
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": null,
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

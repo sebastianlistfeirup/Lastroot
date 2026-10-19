@@ -1,0 +1,28 @@
+{
+  "task_id": "LR-06",
+  "commit": "c964ada",
+  "engine_version": "4.5.1-stable (official)",
+  "command": "godot --headless --path . --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "expected": "Mindst 20 fixtures matcher state og eventrækkefølge. Preview bruger ingen kraft, RNG eller relikvieflag.",
+  "observed": [
+    {
+      "kind": "unit",
+      "match": [
+        "test_forecast/",
+        "test_battle_matrix/test_t07"
+      ],
+      "found": 6,
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "open": [],
+  "fixture": "fixtures/forecast/scenarios.json",
+  "timestamp": "2026-10-19T21:06:56+00:00",
+  "status": "PASS",
+  "artifacts": [
+    "evidence/test_report.json",
+    "evidence/scene_smoke.json"
+  ]
+}

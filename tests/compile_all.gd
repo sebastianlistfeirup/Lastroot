@@ -14,6 +14,10 @@ func _ready() -> void:
 	for f in failed:
 		print("COMPILE FAIL ", f)
 	print("COMPILE %d scripts, %d failed" % [files.size(), failed.size()])
+	var rep := FileAccess.open("res://evidence/compile_report.json", FileAccess.WRITE)
+	rep.store_string(JSON.stringify({"engine_version": Engine.get_version_info()["string"],
+		"scripts": files.size(), "failed": failed, "status": "PASS" if failed.is_empty() else "FAIL"}, "  ", true))
+	rep.close()
 	get_tree().quit(0 if failed.is_empty() else 1)
 
 
