@@ -155,6 +155,14 @@ static func make(slot_id: String) -> Node3D:
 	root.set_meta("is_proxy", is_proxy)
 	root.set_meta("kind", kind)
 	root.set_meta("height_m", float(s.get("height", 1.0)))
+	if is_proxy and kind in ["stage", "prop", "mutation"] and slot_id != "stage.backdrop":
+		var gp := GlowPulse.new()
+		gp.name = "GlowPulse"
+		root.add_child(gp)
+	if is_proxy and str((s.get("proxy", {}) as Dictionary).get("builder", "")) == "trunk":
+		var sv := StageVariant.new()
+		sv.name = "StageVariant"
+		root.add_child(sv)
 	if kind in ANIMATED_KINDS or slot_id == "stage.heart":
 		if root.get_node_or_null("UnitAnimator") == null:
 			var an := UnitAnimator.new()

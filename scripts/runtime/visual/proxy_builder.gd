@@ -44,7 +44,8 @@ func _p(mesh: Mesh, mat: Material, pos: Vector3, rot: Vector3 = Vector3.ZERO, sc
 	var std := mat as StandardMaterial3D
 	if std and (std.shading_mode == BaseMaterial3D.SHADING_MODE_UNSHADED or std.emission_enabled):
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_at.add_child(mi)
+	# Readable names (Glow_Dot2, ...) so animators can find the glow parts.
+	_at.add_child(mi, not nm.is_empty())
 	return mi
 
 
@@ -53,7 +54,7 @@ func _grp(nm: String, pos: Vector3 = Vector3.ZERO, rot: Vector3 = Vector3.ZERO) 
 	g.name = nm
 	g.position = pos
 	g.rotation_degrees = rot
-	_at.add_child(g)
+	_at.add_child(g, true)
 	_at = g
 	return g
 
@@ -584,10 +585,17 @@ func _b_ash_crown(_s: Dictionary) -> void:
 
 ## Floor terrace: top at y=0, usable x -5.5..+5.5, depth ~3.2 (z -1.6..1.6).
 ## The front edge (+Z) carries no props; dressing only on the back edge.
+## Each floor has its own mood (REF_05): Roots dark/cool with violet glowing
+## fungi, Trunk warm amber-lit, Crown lighter and greener with blossoms.
 func _b_floor(s: Dictionary) -> void:
 	var kind := str(s.get("variant", "roots"))
 	var w := float(s.get("width", 11.0))
 	var d := float(s.get("depth", 3.2))
+	var tiles: Array = {"roots": ["stone_cool", "stone_dark", "stone_cool", "stone"], "trunk": ["stone_warm", "stone", "stone_warm", "stone_dark"],
+		"crown": ["stone_light", "stone_warm", "stone_light", "stone"]}.get(kind, ["stone"])
+	var rim: String = {"roots": "bark_dark", "trunk": "bark", "crown": "bark_light"}.get(kind, "bark")
+	var moss: String = {"roots": "moss", "trunk": "moss", "crown": "moss_light"}.get(kind, "moss")
+	var moss_chance: float = {"roots": 0.25, "trunk": 0.4, "crown": 0.75}.get(kind, 0.4)
 	# Paving: rows of slightly irregular flagstones.
 	var cols := 12
 	var rows := 3
@@ -597,28 +605,28 @@ func _b_floor(s: Dictionary) -> void:
 			var td := d / float(rows)
 			var x := -w * 0.5 + tw * (float(c) + 0.5) + _r(-0.04, 0.04)
 			var z := -d * 0.5 + td * (float(r) + 0.5)
-			var tk: String = ["stone_warm", "stone", "stone_dark", "stone_warm"][(r * 7 + c * 3) % 4]
+			var tk: String = tiles[(r * 7 + c * 3) % tiles.size()]
 			_p(ProxyMesh.box(Vector3(tw - 0.07, 0.14, td - 0.07)), _m(tk), Vector3(x, -0.07 + _r(-0.012, 0.004), z), Vector3(0, _r(-2.5, 2.5), 0))
-			if r == 0 and _rng.randf() < 0.45:
-				_p(ProxyMesh.box(Vector3(_r(0.3, 0.7), 0.03, _r(0.2, 0.5))), _m("moss"), Vector3(x + _r(-0.2, 0.2), 0.005, z - td * 0.3), Vector3(0, _r(0, 90), 0))
+			if r < 2 and _rng.randf() < moss_chance * (1.0 if r == 0 else 0.5):
+				_p(ProxyMesh.box(Vector3(_r(0.3, 0.7), 0.03, _r(0.2, 0.5))), _m(moss), Vector3(x + _r(-0.2, 0.2), 0.005, z - td * 0.3), Vector3(0, _r(0, 90), 0))
 	_p(ProxyMesh.box(Vector3(w + 0.3, 0.12, d + 0.3)), _m("stone_dark"), Vector3(0, -0.1, 0))
 	for sx: float in [-1.0, 1.0]:
-		_p(ProxyMesh.cyl(d * 0.55, d * 0.5, 0.18, 9), _m("stone"), Vector3((w * 0.5 + 0.1) * sx, -0.1, 0), Vector3.ZERO, Vector3(0.75, 1, 1))
-	# Bark rim with moss, wrapping the slab.
-	_p(ProxyMesh.box(Vector3(w + 0.8, 0.55, d + 0.5)), _m("bark"), Vector3(0, -0.42, -0.05))
+		_p(ProxyMesh.cyl(d * 0.55, d * 0.5, 0.18, 9), _m(str(tiles[1])), Vector3((w * 0.5 + 0.1) * sx, -0.1, 0), Vector3.ZERO, Vector3(0.75, 1, 1))
+	# Bark rim, wrapping the slab; front edge stays clean (low moss only).
+	_p(ProxyMesh.box(Vector3(w + 0.8, 0.55, d + 0.5)), _m(rim), Vector3(0, -0.42, -0.05))
 	for sx: float in [-1.0, 1.0]:
-		_p(ProxyMesh.cyl(d * 0.62, d * 0.55, 0.55, 9), _m("bark"), Vector3((w * 0.5 + 0.3) * sx, -0.42, -0.05), Vector3.ZERO, Vector3(0.75, 1, 1))
+		_p(ProxyMesh.cyl(d * 0.62, d * 0.55, 0.55, 9), _m(rim), Vector3((w * 0.5 + 0.3) * sx, -0.42, -0.05), Vector3.ZERO, Vector3(0.75, 1, 1))
 	for i: int in 16:
 		var x := -w * 0.5 - 0.2 + (w + 0.4) * float(i) / 15.0
-		_p(ProxyMesh.box(Vector3(_r(0.5, 0.9), _r(0.45, 0.7), 0.16)), _m("bark_dark" if i % 3 else "bark"), Vector3(x, -0.45, d * 0.5 + 0.22), Vector3(0, _r(-8, 8), _r(-10, 10)))
+		_p(ProxyMesh.box(Vector3(_r(0.5, 0.9), _r(0.45, 0.7), 0.16)), _m("bark_dark" if i % 3 else rim), Vector3(x, -0.45, d * 0.5 + 0.22), Vector3(0, _r(-8, 8), _r(-10, 10)))
 	for i: int in 26:
 		var x := -w * 0.5 - 0.3 + (w + 0.6) * float(i) / 25.0 + _r(-0.15, 0.15)
 		var mh := _r(0.06, 0.12)
-		_p(ProxyMesh.box(Vector3(_r(0.35, 0.8), mh, _r(0.22, 0.36))), _m("moss" if i % 3 else "moss_light"), Vector3(x, -mh * 0.5 + 0.012, d * 0.5 + 0.16), Vector3(0, _r(-10, 10), 0))
-	for i: int in 22:
+		_p(ProxyMesh.box(Vector3(_r(0.35, 0.8), mh, _r(0.22, 0.36))), _m(moss if i % 4 else "moss_light"), Vector3(x, -mh * 0.5 + 0.012, d * 0.5 + 0.16), Vector3(0, _r(-10, 10), 0))
+	for i: int in 18:
 		var x := _r(-w * 0.5, w * 0.5)
 		var dl := _r(0.3, 1.1) if kind == "roots" else _r(0.2, 0.45)
-		_p(ProxyMesh.box(Vector3(_r(0.08, 0.2), dl, 0.05)), _m("moss" if i % 3 else "moss_light"), Vector3(x, -0.5 - dl * 0.5 + 0.1, d * 0.5 + 0.3), Vector3(0, 0, _r(-6, 6)))
+		_p(ProxyMesh.box(Vector3(_r(0.08, 0.18), dl, 0.05)), _m("moss"), Vector3(x, -0.5 - dl * 0.5 + 0.1, d * 0.5 + 0.3), Vector3(0, 0, _r(-6, 6)))
 	# Underside: tapered root mass, kept behind the units of the floor below (z < -1.2)
 	# except on the lowest floor, where nothing stands underneath.
 	if kind == "roots":
@@ -630,16 +638,25 @@ func _b_floor(s: Dictionary) -> void:
 			for i: int in 7:
 				var x := -5.0 + float(i) * 1.66
 				var dz := _r(-0.6, 0.8)
-				_tube([Vector3(x * 0.5, -0.6, dz - 0.4), Vector3(x * 0.8, -1.6, dz + 0.2), Vector3(x * 1.05, -2.6, dz + 0.4), Vector3(x * 1.1, -3.6, dz)], 0.42, 0.1, "bark" if i % 2 else "bark_dark", 6)
-			_dress_back(w, d, ["rock", "lantern", "root_arch", "rock", "lantern", "mushroom_cluster"])
+				_tube([Vector3(x * 0.5, -0.6, dz - 0.4), Vector3(x * 0.8, -1.6, dz + 0.2), Vector3(x * 1.05, -2.6, dz + 0.4), Vector3(x * 1.1, -3.6, dz)], 0.42, 0.1, "bark_dark" if i % 2 else "bark", 6)
+			# Violet glowing fungi on the rim's ends (not on the walkable surface).
+			for sx: float in [-1.0, 1.0]:
+				for k: int in 3:
+					var p := Vector3((w * 0.5 + 0.9 + 0.25 * k) * sx, -0.3 - 0.22 * k, 0.6 - 0.5 * k)
+					_p(ProxyMesh.cyl(0.2 - 0.04 * k, 0.24 - 0.04 * k, 0.06, 8), _g("poison_violet"), p, Vector3(0, 0, 18 * sx), Vector3.ONE, "Glow_Gill")
+			_dress_back(w, d, ["mushroom_cluster", "rock", "root_arch", "mushroom_cluster", "rock", "mushroom_cluster"])
 		"trunk":
 			for sx: float in [-1.0, 1.0]:
 				_tube([Vector3(1.4 * sx, -0.7, -2.4), Vector3(3.2 * sx, -1.2, -1.8), Vector3(4.6 * sx, -2.0, -2.0)], 0.32, 0.08, "bark", 6)
-			_dress_back(w, d, ["mushroom_cluster", "lantern", "mushroom_cluster", "rock", "lantern", "mushroom_cluster"])
+			_dress_back(w, d, ["lantern", "mushroom_cluster", "lantern", "lantern", "rock", "lantern"])
 		"crown":
 			for sx: float in [-1.0, 1.0]:
 				_tube([Vector3(1.2 * sx, -0.6, -2.4), Vector3(3.0 * sx, -1.0, -1.8), Vector3(4.6 * sx, -1.7, -1.9)], 0.3, 0.07, "bark_light", 6)
-			_dress_back(w, d, ["crystal", "lantern", "blossom", "crystal", "lantern", "blossom"])
+				# Leafy bushes behind the back corners: the crown reads greener and lighter.
+				for k: int in 3:
+					_p(ProxyMesh.rock(_r(0.45, 0.7), 300 + k + int(sx * 10.0), 0.7), _m("leaf_bright" if k % 2 else "leaf_light"),
+						Vector3((w * 0.5 - 0.2 + 0.5 * k) * sx, 0.25 + 0.2 * k, -d * 0.5 - 0.35 - 0.2 * k))
+			_dress_back(w, d, ["crystal", "blossom", "crystal", "blossom", "lantern", "crystal"])
 
 
 ## Props along the back edge (z ~ -1.45), leaving the centre (trunk) and front free.
@@ -666,35 +683,69 @@ func _blossoms(n: int) -> void:
 		_p(ProxyMesh.sphere(0.07, 6, 3), _g("blossom_gold"), base + Vector3(0, 0.6, 0), Vector3.ZERO, Vector3.ONE, "Glow_Blossom")
 
 
-## Trunk segment between two floors: base y=0, top y=4.5, behind the play area (z < -1.2).
+## Trunk segment: base y=0, top y=4.5, behind the play area (front z ~ -1.4). The battle
+## scene instances one per floor; StageVariant shows the matching look by height:
+## roots (dark, violet fungi), trunk (amber windows high up, turquoise veins),
+## crown (tapers and splits into branches cradling the heart, green leafy canopy).
+## No bright parts near x=0 at unit height: that gap between the sides stays calm.
 func _b_trunk(s: Dictionary) -> void:
 	var h := float(s.get("height", 4.5))
 	var z := -3.2
-	_p(ProxyMesh.cyl(1.35, 1.6, h, 9), _m("bark"), Vector3(0, h * 0.5, z))
-	for i: int in 8:
-		var a := TAU * float(i) / 8.0 + 0.2
-		var r := 1.28
-		var pts: Array = []
-		for k: int in 5:
-			var t := float(k) / 4.0
-			var aa := a + t * 0.9
-			pts.append(Vector3(cos(aa) * r * (1.12 - 0.12 * t), h * t - 0.1, z + sin(aa) * r * (1.12 - 0.12 * t)))
-		_tube(pts, 0.32, 0.24, "bark_dark" if i % 2 else "bark_light", 6)
-	# Amber doorway facing the camera, recessed into the trunk.
-	var door := _grp("Door", Vector3(0, 0.0, z + 1.6))
-	_p(ProxyMesh.box(Vector3(0.9, 1.6, 0.12)), _m("bark_dark"), Vector3(0, 0.85, 0.0))
-	_p(ProxyMesh.box(Vector3(0.5, 1.15, 0.06)), _g("amber_soft"), Vector3(0, 0.62, 0.06), Vector3.ZERO, Vector3.ONE, "Glow_Door")
-	_p(ProxyMesh.prism(Vector3(0.5, 0.3, 0.06)), _g("amber"), Vector3(0, 1.34, 0.06), Vector3.ZERO, Vector3.ONE, "Glow_DoorTop")
-	_p(ProxyMesh.prism(Vector3(0.9, 0.45, 0.12)), _m("bark_dark"), Vector3(0, 1.85, 0.0))
-	for k: int in 3:
-		_p(ProxyMesh.box(Vector3(0.6 - 0.1 * k, 0.08, 0.2)), _m("stone"), Vector3(0, 0.04 + 0.08 * k, 0.2 - 0.06 * k))
-	_end(door)
-	for p: Vector3 in [Vector3(-0.85, 2.9, z + 1.22), Vector3(0.85, 3.4, z + 1.18)]:
-		_p(ProxyMesh.box(Vector3(0.22, 0.45, 0.05)), _g("amber_soft"), p, Vector3(0, 0, _r(-8, 8)), Vector3.ONE, "Glow_Window")
-		_p(ProxyMesh.box(Vector3(0.32, 0.55, 0.04)), _m("bark_dark"), p + Vector3(0, 0, -0.02))
-	for i: int in 4:
-		var x := _r(-1.2, 1.2)
-		_p(ProxyMesh.box(Vector3(0.08, _r(0.4, 1.0), 0.04)), _m("moss"), Vector3(x, h - 0.5 - _r(0, 0.6), z + sqrt(maxf(1.42 * 1.42 - x * x, 0.0))))
+	for k: String in ["roots", "trunk", "crown"]:
+		var g := _grp("Variant_" + k)
+		g.visible = k == "trunk"
+		var top := 2.6 if k == "crown" else h
+		var rb := 1.75 if k == "roots" else 1.6
+		var rt := 1.0 if k == "crown" else 1.38
+		_p(ProxyMesh.cyl(rt, rb, top, 9), _m("bark_dark" if k == "roots" else "bark"), Vector3(0, top * 0.5, z))
+		for i: int in 8:
+			var a := TAU * float(i) / 8.0 + 0.2
+			var pts: Array = []
+			for j: int in 5:
+				var t := float(j) / 4.0
+				var aa := a + t * 0.9
+				var rr := lerpf(rb - 0.3, rt - 0.2, t)
+				pts.append(Vector3(cos(aa) * rr, top * t - 0.1, z + sin(aa) * rr))
+			_tube(pts, 0.32, 0.22, "bark_dark" if i % 2 else ("bark" if k == "roots" else "bark_light"), 6)
+		match k:
+			"roots":
+				for i: int in 6:
+					var a := PI + PI * float(i) / 5.0
+					_tube([Vector3(cos(a) * 1.4, 0.6, z + sin(a) * 1.0), Vector3(cos(a) * 2.2, 0.1, z + sin(a) * 1.3 - 0.2), Vector3(cos(a) * 2.8, -0.05, z + sin(a) * 1.5 - 0.4)], 0.3, 0.1, "bark_dark", 6)
+				for p: Vector3 in [Vector3(-1.1, 1.3, z + 1.25), Vector3(1.15, 2.1, z + 1.2), Vector3(-0.9, 3.1, z + 1.3), Vector3(1.0, 3.7, z + 1.25)]:
+					_p(ProxyMesh.cyl(0.24, 0.28, 0.06, 8), _g("poison_violet"), p, Vector3(10, 0, 0), Vector3.ONE, "Glow_Gill")
+					_p(ProxyMesh.cyl(0.28, 0.3, 0.05, 8), _m("cap_violet_dark"), p + Vector3(0, 0.05, 0))
+				_window(Vector3(0.0, 3.8, z + 1.42), "amber_soft")
+			"trunk":
+				for p: Vector3 in [Vector3(-0.75, 2.9, z + 1.3), Vector3(0.8, 3.6, z + 1.26), Vector3(0.05, 4.1, z + 1.36)]:
+					_window(p, "amber")
+				for i: int in 4:
+					var x := -0.95 + 0.62 * float(i) + _r(-0.1, 0.1)
+					var fz := z + sqrt(maxf(1.5 * 1.5 - x * x, 0.0)) + 0.02
+					_tube([Vector3(x, 0.2, fz), Vector3(x + _r(-0.15, 0.15), 1.6, fz - 0.03), Vector3(x + _r(-0.2, 0.2), 3.0, fz - 0.06), Vector3(x, 4.4, fz - 0.1)], 0.022, 0.014, "turquoise_soft", 4)
+					_p(ProxyMesh.sphere(0.06, 5, 3), _g("turquoise"), Vector3(x, 1.6 + 0.5 * float(i % 2), fz), Vector3.ZERO, Vector3.ONE, "Glow_Vein")
+			"crown":
+				# Branches cradle the heart (heart at trunk-local (0, 3.4, -0.4); stay behind it).
+				var ends := [Vector3(-1.6, 4.3, -1.0), Vector3(1.6, 4.4, -1.0), Vector3(-1.0, 4.9, -1.9), Vector3(1.1, 4.9, -1.9), Vector3(0.0, 5.0, -2.6)]
+				for i: int in ends.size():
+					var e: Vector3 = ends[i]
+					var b := Vector3(e.x * 0.35, 2.3, z + 0.5)
+					_tube([b, b.lerp(e, 0.5) + Vector3(0, -0.3, 0), e], 0.3, 0.07, "bark_light" if i % 2 else "bark", 6)
+				# Leafy canopy to the sides of the heart, low enough to stay clear of the HUD;
+				# directly behind the heart only dark branches, so the turquoise pops.
+				for c: Array in [[Vector3(-2.8, 3.8, -2.9), 0.85], [Vector3(2.9, 3.7, -2.9), 0.85], [Vector3(-2.0, 4.4, -3.3), 0.7], [Vector3(2.1, 4.4, -3.3), 0.7],
+						[Vector3(-3.7, 3.2, -3.4), 0.65], [Vector3(3.8, 3.1, -3.4), 0.65]]:
+					var r: float = c[1]
+					_p(ProxyMesh.rock(r, 400 + int(r * 10.0) + int(absf((c[0] as Vector3).x) * 7.0), 0.65), _m("leaf_light" if r > 0.75 else "leaf_bright"), c[0] as Vector3)
+				for p: Vector3 in [Vector3(-2.4, 4.2, -2.3), Vector3(2.4, 4.1, -2.3), Vector3(-1.8, 4.8, -2.8), Vector3(1.9, 4.8, -2.8), Vector3(-3.3, 3.6, -2.7), Vector3(3.4, 3.5, -2.7)]:
+					_p(ProxyMesh.rock(0.28, int(p.x * 13.0) + 77, 0.8), _m("blossom"), p)
+					_p(ProxyMesh.sphere(0.08, 5, 3), _g("blossom_gold"), p + Vector3(0, 0.2, 0.2), Vector3.ZERO, Vector3.ONE, "Glow_Blossom")
+		_end(g)
+
+
+func _window(p: Vector3, key: String) -> void:
+	_p(ProxyMesh.box(Vector3(0.32, 0.5, 0.05)), _m("bark_dark"), p + Vector3(0, 0, -0.02))
+	_p(ProxyMesh.box(Vector3(0.18, 0.34, 0.05)), _g(key), p, Vector3.ZERO, Vector3.ONE, "Glow_Window")
 
 
 ## Heart crystal ~1.6 m on a cradle of branches, glowing turquoise.
@@ -729,27 +780,29 @@ func _heart_mat() -> StandardMaterial3D:
 
 
 ## Dark floating islands, rock spires and violet haze far behind (z < -15).
+## Kept small and away from the tree's silhouette so the stage reads first.
 func _b_backdrop(_s: Dictionary) -> void:
-	for i: int in 16:
-		var x := _r(-42, 42)
-		var z := _r(-48, -18)
-		var y := _r(-6, 22)
-		var r := _r(0.7, 2.4)
+	for i: int in 14:
+		var side := -1.0 if i % 2 == 0 else 1.0
+		var x := side * _r(12, 44)
+		var z := _r(-50, -20)
+		var y := _r(-8, 20)
+		var r := _r(0.6, 1.8)
 		var g := _grp("Island_%d" % i, Vector3(x, y, z), Vector3(0, _r(0, 360), 0))
-		_p(ProxyMesh.cyl(r, r * 0.15, r * 1.8, 7), _m("island"), Vector3(0, -r * 0.9, 0))
-		_p(ProxyMesh.cyl(r * 0.98, r, 0.3, 7), _m("island_top"), Vector3(0, 0.1, 0))
+		_p(ProxyMesh.cyl(r, r * 0.12, r * 1.8, 7), _m("island"), Vector3(0, -r * 0.9, 0))
+		_p(ProxyMesh.cyl(r * 0.98, r, 0.25, 7), _m("island_top"), Vector3(0, 0.08, 0))
 		if i % 3 == 0:
 			_p(ProxyMesh.cyl(0.0, r * 0.25, r * 1.4, 5), _m("island"), Vector3(_r(-r * 0.4, r * 0.4), r * 0.7, 0))
 		if i % 4 == 1:
-			_p(ProxyMesh.box(Vector3(0.12, 0.2, 0.05)), _g("amber_soft"), Vector3(0, 0.4, r * 0.6))
+			_p(ProxyMesh.box(Vector3(0.12, 0.2, 0.05)), _g("amber_soft"), Vector3(0, 0.3, r * 0.6), Vector3.ZERO, Vector3.ONE, "Glow_Window")
 		_end(g)
-	for i: int in 14:
-		var x := -45.0 + 90.0 * float(i) / 13.0 + _r(-3, 3)
-		var h := _r(10, 28)
-		_p(ProxyMesh.cyl(_r(0.2, 0.7), _r(1.2, 2.6), h, 6), _g("haze_dark"), Vector3(x, -14 + h * 0.5, _r(-50, -30)))
-	for i: int in 3:
-		_p(ProxyMesh.sphere(14.0, 12, 6), VisualPalette.glow("haze", 0.07, false), Vector3(-30.0 + 30.0 * i, -16.0, -26.0 - 4.0 * i), Vector3.ZERO, Vector3(1.6, 0.5, 0.4), "Haze")
-	_p(ProxyMesh.sphere(4.0, 16, 8), VisualPalette.glow("cap_white", 0.85), Vector3(28, 26, -60), Vector3.ZERO, Vector3.ONE, "Moon")
+	for i: int in 12:
+		var side := -1.0 if i % 2 == 0 else 1.0
+		var x := side * (16.0 + 3.0 * float(i))
+		var h := _r(10, 26)
+		_p(ProxyMesh.cyl(_r(0.2, 0.6), _r(1.0, 2.2), h, 6), _g("haze_dark"), Vector3(x, -14 + h * 0.5, _r(-52, -34)))
+	_p(ProxyMesh.sphere(14.0, 12, 6), VisualPalette.glow("haze", 0.05, false), Vector3(0, -18.0, -30.0), Vector3.ZERO, Vector3(3.0, 0.5, 0.4), "Haze")
+	_p(ProxyMesh.sphere(3.0, 16, 8), VisualPalette.glow("cap_white", 0.8), Vector3(30, 24, -60), Vector3.ZERO, Vector3.ONE, "Moon")
 
 
 # ------------------------------------------------------------------ Props
@@ -806,43 +859,87 @@ func _b_rock(_s: Dictionary) -> void:
 
 # ------------------------------------------------------------------ Mutations (in the frame of what they decorate)
 
-## M01 Deep Roots: extra glowing roots growing over the Roots floor's back edge (floor frame).
+## M01 Deep Roots (Roots-floor frame): a wider bark ledge under the platform edge
+## (below the walkable surface, never in the play area) and thick new roots with
+## amber tips growing over the back edge and down the outer corners.
 func _b_m01_roots(_s: Dictionary) -> void:
-	for x: float in [-4.6, -3.2, 3.0, 4.5]:
-		_tube([Vector3(x * 0.3, 0.9, -2.4), Vector3(x * 0.8, 0.35, -1.9), Vector3(x, -0.2, -1.75), Vector3(x * 1.05, -1.6, -1.6), Vector3(x * 1.1, -3.0, -1.0)], 0.3, 0.08, "bark_light", 6)
-		_p(ProxyMesh.box(Vector3(0.05, 0.6, 0.03)), _g("amber_soft"), Vector3(x * 1.03, -1.0, -1.32), Vector3(0, 0, 6))
+	_p(ProxyMesh.box(Vector3(13.6, 0.32, 4.4)), _m("bark_light"), Vector3(0, -0.62, -0.1))
+	for sx: float in [-1.0, 1.0]:
+		_p(ProxyMesh.cyl(2.3, 2.1, 0.32, 9), _m("bark_light"), Vector3(6.8 * sx, -0.62, -0.1), Vector3.ZERO, Vector3(0.8, 1, 1))
+		_p(ProxyMesh.sphere(0.35, 7, 3, true), _m("moss_light"), Vector3(7.6 * sx, -0.45, 0.6), Vector3.ZERO, Vector3(1.4, 0.4, 1.0))
+	var tips: Array[Vector3] = []
+	for x: float in [-4.8, -3.4, -1.9, 1.9, 3.3, 4.7]:
+		var e := Vector3(x * 1.12, -3.4, -0.9)
+		_tube([Vector3(x * 0.4, 1.4, -2.8), Vector3(x * 0.85, 0.55, -2.0), Vector3(x, 0.05, -1.75), Vector3(x * 1.06, -1.6, -1.65), e], 0.36, 0.08, "bark_light", 6)
+		tips.append(e)
+	for sx: float in [-1.0, 1.0]:
+		for k: int in 2:
+			var e := Vector3((6.6 + 0.6 * k) * sx, -2.9 - 0.6 * k, 1.2 - 0.6 * k)
+			_tube([Vector3((5.9 + 0.4 * k) * sx, -0.4, 1.0 - 0.5 * k), Vector3((6.5 + 0.5 * k) * sx, -1.4, 1.5 - 0.5 * k), e], 0.3, 0.07, "bark", 6)
+			tips.append(e)
+	for t: Vector3 in tips:
+		_p(ProxyMesh.sphere(0.1, 5, 3), _g("amber"), t, Vector3.ZERO, Vector3.ONE, "Glow_RootTip")
 
 
-## M02 Strong Trunk: thick glowing band and veins on the trunk segment (trunk frame).
+## M02 Strong Trunk (trunk-segment frame on the Trunk floor): a thick glowing band
+## high on the trunk (above unit heads) and turquoise veins down to the floor.
 func _b_m02_band(_s: Dictionary) -> void:
 	var z := -3.2
-	_p(ProxyMesh.torus(1.5, 1.85, 16, 5), _m("bark_light"), Vector3(0, 2.2, z), Vector3.ZERO, Vector3(1, 1.4, 1))
-	_p(ProxyMesh.torus(1.62, 1.78, 16, 4), _g("turquoise"), Vector3(0, 2.2, z), Vector3.ZERO, Vector3(1.02, 0.6, 1.02), "Glow_Band")
+	var y := 3.35
+	_p(ProxyMesh.torus(1.55, 2.05, 18, 6), _m("bark_light"), Vector3(0, y, z), Vector3.ZERO, Vector3(1, 1.7, 1))
+	_p(ProxyMesh.torus(1.9, 2.12, 18, 4), _g("turquoise"), Vector3(0, y, z), Vector3.ZERO, Vector3(1.0, 0.7, 1.0), "Glow_Band")
+	_p(ProxyMesh.torus(1.9, 2.1, 18, 4), _g("turquoise"), Vector3(0, y - 0.38, z), Vector3.ZERO, Vector3(1.0, 0.5, 1.0), "Glow_Band")
 	for i: int in 5:
-		var x := -0.9 + 0.45 * float(i)
-		_p(ProxyMesh.box(Vector3(0.06, _r(1.2, 2.0), 0.04)), _g("turquoise_soft"), Vector3(x, _r(1.2, 3.2), z + sqrt(maxf(1.6 * 1.6 - x * x, 0.0)) - 0.05), Vector3(0, 0, _r(-12, 12)), Vector3.ONE, "Glow_Vein")
+		var x := -1.2 + 0.6 * float(i)
+		var fz := z + sqrt(maxf(1.62 * 1.62 - x * x, 0.0)) + 0.03
+		_tube([Vector3(x, 0.15, fz), Vector3(x + _r(-0.15, 0.15), 1.2, fz), Vector3(x + _r(-0.2, 0.2), 2.3, fz - 0.05), Vector3(x, y - 0.4, fz - 0.1)], 0.04, 0.028, "turquoise_soft", 4)
+		_p(ProxyMesh.sphere(0.08, 5, 3), _g("turquoise"), Vector3(x, 0.8 + 0.6 * float(i % 3), fz + 0.02), Vector3.ZERO, Vector3.ONE, "Glow_Vein")
 
 
-## M03 Gentle Crown: blossoms and golden flowers along the Crown floor's back edge (floor frame).
+## M03 Gentle Crown (Crown-floor frame): blossom trees at the back corners, golden
+## flowers along the back edge and a few drifting petals.
 func _b_m03_blossoms(_s: Dictionary) -> void:
-	for x: float in [-5.0, -3.6, -1.8, 1.8, 3.4, 5.0]:
+	for sx: float in [-1.0, 1.0]:
+		for k: int in 2:
+			var bx := (4.3 + 1.3 * k) * sx
+			_tube([Vector3(bx, 0, -1.9), Vector3(bx - 0.2 * sx, 0.8, -2.0), Vector3(bx + 0.1 * sx, 1.5, -2.1)], 0.13, 0.06, "bark_light", 5)
+			for j: int in 4:
+				_p(ProxyMesh.rock(_r(0.4, 0.6), 500 + j + k * 7 + int(sx * 3.0), 0.75), _m("blossom"), Vector3(bx + _r(-0.5, 0.5), _r(1.5, 2.1), -2.1 + _r(-0.3, 0.2)))
+			_p(ProxyMesh.sphere(0.12, 6, 3), _g("blossom_gold"), Vector3(bx, 1.75, -1.75), Vector3.ZERO, Vector3.ONE, "Glow_Blossom")
+	for x: float in [-3.2, -1.7, 1.7, 3.2]:
 		var g := _grp("Blossom", Vector3(x, 0, -1.5))
 		_blossoms(1)
-		for k: int in 3:
-			_p(ProxyMesh.rock(_r(0.18, 0.3), k + int(x * 10.0), 0.8), _m("blossom"), Vector3(_r(-0.3, 0.3), _r(0.6, 1.0), _r(-0.3, 0.0)))
 		_end(g)
+	var petals := CPUParticles3D.new()
+	petals.name = "Petals"
+	petals.amount = 14
+	petals.lifetime = 5.0
+	petals.position = Vector3(0, 2.6, -1.6)
+	petals.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
+	petals.emission_box_extents = Vector3(5.5, 0.4, 0.4)
+	petals.gravity = Vector3(0.1, -0.35, 0)
+	petals.initial_velocity_min = 0.0
+	petals.initial_velocity_max = 0.1
+	petals.angular_velocity_min = -90.0
+	petals.angular_velocity_max = 90.0
+	petals.mesh = ProxyMesh.box(Vector3(0.08, 0.02, 0.06))
+	petals.material_override = VisualPalette.glow("blossom")
+	_at.add_child(petals)
 
 
-## M04 Great Heart: larger halo, extra shards and a stronger light (heart frame).
+## M04 Great Heart (heart frame): a larger double halo, a glowing ring, more shards
+## and one extra light.
 func _b_m04_glow(_s: Dictionary) -> void:
-	_p(ProxyMesh.sphere(1.4, 12, 8), VisualPalette.glow("turquoise", 0.1, true), Vector3(0, 1.05, 0), Vector3.ZERO, Vector3(1.15, 1.05, 0.7), "Glow_Halo")
-	for i: int in 10:
-		var a := TAU * float(i) / 10.0
-		_p(ProxyMesh.cyl(0.0, 0.07, 0.28, 4), _g("turquoise"), Vector3(cos(a) * 1.6, 1.1 + sin(a * 3.0) * 0.6, sin(a) * 0.5), Vector3(_r(-30, 30), 0, _r(-40, 40)), Vector3.ONE, "Glow_Shard")
+	_p(ProxyMesh.sphere(1.5, 12, 8), VisualPalette.glow("turquoise", 0.08, true), Vector3(0, 1.0, 0), Vector3.ZERO, Vector3(1.2, 1.1, 0.55), "Glow_Halo")
+	_p(ProxyMesh.sphere(2.1, 12, 8), VisualPalette.glow("turquoise_soft", 0.05, true), Vector3(0, 1.0, -0.2), Vector3.ZERO, Vector3(1.2, 1.05, 0.4), "Glow_Halo")
+	_p(ProxyMesh.torus(1.45, 1.6, 24, 3), VisualPalette.glow("turquoise", 0.75, true), Vector3(0, 1.0, -0.15), Vector3(90, 0, 0), Vector3.ONE, "Glow_Band")
+	for i: int in 12:
+		var a := TAU * float(i) / 12.0
+		_p(ProxyMesh.cyl(0.0, 0.08, 0.3, 4), _g("turquoise"), Vector3(cos(a) * 1.85, 1.0 + sin(a) * 1.5, -0.1), Vector3(0, 0, rad_to_deg(a) - 90.0), Vector3.ONE, "Glow_Crystal")
 	var light := OmniLight3D.new()
 	light.name = "GreatHeartLight"
 	light.light_color = VisualPalette.color("turquoise")
-	light.light_energy = 1.6
-	light.omni_range = 9.0
-	light.position = Vector3(0, 1.2, 0.8)
+	light.light_energy = 1.8
+	light.omni_range = 10.0
+	light.position = Vector3(0, 1.0, 1.0)
 	_at.add_child(light)
