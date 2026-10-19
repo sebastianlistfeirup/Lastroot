@@ -115,3 +115,81 @@ static func status_color(kind: String) -> Color:
 
 static func is_portrait(vp: Vector2) -> bool:
 	return vp.y > vp.x
+
+
+# ------------------------------------------------- meta-screen helpers (added)
+
+static func clear(node: Node) -> void:
+	for c in node.get_children():
+		node.remove_child(c)
+		c.queue_free()
+
+
+static func vbox(separation: int = 8) -> VBoxContainer:
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", separation)
+	return v
+
+
+static func hbox(separation: int = 8) -> HBoxContainer:
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", separation)
+	return h
+
+
+## Wrapping row (cards, chips); centered by default so portrait stays tidy.
+static func flow(separation: int = 12, centered: bool = true) -> HFlowContainer:
+	var f := HFlowContainer.new()
+	f.add_theme_constant_override("h_separation", separation)
+	f.add_theme_constant_override("v_separation", separation)
+	if centered:
+		f.alignment = FlowContainer.ALIGNMENT_CENTER
+	return f
+
+
+static func margin(all: int) -> MarginContainer:
+	var m := MarginContainer.new()
+	for side in ["left", "right", "top", "bottom"]:
+		m.add_theme_constant_override("margin_" + side, all)
+	return m
+
+
+## Section heading.
+static func heading(text: String, size: int = 30, color: Color = TEXT) -> Label:
+	var l := label(text, size, color, true)
+	return l
+
+
+## Small pill with text, used for status strips.
+static func chip(text: String, accent: Color = LINE, size: int = 16) -> PanelContainer:
+	var p := PanelContainer.new()
+	var sb := panel_style(PANEL_HI, accent, 16, 2)
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	p.add_theme_stylebox_override("panel", sb)
+	var l := label(text, size, TEXT)
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
+	p.add_child(l)
+	return p
+
+
+## Full-rect dimmer that also blocks input to what lies below.
+static func dimmer(alpha: float = 0.72) -> ColorRect:
+	var c := ColorRect.new()
+	c.color = Color(BG, alpha)
+	c.set_anchors_preset(Control.PRESET_FULL_RECT)
+	c.mouse_filter = Control.MOUSE_FILTER_STOP
+	return c
+
+
+## Vertical scroll area that never scrolls sideways.
+static func vscroll() -> ScrollContainer:
+	var s := ScrollContainer.new()
+	s.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	s.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	return s
+
+
+static func px(v: float) -> int:
+	return int(round(v * font_scale))
