@@ -27,9 +27,9 @@ EN = {
     "M01": "Deep Roots", "M02": "Strong Trunk", "M03": "Gentle Crown", "M04": "Great Heart",
 }
 TEXT = {
-    "B01": "Champion. Starts with 8 Armor.",
+    "B01": "Champion. Starts with {armor} Armor.",
     "B02": "No extra effect.",
-    "B03": "Starts with 6 Armor.",
+    "B03": "Starts with {armor} Armor.",
     "B04": "Thorns 2.",
     "B05": "On play: heal another ally 3.",
     "B06": "No extra effect.",

@@ -44,9 +44,12 @@ An enemy,En fjende
 Battle %d/6 · Turn %d,Kamp %d/6 · Tur %d
 Choose a highlighted target.,Vælg et fremhævet mål.
 Confirm,Bekræft
+Consumed,Forbrugt
 DEFEAT: the Ash Crown leaves the Crown.,NEDERLAG: Askekronen forlader Kronen.
 DEFEAT: the Heart falls.,NEDERLAG: Hjertet falder.
+Discard pile,Kasserede kort
 Draw %d · Discard %d · Played %d,Træk %d · Kasseret %d · Spillet %d
+Draw pile (sorted; order hidden),Trækbunke (sorteret; rækkefølge skjult)
 End turn,Afslut tur
 Forecast — end of turn,Prognose — tur slut
 Full,Fuld
@@ -61,6 +64,7 @@ Move: tap a + spot on this or a neighbouring floor (%d Sap).,Flyt: tryk på et +
 Next turn: %s,Næste tur: %s
 Not enough Sap (needs %d).,Ikke nok Saftkraft (kræver %d).
 Now tap another ally to heal.,Tryk nu på en anden allieret for at heale.
+Played creatures (out for this battle),Spillede væsner (ude resten af kampen)
 "Preview shown. Confirm, or tap the same target again.","Forhåndsvisning vist. Bekræft, eller tryk på samme mål igen."
 Skip animation,Spring animation over
 "Spend your Sap: creatures guard a floor, spells act at once. Card → target → Confirm.","Brug din Saftkraft: væsner vogter en etage, besværgelser virker med det samme. Kort → mål → Bekræft."

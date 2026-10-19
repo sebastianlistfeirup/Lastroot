@@ -6,6 +6,7 @@
     "test_cards.gd": 31,
     "test_catalog.gd": 8,
     "test_forecast.gd": 5,
+    "test_meta_flow.gd": 5,
     "test_rng.gd": 5,
     "test_run.gd": 10,
     "test_save.gd": 6,
@@ -81,6 +82,11 @@
     "test_forecast/test_forecast_after_save_roundtrip",
     "test_forecast/test_coverage_spans_required_cases",
     "test_forecast/test_preview_uses_no_sap_flags_or_rng",
+    "test_meta_flow/test_settings_roundtrip",
+    "test_meta_flow/test_localization_complete",
+    "test_meta_flow/test_reward_screen_commands_after_bot_win",
+    "test_meta_flow/test_champion_and_relic_commands",
+    "test_meta_flow/test_node_screen_commands",
     "test_rng/test_streams_are_reproducible",
     "test_rng/test_streams_are_independent",
     "test_rng/test_state_survives_json_roundtrip",
@@ -104,6 +110,6 @@
     "test_save/test_reward_claim_survives_reload_once"
   ],
   "status": "PASS",
-  "tests": 104,
-  "timestamp": "2026-10-19T21:09:17"
+  "tests": 109,
+  "timestamp": "2026-10-19T21:21:42"
 }

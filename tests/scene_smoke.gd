@@ -84,8 +84,29 @@ func _save_files() -> void:
 	ok(not GameSession.presentation_pending and int(GameSession.battle()["turn"]) == 2, "load shows the finished result, nothing re-settled")
 
 
+func _flow() -> void:
+	# menu -> battle -> result -> menu, each scene instanced from AppFlow's table.
+	var ok_all := true
+	GameSession.run = RunReducer.new_run(31, "BARK")
+	for sid in ["menu", "battle", "result", "menu"]:
+		if sid == "result":
+			GameSession.run = AutoPlayer.play_run(RunReducer.new_run(31, "BARK"))["run"]
+		var ps: PackedScene = load(AppFlow.SCENES[sid])
+		var n: Node = ps.instantiate() if ps != null else null
+		if n == null:
+			ok_all = false
+			continue
+		add_child(n)
+		await _frames(4)
+		ok_all = ok_all and is_instance_valid(n)
+		n.queue_free()
+		await _frames(2)
+	ok(ok_all, "menu_to_battle_to_result_to_menu")
+
+
 func _run() -> void:
 	await _save_files()
+	await _flow()
 	# --- layout and first action through the real buttons
 	var scr: BattleScreen = await _open_battle("BARK", 4242)
 	var b: Dictionary = GameSession.battle()

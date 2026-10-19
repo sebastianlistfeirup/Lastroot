@@ -1,5 +1,5 @@
 {
-  "checks": 34,
+  "checks": 35,
   "engine_version": "4.5.1-stable (official)",
   "failures": [],
   "results": [
@@ -41,6 +41,10 @@
     },
     {
       "name": "load shows the finished result, nothing re-settled",
+      "ok": true
+    },
+    {
+      "name": "menu_to_battle_to_result_to_menu",
       "ok": true
     },
     {
@@ -141,5 +145,5 @@
     }
   ],
   "status": "PASS",
-  "timestamp": "2026-10-19T21:15:24"
+  "timestamp": "2026-10-19T21:22:37"
 }

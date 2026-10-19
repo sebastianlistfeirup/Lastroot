@@ -53,7 +53,7 @@ def file_check(paths):
 T = {
     "LR-01": dict(checks=lambda: [file_check(["docs/VERSION_MATRIX.md", "docs/CAPABILITY_MATRIX.md", "project.godot", "tools/check.sh"]),
                                   {"kind": "compile", "ok": comp.get("status") == "PASS", "scripts": comp.get("scripts")},
-                                  smoke_check(["menu_to_battle_to_result_to_menu"], meta_res, "meta_smoke")],
+                                  smoke_check(["menu_to_battle_to_result_to_menu"]), {"kind": "meta_smoke", "ok": meta.get("status") == "PASS", "checks": meta.get("checks")}],
                   expected="Ren opstart og lukning uden parserfejl. VERSION_MATRIX og baselinecommit findes. menu->battle->result->menu.",
                   cmd="tools/check.sh"),
     "LR-02": dict(checks=lambda: [unit_check(["test_catalog/", "test_rng/"])],

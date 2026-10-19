@@ -118,7 +118,7 @@ func _build_hud() -> void:
 	lbl_piles = _top_label(UiKit.TEXT_DIM)
 	lbl_piles.mouse_filter = Control.MOUSE_FILTER_STOP
 	lbl_piles.gui_input.connect(func(ev: InputEvent) -> void:
-		if (ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed) or (ev is InputEventScreenTouch and (ev as InputEventScreenTouch).pressed):
+		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed:
 			_toggle_piles())
 	lbl_relics = _top_label(UiKit.AMBER)
 	btn_speed = UiKit.button("1×", UiKit.LIFE, 18)
@@ -898,7 +898,7 @@ func _toggle_piles() -> void:
 	close.pressed.connect(_toggle_piles)
 	v.add_child(close)
 	var z: Dictionary = battle["zones"]
-	for pile in [["draw", Loc.t("Draw pile (sorted, order hidden)")], ["discard", Loc.t("Discard pile")], ["deployed", Loc.t("Played creatures (out for this battle)")], ["consumed", Loc.t("Consumed")]]:
+	for pile in [["draw", Loc.t("Draw pile (sorted; order hidden)")], ["discard", Loc.t("Discard pile")], ["deployed", Loc.t("Played creatures (out for this battle)")], ["consumed", Loc.t("Consumed")]]:
 		var ids: Array = (z[pile[0]] as Array).duplicate()
 		v.add_child(UiKit.label("%s: %d" % [pile[1], ids.size()], 18, UiKit.LIFE, true))
 		var names: PackedStringArray = []
@@ -992,12 +992,17 @@ func _cycle_speed() -> void:
 	btn_speed.text = "%s×" % str(n).trim_suffix(".0")
 
 
+var _pause: Node
+
+
 func _open_menu() -> void:
 	if ResourceLoader.exists("res://scenes/ui/pause_menu.tscn"):
-		var pm: Node = (load("res://scenes/ui/pause_menu.tscn") as PackedScene).instantiate()
-		add_child(pm)
-		if pm.has_method("open"):
-			pm.call("open")
+		if _pause == null:
+			_pause = (load("res://scenes/ui/pause_menu.tscn") as PackedScene).instantiate()
+			_pause.set("corner_button", false)  # the HUD has its own Menu button
+			_pause.set("esc_opens", false)       # Esc first cancels a selection here
+			add_child(_pause)
+		_pause.call("open")
 	else:
 		AppFlow.goto("menu")
 

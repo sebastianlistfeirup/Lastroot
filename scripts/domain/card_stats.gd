@@ -73,5 +73,7 @@ static func format_text(raw: String, def: Dictionary, upgrade_id: String, path_i
 		for k in ["damage", "armor", "heal", "poison", "growth", "draw"]:
 			vals[k] = spell_amount(def, upgrade_id, k)
 	else:
-		vals["on_hit_poison"] = unit_stats(def, upgrade_id, path_id, rank)["on_hit_poison"]
+		var st: Dictionary = unit_stats(def, upgrade_id, path_id, rank)
+		vals["on_hit_poison"] = st["on_hit_poison"]
+		vals["armor"] = st["armor"]
 	return raw.format(vals)

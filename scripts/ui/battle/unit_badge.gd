@@ -94,7 +94,7 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb: InputEventMouseButton = event
 		press = mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT
-	elif event is InputEventScreenTouch:
+	elif event is InputEventScreenTouch and not ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch", true):
 		press = (event as InputEventScreenTouch).pressed
 	if press:
 		accept_event()
