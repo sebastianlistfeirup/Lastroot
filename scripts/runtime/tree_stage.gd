@@ -88,10 +88,10 @@ func frame_camera(portrait: bool, right_panel_ratio: float) -> void:
 		camera.v_offset = -0.6
 	else:
 		camera.keep_aspect = Camera3D.KEEP_HEIGHT
-		camera.size = 20.4
+		camera.size = 21.6
 		camera.position = Vector3(0, 6.1, 30)
-		camera.h_offset = 20.4 * 16.0 / 9.0 * right_panel_ratio * 0.5
-		camera.v_offset = 2.2
+		camera.h_offset = 21.6 * 16.0 / 9.0 * right_panel_ratio * 0.5
+		camera.v_offset = 2.9
 
 
 func highlight_floor(f: int, on: bool) -> void:

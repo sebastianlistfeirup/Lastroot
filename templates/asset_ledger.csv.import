@@ -1,17 +1,3 @@
 [remap]
 
-importer="csv_translation"
-type="Translation"
-uid="uid://c610oqmkj1b1g"
-
-[deps]
-
-files=["res://templates/asset_ledger.source.translation", "res://templates/asset_ledger.source.translation", "res://templates/asset_ledger.checksum.translation", "res://templates/asset_ledger.format.translation", "res://templates/asset_ledger.rig.translation", "res://templates/asset_ledger.scale.translation", "res://templates/asset_ledger.target.translation", "res://templates/asset_ledger.rights.translation", "res://templates/asset_ledger.review.translation"]
-
-source_file="res://templates/asset_ledger.csv"
-dest_files=["res://templates/asset_ledger.source.translation", "res://templates/asset_ledger.source.translation", "res://templates/asset_ledger.checksum.translation", "res://templates/asset_ledger.format.translation", "res://templates/asset_ledger.rig.translation", "res://templates/asset_ledger.scale.translation", "res://templates/asset_ledger.target.translation", "res://templates/asset_ledger.rights.translation", "res://templates/asset_ledger.review.translation"]
-
-[params]
-
-compress=true
-delimiter=0
+importer="keep"
