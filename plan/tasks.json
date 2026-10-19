@@ -348,7 +348,7 @@
    "fallback": "Hold effect-typer små og eksplicitte; ingen dynamisk scriptsprog til kort kræves.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Implementeret før porten: alle 24 korttyper i reduceren, B05 målvalg/fallback, upgrade-matrix pr. instans (CardStats). test_cards.gd har en test pr. kort + relikvie-/championkombinationer. Mangler: fase 1-port."
   },
@@ -369,7 +369,7 @@
    "fallback": "Kør små isolerede fixtures før fuldt run; en visuel effekt er ikke regelbevis.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Implementeret før porten: R01-R08, M01-M04 og fire championretninger med to trin; turflags, M02 afledt, M04 én gang, retning låses. Tests i test_cards/test_run. Mangler: før/efter-visning poleres i UI og fase 1-port."
   },
@@ -392,7 +392,7 @@
    "fallback": "Brug nodebaseret UI først; 3D-ruteøer er præsentationslag.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Implementeret før porten: fem forgreningspunkter, fast rewardrækkefølge, stabile slot-id'er med offered/claimed/skipped, lejr/møde/fjernelse/kortknude, min. 7 normale kort, udbud gemt før visning. Rute- og belønningsskærme: se run_screen."
   },
@@ -416,7 +416,7 @@
    "fallback": "Hold bossens ruleset lille; nye phase mechanics er ikke version 2-scope.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Implementeret før porten: kamp 2-5 og Askekronen (ankring, tur-10-eskalation, nederlag ved Kronen, nederlagsprioritet). Bot gennemfører alle seks kampe med begge champions (evidence/balance)."
   },
@@ -439,7 +439,7 @@
    "fallback": "Brug enkle stationære clips og faste anchors; kompleks locomotion er unødvendig.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Grundlag: event-presenter med timere, skip/0.5/1/2x, UnitAnimator-kontrakt med proceduremæssige proxyanimationer. Mangler godkendte Synty/PolyPerfect/Mixamo-klip."
   },
@@ -465,7 +465,7 @@
    "fallback": "Hvis web ikke er stabilt, behold native releaseprioritet og konkret kompatibilitetsbacklog.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "120 gemte prognosescenarier matcher state-hash og eventrækkefølge (test_forecast). Web-eksportpreset (single-thread, Compatibility) findes. Mangler: fysisk telefon/iPad-test."
   },
@@ -512,7 +512,7 @@
    "fallback": "Brug én eksplicit flowstate i stedet for mange skjulte UI-flags.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Grundlag: continue/ny run, save efter hver kommando, presentation checkpoint. Afbrydelser ved alle skærmskift testes i meta_smoke."
   },
@@ -533,10 +533,11 @@
    "steps": "Byg endelig treetagers stage fra modulære assets. M01 udvider rodfloor, M02 fortykkelse/lys på stamme, M03 blomstring i krone, M04 større hjertelys. Bevar anchors og klikflader.",
    "acceptance": "Alle mutationkombinationer holder tre etager læsbare. Ingen kosmetisk vækst skjuler tal, mål eller prognosis. Originalreferencernes turkis/rav/violet-identitet ses.",
    "fallback": "Prioritér silhouette og lys over høj propdensitet.",
-   "status": "TODO",
-   "owner": null,
-   "last_commit": null,
-   "evidence": []
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "ba25ea7",
+   "evidence": [],
+   "notes": "Grundlag: TreeStage med tre etager i REF_05-stemning (rødder/stamme/krone), stammevarianter, alle fire mutationer synlige uden for spilområdet, tomgangsglød. Proxies; Synty-træ mangler."
   },
   {
    "id": "LR-23",
@@ -577,10 +578,11 @@
    "steps": "Lav konsekvente portrætter fra de godkendte figurer eller egne artworkkilder. Adskil illustration fra rigtig korttekst. Skab fire statusikoner og tydelig kraft/pladsmarkering. Tjek alle upgrades i preview.",
    "acceptance": "24 kort viser korrekt tal og effekt, også opgraderede. Ingen tekst er kun rasterbagt. Farveblindhed og stor tekst bevarer information.",
    "fallback": "Brug godkendte in-engine-portrætter før dyre billedgenereringsrunder.",
-   "status": "TODO",
-   "owner": null,
-   "last_commit": null,
-   "evidence": []
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "ba25ea7",
+   "evidence": [],
+   "notes": "Grundlag: kortportrætter renderet fra visual slots (skifter automatisk til Synty), emblemer for besværgelser, fraktionsrammer, glyf+tal for statusser, galleri over alle 24 kort + upgrades (evidence/meta_screens/cards_*.png)."
   },
   {
    "id": "LR-25",
@@ -599,10 +601,11 @@
    "steps": "Omsæt REF_04 og briefs 07/08 til læsbare skærme. Giv ruteøer som valgfri 3D-baggrund med rigtige UI-hitflader. Vis valuta, nuværende effekt og konsekvens før køb/valg.",
    "acceptance": "Lejr sælger ingen ugyldig upgrade. Retningslås er tydelig. Alle knuder virker med touch og tastatur/mus uden dekorationsafhængighed.",
    "fallback": "2D-nodekort er tilladt, hvis 3D-komposition forringer læsbarheden.",
-   "status": "TODO",
-   "owner": null,
-   "last_commit": null,
-   "evidence": []
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "ba25ea7",
+   "evidence": [],
+   "notes": "Grundlag: rutekort (REF_04) med kommende bølger og bossregler, lejr med før/efter og pris, championskærm med begge retninger/låst retning, relikvie-/mutationsvalg. meta_smoke dækker alle knuder."
   },
   {
    "id": "LR-26",
@@ -622,10 +625,11 @@
    "steps": "Færdiggør bossintro, escalationfeedback, hjerteskade og runepilog. Lydfamilier: bark, spore, ash, heart og UI. Vis valgte mutationer og championretning efter sejr/nederlag.",
    "acceptance": "Kritisk lyd har visuelt alternativ. Intro og epilog kan springes over. Afslutning refererer til det faktiske run og giver ingen ekstra reward.",
    "fallback": "Brug ingamekamera, lys og korte barks; store film må ikke blokere.",
-   "status": "TODO",
-   "owner": null,
-   "last_commit": null,
-   "evidence": []
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "ba25ea7",
+   "evidence": [],
+   "notes": "Grundlag: boss-intro (kan springes over), bossbanner fra kampstart, boss-advarsler i prognosen, 36 placeholder-lydcues + musik, resultatskærm med træets opsummering."
   },
   {
    "id": "LR-27",
@@ -646,7 +650,7 @@
    "fallback": "Juster katalogtal transparent; tilføj ikke nye fraktioner for at skjule balanceproblemer.",
    "status": "IN_PROGRESS",
    "owner": "claude-code (ferie-session 19.10.2026)",
-   "last_commit": "0c6e186",
+   "last_commit": "ba25ea7",
    "evidence": [],
    "notes": "Grundlag: tools/balance/run_balance.gd (faste seeds, begge champions). Bot vinder 40/40 (D24) — menneskelig spiltest før talændringer."
   },
@@ -668,10 +672,11 @@
    "steps": "Test 720p, 1080p, portræt og tablet. Tilføj UI-scale, remap, subtitles, reduced motion og ingen-hover-flow. Test audio unlock og baggrund/resume på understøttede webenheder.",
    "acceptance": "Ingen vigtig tekst klipper. Inputflader er store nok ved målskala. Layoutskift bevarer run. Unsupported webprofile mærkes, ikke skjules.",
    "fallback": "Fasthold native support og gør webstatus konkret, hvis en enhed fejler.",
-   "status": "TODO",
-   "owner": null,
-   "last_commit": null,
-   "evidence": []
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "ba25ea7",
+   "evidence": [],
+   "notes": "Grundlag: tekststørrelse, reduceret bevægelse, animationshastighed, en/da, glyf+tal for alle statusser, 48 px-mål, tastatur/gamepad i kampen, portrætlayout-prototype. Mangler fysisk telefon/iPad-test."
   },
   {
    "id": "LR-29",
@@ -692,10 +697,11 @@
    "steps": "Profilér treetagers stresstest, forecast og load. Kør gentagne run/restart for leaks. Migrér en gammel fixture og test korrupt/afbrudt save samt JSONimport med ugyldige IDs.",
    "acceptance": "Ingen tilstandstab, dobbelte rewards eller stadig voksende memory. Målt performancebudget er opfyldt eller en ærlig lavprofil er valgt.",
    "fallback": "Optimer materialer, particles og viewpooling efter måling; hold reduceren enkel.",
-   "status": "TODO",
-   "owner": null,
-   "last_commit": null,
-   "evidence": []
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "ba25ea7",
+   "evidence": [],
+   "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware."
   },
   {
    "id": "LR-30",

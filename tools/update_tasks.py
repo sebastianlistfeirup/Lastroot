@@ -20,6 +20,12 @@ AHEAD = {
     "LR-18": "Grundlag: event-presenter med timere, skip/0.5/1/2x, UnitAnimator-kontrakt med proceduremæssige proxyanimationer. Mangler godkendte Synty/PolyPerfect/Mixamo-klip.",
     "LR-19": "120 gemte prognosescenarier matcher state-hash og eventrækkefølge (test_forecast). Web-eksportpreset (single-thread, Compatibility) findes. Mangler: fysisk telefon/iPad-test.",
     "LR-21": "Grundlag: continue/ny run, save efter hver kommando, presentation checkpoint. Afbrydelser ved alle skærmskift testes i meta_smoke.",
+    "LR-22": "Grundlag: TreeStage med tre etager i REF_05-stemning (rødder/stamme/krone), stammevarianter, alle fire mutationer synlige uden for spilområdet, tomgangsglød. Proxies; Synty-træ mangler.",
+    "LR-24": "Grundlag: kortportrætter renderet fra visual slots (skifter automatisk til Synty), emblemer for besværgelser, fraktionsrammer, glyf+tal for statusser, galleri over alle 24 kort + upgrades (evidence/meta_screens/cards_*.png).",
+    "LR-25": "Grundlag: rutekort (REF_04) med kommende bølger og bossregler, lejr med før/efter og pris, championskærm med begge retninger/låst retning, relikvie-/mutationsvalg. meta_smoke dækker alle knuder.",
+    "LR-26": "Grundlag: boss-intro (kan springes over), bossbanner fra kampstart, boss-advarsler i prognosen, 36 placeholder-lydcues + musik, resultatskærm med træets opsummering.",
+    "LR-28": "Grundlag: tekststørrelse, reduceret bevægelse, animationshastighed, en/da, glyf+tal for alle statusser, 48 px-mål, tastatur/gamepad i kampen, portrætlayout-prototype. Mangler fysisk telefon/iPad-test.",
+    "LR-29": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware.",
     "LR-27": "Grundlag: tools/balance/run_balance.gd (faste seeds, begge champions). Bot vinder 40/40 (D24) — menneskelig spiltest før talændringer.",
 }
 
