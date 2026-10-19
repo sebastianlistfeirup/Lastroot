@@ -776,6 +776,8 @@ func _refresh_targets() -> void:
 		if pending.get("target", -1) == uid or (mode == "move" and selected_unit == uid):
 			h = "selected"
 		(badges[uid] as UnitBadge).set_highlight(h)
+		if views.has(uid):
+			(views[uid] as UnitView).set_ring(StringName(h) if h != "" else &"none")
 	for f in 3:
 		var show: bool = mode == "card" and legal_floors.has(f) and not awaiting_heal_target
 		floor_buttons[f].visible = show

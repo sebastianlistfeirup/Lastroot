@@ -78,6 +78,28 @@ func move_to(pos: Vector3, duration: float) -> void:
 	_move_tween.tween_property(self, "position", pos, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
+var _ring: Node3D = null
+
+
+## Ground ring under the unit: none | target | selected | invalid | danger.
+## Uses the fx.ring slot when the visual layer provides one.
+func set_ring(kind: StringName) -> void:
+	if _ring == null:
+		if kind == &"none":
+			return
+		var r: Node3D = VisualBridge.make("fx.ring")
+		if not r.has_method("set_kind"):
+			r.queue_free()
+			return
+		_ring = r
+		add_child(_ring)
+		if _ring.has_method("set_radius"):
+			var vs: GDScript = load(VisualBridge.VS_PATH) if ResourceLoader.exists(VisualBridge.VS_PATH) else null
+			var rad: float = float(vs.call("footprint_radius", slot_id)) if vs != null and vs.has_method("footprint_radius") else 0.5
+			_ring.call("set_radius", rad)
+	_ring.call("set_kind", kind)
+
+
 ## Badge anchor: above the head, but never up into the floor above
 ## (floors are 4.5 m apart; the badge must read as belonging to this floor).
 func head_world() -> Vector3:
