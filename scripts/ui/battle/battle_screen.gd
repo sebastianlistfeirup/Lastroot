@@ -64,6 +64,8 @@ func _ready() -> void:
 	presenter.screen = self
 	add_child(presenter)
 	_build_hud()
+	UnitAnimator.reduced_motion = SettingsService.reduced_motion
+	SettingsService.changed.connect(_on_settings_changed)
 	GameSession.run_changed.connect(_on_run_changed)
 	GameSession.command_rejected.connect(_on_rejected)
 	AppFlow.layout_changed.connect(func(_p: bool) -> void: _relayout())
@@ -391,8 +393,50 @@ func _on_run_changed(events: Array) -> void:
 	if GameSession.phase() == "battle":
 		_full_sync()
 		_set_locked(false)
+		if _rebuild_pending:
+			_rebuild_hud()
 	else:
 		_show_end_banner()
+
+
+## Text size / language / motion changed in the pause menu: rebuild the
+## screen from the saved state (the battle itself is untouched).
+var _rebuild_pending := false
+
+
+func _on_settings_changed() -> void:
+	UnitAnimator.reduced_motion = SettingsService.reduced_motion
+	presenter.speed = _anim_speed()
+	if locked or presenter.playing:
+		_rebuild_pending = true
+		return
+	_rebuild_hud()
+
+
+func _rebuild_hud() -> void:
+	_rebuild_pending = false
+	var keep_pause := _pause != null and bool(_pause.get("is_open"))
+	for uid: int in badges.keys():
+		(badges[uid] as Node).queue_free()
+	badges.clear()
+	hud.queue_free()
+	if _pause != null:
+		_pause.queue_free()
+		_pause = null
+	ghost_nodes.clear()
+	floor_buttons.clear()
+	_piles_panel = null
+	_build_hud()
+	for uid: int in views.keys():
+		var b := UnitBadge.new()
+		b.pressed.connect(_on_badge_pressed)
+		overlay.add_child(b)
+		badges[uid] = b
+		refresh_badge(uid)
+	_relayout()
+	_refresh_all()
+	if keep_pause:
+		_open_menu()
 
 
 func _on_rejected(reason: String) -> void:

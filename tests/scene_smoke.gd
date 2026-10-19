@@ -168,6 +168,13 @@ func _run() -> void:
 	ok(JsonUtil.state_hash(GameSession.battle()) == h2, "resize keeps BattleState")
 	get_window().size = Vector2i(1600, 900)
 	await _frames(2)
+	var h3 := JsonUtil.state_hash(GameSession.battle())
+	var old_scale: float = SettingsService.text_scale
+	SettingsService.set_text_scale(1.3)
+	await _frames(3)
+	ok(JsonUtil.state_hash(GameSession.battle()) == h3 and scr.badges.size() == scr.views.size(), "text size change rebuilds HUD, keeps battle")
+	SettingsService.set_text_scale(old_scale)
+	await _frames(2)
 	scr.queue_free()
 	await _frames(2)
 	# --- complete battle 1 with both champions via the screen's command path
