@@ -1,6 +1,6 @@
 {
-  "checks": 505,
-  "duration_ms": 7561,
+  "checks": 550,
+  "duration_ms": 8033,
   "engine_version": "4.5.1-stable (official)",
   "failed": 0,
   "failures": [],
@@ -111,7 +111,16 @@
     "first_run_skip: press SkipGuideButton",
     "first_run_skip: press NewRunButton",
     "first_run_show: press NewRunButton",
-    "first_run_show: press ShowGuideButton"
+    "first_run_show: press ShowGuideButton",
+    "playtest_log: press Star_4",
+    "playtest_log: press Forecast_partly",
+    "playtest_log: press SaveFeedbackButton",
+    "playtest_settings: press SettingsButton",
+    "playtest_settings: press ExportPlaytestButton",
+    "playtest_settings: press ClearPlaytestButton",
+    "playtest_settings: press KeepPlaytestButton",
+    "playtest_settings: press ClearPlaytestButton",
+    "playtest_settings: press ConfirmClearPlaytestButton"
   ],
-  "timestamp": "2026-10-19T23:04:41"
+  "timestamp": "2026-10-19T23:10:27"
 }
