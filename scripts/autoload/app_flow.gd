@@ -18,3 +18,8 @@ func goto(scene_id: String) -> void:
 		return
 	current = scene_id
 	get_tree().call_deferred("change_scene_to_file", SCENES[scene_id])
+
+
+## Opens the screen that matches the run's phase.
+func goto_phase() -> void:
+	goto(GameSession.scene_for_phase())
