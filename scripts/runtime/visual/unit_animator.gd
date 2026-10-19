@@ -39,6 +39,8 @@ static var _sets: Dictionary = {}
 var rig_family: String = "humanoid"
 var slot_id: String = ""
 var current: StringName = &""
+## Overlay restored after flashes (the ally/enemy rim from VisualSlots.apply_side).
+var base_overlay: Material = null
 
 var _model: Node3D
 var _player: AnimationPlayer
@@ -381,10 +383,14 @@ func _set_overlay(c: Color) -> void:
 		_overlay.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	_overlay.albedo_color = c
 	var on := c.a > 0.005
+	# After a flash the side rim (VisualSlots.apply_side) comes back, not "no overlay".
+	var rest: Material = base_overlay
 	for n: Node in _model.find_children("*", "GeometryInstance3D", true, false):
-		(n as GeometryInstance3D).material_overlay = _overlay if on else null
+		if n.name == "SideDisc":
+			continue
+		(n as GeometryInstance3D).material_overlay = _overlay if on else rest
 	if _model is GeometryInstance3D:
-		(_model as GeometryInstance3D).material_overlay = _overlay if on else null
+		(_model as GeometryInstance3D).material_overlay = _overlay if on else rest
 
 
 func _set_transparency(v: float) -> void:

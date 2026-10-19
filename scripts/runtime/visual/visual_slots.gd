@@ -173,6 +173,82 @@ static func make(slot_id: String) -> Node3D:
 	return root
 
 
+static var _footprints: Dictionary = {}
+
+
+## Radius (m) of a ground ring around a unit's feet (fx.ring.set_radius). Measured
+## from the visual actually shown (proxy or model) and cached; facing-independent.
+static func footprint_radius(slot_id: String) -> float:
+	_load()
+	if _footprints.has(slot_id):
+		return float(_footprints[slot_id])
+	var v := make(slot_id)
+	var m := v.get_node_or_null("Model")
+	var b := bounds(m if m else v)
+	v.free()
+	# Arms and shields stick out sideways; weight the depth more than the width.
+	var r := clampf(0.5 * maxf(b.size.x * 0.75, b.size.z) + 0.12, 0.35, 1.7)
+	_footprints[slot_id] = snappedf(r, 0.01)
+	return float(_footprints[slot_id])
+
+
+const SIDE_COLORS := {&"ally": "turquoise", &"enemy": "ember"}
+static var _rims: Dictionary = {}
+
+
+## Ally/enemy readability at the battle camera without changing silhouettes:
+## a faint fresnel rim (turquoise for allies, ember for enemies) as material_overlay
+## on every mesh, plus a soft side-coloured disc under the feet. Call once after
+## make() for unit/enemy visuals. rim=false keeps only the disc (cheaper: the rim
+## draws every mesh twice). Flashes from UnitAnimator restore the rim afterwards.
+static func apply_side(visual: Node3D, side: StringName, rim: bool = true) -> void:
+	if visual == null or not SIDE_COLORS.has(side):
+		return
+	var key := str(SIDE_COLORS[side])
+	var old := visual.get_node_or_null("SideDisc")
+	if old:
+		old.free()
+	var disc := MeshInstance3D.new()
+	disc.name = "SideDisc"
+	disc.mesh = ProxyMesh.ring_flat(0.0, 1.0, 32)
+	var dm := StandardMaterial3D.new()
+	dm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dm.cull_mode = BaseMaterial3D.CULL_DISABLED
+	dm.albedo_color = Color(VisualPalette.color(key).darkened(0.35), 0.28)
+	disc.material_override = dm
+	disc.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var r := footprint_radius(str(visual.get_meta("slot_id", "")))
+	disc.scale = Vector3(r * 0.85, 1, r * 0.85)
+	disc.position.y = 0.02
+	visual.add_child(disc)
+	visual.set_meta("side", side)
+	var mat: Material = rim_material(side) if rim else null
+	var model := visual.get_node_or_null("Model")
+	if model:
+		for n: Node in model.find_children("*", "GeometryInstance3D", true, false):
+			if n is Label3D:
+				continue
+			(n as GeometryInstance3D).material_overlay = mat
+	var an := visual.get_node_or_null("UnitAnimator") as UnitAnimator
+	if an:
+		an.base_overlay = mat
+
+
+## Shared additive fresnel rim per side (Compatibility-safe spatial shader).
+static func rim_material(side: StringName) -> ShaderMaterial:
+	if _rims.has(side):
+		return _rims[side]
+	var m := ShaderMaterial.new()
+	m.shader = load("res://scripts/runtime/visual/side_rim.gdshader") as Shader
+	var c := VisualPalette.color(str(SIDE_COLORS.get(side, "turquoise")))
+	m.set_shader_parameter("rim_color", c)
+	m.set_shader_parameter("strength", 0.42 if side == &"ally" else 0.65)
+	m.set_shader_parameter("power", 3.0 if side == &"ally" else 2.6)
+	_rims[side] = m
+	return m
+
+
 ## Slots of one kind ("unit", "enemy", "stage", "prop", "mutation", "fx").
 static func ids_of_kind(kind: String) -> PackedStringArray:
 	var out := PackedStringArray()
