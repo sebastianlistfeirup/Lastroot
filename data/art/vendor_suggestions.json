@@ -1295,6 +1295,40 @@
    "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
    "verified": false,
    "status": "unverified — check actual pack contents"
+  },
+  "fx.ring": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
+  },
+  "fx.floor_target": {
+   "packs": [
+    "Synty POLYGON Particle FX"
+   ],
+   "search": [
+    "FX_*Poison*",
+    "FX_*Heal*",
+    "FX_*Magic*",
+    "FX_*Smoke*",
+    "FX_*Spark*",
+    "FX_*Hit*"
+   ],
+   "attachments": [],
+   "notes": "Unity particle systems do not convert: rebuild in Godot (CPUParticles3D, see scripts/runtime/visual/fx_builder.gd) and reuse only the pack's textures.",
+   "verified": false,
+   "status": "unverified — check actual pack contents"
   }
  }
 }

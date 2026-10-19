@@ -15,7 +15,7 @@ const ENEMIES := ["enemy.E01", "enemy.E02", "enemy.E03", "enemy.E04", "enemy.E05
 const STAGE := ["stage.floor_roots", "stage.floor_trunk", "stage.floor_crown", "stage.trunk", "stage.heart", "stage.backdrop"]
 const PROPS := ["prop.lantern", "prop.mushroom_cluster", "prop.crystal", "prop.root_arch", "prop.rock"]
 const MUTATIONS := ["mutation.M01", "mutation.M02", "mutation.M03", "mutation.M04"]
-const FX := ["fx.poison", "fx.heal", "fx.armor", "fx.thorns", "fx.growth", "fx.spore_bolt", "fx.bark_hit", "fx.ash_death", "fx.heart_pulse", "fx.heart_damage"]
+const FX := ["fx.poison", "fx.heal", "fx.armor", "fx.thorns", "fx.growth", "fx.spore_bolt", "fx.bark_hit", "fx.ash_death", "fx.heart_pulse", "fx.heart_damage", "fx.ring", "fx.floor_target"]
 const STATES := ["idle", "summon", "attack", "cast", "hit", "death", "defend", "victory", "move"]
 
 
@@ -284,5 +284,71 @@ func test_mutations_keep_play_area_free() -> Array:
 				break
 		if v.get_node_or_null("GlowPulse") == null:
 			f.append(id + ": no GlowPulse idle life")
+		v.free()
+	return f
+
+
+func test_target_markers_switch_kinds() -> Array:
+	var f: Array = []
+	for id: String in ["fx.ring", "fx.floor_target"]:
+		var m := VisualSlots.make(id) as TargetMarker
+		if m == null:
+			f.append(id + ": not a TargetMarker")
+			continue
+		if m.visible:
+			f.append(id + ": must start hidden (kind none)")
+		var kinds: Array = [&"target", &"selected"] + ([&"invalid", &"danger"] if id == "fx.ring" else [])
+		for k: StringName in kinds:
+			m.set_kind(k)
+			if not m.visible or m.kind != k:
+				f.append("%s: set_kind(%s) did not show it" % [id, k])
+		m.set_kind(&"bogus")
+		if m.visible or m.kind != &"none":
+			f.append(id + ": unknown kind must hide the marker")
+		m.set_kind(&"none")
+		if m.visible:
+			f.append(id + ": kind none must hide")
+		if not m.find_children("*", "CollisionObject3D", true, false).is_empty() or not m.find_children("*", "Light3D", true, false).is_empty():
+			f.append(id + ": must not have physics bodies or lights")
+		m.free()
+	var r := VisualSlots.make("fx.ring") as TargetMarker
+	r.set_radius(1.2)
+	r.set_kind(&"selected")
+	var b := VisualSlots.bounds(r)
+	if absf(b.size.x - 2.4) > 0.05:
+		f.append("ring radius 1.2 gives width %.2f, expected 2.4" % b.size.x)
+	if b.end.y > 0.25 or b.position.y < -0.01:
+		f.append("ring must lie on the ground (y %.2f..%.2f)" % [b.position.y, b.end.y])
+	r.free()
+	var s := VisualSlots.make("fx.floor_target") as TargetMarker
+	s.set_kind(&"target")
+	var sb := VisualSlots.bounds(s)
+	if absf(sb.position.x + 5.6) > 0.05 or absf(sb.end.x - 5.6) > 0.05:
+		f.append("floor strip must span x -5.6..5.6 (got %.2f..%.2f)" % [sb.position.x, sb.end.x])
+	s.free()
+	return f
+
+
+func test_footprint_radius_and_side() -> Array:
+	var f: Array = []
+	for id: String in UNITS + ENEMIES:
+		var r := VisualSlots.footprint_radius(id)
+		if r < 0.35 or r > 1.7:
+			f.append("%s: footprint radius %.2f out of range" % [id, r])
+	if VisualSlots.footprint_radius("enemy.E06") <= VisualSlots.footprint_radius("enemy.E01"):
+		f.append("boss ring must be larger than Ashling's")
+	for pair: Array in [["unit.B01", &"ally"], ["enemy.E03", &"enemy"]]:
+		var v := VisualSlots.make(str(pair[0]))
+		VisualSlots.apply_side(v, pair[1])
+		if v.get_node_or_null("SideDisc") == null:
+			f.append("%s: no SideDisc" % pair[0])
+		var mesh := v.get_node("Model").find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
+		if mesh.material_overlay == null:
+			f.append("%s: no rim overlay" % pair[0])
+		var an := v.get_node("UnitAnimator") as UnitAnimator
+		if an.base_overlay != mesh.material_overlay:
+			f.append("%s: animator would not restore the rim after a flash" % pair[0])
+		if not v.find_children("*", "CollisionObject3D", true, false).is_empty():
+			f.append("%s: side decoration added physics" % pair[0])
 		v.free()
 	return f

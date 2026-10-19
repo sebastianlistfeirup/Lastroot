@@ -11,6 +11,11 @@ const ONE_SHOT := ["fx.heal", "fx.spore_bolt", "fx.bark_hit", "fx.ash_death", "f
 
 
 static func build(slot_id: String, spec: Dictionary) -> Node3D:
+	match str(spec.get("builder", "")):
+		"ring":
+			return TargetMarker.create(&"ring")
+		"floor_target":
+			return TargetMarker.create(&"strip")
 	var root := Node3D.new()
 	root.name = "Fx"
 	var kind := str(spec.get("builder", slot_id.trim_prefix("fx.")))

@@ -1044,6 +1044,46 @@
     0
    ],
    "rotation_y": 0
+  },
+  "fx.ring": {
+   "kind": "fx",
+   "name": "ring",
+   "one_shot": false,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "ring"
+   },
+   "notes": "Ground ring at a unit's feet: TargetMarker.set_radius(VisualSlots.footprint_radius(id)) + set_kind(none/target/selected/invalid/danger).",
+   "interactive": false,
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
+  },
+  "fx.floor_target": {
+   "kind": "fx",
+   "name": "floor target",
+   "one_shot": false,
+   "height": 1.0,
+   "fit": "none",
+   "proxy": {
+    "builder": "floor_target"
+   },
+   "notes": "Strip along a floor's front (x -5.6..5.6): TargetMarker.set_kind(none/target/selected) for floor-targeted spells.",
+   "interactive": false,
+   "scene": "",
+   "scale": 1.0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "rotation_y": 0
   }
  }
 }

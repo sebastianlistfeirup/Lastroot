@@ -64,6 +64,29 @@ static func torus(inner: float, outer: float, rings: int = 12, ring_seg: int = 5
 	return _cache[k]
 
 
+## Flat annulus in the XZ plane (y=0), facing up: selection rings and side discs.
+## inner 0 gives a filled disc.
+static func ring_flat(inner: float, outer: float, seg: int = 40) -> Mesh:
+	var k := "ringflat|%.3f|%.3f|%d" % [inner, outer, seg]
+	if _cache.has(k):
+		return _cache[k]
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st.set_normal(Vector3.UP)
+	for i: int in seg:
+		var a0 := TAU * float(i) / float(seg)
+		var a1 := TAU * float(i + 1) / float(seg)
+		var o0 := Vector3(cos(a0), 0, sin(a0)) * outer
+		var o1 := Vector3(cos(a1), 0, sin(a1)) * outer
+		var i0 := Vector3(cos(a0), 0, sin(a0)) * inner
+		var i1 := Vector3(cos(a1), 0, sin(a1)) * inner
+		for v: Vector3 in [i0, o1, o0, i0, i1, o1]:
+			st.add_vertex(v)
+	var m := st.commit()
+	_cache[k] = m
+	return m
+
+
 ## Irregular low-poly rock: a jittered sphere, deterministic per seed.
 static func rock(r: float, seed: int, squash: float = 0.75) -> Mesh:
 	var k := "rock|%.3f|%d|%.2f" % [r, seed, squash]

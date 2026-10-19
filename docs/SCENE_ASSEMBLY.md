@@ -26,6 +26,10 @@ var badge_y := VisualSlots.head_height("unit.B01")   # hp/attack-badge (2D-overl
 | `has_clip(state)` | Rig: true hvis der findes et rigtigt clip. Proxy: true for alle tilstande (proceduralt er dens clip). Manglende clip spiller stadig procedural + `finished`. |
 | `snap(state)` | Skip/load: sæt slutpose med det samme (`death` = skjult, ellers idle). |
 | `UnitAnimator.reduced_motion` (static) | Mindre udsving, ingen knockback-rotation; sæt fra settings. |
+| `VisualSlots.footprint_radius(slot_id) -> float` | Radius (m, 0,35–1,7) til en fod-ring; målt på det viste visual (proxy eller model), cachet, uafhængigt af facing. |
+| `VisualSlots.make("fx.ring") as TargetMarker` | Flad ring + lav lysende bånd ved fødderne (læses også fra det næsten vandrette kampkamera). `set_radius(r)`, `set_kind(k)` med `&"none"` (skjult), `&"target"` (turkis, pulserer roligt), `&"selected"` (rav, fast), `&"invalid"` (rød, dæmpet), `&"danger"` (rød puls = dør i prognosen). Ukendt kind → none. Origin = jorden; læg den ved enhedens fødder (fx barn af UnitView, ikke af den roterende VisualRoot — den er symmetrisk). |
+| `VisualSlots.make("fx.floor_target") as TargetMarker` | Strimmel langs en etages forkant, x −5,6…5,6, med svag fyldning af gulvet: `set_kind(&"none"/&"target"/&"selected")`. Placér ved `(0, floor_y, 0)`. |
+| `VisualSlots.apply_side(visual, &"ally"/&"enemy", rim := true)` | Kald én gang efter `make()` på unit/enemy: svag fresnel-rim (turkis/ember) som `material_overlay` + en blød farvet skive under fødderne. Silhuetten ændres ikke; `UnitAnimator`-blink gendanner rimmen bagefter (`base_overlay`). `rim=false` = kun skiven (billigere: rimmen tegner hver mesh to gange). |
 | `FxBuilder.launch(parent, from, to, duration, "fx.spore_bolt", "fx.heal")` | Flyver en sporekugle i bue fra stav til mål og spiller impact-fx. |
 
 ## Koordinater (meter)
@@ -39,6 +43,8 @@ var badge_y := VisualSlots.head_height("unit.B01")   # hp/attack-badge (2D-overl
 | Figurer | Stå omkring z = 0 (maks. dybde ±1,0). Allierede venstre (x < 0) med `rotation_y = -90` (front mod +X), fjender højre med `+90`. Lidt mod kameraet (−115 / +115) giver 3/4-visning som i style gate. Fodaftryk langs X ≈ figurens Z-dybde: 1-plads ≤ ~0,9 m, 2-plads ≤ ~2,1 m, 3-plads ≤ ~2,6 m. |
 | Mutationer | Instancér i rammen for det, de pynter (som `TreeStage.apply_mutations`): `M01` ved `(0, 0, 0)` — bredere barkkant under Rødder-pladen (under overfladen) + tykke rødder over bagkanten og ned ad yderhjørnerne med ravspidser; `M02` ved `(0, 4.5, 0)` — tyk glødende ring højt på stammen (lokal y ≈ 3,35, over hovederne) + turkise årer; `M03` ved `(0, 9, 0)` — blomstertræer i bagerste hjørner, guldblomster på bagkanten, få drivende kronblade (14 CPU-partikler); `M04` ved hjertets position — dobbelt halo, turkis ring, 12 skår, ét ekstra lys. Ingen del går ind i spilområdet (testet) og klikflader ændres aldrig. |
 | FX | Origin = den ramte figurs fødder (dimensioneret til ~1,6 m figur; skalér med `head_height/1,8`). One-shot (`meta one_shot`, `lifetime_s`) frigør sig selv; status-loops (poison, armor, thorns, growth, heart_pulse) fjerner du selv. CPUParticles3D (virker i Compatibility/web). |
+
+Markører er rent visuelle: én–tre unshaded meshes med eget materiale, ingen lys, ingen fysik, så de blokerer aldrig klik. Puls respekterer reduced motion (kun farve). Art gate: `scenes/tests/stage_mutations.tscn -- --markers` → `evidence/asset_pipeline/stage_markers.png`.
 
 ## Liv i tomgang
 

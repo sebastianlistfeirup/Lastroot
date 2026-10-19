@@ -16,6 +16,7 @@ func _ready() -> void:
 	var muts := ["M01", "M02", "M03", "M04"]
 	var portrait := false
 	var units := true
+	var markers := false
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--mutations="):
 			muts = Array(a.substr(12).split(",", false))
@@ -27,13 +28,20 @@ func _ready() -> void:
 			portrait = true
 		elif a == "--no-units":
 			units = false
+		elif a == "--markers":
+			markers = true
 	var stage := TreeStage.new()
 	add_child(stage)
 	stage.build()
 	stage.frame_camera(portrait, 0.0 if portrait else 0.23)
 	stage.apply_mutations(muts)
 	if units:
-		_units()
+		_units(markers)
+	if markers:
+		var strip := VisualSlots.make("fx.floor_target") as TargetMarker
+		strip.position.y = StageLayout.floor_y(1)
+		add_child(strip)
+		strip.set_kind(&"target")
 	var ui := CanvasLayer.new()
 	add_child(ui)
 	var l := Label.new()
@@ -44,7 +52,10 @@ func _ready() -> void:
 
 
 ## A representative line-up at the real anchors: allies left, enemies right.
-func _units() -> void:
+## markers: side rims/discs on every unit and one ring of each kind
+## (B01 selected, E01 target, E02 danger, S02 invalid, E06 target).
+func _units(markers: bool = false) -> void:
+	var kinds := {"unit.B01": &"selected", "enemy.E01": &"target", "enemy.E02": &"danger", "unit.S02": &"invalid", "enemy.E06": &"target"}
 	var rows := [[0, ["unit.B01", "unit.S02", "unit.B02"], ["enemy.E01", "enemy.E02", "enemy.E04"]],
 		[1, ["unit.S01", "unit.B04"], ["enemy.E03", "enemy.E05"]],
 		[2, ["unit.B06"], ["enemy.E06"]]]
@@ -57,12 +68,26 @@ func _units() -> void:
 			v.position = StageLayout.ally_pos(f, i, spaces)
 			v.rotation_degrees.y = -90.0
 			add_child(v)
+			if markers:
+				_mark(v, str(ids[i]), &"ally", kinds)
 		var es: Array = row[2]
 		for i: int in es.size():
 			var v := VisualSlots.make(str(es[i]))
 			v.position = StageLayout.enemy_pos(f, i, es.size(), str(es[i]) == "enemy.E06")
 			v.rotation_degrees.y = 90.0
 			add_child(v)
+			if markers:
+				_mark(v, str(es[i]), &"enemy", kinds)
+
+
+func _mark(v: Node3D, id: String, side: StringName, kinds: Dictionary) -> void:
+	VisualSlots.apply_side(v, side)
+	if kinds.has(id):
+		var ring := VisualSlots.make("fx.ring") as TargetMarker
+		ring.position = v.position
+		add_child(ring)
+		ring.set_radius(VisualSlots.footprint_radius(id))
+		ring.set_kind(kinds[id])
 
 
 func _process(_dt: float) -> void:
