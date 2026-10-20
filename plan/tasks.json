@@ -1,856 +1,856 @@
 {
-  "schema_version": 1,
-  "project": "LASTROOT",
-  "spec_version": "2.0",
-  "status": "SPEC_READY",
-  "phase_gate_rule": "All earlier-phase tasks DONE with evidence before next phase.",
-  "phases": [
-    {
-      "id": 1,
-      "gate": "Spilbar første kamp i Godot: tre etager, startdeck og to champions, alle fire statusser, sand prognose, save/load og native eksport. Fuld sekskampstur er strækmål."
-    },
-    {
-      "id": 2,
-      "gate": "Komplet gennemløb med 24 kort, 8 relikvier, 4 mutationer og Askekronen. Godkendt Synty/PolyPerfect-udsnit og animationer. 100 prognosescenarier matcher."
-    },
-    {
-      "id": 3,
-      "gate": "Alle seks kampe, rutegrene, championretninger, relevante opgraderinger og brugerflows er polerede. Begge champions kan vinde via dokumenteret lovlig rute."
-    },
-    {
-      "id": 4,
-      "gate": "Ren desktopreleasekandidat med savekompatibilitet, tilgængelighed, verificeret referencehardware, ærlig demo og fuld agentoverdragelse."
-    }
-  ],
-  "tasks": [
-    {
-      "id": "LR-01",
-      "phase": 1,
-      "title": "Miljø, separat repository og Godot-boot",
-      "depends_on": [],
-      "paths": [
-        "project.godot",
-        "docs/",
-        "tools/"
-      ],
-      "steps": "Auditér Godot, renderer, OS, Git, eksporttemplates og faktiske assetmapper. Vælg stabil 4.x/GDScript og lås version. Opret menu->battle->result->menu og tre simple etagevisninger. Bevar eventuelt eksisterende LASTROOT-arbejde ved først at registrere baseline.",
-      "acceptance": "Ren opstart og lukning uden parserfejl. VERSION_MATRIX og baselinecommit findes. Ingen gamle projekter eller rå assets overskrives.",
-      "fallback": "Hvis engine mangler: forsøg tilladt installation; fortsæt datavalidering, men markér kørsel BLOCKED_ENVIRONMENT.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-01/result.json"
-      ]
-    },
-    {
-      "id": "LR-02",
-      "phase": 1,
-      "title": "CardDef, RunState og seedkontrakt",
-      "depends_on": [
-        "LR-01"
-      ],
-      "paths": [
-        "scripts/domain/",
-        "data/",
-        "tests/"
-      ],
-      "steps": "Implementér separate CardDef/CardInstance/UnitInstance, tre etager, zones og startdeck. Opret monotone ID’er og adskilte RNG-streams for shuffle, route og rewards. Indlæs de 24 katalogkort som data med skemavalidering.",
-      "acceptance": "24 unikke typer, 22 normale + 2 champions. Begge startdecks har 12 instanser. Dublet-ID og ukendt effekt afvises med præcis årsag.",
-      "fallback": "Brug JSON/Resources og simple typed classes; ingen custom editor kræves.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-02/result.json"
-      ]
-    },
-    {
-      "id": "LR-03",
-      "phase": 1,
-      "title": "Ren turmotor og fælles opstigning",
-      "depends_on": [
-        "LR-02"
-      ],
-      "paths": [
-        "scripts/domain/battle_reducer.gd",
-        "tests/domain/"
-      ],
-      "steps": "Implementér BEGIN_TURN, PLAYER_ACTIONS, RESOLUTION og terminal status. Afvikl etager i fast rækkefølge, døde uden handling og normal opstigning fra snapshot. Enemywaves følger katalogrækkefølgen. Producer immutable events.",
-      "acceptance": "Overlevende fjende rykker højst én etage og kæmper kun én gang. Tomt bræt før sidste bølge er ikke sejr. Samme state/kommando giver samme resultat.",
-      "fallback": "Hold rendering helt ude. Reducér til et angreb og én fjende i minimal reproduktion.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-03/result.json"
-      ]
-    },
-    {
-      "id": "LR-04",
-      "phase": 1,
-      "title": "Panser, Gift, Torne og Vækst",
-      "depends_on": [
-        "LR-03"
-      ],
-      "paths": [
-        "scripts/domain/effects/",
-        "tests/status/"
-      ],
-      "steps": "Implementér alle fire statusser, snapshot-torne og FIFO-dødsbehandling. Definér safe drainpoints og Gift-snapshot. S06 on-death og B12 remove skal være forskellige events. Valider livet aldrig overstiger max_hp.",
-      "acceptance": "T01/T02/T05 består håndberegnede forventninger. Død behandles én gang, Torne rekursiverer ikke, og ny Gift tickes ikke to gange i samme fase.",
-      "fallback": "Log event_sequence og reducer kæden til færrest mulige enheder; indfør ikke særregler i UI.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-04/result.json"
-      ]
-    },
-    {
-      "id": "LR-05",
-      "phase": 1,
-      "title": "Startkort, champions og validerede mål",
-      "depends_on": [
-        "LR-02",
-        "LR-03",
-        "LR-04"
-      ],
-      "paths": [
-        "scripts/domain/commands/",
-        "data/cards/",
-        "tests/cards/"
-      ],
-      "steps": "Implementér B01/S01, B02/B07/B08/S02/S07 og startdeckflow. Champion er separat førstehånd og beholdes uspillede. Opret insert, cast, normal move og cancel som atomiske kommandoer med pris/pladscheck.",
-      "acceptance": "Begge champions kan spille første kamp. Ugyldigt mål bruger intet. Kort ligger i præcis én zone; døde væsner kommer ikke tilbage ved reshuffle.",
-      "fallback": "Begynd med tap/klick-kommandoer og tydelige mål; drag venter.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-05/result.json"
-      ]
-    },
-    {
-      "id": "LR-06",
-      "phase": 1,
-      "title": "Forecast fra samme reducer",
-      "depends_on": [
-        "LR-03",
-        "LR-04",
-        "LR-05"
-      ],
-      "paths": [
-        "scripts/domain/forecast/",
-        "tests/forecast/"
-      ],
-      "steps": "Klon hele BattleState inklusive RNG og tællere. Kør samme resolve_end_turn som kampmotoren. Returnér state/eventdiff og test at originalens hash er uændret. Vis forventet død/opstigning/hjerteskade i debugpanel.",
-      "acceptance": "Mindst 20 første fixtures matcher både state og eventrækkefølge. Preview bruger ingen kraft, RNG eller relikvieflag. Forecast og rigtig kamp har ingen separat skadelogik.",
-      "fallback": "Undgå optimering før korrekthed; cache først når en konkret profil viser behov.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-06/result.json"
-      ]
-    },
-    {
-      "id": "LR-07",
-      "phase": 1,
-      "title": "Kort-UI, målvalg og inputlås",
-      "depends_on": [
-        "LR-05",
-        "LR-06"
-      ],
-      "paths": [
-        "scenes/ui/",
-        "scripts/ui/",
-        "scenes/tests/ui/"
-      ],
-      "steps": "Byg rigtig tekst, kortinspektør, energi, pladstæller og targetpreview. Implementér tap kort->mål->bekræft samt cancel. Lås gameplayinput under resolution. Lav desktop og et tidligt portrætprototypelayout.",
-      "acceptance": "Ét klik/tap giver højst én handling. Ingen nødvendig hover. UI viser årsag til ugyldigt mål. Resize nulstiller ikke BattleState.",
-      "fallback": "Drop kortvifte og dekorative rammer; behold store hitflader og læsbar tekst.",
-      "status": "DONE",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-07/result.json"
-      ]
-    },
-    {
-      "id": "LR-08",
-      "phase": 1,
-      "title": "3D-trægreybox og eventpræsentation",
-      "depends_on": [
-        "LR-03",
-        "LR-07"
-      ],
-      "paths": [
-        "scenes/battle/",
-        "scripts/presentation/",
-        "scenes/actors/"
-      ],
-      "steps": "Byg TreeStage med tre FloorView, faste anchors, hjertet og CameraRig. Presenter viser immutable events med simple proxies. Implementér 1x/2x/skip og sikker timeout, så manglende animation ikke låser kampen.",
-      "acceptance": "Alle tre etager er synlige. Skip og 2x giver samme state som normal afvikling. Ingen præsentationscallback ændrer skade eller reward.",
-      "fallback": "Brug simple tweens og primitives; fin animational timing følger efter.",
-      "status": "VERIFYING",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-08/result.json"
-      ],
-      "notes": "Åbent: Visuel kontrol på rigtig skærm (headless/Xvfb er ikke visuel godkendelse)."
-    },
-    {
-      "id": "LR-09",
-      "phase": 1,
-      "title": "Første kamp med tre bølger",
-      "depends_on": [
-        "LR-05",
-        "LR-06",
-        "LR-07",
-        "LR-08"
-      ],
-      "paths": [
-        "data/battles/",
-        "scenes/flow/",
-        "tests/flows/"
-      ],
-      "steps": "Implementér kamp 1 præcis med 1 Askeling, 2 Askelinger og 1 Kulskjold. Tilføj onboarding, bølgevarsel, sejr/nederlag og ny kamp. Vis klart hvorfor hjertet mister liv.",
-      "acceptance": "Første kamp kan gennemføres med begge champions uden debug. Der er ingen tidlig sejr, dobbelt opstigning eller uvarslet bølge.",
-      "fallback": "Skær tutorialtekst og pynt, men behold alle tre bølger og korrekt kerneloop.",
-      "status": "VERIFYING",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-09/result.json"
-      ],
-      "notes": "Åbent: Én menneskelig gennemspilning af kamp 1 med hver champion (onboarding-hints vurderes)."
-    },
-    {
-      "id": "LR-10",
-      "phase": 1,
-      "title": "Atomiske saves og resume efter animation",
-      "depends_on": [
-        "LR-02",
-        "LR-08",
-        "LR-09"
-      ],
-      "paths": [
-        "scripts/save/",
-        "fixtures/saves/",
-        "tests/save/"
-      ],
-      "steps": "Gem efter spillerhandling og resolution med schema/checksum/backup. Gem authoritative slutstate før eventplayback og presentation_pending. Restore viser slutstate eller genafspiller kun visuals. Tilføj JSON export/import.",
-      "acceptance": "Load reroller ikke hånd og afregner ikke events igen. Korrupt save tilbyder backup. Fremtidig ukendt version afvises uden at slette original.",
-      "fallback": "Gem kun stabile domænepunkter; serialisér aldrig AnimationTree eller sceneobjekter.",
-      "status": "VERIFYING",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-10/result.json"
-      ]
-    },
-    {
-      "id": "LR-11",
-      "phase": 1,
-      "title": "Ferieimportprøve og sammenhængende QA",
-      "depends_on": [
-        "LR-08",
-        "LR-09",
-        "LR-10"
-      ],
-      "paths": [
-        "art/prefabs/",
-        "docs/ASSET_LEDGER.csv",
-        "evidence/"
-      ],
-      "steps": "Importér én træ-/klippeprøve og én rigget figur fra tilgængelig Synty/PolyPerfect. Mål skala, restpose og materialer. Spil hele kamp 1 og ret de største kontrol-/prognosefejl. Registrér proxies ærligt.",
-      "acceptance": "Importprøve har faktiske beviser hvis assets findes. Første kamp/save virker stadig. Manglende assets stopper ikke domænearbejdet, men visuel godkendelse forbliver åben.",
-      "fallback": "Brug dokumenteret proxy hvis filer mangler; opfind ikke leverandørfilnavne eller ejerskab.",
-      "status": "VERIFYING",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-11/result.json"
-      ],
-      "notes": "Åbent: Ingen købte Synty/PolyPerfect-filer i containeren: rigtig importprøve (én træ-/klippeprøve + én rigget figur) udestår. Visuel godkendelse forbliver åben."
-    },
-    {
-      "id": "LR-12",
-      "phase": 1,
-      "title": "Fase 1-port og feriehåndoff",
-      "depends_on": [
-        "LR-01",
-        "LR-02",
-        "LR-03",
-        "LR-04",
-        "LR-05",
-        "LR-06",
-        "LR-07",
-        "LR-08",
-        "LR-09",
-        "LR-10",
-        "LR-11"
-      ],
-      "paths": [
-        "builds/",
-        "evidence/LR-12/",
-        "docs/STATUS.md"
-      ],
-      "steps": "Eksportér native build, kør første kamp fra ren profil og genkør reducer/forecast/save-tests. Gem build-ID, video og test-save. Dokumentér manglende art og næste tre READY-opgaver. Fortsæt fase 2 hvis tid og port tillader.",
-      "acceptance": "Gate 1 er bestået med faktisk kørbar kamp og korrekt prognose/save. Ingen P0/P1. Headless alene tæller ikke som visuelt kontrolleret demo.",
-      "fallback": "Ved reel miljøblokering leveres præcis repro og resterende testliste; ikke en falsk PASS.",
-      "status": "VERIFYING",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "42e0b9f",
-      "evidence": [
-        "evidence/LR-12/result.json"
-      ],
-      "notes": "Åbent: Windows-build køres på referencemaskinen. Video af første kamp fra ren profil. LR-11 visuel/import-del."
-    },
-    {
-      "id": "LR-13",
-      "phase": 2,
-      "title": "Hjemkomstaudit og visuel line-up",
-      "depends_on": [
-        "LR-12"
-      ],
-      "paths": [
-        "assets/",
-        "art/prefabs/",
-        "scenes/tests/Lineup.tscn"
-      ],
-      "steps": "Auditér fuld værktøjskæde. Udvælg faktisk Synty/PolyPerfect-kit til træ, to champions, to normale væsner og to fjender. Lav wrappers, materialepalette og gameplaykamerasammenligning mod REF_01/02/05.",
-      "acceptance": "Skala, silhouette og lys er sammenhængende. Hver fil har kilde/hash. Ingen købt controller bliver runtimekode. Proxyudskiftning ændrer ikke regler.",
-      "fallback": "Behold samme sceneinterfaces og skift ét asset ad gangen.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-14",
-      "phase": 2,
-      "title": "Fuld kortresolver og upgrade matrix",
-      "depends_on": [
-        "LR-04",
-        "LR-05",
-        "LR-12"
-      ],
-      "paths": [
-        "scripts/domain/effects/",
-        "data/cards/",
-        "tests/cards/"
-      ],
-      "steps": "Implementér resterende kort, B05 målvalg og alle spellupgrade-regler. Tilføj en test pr. kort plus kombinationer med armor/poison/death. B12 er ikke opgraderbart; S11 reducerer ikke Gift over 12.",
-      "acceptance": "Alle 24 typer fungerer. En opgraderet instans ændrer ikke andre kopier. Ingen cost betales for ugyldig eller virkningsløs lejrhandling.",
-      "fallback": "Hold effect-typer små og eksplicitte; ingen dynamisk scriptsprog til kort kræves.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Implementeret før porten: alle 24 korttyper i reduceren, B05 målvalg/fallback, upgrade-matrix pr. instans (CardStats). test_cards.gd har en test pr. kort + relikvie-/championkombinationer. Mangler: fase 1-port. | 21.10: upgrade-matrix-test over alle 31 kort×opgradering gennem rigtig reducer (test_upgrade_matrix_all_cards)."
-    },
-    {
-      "id": "LR-15",
-      "phase": 2,
-      "title": "Relikvier, mutationer og championretninger",
-      "depends_on": [
-        "LR-14"
-      ],
-      "paths": [
-        "scripts/domain/run_modifiers/",
-        "data/",
-        "tests/"
-      ],
-      "steps": "Implementér R01-R08, M01-M04 og fire championretninger med to trin. Gem turnflags, valg og claimed_ids. Beregn positionsbonusser afledt. Vis før/efter på upgrades.",
-      "acceptance": "Relikvier duplikeres ikke ved load. R03 vælger laveste unit_id, M02 akkumulerer ikke ved flyt, M04 afregnes én gang. Retning låses efter første valg.",
-      "fallback": "Kør små isolerede fixtures før fuldt run; en visuel effekt er ikke regelbevis.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Implementeret før porten: R01-R08, M01-M04 og fire championretninger med to trin; turflags, M02 afledt, M04 én gang, retning låses. Tests i test_cards/test_run. Mangler: før/efter-visning poleres i UI og fase 1-port."
-    },
-    {
-      "id": "LR-16",
-      "phase": 2,
-      "title": "Rutekort, økonomi og rewardtransaktioner",
-      "depends_on": [
-        "LR-10",
-        "LR-14",
-        "LR-15"
-      ],
-      "paths": [
-        "scripts/domain/route/",
-        "scenes/ui/rewards/",
-        "data/routes/"
-      ],
-      "steps": "Byg fem mellemrum med to knudevalg hver, korrekt kampbelønning og ekstra valg efter kampnummer. Gem konkrete rewardtilbud før visning. Implementér lejr, møde, fjernelse og bonuskortknude.",
-      "acceptance": "Alle knuder kan claims/skippes én gang. Deck beholder mindst syv normale kort. Reload reroller ikke tilbud. Hele rewardflow har entydig rækkefølge.",
-      "fallback": "Brug nodebaseret UI først; 3D-ruteøer er præsentationslag.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Implementeret før porten: fem forgreningspunkter, fast rewardrækkefølge, stabile slot-id'er med offered/claimed/skipped, lejr/møde/fjernelse/kortknude, min. 7 normale kort, udbud gemt før visning. Rute- og belønningsskærme: se run_screen."
-    },
-    {
-      "id": "LR-17",
-      "phase": 2,
-      "title": "Kamp 2-5 og Askekronen",
-      "depends_on": [
-        "LR-09",
-        "LR-14",
-        "LR-15",
-        "LR-16"
-      ],
-      "paths": [
-        "data/battles/",
-        "scripts/domain/boss/",
-        "tests/boss/"
-      ],
-      "steps": "Indlæs alle originale bølger. Implementér bossankring, tur 10-eskalation, immunitet mod flyt/fjern og nederlagsprioritet. Forbind kampene til én fuld runsekvens og epilog.",
-      "acceptance": "Seks kampe gennemføres uden debug. Boss går højst én etage og angriber ikke igen efter opstigning. Hjerte 0 giver nederlag selv ved samtidig sidste fjendes død.",
-      "fallback": "Hold bossens ruleset lille; nye phase mechanics er ikke version 2-scope.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Implementeret før porten: kamp 2-5 og Askekronen (ankring, tur-10-eskalation, nederlag ved Kronen, nederlagsprioritet). Bot gennemfører alle seks kampe med begge champions (evidence/balance). | 21.10: test_boss_immune_to_move_and_remove (ingen flyt/fjern-effekt accepterer fjende/boss)."
-    },
-    {
-      "id": "LR-18",
-      "phase": 2,
-      "title": "Animationer og sand præsentation",
-      "depends_on": [
-        "LR-08",
-        "LR-13",
-        "LR-17"
-      ],
-      "paths": [
-        "art/animations/",
-        "scripts/presentation/",
-        "scenes/tests/RigLab.tscn"
-      ],
-      "steps": "Godkend idle/summon/attack/hit/death for første rigfamilier. Match stav/slagfeedback til eventtimeline. Tilføj hjertepuls og mutationsovergang. Test pause, skip, 2x og resume efter background.",
-      "acceptance": "Galleriet og rigtigt run har ingen posesnap eller forkert målfeedback. Animationsevents ændrer aldrig authoritative state. Manglende clip kan ikke låse flow.",
-      "fallback": "Brug enkle stationære clips og faste anchors; kompleks locomotion er unødvendig.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: event-presenter med timere, skip/0.5/1/2x, UnitAnimator-kontrakt med proceduremæssige proxyanimationer. Mangler godkendte Synty/PolyPerfect/Mixamo-klip."
-    },
-    {
-      "id": "LR-19",
-      "phase": 2,
-      "title": "100 scenarier og platformspike",
-      "depends_on": [
-        "LR-06",
-        "LR-10",
-        "LR-15",
-        "LR-17",
-        "LR-18"
-      ],
-      "paths": [
-        "tests/forecast/",
-        "fixtures/",
-        "export_presets.cfg",
-        "evidence/"
-      ],
-      "steps": "Udbyg til 100 faste state/event-matches. Test native og et single-thread Godot Compatibility-webbuild, hvis templates findes. Afprøv touch/portrait og fysisk telefon/iPad når adgang er der; rapportér separat.",
-      "acceptance": "100 tests matcher. Desktopflow består. Web- og fysisk mobilstatus har egne PASS/FAIL/NOT_RUN; browseremulering kaldes ikke fysisk test.",
-      "fallback": "Hvis web ikke er stabilt, behold native releaseprioritet og konkret kompatibilitetsbacklog.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "120 gemte prognosescenarier matcher state-hash og eventrækkefølge (test_forecast). Web-eksportpreset (single-thread, Compatibility) findes. Mangler: fysisk telefon/iPad-test."
-    },
-    {
-      "id": "LR-20",
-      "phase": 2,
-      "title": "Fase 2-port: fuldt kvalitetsudsnit",
-      "depends_on": [
-        "LR-13",
-        "LR-14",
-        "LR-15",
-        "LR-16",
-        "LR-17",
-        "LR-18",
-        "LR-19"
-      ],
-      "paths": [
-        "builds/",
-        "docs/",
-        "evidence/LR-20/"
-      ],
-      "steps": "Kør komplet run, kontroller katalogtal og art/animation. Lås content_ids og savefixture. Vælg desktop-/websupport ud fra faktiske tests. Gem phase-tag og næste opgaver.",
-      "acceptance": "Gate 2: 24 kort, 8 relikvier, 4 mutationer, 6 kampe, godkendt visuelt udsnit og 100 matchscenarier. Ingen P0/P1.",
-      "fallback": "Udskyd polishproduktion hvis forecast eller save stadig fejler.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-21",
-      "phase": 3,
-      "title": "Kampagneflow og alle afbrydelser",
-      "depends_on": [
-        "LR-20"
-      ],
-      "paths": [
-        "scenes/flow/",
-        "scripts/domain/run/",
-        "tests/flows/"
-      ],
-      "steps": "Gennemgå new run, factionselect, kamp, rewards, rute, epilog og retry. Håndtér exit ved hvert skærmskift. Definér continue/new-run-dialog og beskyttelse af igangværende save.",
-      "acceptance": "Alle lovlige flowpunkter kan forlades og genoptages uden reroll/tab. Intet modalt vindue blokerer adgang til pause/exit.",
-      "fallback": "Brug én eksplicit flowstate i stedet for mange skjulte UI-flags.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: continue/ny run, save efter hver kommando, presentation checkpoint. Afbrydelser ved alle skærmskift testes i meta_smoke."
-    },
-    {
-      "id": "LR-22",
-      "phase": 3,
-      "title": "Træstage og fire synlige mutationer",
-      "depends_on": [
-        "LR-13",
-        "LR-15",
-        "LR-20"
-      ],
-      "paths": [
-        "scenes/tree/",
-        "art/environment/",
-        "lighting/"
-      ],
-      "steps": "Byg endelig treetagers stage fra modulære assets. M01 udvider rodfloor, M02 fortykkelse/lys på stamme, M03 blomstring i krone, M04 større hjertelys. Bevar anchors og klikflader.",
-      "acceptance": "Alle mutationkombinationer holder tre etager læsbare. Ingen kosmetisk vækst skjuler tal, mål eller prognosis. Originalreferencernes turkis/rav/violet-identitet ses.",
-      "fallback": "Prioritér silhouette og lys over høj propdensitet.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: TreeStage med tre etager i REF_05-stemning (rødder/stamme/krone), stammevarianter, alle fire mutationer synlige uden for spilområdet, tomgangsglød. Proxies; Synty-træ mangler."
-    },
-    {
-      "id": "LR-23",
-      "phase": 3,
-      "title": "Alle væsner og fjendesilhuetter",
-      "depends_on": [
-        "LR-13",
-        "LR-18",
-        "LR-20"
-      ],
-      "paths": [
-        "art/units/",
-        "art/enemies/",
-        "scenes/actors/"
-      ],
-      "steps": "Færdiggør to champions, ti normale væsnetyper, fem normale fjender og boss med passende rigfamilier. Brug egne attachments/varianter hvor nødvendigt og registrér alle klip/assetkilder.",
-      "acceptance": "Hver type kan genkendes i etagekamera. Thornhjort bruger egnet quadrupedrig eller har en konkret åben assetopgave; ikke falsk humanoidgodkendelse.",
-      "fallback": "Genbrug rigfamilier, men skab forskel gennem størrelse, silhouette og materialer.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-24",
-      "phase": 3,
-      "title": "Kortgrafik, ikoner og tekstsystem",
-      "depends_on": [
-        "LR-14",
-        "LR-20",
-        "LR-23"
-      ],
-      "paths": [
-        "scenes/ui/cards/",
-        "art/cards/",
-        "localization/"
-      ],
-      "steps": "Lav konsekvente portrætter fra de godkendte figurer eller egne artworkkilder. Adskil illustration fra rigtig korttekst. Skab fire statusikoner og tydelig kraft/pladsmarkering. Tjek alle upgrades i preview.",
-      "acceptance": "24 kort viser korrekt tal og effekt, også opgraderede. Ingen tekst er kun rasterbagt. Farveblindhed og stor tekst bevarer information.",
-      "fallback": "Brug godkendte in-engine-portrætter før dyre billedgenereringsrunder.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: kortportrætter renderet fra visual slots (skifter automatisk til Synty), emblemer for besværgelser, fraktionsrammer, glyf+tal for statusser, galleri over alle 24 kort + upgrades (evidence/meta_screens/cards_*.png)."
-    },
-    {
-      "id": "LR-25",
-      "phase": 3,
-      "title": "Rute, lejre og championskærm",
-      "depends_on": [
-        "LR-16",
-        "LR-20",
-        "LR-24"
-      ],
-      "paths": [
-        "scenes/ui/route/",
-        "scenes/ui/camp/",
-        "scenes/ui/champion/"
-      ],
-      "steps": "Omsæt REF_04 og briefs 07/08 til læsbare skærme. Giv ruteøer som valgfri 3D-baggrund med rigtige UI-hitflader. Vis valuta, nuværende effekt og konsekvens før køb/valg.",
-      "acceptance": "Lejr sælger ingen ugyldig upgrade. Retningslås er tydelig. Alle knuder virker med touch og tastatur/mus uden dekorationsafhængighed.",
-      "fallback": "2D-nodekort er tilladt, hvis 3D-komposition forringer læsbarheden.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: rutekort (REF_04) med kommende bølger og bossregler, lejr med før/efter og pris, championskærm med begge retninger/låst retning, relikvie-/mutationsvalg. meta_smoke dækker alle knuder."
-    },
-    {
-      "id": "LR-26",
-      "phase": 3,
-      "title": "Boss, lyd og afslutningsfølelse",
-      "depends_on": [
-        "LR-17",
-        "LR-18",
-        "LR-22",
-        "LR-23"
-      ],
-      "paths": [
-        "audio/",
-        "scenes/boss/",
-        "scenes/ending/"
-      ],
-      "steps": "Færdiggør bossintro, escalationfeedback, hjerteskade og runepilog. Lydfamilier: bark, spore, ash, heart og UI. Vis valgte mutationer og championretning efter sejr/nederlag.",
-      "acceptance": "Kritisk lyd har visuelt alternativ. Intro og epilog kan springes over. Afslutning refererer til det faktiske run og giver ingen ekstra reward.",
-      "fallback": "Brug ingamekamera, lys og korte barks; store film må ikke blokere.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: boss-intro (kan springes over), bossbanner fra kampstart, boss-advarsler i prognosen, 36 placeholder-lydcues + musik, resultatskærm med træets opsummering."
-    },
-    {
-      "id": "LR-27",
-      "phase": 3,
-      "title": "Balance: begge champions og realistiske ruter",
-      "depends_on": [
-        "LR-17",
-        "LR-20",
-        "LR-25"
-      ],
-      "paths": [
-        "tools/balance/",
-        "fixtures/runs/",
-        "data/"
-      ],
-      "steps": "Kør faste seeds med lovlige valg, og spil manuelt begge champions. Registrér winrate, turns, heartloss, kortvalg og economy. Tuning foretages med versioneret før/efter-rapport.",
-      "acceptance": "Begge champions har mindst én reproducerbar normal sejrsrute uden debug. Ingen card/relic dominerer alle valg. 20-30 minutter måles, ikke blot erklæres.",
-      "fallback": "Juster katalogtal transparent; tilføj ikke nye fraktioner for at skjule balanceproblemer.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: tools/balance/run_balance.gd (faste seeds, begge champions). Bot vinder 40/40 (D24) — menneskelig spiltest før talændringer. | 21.10: valgfri Svær-sværhedsgrad (D32, fjende-HP 130 %) gør balanceforslaget afprøvbart i spillet; bot på Svær greedy 40/40, casual 8/40."
-    },
-    {
-      "id": "LR-28",
-      "phase": 3,
-      "title": "Accessibility og platformlayout",
-      "depends_on": [
-        "LR-19",
-        "LR-24",
-        "LR-25",
-        "LR-26"
-      ],
-      "paths": [
-        "settings/",
-        "scenes/ui/",
-        "tests/layout/"
-      ],
-      "steps": "Test 720p, 1080p, portræt og tablet. Tilføj UI-scale, remap, subtitles, reduced motion og ingen-hover-flow. Test audio unlock og baggrund/resume på understøttede webenheder.",
-      "acceptance": "Ingen vigtig tekst klipper. Inputflader er store nok ved målskala. Layoutskift bevarer run. Unsupported webprofile mærkes, ikke skjules.",
-      "fallback": "Fasthold native support og gør webstatus konkret, hvis en enhed fejler.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: tekststørrelse, reduceret bevægelse, animationshastighed, en/da, glyf+tal for alle statusser, 48 px-mål, tastatur/gamepad i kampen, portrætlayout-prototype. Mangler fysisk telefon/iPad-test."
-    },
-    {
-      "id": "LR-29",
-      "phase": 3,
-      "title": "Performance og savehårdhed",
-      "depends_on": [
-        "LR-21",
-        "LR-22",
-        "LR-23",
-        "LR-27",
-        "LR-28"
-      ],
-      "paths": [
-        "tools/profile/",
-        "tests/save/",
-        "fixtures/legacy/"
-      ],
-      "steps": "Profilér treetagers stresstest, forecast og load. Kør gentagne run/restart for leaks. Migrér en gammel fixture og test korrupt/afbrudt save samt JSONimport med ugyldige IDs.",
-      "acceptance": "Ingen tilstandstab, dobbelte rewards eller stadig voksende memory. Målt performancebudget er opfyldt eller en ærlig lavprofil er valgt.",
-      "fallback": "Optimer materialer, particles og viewpooling efter måling; hold reduceren enkel.",
-      "status": "IN_PROGRESS",
-      "owner": "claude-code (ferie-session 19.10.2026)",
-      "last_commit": "8a0946d",
-      "evidence": [],
-      "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware."
-    },
-    {
-      "id": "LR-30",
-      "phase": 3,
-      "title": "Fase 3-port: komplet og poleret kerne",
-      "depends_on": [
-        "LR-21",
-        "LR-22",
-        "LR-23",
-        "LR-24",
-        "LR-25",
-        "LR-26",
-        "LR-27",
-        "LR-28",
-        "LR-29"
-      ],
-      "paths": [
-        "builds/",
-        "evidence/LR-30/",
-        "docs/"
-      ],
-      "steps": "Gennemspil begge championforløb, alle nodeklasser og bossudfald. Gennemgå asset/animationstatus og alle 100 fixtures. Fastfrys features før beta.",
-      "acceptance": "Gate 3: hele kerneindholdet, kontrolleret art/UI og lovlige sejrsruter. Ingen P0/P1, ingen skjult placeholder i shipped kerne.",
-      "fallback": "Skær valgfri kosmetik, ikke forecast eller katalogkrav.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-31",
-      "phase": 4,
-      "title": "Privat beta og læsbar strategi",
-      "depends_on": [
-        "LR-30"
-      ],
-      "paths": [
-        "builds/beta/",
-        "evidence/beta/"
-      ],
-      "steps": "Forbered fem eksterne testprøver hvis adgang/mandat findes. Mål forståelse af etager, målvalg og forecast samt lyst til et nyt run. Indsaml konkrete saves og reproduktioner.",
-      "acceptance": "Fire af fem forstår grundflowet efter onboarding. Fejl og misforståelser har konkrete observationer; agentens egne tests adskilles fra spillerfeedback.",
-      "fallback": "Mangler testere, færdiggør øvrig QA og hold oplevelsesvalideringen åben.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-32",
-      "phase": 4,
-      "title": "Beta-rettelser og sidste balancepas",
-      "depends_on": [
-        "LR-31"
-      ],
-      "paths": [
-        "scripts/",
-        "data/",
-        "tests/regression/"
-      ],
-      "steps": "Ret P0/P1 og gentagne forståelsesproblemer. Genkør 100 prognosetests og begge sejrsruter efter balanceretning. Finpuds kortfeedback, pauser og resolutiontempo.",
-      "acceptance": "Alvorlige fejl er lukket med retest. Saves virker, og begge champions har fortsat lovlig sejrsrute. Ingen ny featureglidning.",
-      "fallback": "Rollback et bredt sent fix og lav en mindre rettelse ved regression.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-33",
-      "phase": 4,
-      "title": "Releaseledger, credits og settings",
-      "depends_on": [
-        "LR-30"
-      ],
-      "paths": [
-        "docs/release/",
-        "credits/",
-        "settings/"
-      ],
-      "steps": "Afstem shipped Synty/PolyPerfect/Mixamo/audiofiler med ledger og konkret brugsret. Kontrollér text IDs, credits og settings persistence. Hold rå sourcepakker ude af offentlig levering.",
-      "acceptance": "Alle assets har kendt kilde og reviewstatus. Ingen nøgle/hemmelighed i build. Indstillinger gemmes og kan resettes sikkert.",
-      "fallback": "Erstat uklare assets med godkendte varianter frem for at gætte rettigheder.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-34",
-      "phase": 4,
-      "title": "Demo, optagelser og produktbeskrivelse",
-      "depends_on": [
-        "LR-32",
-        "LR-33"
-      ],
-      "paths": [
-        "builds/demo/",
-        "captures/",
-        "docs/store/"
-      ],
-      "steps": "Pak en tydeligt afgrænset demo med samme reducer. Optag faktisk forecast, etagekamp, mutation og boss. Skriv præcise features og testede systemkrav. Demo og fuldt save har adskilte IDs.",
-      "acceptance": "Alle markedsførte features er spilbare i angivet build. Ingen genereret film bruges som gameplaybevis. Demo kan ikke ødelægge et fuldt run-save.",
-      "fallback": "Vis den stærke kerne frem for at love senere fraktioner.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-35",
-      "phase": 4,
-      "title": "Ren releasekandidat og rollback",
-      "depends_on": [
-        "LR-32",
-        "LR-33",
-        "LR-34"
-      ],
-      "paths": [
-        "tools/release/",
-        "builds/rc/",
-        "evidence/"
-      ],
-      "steps": "Eksportér rent checkout på låst engine. Kør end-to-end, forecast, saves og understøttede platforme. Pak checksum, versionsnoter, kendte begrænsninger og rollbackkandidat.",
-      "acceptance": "Gate 4 teknisk bestået: ren runtime, ingen P0/P1, verificerede saves og ærlig platformmatrix. Offentlig publicering er særskilt status.",
-      "fallback": "Ved editor/eksportforskel: minimal repro, konkret fix og målrettet retest.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    },
-    {
-      "id": "LR-36",
-      "phase": 4,
-      "title": "Endelig overdragelse og drift",
-      "depends_on": [
-        "LR-35"
-      ],
-      "paths": [
-        "docs/RELEASE_HANDOFF.md",
-        "docs/STATUS.md"
-      ],
-      "steps": "Aflevér build, evidence, ledger, opgavetilstand og næste startordre. Prioritér de første 30 dages bugs, spillervalg og demointeresse. Notér konkret hvis publicering kræver adgang/mandat.",
-      "acceptance": "Ny Codex/Claude-agent kan bygge, teste og fortsætte uden chathistorik. RC_READY og faktisk PUBLISHED er tydeligt adskilt.",
-      "fallback": "Stop først ved sidste reelle eksterne blokering efter fuldt reviewklar pakke.",
-      "status": "TODO",
-      "owner": null,
-      "last_commit": null,
-      "evidence": []
-    }
-  ]
+ "schema_version": 1,
+ "project": "LASTROOT",
+ "spec_version": "2.0",
+ "status": "SPEC_READY",
+ "phase_gate_rule": "All earlier-phase tasks DONE with evidence before next phase.",
+ "phases": [
+  {
+   "id": 1,
+   "gate": "Spilbar første kamp i Godot: tre etager, startdeck og to champions, alle fire statusser, sand prognose, save/load og native eksport. Fuld sekskampstur er strækmål."
+  },
+  {
+   "id": 2,
+   "gate": "Komplet gennemløb med 24 kort, 8 relikvier, 4 mutationer og Askekronen. Godkendt Synty/PolyPerfect-udsnit og animationer. 100 prognosescenarier matcher."
+  },
+  {
+   "id": 3,
+   "gate": "Alle seks kampe, rutegrene, championretninger, relevante opgraderinger og brugerflows er polerede. Begge champions kan vinde via dokumenteret lovlig rute."
+  },
+  {
+   "id": 4,
+   "gate": "Ren desktopreleasekandidat med savekompatibilitet, tilgængelighed, verificeret referencehardware, ærlig demo og fuld agentoverdragelse."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "LR-01",
+   "phase": 1,
+   "title": "Miljø, separat repository og Godot-boot",
+   "depends_on": [],
+   "paths": [
+    "project.godot",
+    "docs/",
+    "tools/"
+   ],
+   "steps": "Auditér Godot, renderer, OS, Git, eksporttemplates og faktiske assetmapper. Vælg stabil 4.x/GDScript og lås version. Opret menu->battle->result->menu og tre simple etagevisninger. Bevar eventuelt eksisterende LASTROOT-arbejde ved først at registrere baseline.",
+   "acceptance": "Ren opstart og lukning uden parserfejl. VERSION_MATRIX og baselinecommit findes. Ingen gamle projekter eller rå assets overskrives.",
+   "fallback": "Hvis engine mangler: forsøg tilladt installation; fortsæt datavalidering, men markér kørsel BLOCKED_ENVIRONMENT.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-01/result.json"
+   ]
+  },
+  {
+   "id": "LR-02",
+   "phase": 1,
+   "title": "CardDef, RunState og seedkontrakt",
+   "depends_on": [
+    "LR-01"
+   ],
+   "paths": [
+    "scripts/domain/",
+    "data/",
+    "tests/"
+   ],
+   "steps": "Implementér separate CardDef/CardInstance/UnitInstance, tre etager, zones og startdeck. Opret monotone ID’er og adskilte RNG-streams for shuffle, route og rewards. Indlæs de 24 katalogkort som data med skemavalidering.",
+   "acceptance": "24 unikke typer, 22 normale + 2 champions. Begge startdecks har 12 instanser. Dublet-ID og ukendt effekt afvises med præcis årsag.",
+   "fallback": "Brug JSON/Resources og simple typed classes; ingen custom editor kræves.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-02/result.json"
+   ]
+  },
+  {
+   "id": "LR-03",
+   "phase": 1,
+   "title": "Ren turmotor og fælles opstigning",
+   "depends_on": [
+    "LR-02"
+   ],
+   "paths": [
+    "scripts/domain/battle_reducer.gd",
+    "tests/domain/"
+   ],
+   "steps": "Implementér BEGIN_TURN, PLAYER_ACTIONS, RESOLUTION og terminal status. Afvikl etager i fast rækkefølge, døde uden handling og normal opstigning fra snapshot. Enemywaves følger katalogrækkefølgen. Producer immutable events.",
+   "acceptance": "Overlevende fjende rykker højst én etage og kæmper kun én gang. Tomt bræt før sidste bølge er ikke sejr. Samme state/kommando giver samme resultat.",
+   "fallback": "Hold rendering helt ude. Reducér til et angreb og én fjende i minimal reproduktion.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-03/result.json"
+   ]
+  },
+  {
+   "id": "LR-04",
+   "phase": 1,
+   "title": "Panser, Gift, Torne og Vækst",
+   "depends_on": [
+    "LR-03"
+   ],
+   "paths": [
+    "scripts/domain/effects/",
+    "tests/status/"
+   ],
+   "steps": "Implementér alle fire statusser, snapshot-torne og FIFO-dødsbehandling. Definér safe drainpoints og Gift-snapshot. S06 on-death og B12 remove skal være forskellige events. Valider livet aldrig overstiger max_hp.",
+   "acceptance": "T01/T02/T05 består håndberegnede forventninger. Død behandles én gang, Torne rekursiverer ikke, og ny Gift tickes ikke to gange i samme fase.",
+   "fallback": "Log event_sequence og reducer kæden til færrest mulige enheder; indfør ikke særregler i UI.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-04/result.json"
+   ]
+  },
+  {
+   "id": "LR-05",
+   "phase": 1,
+   "title": "Startkort, champions og validerede mål",
+   "depends_on": [
+    "LR-02",
+    "LR-03",
+    "LR-04"
+   ],
+   "paths": [
+    "scripts/domain/commands/",
+    "data/cards/",
+    "tests/cards/"
+   ],
+   "steps": "Implementér B01/S01, B02/B07/B08/S02/S07 og startdeckflow. Champion er separat førstehånd og beholdes uspillede. Opret insert, cast, normal move og cancel som atomiske kommandoer med pris/pladscheck.",
+   "acceptance": "Begge champions kan spille første kamp. Ugyldigt mål bruger intet. Kort ligger i præcis én zone; døde væsner kommer ikke tilbage ved reshuffle.",
+   "fallback": "Begynd med tap/klick-kommandoer og tydelige mål; drag venter.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-05/result.json"
+   ]
+  },
+  {
+   "id": "LR-06",
+   "phase": 1,
+   "title": "Forecast fra samme reducer",
+   "depends_on": [
+    "LR-03",
+    "LR-04",
+    "LR-05"
+   ],
+   "paths": [
+    "scripts/domain/forecast/",
+    "tests/forecast/"
+   ],
+   "steps": "Klon hele BattleState inklusive RNG og tællere. Kør samme resolve_end_turn som kampmotoren. Returnér state/eventdiff og test at originalens hash er uændret. Vis forventet død/opstigning/hjerteskade i debugpanel.",
+   "acceptance": "Mindst 20 første fixtures matcher både state og eventrækkefølge. Preview bruger ingen kraft, RNG eller relikvieflag. Forecast og rigtig kamp har ingen separat skadelogik.",
+   "fallback": "Undgå optimering før korrekthed; cache først når en konkret profil viser behov.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-06/result.json"
+   ]
+  },
+  {
+   "id": "LR-07",
+   "phase": 1,
+   "title": "Kort-UI, målvalg og inputlås",
+   "depends_on": [
+    "LR-05",
+    "LR-06"
+   ],
+   "paths": [
+    "scenes/ui/",
+    "scripts/ui/",
+    "scenes/tests/ui/"
+   ],
+   "steps": "Byg rigtig tekst, kortinspektør, energi, pladstæller og targetpreview. Implementér tap kort->mål->bekræft samt cancel. Lås gameplayinput under resolution. Lav desktop og et tidligt portrætprototypelayout.",
+   "acceptance": "Ét klik/tap giver højst én handling. Ingen nødvendig hover. UI viser årsag til ugyldigt mål. Resize nulstiller ikke BattleState.",
+   "fallback": "Drop kortvifte og dekorative rammer; behold store hitflader og læsbar tekst.",
+   "status": "DONE",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-07/result.json"
+   ]
+  },
+  {
+   "id": "LR-08",
+   "phase": 1,
+   "title": "3D-trægreybox og eventpræsentation",
+   "depends_on": [
+    "LR-03",
+    "LR-07"
+   ],
+   "paths": [
+    "scenes/battle/",
+    "scripts/presentation/",
+    "scenes/actors/"
+   ],
+   "steps": "Byg TreeStage med tre FloorView, faste anchors, hjertet og CameraRig. Presenter viser immutable events med simple proxies. Implementér 1x/2x/skip og sikker timeout, så manglende animation ikke låser kampen.",
+   "acceptance": "Alle tre etager er synlige. Skip og 2x giver samme state som normal afvikling. Ingen præsentationscallback ændrer skade eller reward.",
+   "fallback": "Brug simple tweens og primitives; fin animational timing følger efter.",
+   "status": "VERIFYING",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-08/result.json"
+   ],
+   "notes": "Åbent: Visuel kontrol på rigtig skærm (headless/Xvfb er ikke visuel godkendelse)."
+  },
+  {
+   "id": "LR-09",
+   "phase": 1,
+   "title": "Første kamp med tre bølger",
+   "depends_on": [
+    "LR-05",
+    "LR-06",
+    "LR-07",
+    "LR-08"
+   ],
+   "paths": [
+    "data/battles/",
+    "scenes/flow/",
+    "tests/flows/"
+   ],
+   "steps": "Implementér kamp 1 præcis med 1 Askeling, 2 Askelinger og 1 Kulskjold. Tilføj onboarding, bølgevarsel, sejr/nederlag og ny kamp. Vis klart hvorfor hjertet mister liv.",
+   "acceptance": "Første kamp kan gennemføres med begge champions uden debug. Der er ingen tidlig sejr, dobbelt opstigning eller uvarslet bølge.",
+   "fallback": "Skær tutorialtekst og pynt, men behold alle tre bølger og korrekt kerneloop.",
+   "status": "VERIFYING",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-09/result.json"
+   ],
+   "notes": "Åbent: Én menneskelig gennemspilning af kamp 1 med hver champion (onboarding-hints vurderes)."
+  },
+  {
+   "id": "LR-10",
+   "phase": 1,
+   "title": "Atomiske saves og resume efter animation",
+   "depends_on": [
+    "LR-02",
+    "LR-08",
+    "LR-09"
+   ],
+   "paths": [
+    "scripts/save/",
+    "fixtures/saves/",
+    "tests/save/"
+   ],
+   "steps": "Gem efter spillerhandling og resolution med schema/checksum/backup. Gem authoritative slutstate før eventplayback og presentation_pending. Restore viser slutstate eller genafspiller kun visuals. Tilføj JSON export/import.",
+   "acceptance": "Load reroller ikke hånd og afregner ikke events igen. Korrupt save tilbyder backup. Fremtidig ukendt version afvises uden at slette original.",
+   "fallback": "Gem kun stabile domænepunkter; serialisér aldrig AnimationTree eller sceneobjekter.",
+   "status": "VERIFYING",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-10/result.json"
+   ]
+  },
+  {
+   "id": "LR-11",
+   "phase": 1,
+   "title": "Ferieimportprøve og sammenhængende QA",
+   "depends_on": [
+    "LR-08",
+    "LR-09",
+    "LR-10"
+   ],
+   "paths": [
+    "art/prefabs/",
+    "docs/ASSET_LEDGER.csv",
+    "evidence/"
+   ],
+   "steps": "Importér én træ-/klippeprøve og én rigget figur fra tilgængelig Synty/PolyPerfect. Mål skala, restpose og materialer. Spil hele kamp 1 og ret de største kontrol-/prognosefejl. Registrér proxies ærligt.",
+   "acceptance": "Importprøve har faktiske beviser hvis assets findes. Første kamp/save virker stadig. Manglende assets stopper ikke domænearbejdet, men visuel godkendelse forbliver åben.",
+   "fallback": "Brug dokumenteret proxy hvis filer mangler; opfind ikke leverandørfilnavne eller ejerskab.",
+   "status": "VERIFYING",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-11/result.json"
+   ],
+   "notes": "Åbent: Ingen købte Synty/PolyPerfect-filer i containeren: rigtig importprøve (én træ-/klippeprøve + én rigget figur) udestår. Visuel godkendelse forbliver åben."
+  },
+  {
+   "id": "LR-12",
+   "phase": 1,
+   "title": "Fase 1-port og feriehåndoff",
+   "depends_on": [
+    "LR-01",
+    "LR-02",
+    "LR-03",
+    "LR-04",
+    "LR-05",
+    "LR-06",
+    "LR-07",
+    "LR-08",
+    "LR-09",
+    "LR-10",
+    "LR-11"
+   ],
+   "paths": [
+    "builds/",
+    "evidence/LR-12/",
+    "docs/STATUS.md"
+   ],
+   "steps": "Eksportér native build, kør første kamp fra ren profil og genkør reducer/forecast/save-tests. Gem build-ID, video og test-save. Dokumentér manglende art og næste tre READY-opgaver. Fortsæt fase 2 hvis tid og port tillader.",
+   "acceptance": "Gate 1 er bestået med faktisk kørbar kamp og korrekt prognose/save. Ingen P0/P1. Headless alene tæller ikke som visuelt kontrolleret demo.",
+   "fallback": "Ved reel miljøblokering leveres præcis repro og resterende testliste; ikke en falsk PASS.",
+   "status": "VERIFYING",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "42e0b9f",
+   "evidence": [
+    "evidence/LR-12/result.json"
+   ],
+   "notes": "Åbent: Windows-build køres på referencemaskinen. Video af første kamp fra ren profil. LR-11 visuel/import-del."
+  },
+  {
+   "id": "LR-13",
+   "phase": 2,
+   "title": "Hjemkomstaudit og visuel line-up",
+   "depends_on": [
+    "LR-12"
+   ],
+   "paths": [
+    "assets/",
+    "art/prefabs/",
+    "scenes/tests/Lineup.tscn"
+   ],
+   "steps": "Auditér fuld værktøjskæde. Udvælg faktisk Synty/PolyPerfect-kit til træ, to champions, to normale væsner og to fjender. Lav wrappers, materialepalette og gameplaykamerasammenligning mod REF_01/02/05.",
+   "acceptance": "Skala, silhouette og lys er sammenhængende. Hver fil har kilde/hash. Ingen købt controller bliver runtimekode. Proxyudskiftning ændrer ikke regler.",
+   "fallback": "Behold samme sceneinterfaces og skift ét asset ad gangen.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-14",
+   "phase": 2,
+   "title": "Fuld kortresolver og upgrade matrix",
+   "depends_on": [
+    "LR-04",
+    "LR-05",
+    "LR-12"
+   ],
+   "paths": [
+    "scripts/domain/effects/",
+    "data/cards/",
+    "tests/cards/"
+   ],
+   "steps": "Implementér resterende kort, B05 målvalg og alle spellupgrade-regler. Tilføj en test pr. kort plus kombinationer med armor/poison/death. B12 er ikke opgraderbart; S11 reducerer ikke Gift over 12.",
+   "acceptance": "Alle 24 typer fungerer. En opgraderet instans ændrer ikke andre kopier. Ingen cost betales for ugyldig eller virkningsløs lejrhandling.",
+   "fallback": "Hold effect-typer små og eksplicitte; ingen dynamisk scriptsprog til kort kræves.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Implementeret før porten: alle 24 korttyper i reduceren, B05 målvalg/fallback, upgrade-matrix pr. instans (CardStats). test_cards.gd har en test pr. kort + relikvie-/championkombinationer. Mangler: fase 1-port. | 21.10: upgrade-matrix-test over alle 31 kort×opgradering gennem rigtig reducer (test_upgrade_matrix_all_cards)."
+  },
+  {
+   "id": "LR-15",
+   "phase": 2,
+   "title": "Relikvier, mutationer og championretninger",
+   "depends_on": [
+    "LR-14"
+   ],
+   "paths": [
+    "scripts/domain/run_modifiers/",
+    "data/",
+    "tests/"
+   ],
+   "steps": "Implementér R01-R08, M01-M04 og fire championretninger med to trin. Gem turnflags, valg og claimed_ids. Beregn positionsbonusser afledt. Vis før/efter på upgrades.",
+   "acceptance": "Relikvier duplikeres ikke ved load. R03 vælger laveste unit_id, M02 akkumulerer ikke ved flyt, M04 afregnes én gang. Retning låses efter første valg.",
+   "fallback": "Kør små isolerede fixtures før fuldt run; en visuel effekt er ikke regelbevis.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Implementeret før porten: R01-R08, M01-M04 og fire championretninger med to trin; turflags, M02 afledt, M04 én gang, retning låses. Tests i test_cards/test_run. Mangler: før/efter-visning poleres i UI og fase 1-port."
+  },
+  {
+   "id": "LR-16",
+   "phase": 2,
+   "title": "Rutekort, økonomi og rewardtransaktioner",
+   "depends_on": [
+    "LR-10",
+    "LR-14",
+    "LR-15"
+   ],
+   "paths": [
+    "scripts/domain/route/",
+    "scenes/ui/rewards/",
+    "data/routes/"
+   ],
+   "steps": "Byg fem mellemrum med to knudevalg hver, korrekt kampbelønning og ekstra valg efter kampnummer. Gem konkrete rewardtilbud før visning. Implementér lejr, møde, fjernelse og bonuskortknude.",
+   "acceptance": "Alle knuder kan claims/skippes én gang. Deck beholder mindst syv normale kort. Reload reroller ikke tilbud. Hele rewardflow har entydig rækkefølge.",
+   "fallback": "Brug nodebaseret UI først; 3D-ruteøer er præsentationslag.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Implementeret før porten: fem forgreningspunkter, fast rewardrækkefølge, stabile slot-id'er med offered/claimed/skipped, lejr/møde/fjernelse/kortknude, min. 7 normale kort, udbud gemt før visning. Rute- og belønningsskærme: se run_screen."
+  },
+  {
+   "id": "LR-17",
+   "phase": 2,
+   "title": "Kamp 2-5 og Askekronen",
+   "depends_on": [
+    "LR-09",
+    "LR-14",
+    "LR-15",
+    "LR-16"
+   ],
+   "paths": [
+    "data/battles/",
+    "scripts/domain/boss/",
+    "tests/boss/"
+   ],
+   "steps": "Indlæs alle originale bølger. Implementér bossankring, tur 10-eskalation, immunitet mod flyt/fjern og nederlagsprioritet. Forbind kampene til én fuld runsekvens og epilog.",
+   "acceptance": "Seks kampe gennemføres uden debug. Boss går højst én etage og angriber ikke igen efter opstigning. Hjerte 0 giver nederlag selv ved samtidig sidste fjendes død.",
+   "fallback": "Hold bossens ruleset lille; nye phase mechanics er ikke version 2-scope.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Implementeret før porten: kamp 2-5 og Askekronen (ankring, tur-10-eskalation, nederlag ved Kronen, nederlagsprioritet). Bot gennemfører alle seks kampe med begge champions (evidence/balance). | 21.10: test_boss_immune_to_move_and_remove (ingen flyt/fjern-effekt accepterer fjende/boss)."
+  },
+  {
+   "id": "LR-18",
+   "phase": 2,
+   "title": "Animationer og sand præsentation",
+   "depends_on": [
+    "LR-08",
+    "LR-13",
+    "LR-17"
+   ],
+   "paths": [
+    "art/animations/",
+    "scripts/presentation/",
+    "scenes/tests/RigLab.tscn"
+   ],
+   "steps": "Godkend idle/summon/attack/hit/death for første rigfamilier. Match stav/slagfeedback til eventtimeline. Tilføj hjertepuls og mutationsovergang. Test pause, skip, 2x og resume efter background.",
+   "acceptance": "Galleriet og rigtigt run har ingen posesnap eller forkert målfeedback. Animationsevents ændrer aldrig authoritative state. Manglende clip kan ikke låse flow.",
+   "fallback": "Brug enkle stationære clips og faste anchors; kompleks locomotion er unødvendig.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: event-presenter med timere, skip/0.5/1/2x, UnitAnimator-kontrakt med proceduremæssige proxyanimationer. Mangler godkendte Synty/PolyPerfect/Mixamo-klip."
+  },
+  {
+   "id": "LR-19",
+   "phase": 2,
+   "title": "100 scenarier og platformspike",
+   "depends_on": [
+    "LR-06",
+    "LR-10",
+    "LR-15",
+    "LR-17",
+    "LR-18"
+   ],
+   "paths": [
+    "tests/forecast/",
+    "fixtures/",
+    "export_presets.cfg",
+    "evidence/"
+   ],
+   "steps": "Udbyg til 100 faste state/event-matches. Test native og et single-thread Godot Compatibility-webbuild, hvis templates findes. Afprøv touch/portrait og fysisk telefon/iPad når adgang er der; rapportér separat.",
+   "acceptance": "100 tests matcher. Desktopflow består. Web- og fysisk mobilstatus har egne PASS/FAIL/NOT_RUN; browseremulering kaldes ikke fysisk test.",
+   "fallback": "Hvis web ikke er stabilt, behold native releaseprioritet og konkret kompatibilitetsbacklog.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "120 gemte prognosescenarier matcher state-hash og eventrækkefølge (test_forecast). Web-eksportpreset (single-thread, Compatibility) findes. Mangler: fysisk telefon/iPad-test."
+  },
+  {
+   "id": "LR-20",
+   "phase": 2,
+   "title": "Fase 2-port: fuldt kvalitetsudsnit",
+   "depends_on": [
+    "LR-13",
+    "LR-14",
+    "LR-15",
+    "LR-16",
+    "LR-17",
+    "LR-18",
+    "LR-19"
+   ],
+   "paths": [
+    "builds/",
+    "docs/",
+    "evidence/LR-20/"
+   ],
+   "steps": "Kør komplet run, kontroller katalogtal og art/animation. Lås content_ids og savefixture. Vælg desktop-/websupport ud fra faktiske tests. Gem phase-tag og næste opgaver.",
+   "acceptance": "Gate 2: 24 kort, 8 relikvier, 4 mutationer, 6 kampe, godkendt visuelt udsnit og 100 matchscenarier. Ingen P0/P1.",
+   "fallback": "Udskyd polishproduktion hvis forecast eller save stadig fejler.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-21",
+   "phase": 3,
+   "title": "Kampagneflow og alle afbrydelser",
+   "depends_on": [
+    "LR-20"
+   ],
+   "paths": [
+    "scenes/flow/",
+    "scripts/domain/run/",
+    "tests/flows/"
+   ],
+   "steps": "Gennemgå new run, factionselect, kamp, rewards, rute, epilog og retry. Håndtér exit ved hvert skærmskift. Definér continue/new-run-dialog og beskyttelse af igangværende save.",
+   "acceptance": "Alle lovlige flowpunkter kan forlades og genoptages uden reroll/tab. Intet modalt vindue blokerer adgang til pause/exit.",
+   "fallback": "Brug én eksplicit flowstate i stedet for mange skjulte UI-flags.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: continue/ny run, save efter hver kommando, presentation checkpoint. Afbrydelser ved alle skærmskift testes i meta_smoke."
+  },
+  {
+   "id": "LR-22",
+   "phase": 3,
+   "title": "Træstage og fire synlige mutationer",
+   "depends_on": [
+    "LR-13",
+    "LR-15",
+    "LR-20"
+   ],
+   "paths": [
+    "scenes/tree/",
+    "art/environment/",
+    "lighting/"
+   ],
+   "steps": "Byg endelig treetagers stage fra modulære assets. M01 udvider rodfloor, M02 fortykkelse/lys på stamme, M03 blomstring i krone, M04 større hjertelys. Bevar anchors og klikflader.",
+   "acceptance": "Alle mutationkombinationer holder tre etager læsbare. Ingen kosmetisk vækst skjuler tal, mål eller prognosis. Originalreferencernes turkis/rav/violet-identitet ses.",
+   "fallback": "Prioritér silhouette og lys over høj propdensitet.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: TreeStage med tre etager i REF_05-stemning (rødder/stamme/krone), stammevarianter, alle fire mutationer synlige uden for spilområdet, tomgangsglød. Proxies; Synty-træ mangler."
+  },
+  {
+   "id": "LR-23",
+   "phase": 3,
+   "title": "Alle væsner og fjendesilhuetter",
+   "depends_on": [
+    "LR-13",
+    "LR-18",
+    "LR-20"
+   ],
+   "paths": [
+    "art/units/",
+    "art/enemies/",
+    "scenes/actors/"
+   ],
+   "steps": "Færdiggør to champions, ti normale væsnetyper, fem normale fjender og boss med passende rigfamilier. Brug egne attachments/varianter hvor nødvendigt og registrér alle klip/assetkilder.",
+   "acceptance": "Hver type kan genkendes i etagekamera. Thornhjort bruger egnet quadrupedrig eller har en konkret åben assetopgave; ikke falsk humanoidgodkendelse.",
+   "fallback": "Genbrug rigfamilier, men skab forskel gennem størrelse, silhouette og materialer.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-24",
+   "phase": 3,
+   "title": "Kortgrafik, ikoner og tekstsystem",
+   "depends_on": [
+    "LR-14",
+    "LR-20",
+    "LR-23"
+   ],
+   "paths": [
+    "scenes/ui/cards/",
+    "art/cards/",
+    "localization/"
+   ],
+   "steps": "Lav konsekvente portrætter fra de godkendte figurer eller egne artworkkilder. Adskil illustration fra rigtig korttekst. Skab fire statusikoner og tydelig kraft/pladsmarkering. Tjek alle upgrades i preview.",
+   "acceptance": "24 kort viser korrekt tal og effekt, også opgraderede. Ingen tekst er kun rasterbagt. Farveblindhed og stor tekst bevarer information.",
+   "fallback": "Brug godkendte in-engine-portrætter før dyre billedgenereringsrunder.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: kortportrætter renderet fra visual slots (skifter automatisk til Synty), emblemer for besværgelser, fraktionsrammer, glyf+tal for statusser, galleri over alle 24 kort + upgrades (evidence/meta_screens/cards_*.png)."
+  },
+  {
+   "id": "LR-25",
+   "phase": 3,
+   "title": "Rute, lejre og championskærm",
+   "depends_on": [
+    "LR-16",
+    "LR-20",
+    "LR-24"
+   ],
+   "paths": [
+    "scenes/ui/route/",
+    "scenes/ui/camp/",
+    "scenes/ui/champion/"
+   ],
+   "steps": "Omsæt REF_04 og briefs 07/08 til læsbare skærme. Giv ruteøer som valgfri 3D-baggrund med rigtige UI-hitflader. Vis valuta, nuværende effekt og konsekvens før køb/valg.",
+   "acceptance": "Lejr sælger ingen ugyldig upgrade. Retningslås er tydelig. Alle knuder virker med touch og tastatur/mus uden dekorationsafhængighed.",
+   "fallback": "2D-nodekort er tilladt, hvis 3D-komposition forringer læsbarheden.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: rutekort (REF_04) med kommende bølger og bossregler, lejr med før/efter og pris, championskærm med begge retninger/låst retning, relikvie-/mutationsvalg. meta_smoke dækker alle knuder."
+  },
+  {
+   "id": "LR-26",
+   "phase": 3,
+   "title": "Boss, lyd og afslutningsfølelse",
+   "depends_on": [
+    "LR-17",
+    "LR-18",
+    "LR-22",
+    "LR-23"
+   ],
+   "paths": [
+    "audio/",
+    "scenes/boss/",
+    "scenes/ending/"
+   ],
+   "steps": "Færdiggør bossintro, escalationfeedback, hjerteskade og runepilog. Lydfamilier: bark, spore, ash, heart og UI. Vis valgte mutationer og championretning efter sejr/nederlag.",
+   "acceptance": "Kritisk lyd har visuelt alternativ. Intro og epilog kan springes over. Afslutning refererer til det faktiske run og giver ingen ekstra reward.",
+   "fallback": "Brug ingamekamera, lys og korte barks; store film må ikke blokere.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: boss-intro (kan springes over), bossbanner fra kampstart, boss-advarsler i prognosen, 36 placeholder-lydcues + musik, resultatskærm med træets opsummering."
+  },
+  {
+   "id": "LR-27",
+   "phase": 3,
+   "title": "Balance: begge champions og realistiske ruter",
+   "depends_on": [
+    "LR-17",
+    "LR-20",
+    "LR-25"
+   ],
+   "paths": [
+    "tools/balance/",
+    "fixtures/runs/",
+    "data/"
+   ],
+   "steps": "Kør faste seeds med lovlige valg, og spil manuelt begge champions. Registrér winrate, turns, heartloss, kortvalg og economy. Tuning foretages med versioneret før/efter-rapport.",
+   "acceptance": "Begge champions har mindst én reproducerbar normal sejrsrute uden debug. Ingen card/relic dominerer alle valg. 20-30 minutter måles, ikke blot erklæres.",
+   "fallback": "Juster katalogtal transparent; tilføj ikke nye fraktioner for at skjule balanceproblemer.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: tools/balance/run_balance.gd (faste seeds, begge champions). Bot vinder 40/40 (D24) — menneskelig spiltest før talændringer. | 21.10: valgfri Svær-sværhedsgrad (D32, fjende-HP 130 %) gør balanceforslaget afprøvbart i spillet; bot på Svær greedy 40/40, casual 8/40."
+  },
+  {
+   "id": "LR-28",
+   "phase": 3,
+   "title": "Accessibility og platformlayout",
+   "depends_on": [
+    "LR-19",
+    "LR-24",
+    "LR-25",
+    "LR-26"
+   ],
+   "paths": [
+    "settings/",
+    "scenes/ui/",
+    "tests/layout/"
+   ],
+   "steps": "Test 720p, 1080p, portræt og tablet. Tilføj UI-scale, remap, subtitles, reduced motion og ingen-hover-flow. Test audio unlock og baggrund/resume på understøttede webenheder.",
+   "acceptance": "Ingen vigtig tekst klipper. Inputflader er store nok ved målskala. Layoutskift bevarer run. Unsupported webprofile mærkes, ikke skjules.",
+   "fallback": "Fasthold native support og gør webstatus konkret, hvis en enhed fejler.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: tekststørrelse, reduceret bevægelse, animationshastighed, en/da, glyf+tal for alle statusser, 48 px-mål, tastatur/gamepad i kampen, portrætlayout-prototype. Mangler fysisk telefon/iPad-test."
+  },
+  {
+   "id": "LR-29",
+   "phase": 3,
+   "title": "Performance og savehårdhed",
+   "depends_on": [
+    "LR-21",
+    "LR-22",
+    "LR-23",
+    "LR-27",
+    "LR-28"
+   ],
+   "paths": [
+    "tools/profile/",
+    "tests/save/",
+    "fixtures/legacy/"
+   ],
+   "steps": "Profilér treetagers stresstest, forecast og load. Kør gentagne run/restart for leaks. Migrér en gammel fixture og test korrupt/afbrudt save samt JSONimport med ugyldige IDs.",
+   "acceptance": "Ingen tilstandstab, dobbelte rewards eller stadig voksende memory. Målt performancebudget er opfyldt eller en ærlig lavprofil er valgt.",
+   "fallback": "Optimer materialer, particles og viewpooling efter måling; hold reduceren enkel.",
+   "status": "IN_PROGRESS",
+   "owner": "claude-code (ferie-session 19.10.2026)",
+   "last_commit": "8a0946d",
+   "evidence": [],
+   "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware."
+  },
+  {
+   "id": "LR-30",
+   "phase": 3,
+   "title": "Fase 3-port: komplet og poleret kerne",
+   "depends_on": [
+    "LR-21",
+    "LR-22",
+    "LR-23",
+    "LR-24",
+    "LR-25",
+    "LR-26",
+    "LR-27",
+    "LR-28",
+    "LR-29"
+   ],
+   "paths": [
+    "builds/",
+    "evidence/LR-30/",
+    "docs/"
+   ],
+   "steps": "Gennemspil begge championforløb, alle nodeklasser og bossudfald. Gennemgå asset/animationstatus og alle 100 fixtures. Fastfrys features før beta.",
+   "acceptance": "Gate 3: hele kerneindholdet, kontrolleret art/UI og lovlige sejrsruter. Ingen P0/P1, ingen skjult placeholder i shipped kerne.",
+   "fallback": "Skær valgfri kosmetik, ikke forecast eller katalogkrav.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-31",
+   "phase": 4,
+   "title": "Privat beta og læsbar strategi",
+   "depends_on": [
+    "LR-30"
+   ],
+   "paths": [
+    "builds/beta/",
+    "evidence/beta/"
+   ],
+   "steps": "Forbered fem eksterne testprøver hvis adgang/mandat findes. Mål forståelse af etager, målvalg og forecast samt lyst til et nyt run. Indsaml konkrete saves og reproduktioner.",
+   "acceptance": "Fire af fem forstår grundflowet efter onboarding. Fejl og misforståelser har konkrete observationer; agentens egne tests adskilles fra spillerfeedback.",
+   "fallback": "Mangler testere, færdiggør øvrig QA og hold oplevelsesvalideringen åben.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-32",
+   "phase": 4,
+   "title": "Beta-rettelser og sidste balancepas",
+   "depends_on": [
+    "LR-31"
+   ],
+   "paths": [
+    "scripts/",
+    "data/",
+    "tests/regression/"
+   ],
+   "steps": "Ret P0/P1 og gentagne forståelsesproblemer. Genkør 100 prognosetests og begge sejrsruter efter balanceretning. Finpuds kortfeedback, pauser og resolutiontempo.",
+   "acceptance": "Alvorlige fejl er lukket med retest. Saves virker, og begge champions har fortsat lovlig sejrsrute. Ingen ny featureglidning.",
+   "fallback": "Rollback et bredt sent fix og lav en mindre rettelse ved regression.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-33",
+   "phase": 4,
+   "title": "Releaseledger, credits og settings",
+   "depends_on": [
+    "LR-30"
+   ],
+   "paths": [
+    "docs/release/",
+    "credits/",
+    "settings/"
+   ],
+   "steps": "Afstem shipped Synty/PolyPerfect/Mixamo/audiofiler med ledger og konkret brugsret. Kontrollér text IDs, credits og settings persistence. Hold rå sourcepakker ude af offentlig levering.",
+   "acceptance": "Alle assets har kendt kilde og reviewstatus. Ingen nøgle/hemmelighed i build. Indstillinger gemmes og kan resettes sikkert.",
+   "fallback": "Erstat uklare assets med godkendte varianter frem for at gætte rettigheder.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-34",
+   "phase": 4,
+   "title": "Demo, optagelser og produktbeskrivelse",
+   "depends_on": [
+    "LR-32",
+    "LR-33"
+   ],
+   "paths": [
+    "builds/demo/",
+    "captures/",
+    "docs/store/"
+   ],
+   "steps": "Pak en tydeligt afgrænset demo med samme reducer. Optag faktisk forecast, etagekamp, mutation og boss. Skriv præcise features og testede systemkrav. Demo og fuldt save har adskilte IDs.",
+   "acceptance": "Alle markedsførte features er spilbare i angivet build. Ingen genereret film bruges som gameplaybevis. Demo kan ikke ødelægge et fuldt run-save.",
+   "fallback": "Vis den stærke kerne frem for at love senere fraktioner.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-35",
+   "phase": 4,
+   "title": "Ren releasekandidat og rollback",
+   "depends_on": [
+    "LR-32",
+    "LR-33",
+    "LR-34"
+   ],
+   "paths": [
+    "tools/release/",
+    "builds/rc/",
+    "evidence/"
+   ],
+   "steps": "Eksportér rent checkout på låst engine. Kør end-to-end, forecast, saves og understøttede platforme. Pak checksum, versionsnoter, kendte begrænsninger og rollbackkandidat.",
+   "acceptance": "Gate 4 teknisk bestået: ren runtime, ingen P0/P1, verificerede saves og ærlig platformmatrix. Offentlig publicering er særskilt status.",
+   "fallback": "Ved editor/eksportforskel: minimal repro, konkret fix og målrettet retest.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  },
+  {
+   "id": "LR-36",
+   "phase": 4,
+   "title": "Endelig overdragelse og drift",
+   "depends_on": [
+    "LR-35"
+   ],
+   "paths": [
+    "docs/RELEASE_HANDOFF.md",
+    "docs/STATUS.md"
+   ],
+   "steps": "Aflevér build, evidence, ledger, opgavetilstand og næste startordre. Prioritér de første 30 dages bugs, spillervalg og demointeresse. Notér konkret hvis publicering kræver adgang/mandat.",
+   "acceptance": "Ny Codex/Claude-agent kan bygge, teste og fortsætte uden chathistorik. RC_READY og faktisk PUBLISHED er tydeligt adskilt.",
+   "fallback": "Stop først ved sidste reelle eksterne blokering efter fuldt reviewklar pakke.",
+   "status": "TODO",
+   "owner": null,
+   "last_commit": null,
+   "evidence": []
+  }
+ ]
 }
