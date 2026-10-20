@@ -10,6 +10,7 @@
     "test_rng.gd": 5,
     "test_run.gd": 11,
     "test_save.gd": 8,
+    "test_save_hardness.gd": 23,
     "test_visual_slots.gd": 19
   },
   "names": [
@@ -111,9 +112,32 @@
     "test_save/test_garbage_and_foreign",
     "test_save/test_reward_claim_survives_reload_once",
     "test_save/test_fuzzed_saves_never_load_wrong_state",
-    "test_save/test_truncated_save_rejected"
+    "test_save/test_truncated_save_rejected",
+    "test_save_hardness/test_legacy_v1_fixtures_migrate_and_play_to_the_end",
+    "test_save_hardness/test_legacy_reward_fixture_keeps_offer_and_grants_once",
+    "test_save_hardness/test_legacy_route_fixture_rebuilds_claimed_choices",
+    "test_save_hardness/test_legacy_tampered_payload_rejected_before_migration",
+    "test_save_hardness/test_legacy_file_as_main_becomes_backup_after_save",
+    "test_save_hardness/test_corrupt_bytes_fall_back_to_backup_and_keep_file",
+    "test_save_hardness/test_truncated_main_falls_back_to_backup",
+    "test_save_hardness/test_interrupted_write_complete_tmp_is_recovered",
+    "test_save_hardness/test_interrupted_write_partial_tmp_is_ignored",
+    "test_save_hardness/test_only_partial_tmp_and_no_main",
+    "test_save_hardness/test_wrong_checksum_rejected",
+    "test_save_hardness/test_future_version_kept_and_quarantined_on_new_run",
+    "test_save_hardness/test_quarantine_is_bounded",
+    "test_save_hardness/test_invalid_ids_with_valid_checksum_rejected",
+    "test_save_hardness/test_import_json_with_invalid_ids_rejected",
+    "test_save_hardness/test_missing_keys_rejected_without_crash",
+    "test_save_hardness/test_wrong_types_rejected_without_crash",
+    "test_save_hardness/test_every_reducer_state_passes_validation",
+    "test_save_hardness/test_double_reward_guard_across_reloads",
+    "test_save_hardness/test_double_node_payout_guard_every_node_type",
+    "test_save_hardness/test_demo_run_cannot_overwrite_full_save",
+    "test_save_hardness/test_wrong_mode_in_slot_refused_and_kept",
+    "test_save_hardness/test_demo_build_never_touches_full_files"
   ],
   "status": "PASS",
-  "tests": 118,
-  "timestamp": "2026-10-20T01:09:43"
+  "tests": 141,
+  "timestamp": "2026-10-20T12:45:27"
 }

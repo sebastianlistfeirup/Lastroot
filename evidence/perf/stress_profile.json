@@ -1,0 +1,183 @@
+{
+  "battle": {
+    "boss": {
+      "draw_calls": 1732,
+      "end_turn_command_ms": 6.57,
+      "idle": {
+        "fps_mean": 2.1,
+        "frames": 300,
+        "max_ms": 660.46,
+        "mean_ms": 467.13,
+        "p50_ms": 485.92,
+        "p95_ms": 587.06,
+        "p99_ms": 638.4
+      },
+      "nodes": 1975,
+      "objects_in_frame": 2365,
+      "primitives": 52724,
+      "process_ms_mean": 485.98,
+      "replay": {
+        "fps_mean": 3.5,
+        "frames": 53,
+        "max_ms": 382.76,
+        "mean_ms": 285.7,
+        "p50_ms": 271.19,
+        "p95_ms": 368.66,
+        "p99_ms": 380.41
+      },
+      "replay_seconds": 15.14,
+      "state_problems": [],
+      "units": 10,
+      "valid_state": true,
+      "video_mem_mb": 89.3
+    },
+    "full_tree": {
+      "draw_calls": 2722,
+      "end_turn_command_ms": 9.32,
+      "idle": {
+        "fps_mean": 2.3,
+        "frames": 300,
+        "max_ms": 1192.61,
+        "mean_ms": 443.04,
+        "p50_ms": 367.66,
+        "p95_ms": 843.01,
+        "p99_ms": 1115.18
+      },
+      "nodes": 2573,
+      "objects_in_frame": 3816,
+      "primitives": 78368,
+      "process_ms_mean": 456.84,
+      "replay": {
+        "fps_mean": 1.9,
+        "frames": 209,
+        "max_ms": 714.03,
+        "mean_ms": 539.7,
+        "p50_ms": 534.29,
+        "p95_ms": 620.41,
+        "p99_ms": 654.81
+      },
+      "replay_seconds": 112.8,
+      "state_problems": [],
+      "units": 27,
+      "valid_state": true,
+      "video_mem_mb": 89.6
+    },
+    "midbattle": {
+      "draw_calls": 1238,
+      "end_turn_command_ms": 13.12,
+      "idle": {
+        "fps_mean": 2.0,
+        "frames": 300,
+        "max_ms": 613.59,
+        "mean_ms": 491.96,
+        "p50_ms": 491.16,
+        "p95_ms": 565.03,
+        "p99_ms": 600.29
+      },
+      "nodes": 1645,
+      "objects_in_frame": 1784,
+      "primitives": 38094,
+      "process_ms_mean": 511.03,
+      "replay": {
+        "fps_mean": 2.1,
+        "frames": 37,
+        "max_ms": 584.29,
+        "mean_ms": 467.01,
+        "p50_ms": 459.13,
+        "p95_ms": 545.29,
+        "p99_ms": 563.38
+      },
+      "replay_seconds": 17.28,
+      "state_problems": [],
+      "units": 6,
+      "valid_state": true,
+      "video_mem_mb": 88.5
+    }
+  },
+  "caveat": "Software rasterizer under Xvfb in a cloud container (no GPU). Frame times are dominated by CPU rasterization and are NOT representative of player hardware; use them to compare states and builds, not as an fps promise.",
+  "engine_version": "4.5.1-stable (official)",
+  "load": {
+    "battle": {
+      "cold": {
+        "first_frames_ms": 1196.672,
+        "instantiate_ready_ms": 80.247,
+        "load_ms": 0.198,
+        "total_ms": 1277.117
+      },
+      "cold_ms": 1277,
+      "warm": {
+        "first_frames_ms": 1098.881,
+        "instantiate_ready_ms": 74.168,
+        "load_ms": 0.031,
+        "total_ms": 1173.08
+      },
+      "warm_ms": 1173
+    },
+    "menu": {
+      "cold": {
+        "first_frames_ms": 740.785,
+        "instantiate_ready_ms": 125.804,
+        "load_ms": 134.804,
+        "total_ms": 1001.393
+      },
+      "cold_ms": 1001,
+      "warm": {
+        "first_frames_ms": 461.221,
+        "instantiate_ready_ms": 65.714,
+        "load_ms": 0.03,
+        "total_ms": 526.965
+      },
+      "warm_ms": 526
+    },
+    "result": {
+      "cold": {
+        "first_frames_ms": 461.044,
+        "instantiate_ready_ms": 136.635,
+        "load_ms": 93.067,
+        "total_ms": 690.746
+      },
+      "cold_ms": 690,
+      "warm": {
+        "first_frames_ms": 532.567,
+        "instantiate_ready_ms": 118.852,
+        "load_ms": 0.03,
+        "total_ms": 651.449
+      },
+      "warm_ms": 651
+    },
+    "run": {
+      "cold": {
+        "first_frames_ms": 464.676,
+        "instantiate_ready_ms": 146.273,
+        "load_ms": 223.785,
+        "total_ms": 834.734
+      },
+      "cold_ms": 834,
+      "warm": {
+        "first_frames_ms": 345.608,
+        "instantiate_ready_ms": 59.811,
+        "load_ms": 0.033,
+        "total_ms": 405.452
+      },
+      "warm_ms": 405
+    }
+  },
+  "renderer": {
+    "api": "4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpu_count": 4,
+    "display_server": "X11",
+    "driver": "llvmpipe (LLVM 20.1.2, 256 bits)",
+    "logical": [
+      1920,
+      1080
+    ],
+    "rendering_method": "gl_compatibility",
+    "vendor": "Mesa",
+    "window": [
+      1920,
+      1080
+    ]
+  },
+  "timestamp": "2026-10-20T12:21:08"
+}

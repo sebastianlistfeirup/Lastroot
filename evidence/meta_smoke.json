@@ -1,6 +1,6 @@
 {
   "checks": 628,
-  "duration_ms": 11113,
+  "duration_ms": 9899,
   "engine_version": "4.5.1-stable (official)",
   "failed": 0,
   "failures": [],
@@ -123,5 +123,5 @@
     "playtest_settings: press ConfirmClearPlaytestButton",
     "demo_result: press NewRunButton"
   ],
-  "timestamp": "2026-10-20T01:10:09"
+  "timestamp": "2026-10-20T12:45:51"
 }
