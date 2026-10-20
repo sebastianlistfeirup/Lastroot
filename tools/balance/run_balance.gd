@@ -11,6 +11,8 @@ func _init() -> void:
 			n = int(a.get_slice("=", 1))
 		if a.begins_with("--bot="):
 			AutoPlayer.style = a.get_slice("=", 1)
+		if a.begins_with("--meta="):
+			AutoPlayer.meta_choice = a.get_slice("=", 1)
 	# Balance experiments run on an in-memory copy of the catalog only; the
 	# baseline files are never touched (AGENTS.md: balance changes need a decision).
 	var difficulty := "standard"
@@ -66,7 +68,7 @@ func _init() -> void:
 		print("%s: %d/%d wins, avg heart lost %.1f, avg turns %.1f, reached %s" % [faction, wins, n,
 			float(heart_lost) / float(n), float(turns) / float(n), reached])
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://evidence/balance"))
-	var tag: String = AutoPlayer.style + ("" if difficulty == "standard" else "_" + difficulty)
+	var tag: String = AutoPlayer.style + ("" if difficulty == "standard" else "_" + difficulty) + ("" if AutoPlayer.meta_choice == "first" else "_meta" + AutoPlayer.meta_choice)
 	for k: String in exp.keys():
 		tag += "_%s%s" % [k, str(exp[k])]
 	var f := FileAccess.open("res://evidence/balance/balance_report_%s.json" % tag, FileAccess.WRITE)

@@ -109,6 +109,18 @@ static func _choose_greedy(s: Dictionary) -> Dictionary:
 	return best_cmd
 
 
+## "first" (default, keeps fixtures stable) takes the first relic/mutation/path/
+## camp upgrade/card-node offer; "seeded" picks one from a hash of the run seed
+## and slot, so balance runs spread over all meta choices (LR-27 pick report).
+static var meta_choice: String = "first"
+
+
+static func _meta_pick(run: Dictionary, key: String, n: int) -> int:
+	if meta_choice != "seeded" or n <= 1:
+		return 0
+	return absi(hash("%d:%s" % [int(run["seed"]), key])) % n
+
+
 ## Run-level decision for reward/route/node screens.
 static func choose_run(run: Dictionary) -> Dictionary:
 	match str(run["phase"]):
@@ -117,8 +129,9 @@ static func choose_run(run: Dictionary) -> Dictionary:
 		"reward":
 			var slot: Dictionary = RunReducer.current_slot(run)
 			var offer: Array = slot["offer"]
-			var pick: String = offer[0]
+			var pick: String = offer[_meta_pick(run, slot["id"], offer.size())]
 			if slot["type"] == "card":
+				pick = offer[0]
 				for c: String in offer:
 					if _card_value(c) > _card_value(pick):
 						pick = c
@@ -136,14 +149,17 @@ static func choose_run(run: Dictionary) -> Dictionary:
 			var node: Dictionary = run["node"]
 			match str(node["type"]):
 				"camp":
+					var cands: Array = []
 					for inst: Dictionary in run["deck"]:
 						var ups: Array = CardStats.legal_upgrades(Catalog.card(inst["def_id"]), inst["upgrade_id"])
 						if not ups.is_empty() and int(ups[0]["price"]) <= int(run["resin"]):
-							return {"type": "camp_upgrade", "card": inst["instance_id"], "upgrade": ups[0]["id"]}
+							cands.append({"type": "camp_upgrade", "card": inst["instance_id"], "upgrade": ups[0]["id"]})
+					if not cands.is_empty():
+						return cands[_meta_pick(run, "camp%d" % int(run["battle_index"]), cands.size())]
 				"card":
 					var slot: Dictionary = node["slots"][0]
 					if slot["status"] == "offered":
-						return {"type": "claim", "slot": slot["id"], "choice": slot["offer"][0]}
+						return {"type": "claim", "slot": slot["id"], "choice": slot["offer"][_meta_pick(run, slot["id"], (slot["offer"] as Array).size())]}
 				"encounter":
 					return {"type": "encounter", "choice": "heal" if int(run["heart"]) < int(run["heart_max"]) - 8 else "resin"}
 			return {"type": "leave_node"}
