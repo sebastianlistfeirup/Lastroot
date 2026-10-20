@@ -1,0 +1,174 @@
+{
+  "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "all_end_turns_match_forecast": true,
+  "args": {
+    "autoplay": "3",
+    "end_hold": "4",
+    "log": "s3_demo_new.json",
+    "max_seconds": "400",
+    "new_run": "SPORE",
+    "seed": "7",
+    "shot_on_end": "demo_complete.png"
+  },
+  "battles_won": 2,
+  "continue_result": {},
+  "end_turns": [
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 13,
+      "t": 6.22,
+      "turn": 1
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 16,
+      "t": 15.22,
+      "turn": 2
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "won",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 18,
+      "t": 23.89,
+      "turn": 3
+    },
+    {
+      "enemy_climbs": 1,
+      "events_match_forecast": true,
+      "forecast_deaths": 0,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 0,
+      "real_heart_damage": 0,
+      "real_resolution_events": 21,
+      "t": 38.16,
+      "turn": 1
+    },
+    {
+      "enemy_climbs": 1,
+      "events_match_forecast": true,
+      "forecast_deaths": 2,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 2,
+      "real_heart_damage": 0,
+      "real_resolution_events": 24,
+      "t": 48.99,
+      "turn": 2
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "won",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 22,
+      "t": 60.69,
+      "turn": 3
+    }
+  ],
+  "engine": "4.5.1-stable (official)",
+  "final_mode": "demo",
+  "final_mutations": [
+    "M01"
+  ],
+  "final_phase": "won",
+  "final_result": "demo_complete",
+  "movie_seconds": 71.79,
+  "notes": [
+    {
+      "mutation_gained": "M01",
+      "mutations_now": [
+        "M01"
+      ],
+      "t": 28.83
+    },
+    {
+      "end_screen": "ResultScreen",
+      "scene_file": "res://scenes/flow/result_screen.tscn",
+      "t": 71.79
+    }
+  ],
+  "phases": [
+    {
+      "battle_index": 0,
+      "phase": "battle",
+      "result": "",
+      "t": 0.0
+    },
+    {
+      "battle_index": 0,
+      "phase": "reward",
+      "result": "",
+      "t": 23.89
+    },
+    {
+      "battle_index": 0,
+      "phase": "route",
+      "result": "",
+      "t": 28.83
+    },
+    {
+      "battle_index": 0,
+      "phase": "node",
+      "result": "",
+      "t": 30.29
+    },
+    {
+      "battle_index": 1,
+      "phase": "battle",
+      "result": "",
+      "t": 31.76
+    },
+    {
+      "battle_index": 1,
+      "phase": "won",
+      "result": "demo_complete",
+      "t": 60.69
+    }
+  ],
+  "renderer": "gl_compatibility",
+  "save_after": {
+    "battle_index": 1,
+    "faction": null,
+    "feature_demo": true,
+    "has_save": true,
+    "load_ok": true,
+    "mode": "demo",
+    "phase": "won",
+    "result": "demo_complete",
+    "run_id": "LR-00000007",
+    "save_file": "$XDG_DATA_HOME/godot/app_userdata/LASTROOT/saves/run.json"
+  },
+  "save_before": {
+    "battle_index": 0,
+    "faction": null,
+    "feature_demo": true,
+    "has_save": true,
+    "load_ok": true,
+    "mode": "full",
+    "phase": "reward",
+    "result": "",
+    "run_id": "LR-00000005",
+    "save_file": "$XDG_DATA_HOME/godot/app_userdata/LASTROOT/saves/run.json"
+  }
+}

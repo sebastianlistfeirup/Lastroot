@@ -1,0 +1,85 @@
+{
+  "task": "LR-34",
+  "check": "demo build: ends after 2 won battles with a demo-complete screen; demo vs full-run save",
+  "commit": "6e98bfb (game code; QA recorder scene scenes/tests/record_clip.gd added in the evidence commit)",
+  "engine_version": "4.5.1-stable (official)",
+  "timestamp": "2026-10-20T12:36:00",
+  "platform": "Linux x86_64 container, Xvfb + Mesa llvmpipe (software GL), gl_compatibility",
+  "builds": {
+    "web_demo": {
+      "command": "godot --headless --path . --export-release \"Web Demo\" builds/web_demo/index.html",
+      "exit_code": 0,
+      "sha256_index.pck": "01ad3a00e42385a0164cf3d9e1d54bdcd85f2e90c66f77f98d25168c29b239f3",
+      "sha256_index.wasm": "6498359ba889796a0d95a2f71113ac184badc0f2d84cf28f4103c7e399d2d547",
+      "custom_feature_in_pck": "demo (project.binary _custom_features)"
+    },
+    "linux_demo": {
+      "preset_in_repo": false,
+      "note": "export_presets.cfg has no Linux demo preset. For this check a scratch copy of the commit got two extra presets, 'Linux QA' (no feature) and 'Linux Demo QA' (custom_features=demo), both identical to the repo's 'Linux' preset except that scenes/tests/ is not excluded (so the QA driver scene ships in the pck). Nothing in the repo's export_presets.cfg was changed.",
+      "command": "godot --headless --path <copy> --export-release \"Linux Demo QA\" builds/linux_demo_qa/Lastroot.x86_64",
+      "exit_code": 0,
+      "sha256": "dfe93a681638b9f1a8e5f38959226183a4b54c0906082347b6b87181541508a0",
+      "full_qa_sha256": "842725a4912712f24b40db43bc007d25f4b2a0f82f3ffc5be548412767d98108"
+    }
+  },
+  "runs": [
+    {
+      "id": "web_demo_boot",
+      "command": "NODE_PATH=/opt/node-tools/node_modules node tools/web_demo_check.js http://localhost:8792/index.html evidence/demo",
+      "exit_code": 0,
+      "expected": "Web Demo export loads in Chromium and shows the title menu with the DEMO tag",
+      "observed": "menu reached after 27s, 0 script errors; screenshot shows 'DEMO \u00b7 first two battles'",
+      "files": [
+        "evidence/demo/web_demo_check.json",
+        "evidence/demo/web_demo_title.png"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "s1_full_build_new_run",
+      "command": "XDG_DATA_HOME=$X builds/linux_qa/Lastroot.x86_64 --headless res://scenes/tests/record_clip.tscn -- --new_run=BARK --seed=5 --autoplay=1 --max_seconds=300 --log=...",
+      "exit_code": 0,
+      "expected": "a full-mode run saved after battle 1",
+      "observed": "save run_id LR-00000005 mode=full phase=reward battles_won=1",
+      "files": [
+        "evidence/demo/s1_full_build_new_run.json"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "s2_demo_build_continue_full_save",
+      "command": "XDG_DATA_HOME=$X builds/linux_demo_qa/Lastroot.x86_64 --headless res://scenes/tests/record_clip.tscn -- --continue=1 --delay=1000 --autoplay=1 --max_seconds=3 --log=...",
+      "exit_code": 0,
+      "expected": "(open question) what the demo build does with a full-run save",
+      "observed": "the demo build (feature demo = True) loads the full run via Continue: run mode 'full', battles_won 1. Nothing in the demo stops a full run from being continued past battle 2 in the demo build. File unchanged because no command was sent.",
+      "files": [
+        "evidence/demo/s2_demo_build_continue_full_save.json"
+      ],
+      "status": "FAIL (isolation)"
+    },
+    {
+      "id": "s3_demo_build_new_run",
+      "command": "XDG_DATA_HOME=$X xvfb-run -a builds/linux_demo_qa/Lastroot.x86_64 --rendering-method gl_compatibility --resolution 1280x720 --write-movie demo.avi --fixed-fps 30 res://scenes/tests/record_clip.tscn -- --new_run=SPORE --seed=7 --autoplay=3 --max_seconds=400 --end_hold=4 --shot_on_end=demo_complete.png --log=...",
+      "exit_code": 0,
+      "expected": "demo run ends after 2 won battles (phase won, result demo_complete) with the 'End of the demo' screen; the full-run save must survive",
+      "observed": "mode=demo, battles_won=2, phase=won, result=demo_complete at 60.7 s (bot asked for 3 battles; the run stopped at 2). Result screen 'End of the demo' with 'In the full game' panel. All 6 end turns matched the forecast. Save file before: run LR-00000005 mode full; after: run LR-00000007 mode demo. run.json and run.backup.json no longer hold the full run.",
+      "files": [
+        "evidence/demo/s3_demo_build_new_run.json",
+        "evidence/demo/demo_complete_1280x720.png",
+        "evidence/demo/demo_end.mp4"
+      ],
+      "status": "PASS (demo limit + end screen); FAIL (full save overwritten)"
+    }
+  ],
+  "save_paths_today": {
+    "source": "scripts/autoload/save_service.gd at 6e98bfb (read only, not edited)",
+    "main": "user://saves/run.json",
+    "backup": "user://saves/run.backup.json",
+    "tmp": "user://saves/run.tmp",
+    "desktop_user_dir": "~/.local/share/godot/app_userdata/LASTROOT/ (same for demo and full: same project name, no custom user dir)",
+    "web": "user:// is the browser's IndexedDB-backed file system per origin; a Web Demo hosted on the same origin as the full web build would share it (inferred from Godot's web platform, not tested)",
+    "demo_specific": "none: GameSession.new_run() only sets run.mode = 'demo'; SaveService writes the same files"
+  },
+  "status": "PARTIAL",
+  "summary": "Demo limit works in an exported demo build: 2 won battles -> 'End of the demo'. Demo and full game share one save file: a demo New run (after the 'Start a new run?' confirm in the menu, which this driver bypasses) replaces a full-run save and its backup, and the demo build can Continue a full run. LR-34 acceptance 'Demo cannot overwrite a full run save' is NOT met at 6e98bfb; separate demo save paths are being added in save_service.gd by another agent."
+}

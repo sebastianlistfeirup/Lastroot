@@ -1,0 +1,72 @@
+{
+  "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "all_end_turns_match_forecast": true,
+  "args": {
+    "autoplay": "1",
+    "faction": "BARK",
+    "log": "evidence/video/floor_battle.json",
+    "max_seconds": "30",
+    "seed": "2",
+    "setup": "battle3"
+  },
+  "end_turns": [
+    {
+      "enemy_climbs": 1,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 19,
+      "t": 6.56,
+      "turn": 1
+    },
+    {
+      "enemy_climbs": 1,
+      "events_match_forecast": true,
+      "forecast_deaths": 2,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 2,
+      "real_heart_damage": 0,
+      "real_resolution_events": 25,
+      "t": 15.59,
+      "turn": 2
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 3,
+      "forecast_result": "won",
+      "real_deaths": 1,
+      "real_heart_damage": 3,
+      "real_resolution_events": 21,
+      "t": 27.13,
+      "turn": 3
+    }
+  ],
+  "engine": "4.5.1-stable (official)",
+  "final_mutations": [
+    "M01"
+  ],
+  "final_phase": "reward",
+  "movie_seconds": 30.03,
+  "notes": [],
+  "phases": [
+    {
+      "battle_index": 2,
+      "phase": "battle",
+      "result": "",
+      "t": 0.0
+    },
+    {
+      "battle_index": 2,
+      "phase": "reward",
+      "result": "",
+      "t": 27.13
+    }
+  ],
+  "renderer": "gl_compatibility"
+}

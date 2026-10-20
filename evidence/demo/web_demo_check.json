@@ -1,0 +1,14 @@
+{
+  "url": "http://localhost:8792/index.html",
+  "menu_reached": true,
+  "seconds": 27,
+  "state": "STATE phase=none view=1920x1080",
+  "tap_targets": [
+    "NewRunButton|New Run",
+    "HowToButton|How to play",
+    "SettingsButton|Settings",
+    "CreditsButton|Credits"
+  ],
+  "script_errors": [],
+  "screenshot": "evidence/demo/web_demo_title.png"
+}
