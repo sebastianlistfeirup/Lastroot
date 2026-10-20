@@ -1,17 +1,17 @@
 {
   "end_turn": {
-    "max": 6.487,
+    "max": 4.326,
     "n": 120,
-    "p50": 0.881,
-    "p95": 1.621
+    "p50": 0.914,
+    "p95": 1.506
   },
   "engine_version": "4.5.1-stable (official)",
   "machine": "cloud container, 4 cores, no GPU",
   "preview_after_command": {
-    "max": 3.187,
+    "max": 1.789,
     "n": 43,
-    "p50": 1.167,
-    "p95": 1.742
+    "p50": 1.071,
+    "p95": 1.648
   },
   "status": "PASS",
   "target_ms": 50

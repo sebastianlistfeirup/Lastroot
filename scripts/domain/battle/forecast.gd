@@ -12,7 +12,7 @@ const CACHE_MAX := 64
 static func end_turn(state: Dictionary) -> Dictionary:
 	var key: String = JsonUtil.state_hash(state)
 	if _cache.has(key):
-		return _cache[key]
+		return (_cache[key] as Dictionary).duplicate(true)  # callers may not mutate the cache
 	var clone: Dictionary = state.duplicate(true)
 	var ev: Array = []
 	if clone["phase"] == "player":

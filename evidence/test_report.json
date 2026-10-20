@@ -3,7 +3,7 @@
   "failures": [],
   "files": {
     "test_battle_matrix.gd": 25,
-    "test_cards.gd": 31,
+    "test_cards.gd": 32,
     "test_catalog.gd": 8,
     "test_forecast.gd": 5,
     "test_meta_flow.gd": 5,
@@ -69,6 +69,7 @@
     "test_cards/test_sun_seed_and_leaf_book_first_turn",
     "test_cards/test_lifeweaver_and_gentle_crown_turn_start",
     "test_cards/test_venom_master_and_bulwark_stats",
+    "test_cards/test_bloom_does_not_use_spore_lantern",
     "test_catalog/test_24_types_22_normal_2_champions",
     "test_catalog/test_engine_data_matches_design_baseline",
     "test_catalog/test_both_start_decks_have_12_instances",
@@ -113,6 +114,6 @@
     "test_save/test_truncated_save_rejected"
   ],
   "status": "PASS",
-  "tests": 117,
-  "timestamp": "2026-10-20T00:15:32"
+  "tests": 118,
+  "timestamp": "2026-10-20T00:26:15"
 }

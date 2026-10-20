@@ -287,3 +287,15 @@ func test_venom_master_and_bulwark_stats() -> void:
 	eq(CardStats.unit_stats(Catalog.card("S01"), "", "VENOM", 2)["on_hit_poison"], 4, "2 + 2")
 	var st := CardStats.unit_stats(Catalog.card("B01"), "", "BULWARK", 1)
 	eq([st["max_hp"], st["armor"]], [28, 12], "20+8 / 8+4")
+
+
+func test_bloom_does_not_use_spore_lantern() -> void:
+	# D14: S11 doubles existing Poison and does not count as the R03 "first Poison".
+	var s := _board()
+	s["relics"] = ["R03"]
+	var e := BattleBuilder.enemy(s, 0, {"max_hp": 50, "poison": 2})
+	var r := _play(s, "S11", {"target": e})
+	var s2: Dictionary = r["state"]
+	eq(s2["flags"]["r03"], false, "Bloom leaves the Spore Lantern unused")
+	var r2 := _play(s2, "S07", {"target": e})
+	eq(BattleReducer.unit(r2["state"], e)["poison"], 8, "4 after Bloom + 3 + 1 from R03")
