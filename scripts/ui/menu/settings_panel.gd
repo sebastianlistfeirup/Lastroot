@@ -160,7 +160,7 @@ static func _same(a: Variant, b: Variant) -> bool:
 func _slider(title: String, key: String) -> void:
 	var row := UiKit.hbox(12)
 	var l := UiKit.label(title, 18, UiKit.TEXT)
-	l.custom_minimum_size = Vector2(UiKit.px(150), 0)
+	l.custom_minimum_size = Vector2(UiKit.px(120), 0)
 	l.autowrap_mode = TextServer.AUTOWRAP_OFF
 	row.add_child(l)
 	var s := HSlider.new()
@@ -169,7 +169,7 @@ func _slider(title: String, key: String) -> void:
 	s.step = 5
 	s.value = round(SettingsService.volume(key) * 100.0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	s.custom_minimum_size = Vector2(120, UiKit.MIN_HIT)
+	s.custom_minimum_size = Vector2(80, UiKit.MIN_HIT)
 	var track := StyleBoxFlat.new()
 	track.bg_color = UiKit.LINE
 	track.set_corner_radius_all(4)

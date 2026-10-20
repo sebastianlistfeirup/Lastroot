@@ -122,7 +122,13 @@ func _build_title() -> void:
 	var col := UiKit.vbox(14)
 	col.alignment = BoxContainer.ALIGNMENT_CENTER
 	if portrait:
-		m.add_child(col)
+		# Short portrait windows (tablet: 430x573 logical) scroll instead of
+		# pushing the last buttons off screen (LR-28 layout smoke).
+		var sc := UiKit.vscroll()
+		m.add_child(sc)
+		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		col.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		sc.add_child(col)
 	else:
 		var row := UiKit.hbox(0)
 		m.add_child(row)
@@ -130,6 +136,7 @@ func _build_title() -> void:
 		row.add_child(col)
 	var title := UiKit.label("LASTROOT", 64 if portrait else 128, UiKit.TEXT, true)
 	title.autowrap_mode = TextServer.AUTOWRAP_OFF
+	title.add_theme_font_size_override("font_size", 64 if portrait else 128)  # logo: fixed size, the text-size setting must not push it off a phone
 	title.add_theme_color_override("font_shadow_color", Color(UiKit.LIFE, 0.55))
 	title.add_theme_constant_override("shadow_offset_x", 0)
 	title.add_theme_constant_override("shadow_offset_y", 4)
@@ -174,10 +181,12 @@ func _build_title() -> void:
 		Loc.t("Work in progress: placeholder art and sound")], 14, Color(UiKit.TEXT_DIM, 0.7))
 	foot.anchor_top = 1.0
 	foot.anchor_bottom = 1.0
+	foot.anchor_right = 1.0
 	foot.offset_left = 16
+	foot.offset_right = -16
 	foot.offset_top = -34
 	foot.offset_bottom = -8
-	foot.autowrap_mode = TextServer.AUTOWRAP_OFF
+	foot.grow_vertical = Control.GROW_DIRECTION_BEGIN  # wraps upward on narrow screens
 	_content.add_child(foot)
 	var first: Button = buttons.get_child(0) as Button
 	if first:
@@ -283,7 +292,7 @@ func _build_first_run() -> void:
 	p.add_child(v)
 	var art := HowToArt.new()
 	art.kind = "floors"
-	art.custom_minimum_size = Vector2(0, 200)
+	art.custom_minimum_size = Vector2(0, 200 if get_viewport().get_visible_rect().size.y >= 700.0 else 90)
 	v.add_child(art)
 	v.add_child(UiKit.heading(Loc.t("New to LASTROOT?"), 30))
 	v.add_child(UiKit.label(Loc.t("A short illustrated guide shows the floors, Sap, cards, the forecast and the boss. You can open it again any time from the menu."), 19, UiKit.TEXT))

@@ -91,6 +91,31 @@ func _init() -> void:
 	v.add_child(_upg)
 	for c in [_name, _cost, _kind, _pips, _upg, kind_row, top]:
 		(c as Control).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.sort_children.connect(_fit_height)
+	_name.resized.connect(_fit_name)
+
+
+## Large text sizes (LR-28): the card keeps its footprint and the picture gives
+## up height first, so rules text is never pushed out of a fixed-height hand.
+func _fit_height() -> void:
+	var v: Control = get_child(0) as Control
+	var sb: StyleBox = get_theme_stylebox("panel")
+	var avail: float = custom_minimum_size.y - (sb.get_minimum_size().y if sb else 0.0)
+	var excess: float = v.get_combined_minimum_size().y - avail
+	if excess <= 0.5:
+		return
+	if _art.custom_minimum_size.y > 0.0:
+		_art.custom_minimum_size.y = maxf(0.0, _art.custom_minimum_size.y - excess)
+		_art.visible = _art.custom_minimum_size.y >= 12.0
+	elif _upg.visible and _upg.text == Loc.t("Cannot be upgraded"):
+		_upg.visible = false  # informational line only; the camp says it too
+	else:
+		# last resort: rules text one pixel smaller per pass (re-sorts, converges)
+		var fs: int = _text.get_theme_font_size("normal_font_size")
+		if fs > 10:
+			for r: RichTextLabel in [_stats, _text]:
+				r.add_theme_font_size_override("normal_font_size", fs - 1)
+				r.add_theme_font_size_override("bold_font_size", fs - 1)
 
 
 static func _rich(size: int) -> RichTextLabel:
@@ -125,6 +150,7 @@ func _apply_fonts() -> void:
 		r.add_theme_font_size_override("bold_font_size", fs)
 	# Compact hands keep every line but give the picture less room.
 	_art.custom_minimum_size = Vector2(0, ART_H * (0.55 if _k < 1.0 else 1.0))
+	_art.visible = true
 	var orb: float = 30.0 * k
 	_cost_box.custom_minimum_size = Vector2(orb, orb)
 
@@ -191,9 +217,11 @@ func refresh() -> void:
 func _fit_name() -> void:
 	var k: float = _k * UiKit.font_scale
 	var avail: float = W * _k - (16.0 if _k >= 1.0 else 10.0) - 30.0 * k - 6.0
+	if _name.size.x > 1.0:
+		avail = minf(avail, _name.size.x)  # the laid-out width wins (style margins differ)
 	var fs: int = int(round(16.0 * k))
 	var font: Font = _name.get_theme_font("font")
-	while fs > 11 and font.get_string_size(_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > avail:
+	while fs > 9 and font.get_string_size(_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > avail:
 		fs -= 1
 	_name.add_theme_font_size_override("font_size", fs)
 

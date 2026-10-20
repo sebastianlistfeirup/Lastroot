@@ -906,6 +906,8 @@ func _action(row: Control, text: String, accent: Color, node_name: String, cb: C
 	var b := UiKit.button(text, accent, 22)
 	b.name = node_name
 	b.custom_minimum_size = Vector2(240 if not portrait else 180, 60)
+	if portrait:
+		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # long labels at 150% text wrap instead of leaving the screen
 	b.pressed.connect(cb)
 	row.add_child(b)
 	return b
