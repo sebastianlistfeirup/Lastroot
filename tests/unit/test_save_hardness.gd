@@ -474,3 +474,25 @@ func test_wrong_mode_in_slot_refused_and_kept() -> void:
 	_write(s.slot_paths(true)["main"], SaveCodec.encode(RunReducer.new_run(344, "BARK")))
 	eq(s.load_run()["code"], "wrong_slot", "demo slot refuses a full run")
 	s.free()
+
+
+func test_demo_build_never_touches_full_files() -> void:
+	var s := _svc()
+	s.demo_build = false
+	var full := RunReducer.new_run(345, "BARK")
+	s.save_run(full)
+	s.save_run(full)
+	var main_bytes := FileAccess.get_file_as_bytes(s.main_path)
+	var bak_bytes := FileAccess.get_file_as_bytes(s.backup_path)
+	s.demo_build = true
+	check(not s.has_save(), "demo build does not see the full run")
+	eq(s.load_run()["code"], "missing", "demo build cannot Continue a full run")
+	check(not s.save_run(full), "demo build refuses to write a full run")
+	var demo := RunReducer.new_run(346, "BARK", "demo")
+	check(s.save_run(demo) and s.save_run(demo), "demo New Run saves (twice, so it rotates)")
+	s.delete_run()
+	eq(FileAccess.get_file_as_bytes(s.main_path), main_bytes, "full run.json untouched")
+	eq(FileAccess.get_file_as_bytes(s.backup_path), bak_bytes, "full run.backup.json untouched")
+	_write(s.slot_paths(true)["main"], FileAccess.get_file_as_string(s.main_path))  # full run copied into the demo slot
+	eq(s.load_run()["code"], "wrong_slot", "demo build refuses a full run even in its own slot")
+	s.free()

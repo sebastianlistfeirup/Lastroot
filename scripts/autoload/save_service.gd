@@ -71,6 +71,10 @@ func has_save() -> bool:
 func save_run(run: Dictionary, presentation: Dictionary = {}) -> bool:
 	DirAccess.make_dir_recursive_absolute(dir)
 	var demo: bool = is_demo_run(run)
+	if demo_build and not demo:
+		# A demo build never touches the full-run files (LR-34).
+		last_error = "The demo cannot save a full run."
+		return false
 	var sl: Dictionary = slot_paths(demo)
 	var text: String = SaveCodec.encode(run, presentation)
 	var f := FileAccess.open(sl["tmp"], FileAccess.WRITE)
