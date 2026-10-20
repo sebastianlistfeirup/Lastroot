@@ -267,7 +267,7 @@ func _feedback_panel(portrait: bool) -> Control:
 	p.add_child(v)
 	v.add_child(UiKit.heading(Loc.t("How was this run?"), 22))
 	v.add_child(UiKit.label(Loc.t("Optional. Saved only on this device, in your playtest log."), 15, UiKit.TEXT_DIM))
-	var stars := UiKit.hbox(6)
+	var stars := UiKit.flow(6, false)  # wraps on narrow phones at large text
 	for i in range(1, 6):
 		var on: bool = i <= fb_stars
 		var b := UiKit.button(("★" if on else "☆") + " %d" % i, UiKit.AMBER if on else UiKit.ASH, 20)

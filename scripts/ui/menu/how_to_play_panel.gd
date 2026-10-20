@@ -61,6 +61,8 @@ func _build() -> void:
 	for i in all.size():
 		marks.append("●" if i == page else "○")
 	dots.text = "%s   %d / %d" % [" ".join(marks), page + 1, all.size()]
+	if is_portrait():
+		dots.text = "%d / %d" % [page + 1, all.size()]  # the dot row does not fit next to Back / Next at large text
 	dots.autowrap_mode = TextServer.AUTOWRAP_OFF
 	dots.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	footer.add_child(dots)

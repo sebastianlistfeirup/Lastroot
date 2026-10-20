@@ -35,5 +35,12 @@ if [ -f scenes/tests/meta_smoke.tscn ]; then
 	echo "$M_OUT" | grep -E "META_SMOKE|FAIL|SCRIPT ERROR" | head -60
 	if echo "$M_OUT" | grep -q "SCRIPT ERROR"; then M=1; fi
 fi
-echo "validators_exit=$V release_exit=$R loc_exit=$L tests_exit=$T smoke_exit=$S meta_exit=$M"
-exit $(( V | R | L | T | S | M ))
+LY=0
+if [ -f scenes/tests/layout_smoke.tscn ]; then
+	LY_OUT=$(timeout 300 "$GODOT" --headless --path . res://scenes/tests/layout_smoke.tscn 2>&1)
+	LY=$?
+	echo "$LY_OUT" | grep -E "LAYOUT_SMOKE|LAYOUT_FAIL|SCRIPT ERROR" | head -30
+	if echo "$LY_OUT" | grep -q "SCRIPT ERROR"; then LY=1; fi
+fi
+echo "validators_exit=$V release_exit=$R loc_exit=$L tests_exit=$T smoke_exit=$S meta_exit=$M layout_exit=$LY"
+exit $(( V | R | L | T | S | M | LY ))

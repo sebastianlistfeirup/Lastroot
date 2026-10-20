@@ -65,7 +65,8 @@ func set_compact(c: bool) -> void:
 	_k = k
 	_apply_fonts()
 	_fc.add_theme_font_size_override("font_size", int(15 * k * UiKit.font_scale))
-	custom_minimum_size = Vector2(UiKit.MIN_HIT * (1.0 if c else 1.6), UiKit.MIN_HIT * (0.8 if c else 1.0))
+	# compact height stays >= 44 px (touch target on phones, LR-28 layout smoke)
+	custom_minimum_size = Vector2(UiKit.MIN_HIT * (1.0 if c else 1.6), UiKit.MIN_HIT * (0.92 if c else 1.0))
 	if not _last.is_empty():
 		show_unit(_last[0], _last[1], _last[2])
 

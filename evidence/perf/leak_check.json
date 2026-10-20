@@ -1,0 +1,646 @@
+{
+  "command": "godot --headless --path . res://tools/profile/leak_check.tscn -- --runs=30",
+  "criterion": "After 5 warm-up runs: late-third mean vs early-third mean grows <= 2% (objects, nodes), <= 3% (resources), <= 5% (static memory), orphan nodes <= +2; and no metric rises in every single step.",
+  "duration_ms": 414921,
+  "engine_version": "4.5.1-stable (official)",
+  "growth": {
+    "memory_static": {
+      "early_mean": 58426479.5,
+      "increasing_steps": 12,
+      "late_mean": 63772305.5,
+      "of_steps": 24,
+      "ok": false,
+      "relative": 0.0915
+    },
+    "nodes": {
+      "early_mean": 40.0,
+      "increasing_steps": 12,
+      "late_mean": 40.0,
+      "of_steps": 24,
+      "ok": true,
+      "relative": 0.0
+    },
+    "objects": {
+      "early_mean": 2590.125,
+      "increasing_steps": 12,
+      "late_mean": 2609.125,
+      "of_steps": 24,
+      "ok": true,
+      "relative": 0.0073
+    },
+    "orphan_nodes": {
+      "early_mean": 0.0,
+      "increasing_steps": 0,
+      "late_mean": 0.0,
+      "of_steps": 24,
+      "ok": true,
+      "relative": 0.0
+    },
+    "resources": {
+      "early_mean": 72.875,
+      "increasing_steps": 3,
+      "late_mean": 74.625,
+      "of_steps": 24,
+      "ok": true,
+      "relative": 0.024
+    }
+  },
+  "known_finding": "Leaving the battle scene while the presenter replays (e.g. Save & quit during an animation) leaks 2 objects per exit (--only=battle_play --leave-mid-playback: +2 objects per iteration, nodes and resources flat). Not fixed: suspected suspended replay coroutines in BattlePresenter/BattleScreen; a child-Timer variant of BattlePresenter._wait did not change it.",
+  "mode": "realistic",
+  "note": "Headless (dummy renderer, dummy audio). Samples taken on the main menu after each run. Even iterations play the whole run through battle/reward/route/node/result scenes; odd ones abandon after the first reward screen. Like a player, the driver lets the last replay finish (Skip) before leaving a battle; --leave-mid-playback leaves during the replay instead. Forecast's bounded state cache (<= 64 entries) is emptied before each sample; the entry count is recorded.",
+  "runs": 30,
+  "samples": [
+    {
+      "commands": 0,
+      "forecast_cache_entries": 0,
+      "iteration": 0,
+      "kind": "menu_baseline",
+      "memory_static": 35768738,
+      "ms": 0,
+      "nodes": 39,
+      "objects": 1573,
+      "orphan_nodes": 0,
+      "resources": 59,
+      "static_caches": {
+        "card_portraits": 0,
+        "palette": 0,
+        "proxy_mesh": 0,
+        "proxy_unfog": 0,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 27,
+      "iteration": 1,
+      "kind": "abandon_after_reward",
+      "memory_static": 50938542,
+      "ms": 2703,
+      "nodes": 39,
+      "objects": 2254,
+      "orphan_nodes": 0,
+      "resources": 64,
+      "static_caches": {
+        "card_portraits": 4,
+        "palette": 51,
+        "proxy_mesh": 522,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 119,
+      "forecast_cache_entries": 11,
+      "iteration": 2,
+      "kind": "full_run_won",
+      "memory_static": 55990874,
+      "ms": 18111,
+      "nodes": 41,
+      "objects": 2548,
+      "orphan_nodes": 0,
+      "resources": 72,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 58,
+        "proxy_mesh": 732,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 28,
+      "iteration": 3,
+      "kind": "abandon_after_reward",
+      "memory_static": 55911850,
+      "ms": 2273,
+      "nodes": 39,
+      "objects": 2540,
+      "orphan_nodes": 0,
+      "resources": 72,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 58,
+        "proxy_mesh": 732,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 139,
+      "forecast_cache_entries": 6,
+      "iteration": 4,
+      "kind": "full_run_won",
+      "memory_static": 56729386,
+      "ms": 21342,
+      "nodes": 41,
+      "objects": 2564,
+      "orphan_nodes": 0,
+      "resources": 72,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 58,
+        "proxy_mesh": 742,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 55,
+      "iteration": 5,
+      "kind": "abandon_after_reward",
+      "memory_static": 56658318,
+      "ms": 2293,
+      "nodes": 39,
+      "objects": 2555,
+      "orphan_nodes": 0,
+      "resources": 72,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 58,
+        "proxy_mesh": 742,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 137,
+      "forecast_cache_entries": 64,
+      "iteration": 6,
+      "kind": "full_run_won",
+      "memory_static": 57872550,
+      "ms": 19898,
+      "nodes": 41,
+      "objects": 2589,
+      "orphan_nodes": 0,
+      "resources": 72,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 60,
+        "proxy_mesh": 763,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 12,
+      "iteration": 7,
+      "kind": "abandon_after_reward",
+      "memory_static": 57811770,
+      "ms": 2517,
+      "nodes": 39,
+      "objects": 2583,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 123,
+      "forecast_cache_entries": 63,
+      "iteration": 8,
+      "kind": "full_run_won",
+      "memory_static": 57935914,
+      "ms": 17965,
+      "nodes": 41,
+      "objects": 2594,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 8,
+      "iteration": 9,
+      "kind": "abandon_after_reward",
+      "memory_static": 57867710,
+      "ms": 2285,
+      "nodes": 39,
+      "objects": 2585,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 118,
+      "forecast_cache_entries": 24,
+      "iteration": 10,
+      "kind": "full_run_won",
+      "memory_static": 57983006,
+      "ms": 17776,
+      "nodes": 41,
+      "objects": 2596,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 4,
+      "iteration": 11,
+      "kind": "abandon_after_reward",
+      "memory_static": 57910658,
+      "ms": 2289,
+      "nodes": 39,
+      "objects": 2587,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 124,
+      "forecast_cache_entries": 58,
+      "iteration": 12,
+      "kind": "full_run_won",
+      "memory_static": 60050758,
+      "ms": 18334,
+      "nodes": 41,
+      "objects": 2598,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 22,
+      "iteration": 13,
+      "kind": "abandon_after_reward",
+      "memory_static": 59979470,
+      "ms": 2285,
+      "nodes": 39,
+      "objects": 2589,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 141,
+      "forecast_cache_entries": 36,
+      "iteration": 14,
+      "kind": "full_run_won",
+      "memory_static": 60084482,
+      "ms": 21298,
+      "nodes": 41,
+      "objects": 2600,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 63,
+      "iteration": 15,
+      "kind": "abandon_after_reward",
+      "memory_static": 60014346,
+      "ms": 2287,
+      "nodes": 39,
+      "objects": 2591,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 123,
+      "forecast_cache_entries": 8,
+      "iteration": 16,
+      "kind": "full_run_won",
+      "memory_static": 60131258,
+      "ms": 18273,
+      "nodes": 41,
+      "objects": 2602,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 29,
+      "iteration": 17,
+      "kind": "abandon_after_reward",
+      "memory_static": 60065130,
+      "ms": 2274,
+      "nodes": 39,
+      "objects": 2593,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 134,
+      "forecast_cache_entries": 57,
+      "iteration": 18,
+      "kind": "full_run_won",
+      "memory_static": 60171674,
+      "ms": 19537,
+      "nodes": 41,
+      "objects": 2604,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 7,
+      "iteration": 19,
+      "kind": "abandon_after_reward",
+      "memory_static": 60103458,
+      "ms": 2276,
+      "nodes": 39,
+      "objects": 2595,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 136,
+      "forecast_cache_entries": 47,
+      "iteration": 20,
+      "kind": "full_run_won",
+      "memory_static": 60211378,
+      "ms": 20025,
+      "nodes": 41,
+      "objects": 2606,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 33,
+      "iteration": 21,
+      "kind": "abandon_after_reward",
+      "memory_static": 60143978,
+      "ms": 2303,
+      "nodes": 39,
+      "objects": 2597,
+      "orphan_nodes": 0,
+      "resources": 73,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 120,
+      "forecast_cache_entries": 61,
+      "iteration": 22,
+      "kind": "full_run_won",
+      "memory_static": 60266586,
+      "ms": 18610,
+      "nodes": 41,
+      "objects": 2609,
+      "orphan_nodes": 0,
+      "resources": 74,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 52,
+      "iteration": 23,
+      "kind": "abandon_after_reward",
+      "memory_static": 60196634,
+      "ms": 2272,
+      "nodes": 39,
+      "objects": 2600,
+      "orphan_nodes": 0,
+      "resources": 74,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 120,
+      "forecast_cache_entries": 16,
+      "iteration": 24,
+      "kind": "full_run_won",
+      "memory_static": 64255202,
+      "ms": 18793,
+      "nodes": 41,
+      "objects": 2611,
+      "orphan_nodes": 0,
+      "resources": 74,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 10,
+      "iteration": 25,
+      "kind": "abandon_after_reward",
+      "memory_static": 64182918,
+      "ms": 2285,
+      "nodes": 39,
+      "objects": 2602,
+      "orphan_nodes": 0,
+      "resources": 74,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 128,
+      "forecast_cache_entries": 3,
+      "iteration": 26,
+      "kind": "full_run_won",
+      "memory_static": 64304706,
+      "ms": 18221,
+      "nodes": 41,
+      "objects": 2614,
+      "orphan_nodes": 0,
+      "resources": 75,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 21,
+      "iteration": 27,
+      "kind": "abandon_after_reward",
+      "memory_static": 64231110,
+      "ms": 2303,
+      "nodes": 39,
+      "objects": 2605,
+      "orphan_nodes": 0,
+      "resources": 75,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 132,
+      "forecast_cache_entries": 14,
+      "iteration": 28,
+      "kind": "full_run_won",
+      "memory_static": 64341394,
+      "ms": 18783,
+      "nodes": 41,
+      "objects": 2616,
+      "orphan_nodes": 0,
+      "resources": 75,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 13,
+      "forecast_cache_entries": 18,
+      "iteration": 29,
+      "kind": "abandon_after_reward",
+      "memory_static": 64274734,
+      "ms": 2278,
+      "nodes": 39,
+      "objects": 2607,
+      "orphan_nodes": 0,
+      "resources": 75,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    },
+    {
+      "commands": 116,
+      "forecast_cache_entries": 41,
+      "iteration": 30,
+      "kind": "full_run_won",
+      "memory_static": 64391746,
+      "ms": 16972,
+      "nodes": 41,
+      "objects": 2618,
+      "orphan_nodes": 0,
+      "resources": 75,
+      "static_caches": {
+        "card_portraits": 12,
+        "palette": 61,
+        "proxy_mesh": 764,
+        "proxy_unfog": 3,
+        "visual_slots_built": 0
+      }
+    }
+  ],
+  "status": "FAIL",
+  "timestamp": "2026-10-20T12:20:56",
+  "warmup": 5
+}

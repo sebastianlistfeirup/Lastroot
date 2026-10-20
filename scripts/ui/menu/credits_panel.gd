@@ -41,11 +41,14 @@ func _section(text: String) -> void:
 
 
 func _entry(left: String, right: String, right_color: Color = UiKit.TEXT) -> void:
-	var row := UiKit.flow(16, false)
+	var narrow: bool = is_portrait()
+	var row: Container = UiKit.vbox(2) if narrow else UiKit.flow(16, false)
 	var a := UiKit.label(left, 18, UiKit.TEXT, true)
-	a.autowrap_mode = TextServer.AUTOWRAP_OFF
+	if not narrow:  # on phones the two halves stack and wrap
+		a.autowrap_mode = TextServer.AUTOWRAP_OFF
 	row.add_child(a)
 	var b := UiKit.label(right, 18, right_color)
-	b.autowrap_mode = TextServer.AUTOWRAP_OFF
+	if not narrow:
+		b.autowrap_mode = TextServer.AUTOWRAP_OFF
 	row.add_child(b)
 	body.add_child(row)

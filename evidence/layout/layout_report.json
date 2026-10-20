@@ -1,0 +1,319 @@
+{
+  "accepted": [
+    {
+      "config": "phone_430x932/en_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@45861/@Control@45862/TopBar/@HFlowContainer@45867/@Label@45871",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_battle1",
+      "text": "⚑ +2 next turn"
+    },
+    {
+      "config": "phone_430x932/en_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@48746/@Control@48747/RightPanel/@VBoxContainer@48761/SheetSummary",
+      "reason": "Portrait forecast summary button: one-line teaser that opens the full forecast sheet when tapped.",
+      "screen": "battle_boss",
+      "text": "▴ Forecast:  ♥ 57 → 57  ·  ✝ 1 lost  ·  ✝ 1 slain"
+    },
+    {
+      "config": "phone_430x932/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@51999/@Control@52000/TopBar/@HFlowContainer@52005/@Label@52009",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_battle1",
+      "text": "⚑ +2 næste tur"
+    },
+    {
+      "config": "phone_430x932/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@53400/@Control@53401/TopBar/@HFlowContainer@53406/@Label@53410",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_midbattle",
+      "text": "⚑ Sidste bølge"
+    },
+    {
+      "config": "phone_430x932/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@53400/@Control@53401/TopBar/@HFlowContainer@53406/@Label@53410",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_forecast_sheet",
+      "text": "⚑ Sidste bølge"
+    },
+    {
+      "config": "phone_430x932/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@54884/@Control@54885/RightPanel/@VBoxContainer@54899/SheetSummary",
+      "reason": "Portrait forecast summary button: one-line teaser that opens the full forecast sheet when tapped.",
+      "screen": "battle_boss",
+      "text": "▴ Prognose:  ♥ 57 → 57  ·  ✝ 1 tabt  ·  ✝ 1 nedlagt"
+    },
+    {
+      "config": "phone_430x932/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@54884/@Control@54885/TopBar/@HFlowContainer@54890/@Label@54894",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_boss",
+      "text": "⚑ Sidste bølge"
+    },
+    {
+      "config": "tablet_1024x1366/en_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@64275/@Control@64276/TopBar/@HFlowContainer@64281/@Label@64285",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_battle1",
+      "text": "⚑ +2 next turn"
+    },
+    {
+      "config": "tablet_1024x1366/en_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@67160/@Control@67161/RightPanel/@VBoxContainer@67175/SheetSummary",
+      "reason": "Portrait forecast summary button: one-line teaser that opens the full forecast sheet when tapped.",
+      "screen": "battle_boss",
+      "text": "▴ Forecast:  ♥ 57 → 57  ·  ✝ 1 lost  ·  ✝ 1 slain"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@70413/@Control@70414/TopBar/@HFlowContainer@70419/@Label@70423",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_battle1",
+      "text": "⚑ +2 næste tur"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@71814/@Control@71815/TopBar/@HFlowContainer@71820/@Label@71824",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_midbattle",
+      "text": "⚑ Sidste bølge"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@71814/@Control@71815/TopBar/@HFlowContainer@71820/@Label@71824",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_forecast_sheet",
+      "text": "⚑ Sidste bølge"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@73298/@Control@73299/RightPanel/@VBoxContainer@73313/SheetSummary",
+      "reason": "Portrait forecast summary button: one-line teaser that opens the full forecast sheet when tapped.",
+      "screen": "battle_boss",
+      "text": "▴ Prognose:  ♥ 57 → 57  ·  ✝ 1 tabt  ·  ✝ 1 nedlagt"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "kind": "text_truncated",
+      "node": "Battle/@CanvasLayer@73298/@Control@73299/TopBar/@HFlowContainer@73304/@Label@73308",
+      "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
+      "screen": "battle_boss",
+      "text": "⚑ Sidste bølge"
+    }
+  ],
+  "command": "godot --headless --path . res://scenes/tests/layout_smoke.tscn",
+  "controls_checked": 12240,
+  "duration_ms": 36207,
+  "engine_version": "4.5.1-stable (official)",
+  "known_issues": [
+    {
+      "config": "tablet_1024x1366/en_max",
+      "detail": "rect (123,-23 107x44) vs visible (0,0 430x573)",
+      "issue": "Portrait 1024x1366 (430x573 logical): at the largest text size the Ash Crown's unit badge is placed above the top edge (3D projection of the Crown floor). Fix belongs in BattleScreen._layout_badges_portrait (clamp badges below the top bar).",
+      "kind": "outside_view",
+      "node": "Battle/@CanvasLayer@67160/@Control@67161/@Control@67162/@PanelContainer@67476",
+      "screen": "battle_boss",
+      "text": ""
+    },
+    {
+      "config": "tablet_1024x1366/en_max",
+      "detail": "rect (135,-15 83x22) vs visible (0,0 430x573)",
+      "issue": "Portrait 1024x1366 (430x573 logical): at the largest text size the Ash Crown's unit badge is placed above the top edge (3D projection of the Crown floor). Fix belongs in BattleScreen._layout_badges_portrait (clamp badges below the top bar).",
+      "kind": "outside_view",
+      "node": "@CanvasLayer@67160/@Control@67161/@Control@67162/@PanelContainer@67476/@VBoxContainer@67470/@RichTextLabel@67473",
+      "screen": "battle_boss",
+      "text": "⚔1 ♥19 ✚2"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "detail": "rect (123,-23 107x44) vs visible (0,0 430x573)",
+      "issue": "Portrait 1024x1366 (430x573 logical): at the largest text size the Ash Crown's unit badge is placed above the top edge (3D projection of the Crown floor). Fix belongs in BattleScreen._layout_badges_portrait (clamp badges below the top bar).",
+      "kind": "outside_view",
+      "node": "Battle/@CanvasLayer@73298/@Control@73299/@Control@73300/@PanelContainer@73614",
+      "screen": "battle_boss",
+      "text": ""
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "detail": "rect (135,-15 83x22) vs visible (0,0 430x573)",
+      "issue": "Portrait 1024x1366 (430x573 logical): at the largest text size the Ash Crown's unit badge is placed above the top edge (3D projection of the Crown floor). Fix belongs in BattleScreen._layout_badges_portrait (clamp badges below the top bar).",
+      "kind": "outside_view",
+      "node": "@CanvasLayer@73298/@Control@73299/@Control@73300/@PanelContainer@73614/@VBoxContainer@73608/@RichTextLabel@73611",
+      "screen": "battle_boss",
+      "text": "⚔1 ♥19 ✚2"
+    }
+  ],
+  "max_text_scale": 1.29999995231628,
+  "note": "Headless: fonts are the project fonts, shaped by the real TextServer; nothing is rendered. 1280x720 and 1920x1080 share the 1920x1080 logical layout (AppFlow), so they differ only in physical size.",
+  "per_config": {
+    "desktop_1280x720/da_max": {
+      "screens": 27,
+      "violations": 0
+    },
+    "desktop_1280x720/en_1.0": {
+      "screens": 27,
+      "violations": 0
+    },
+    "desktop_1280x720/en_max": {
+      "screens": 27,
+      "violations": 0
+    },
+    "desktop_1920x1080/da_max": {
+      "screens": 27,
+      "violations": 0
+    },
+    "desktop_1920x1080/en_1.0": {
+      "screens": 27,
+      "violations": 0
+    },
+    "desktop_1920x1080/en_max": {
+      "screens": 27,
+      "violations": 0
+    },
+    "phone_430x932/da_max": {
+      "screens": 28,
+      "violations": 0
+    },
+    "phone_430x932/en_1.0": {
+      "screens": 28,
+      "violations": 0
+    },
+    "phone_430x932/en_max": {
+      "screens": 28,
+      "violations": 0
+    },
+    "tablet_1024x1366/da_max": {
+      "screens": 28,
+      "violations": 0
+    },
+    "tablet_1024x1366/en_1.0": {
+      "screens": 28,
+      "violations": 0
+    },
+    "tablet_1024x1366/en_max": {
+      "screens": 28,
+      "violations": 0
+    }
+  },
+  "screens_checked": 330,
+  "status": "PASS",
+  "text_modes": [
+    {
+      "id": "en_1.0",
+      "lang": "en",
+      "scale": 1.0
+    },
+    {
+      "id": "en_max",
+      "lang": "en",
+      "scale": -1.0
+    },
+    {
+      "id": "da_max",
+      "lang": "da",
+      "scale": -1.0
+    }
+  ],
+  "timestamp": "2026-10-20T12:46:28",
+  "touch_min_px": 44.0,
+  "violations": [],
+  "violations_by_kind": {
+
+  },
+  "warnings": [
+    {
+      "config": "phone_430x932/da_max",
+      "detail": "'Dækstørrelse' needs 117 px, has 100",
+      "kind": "word_force_broken",
+      "node": "@VBoxContainer@50763/@HFlowContainer@50765/@PanelContainer@50795/@HBoxContainer@50791/@VBoxContainer@50794/@Label@50793",
+      "screen": "result_won",
+      "text": "Dækstørrelse"
+    },
+    {
+      "config": "phone_430x932/da_max",
+      "detail": "'Dækstørrelse' needs 117 px, has 100",
+      "kind": "word_force_broken",
+      "node": "@VBoxContainer@50865/@HFlowContainer@50867/@PanelContainer@50897/@HBoxContainer@50893/@VBoxContainer@50896/@Label@50895",
+      "screen": "result_lost",
+      "text": "Dækstørrelse"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "detail": "'Dækstørrelse' needs 117 px, has 100",
+      "kind": "word_force_broken",
+      "node": "@VBoxContainer@69177/@HFlowContainer@69179/@PanelContainer@69209/@HBoxContainer@69205/@VBoxContainer@69208/@Label@69207",
+      "screen": "result_won",
+      "text": "Dækstørrelse"
+    },
+    {
+      "config": "tablet_1024x1366/da_max",
+      "detail": "'Dækstørrelse' needs 117 px, has 100",
+      "kind": "word_force_broken",
+      "node": "@VBoxContainer@69279/@HFlowContainer@69281/@PanelContainer@69311/@HBoxContainer@69307/@VBoxContainer@69310/@Label@69309",
+      "screen": "result_lost",
+      "text": "Dækstørrelse"
+    }
+  ],
+  "windows": [
+    {
+      "id": "desktop_1280x720",
+      "logical": [
+        1920,
+        1080
+      ],
+      "size": [
+        1280,
+        720
+      ],
+      "touch": false
+    },
+    {
+      "id": "desktop_1920x1080",
+      "logical": [
+        1920,
+        1080
+      ],
+      "size": [
+        1920,
+        1080
+      ],
+      "touch": false
+    },
+    {
+      "id": "phone_430x932",
+      "logical": [
+        430,
+        932
+      ],
+      "size": [
+        430,
+        932
+      ],
+      "touch": true
+    },
+    {
+      "id": "tablet_1024x1366",
+      "logical": [
+        430,
+        573
+      ],
+      "size": [
+        1024,
+        1366
+      ],
+      "touch": true
+    }
+  ]
+}
