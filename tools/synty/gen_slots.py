@@ -8,7 +8,8 @@
   docs/ANIMATION_LEDGER.csv        one row per animated slot x required state
 
 Hand edits that are KEPT on re-run: "scene", "scale", "offset", "rotation_y" in
-asset_slots.json, and any ledger row whose review_status is not PROXY/NEEDED.
+asset_slots.json, and any ledger row whose review_status is not PROXY/NEEDED (its empty
+pointer columns candidate / planned_clip / asset_map_ref -> docs/ASSET_MAP.md are refreshed).
 
   python3 tools/synty/gen_slots.py
 Python 3 stdlib only.
@@ -300,29 +301,61 @@ def main() -> int:
             w = csv.DictWriter(fh, fieldnames=header, lineterminator="\n")
             w.writeheader()
             for r in rows:
-                w.writerow(old.get(r[key], r))
+                kept = old.get(r[key])
+                if kept is not None:
+                    # Reviewed row wins; columns it lacks (added later) and the empty
+                    # pointer columns (candidate / planned_clip / asset_map_ref) are filled in.
+                    kept = dict(kept)
+                    for k in header:
+                        if kept.get(k) is None or (k in ("candidate", "planned_clip", "asset_map_ref") and not kept.get(k)):
+                            kept[k] = r.get(k, "")
+                w.writerow(kept if kept is not None else r)
+
+    # docs/ASSET_MAP.md has one anchor per slot (<a id="unit-b01">): the ledgers point there.
+    def map_ref(sid):
+        return "docs/ASSET_MAP.md#" + sid.replace(".", "-").replace("_", "-").lower()
 
     rows = []
     for sid, d in slots.items():
         v = vs[sid]
+        if sid.startswith("fx."):
+            cand = "Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken"
+        elif v.get("search"):
+            cand = v["search"][0] + " (kandidat — verificér i pakken)"
+        else:
+            cand = "egne Godot-meshes/attachments (se ASSET_MAP)"
         rows.append({"asset_id": "asset_" + sid.replace(".", "_"), "source_pack": " / ".join(v["packs"]), "source_path": "", "checksum": "",
                      "format": "procedural" if sid.startswith("fx.") else "FBX/GLB", "rig_id": d.get("rig_family", ""),
                      "scale_m": d.get("height", ""), "target_scene": "battle" if d["kind"] != "stage" else "battle/TreeStage",
-                     "rights_status": "purchased_unverified", "slot_id": sid, "review_status": "PROXY"})
+                     "rights_status": "purchased_unverified", "slot_id": sid, "review_status": "PROXY",
+                     "candidate": cand, "asset_map_ref": map_ref(sid)})
     merge_csv(os.path.join(ROOT, "docs", "ASSET_LEDGER.csv"),
-              ["asset_id", "source_pack", "source_path", "checksum", "format", "rig_id", "scale_m", "target_scene", "rights_status", "slot_id", "review_status"],
+              ["asset_id", "source_pack", "source_path", "checksum", "format", "rig_id", "scale_m", "target_scene", "rights_status", "slot_id", "review_status",
+               "candidate", "asset_map_ref"],
               rows, "asset_id")
+    # Minimum shared clip set: the pipeline builds ONE humanoid library (art/animations/humanoid.res),
+    # so every humanoid plays the same file per state; per-slot variants are listed in ASSET_MAP.md.
+    def planned_clip(fam, st):
+        if fam == "humanoid":
+            return "Mixamo: %s" % MIXAMO[st][0]
+        if fam == "quadruped":
+            own = ANIMATION_SETS["sets"]["quadruped"]["clips"].get(st)
+            return ("PolyPerfect: dyrets egen clip (%s*)" % own) if own else "procedural (intet dyreklip forventet)"
+        return "procedural (UnitAnimator)"
     arows = []
     for sid, d in slots.items():
         for st in d.get("animation_states", []):
             loop = st in ("idle", "move")
-            ev = "contact" if st in ("attack", "cast") else ""
+            contact = ANIMATION_SETS["sets"].get(d.get("rig_family", ""), {}).get("contact", {}).get(st)
+            ev = ("contact@%.2fs" % contact) if contact is not None else ("contact" if st in ("attack", "cast") else "")
             arows.append({"clip_id": "%s_%s" % (sid.replace(".", "_"), st), "source_asset_id": "asset_" + sid.replace(".", "_"),
                           "rig_id": d.get("rig_family", ""), "state": st, "duration_s": "", "loop": str(loop).lower(), "in_place": "true",
                           "event_times": ev, "interrupt_policy": "any" if loop else "finish_or_timeout", "blend_in_s": "0.12", "blend_out_s": "0.12",
-                          "review_status": "NEEDED" if d.get("rig_family") != "static" else "PROCEDURAL"})
+                          "review_status": "NEEDED" if d.get("rig_family") != "static" else "PROCEDURAL",
+                          "planned_clip": planned_clip(d.get("rig_family", ""), st), "asset_map_ref": map_ref(sid)})
     merge_csv(os.path.join(ROOT, "docs", "ANIMATION_LEDGER.csv"),
-              ["clip_id", "source_asset_id", "rig_id", "state", "duration_s", "loop", "in_place", "event_times", "interrupt_policy", "blend_in_s", "blend_out_s", "review_status"],
+              ["clip_id", "source_asset_id", "rig_id", "state", "duration_s", "loop", "in_place", "event_times", "interrupt_policy", "blend_in_s", "blend_out_s", "review_status",
+               "planned_clip", "asset_map_ref"],
               arows, "clip_id")
     write_asset_plan(slots, vs)
     print("slots: %d (units %d, enemies %d, stage %d, props %d, mutations %d, fx %d)" % (

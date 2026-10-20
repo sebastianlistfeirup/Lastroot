@@ -1,52 +1,52 @@
-asset_id,source_pack,source_path,checksum,format,rig_id,scale_m,target_scene,rights_status,slot_id,review_status
-asset_unit_B01,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals / Synty POLYGON Nature,,,FBX/GLB,humanoid,2.6,battle,purchased_unverified,unit.B01,PROXY
-asset_unit_B02,Synty POLYGON Nature / PolyPerfect Low Poly Ultimate Pack / Synty POLYGON Elven Realm,,,FBX/GLB,humanoid,1.22,battle,purchased_unverified,unit.B02,PROXY
-asset_unit_B03,Synty POLYGON Fantasy Kingdom / Synty POLYGON Fantasy Characters / Synty POLYGON Nature,,,FBX/GLB,humanoid,1.57,battle,purchased_unverified,unit.B03,PROXY
-asset_unit_B04,PolyPerfect Low Poly Animated Animals / PolyPerfect Low Poly Ultimate Pack / Synty POLYGON Nature,,,FBX/GLB,quadruped,2.29,battle,purchased_unverified,unit.B04,PROXY
-asset_unit_B05,Synty POLYGON Nature / Synty POLYGON Fantasy Characters / PolyPerfect Low Poly Ultimate Pack,,,FBX/GLB,humanoid,1.29,battle,purchased_unverified,unit.B05,PROXY
-asset_unit_B06,Synty POLYGON Nature / Synty POLYGON Dark Fantasy,,,FBX/GLB,humanoid,2.56,battle,purchased_unverified,unit.B06,PROXY
-asset_unit_S01,Synty POLYGON Fantasy Characters / Synty POLYGON Elven Realm / Synty POLYGON Nature,,,FBX/GLB,humanoid,1.73,battle,purchased_unverified,unit.S01,PROXY
-asset_unit_S02,Synty POLYGON Nature / PolyPerfect Low Poly Ultimate Pack,,,FBX/GLB,humanoid,0.93,battle,purchased_unverified,unit.S02,PROXY
-asset_unit_S03,Synty POLYGON Nature / Synty POLYGON Dungeons,,,FBX/GLB,static,1.56,battle,purchased_unverified,unit.S03,PROXY
-asset_unit_S04,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Characters,,,FBX/GLB,humanoid,1.39,battle,purchased_unverified,unit.S04,PROXY
-asset_unit_S05,Synty POLYGON Elven Realm / Synty POLYGON Fantasy Characters / Synty POLYGON Nature,,,FBX/GLB,humanoid,1.54,battle,purchased_unverified,unit.S05,PROXY
-asset_unit_S06,Synty POLYGON Dark Fantasy / Synty POLYGON Nature,,,FBX/GLB,humanoid,2.33,battle,purchased_unverified,unit.S06,PROXY
-asset_enemy_E01,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals / Synty POLYGON Dungeons,,,FBX/GLB,humanoid,0.95,battle,purchased_unverified,enemy.E01,PROXY
-asset_enemy_E02,Synty POLYGON Dark Fantasy / Synty POLYGON Dungeons,,,FBX/GLB,humanoid,1.13,battle,purchased_unverified,enemy.E02,PROXY
-asset_enemy_E03,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals,,,FBX/GLB,humanoid,1.68,battle,purchased_unverified,enemy.E03,PROXY
-asset_enemy_E04,Synty POLYGON Dark Fantasy / Synty POLYGON Dungeons,,,FBX/GLB,humanoid,1.54,battle,purchased_unverified,enemy.E04,PROXY
-asset_enemy_E05,Synty POLYGON Dark Fantasy / Synty POLYGON Dungeons / Synty POLYGON Fantasy Rivals,,,FBX/GLB,humanoid,2.03,battle,purchased_unverified,enemy.E05,PROXY
-asset_enemy_E06,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals,,,FBX/GLB,humanoid,3.41,battle,purchased_unverified,enemy.E06,PROXY
-asset_stage_floor_roots,Synty POLYGON Nature / Synty POLYGON Fantasy Kingdom,,,FBX/GLB,,0.2,battle/TreeStage,purchased_unverified,stage.floor_roots,PROXY
-asset_stage_floor_trunk,Synty POLYGON Nature / Synty POLYGON Fantasy Kingdom,,,FBX/GLB,,0.2,battle/TreeStage,purchased_unverified,stage.floor_trunk,PROXY
-asset_stage_floor_crown,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,0.2,battle/TreeStage,purchased_unverified,stage.floor_crown,PROXY
-asset_stage_trunk,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,4.5,battle/TreeStage,purchased_unverified,stage.trunk,PROXY
-asset_stage_heart,Synty POLYGON Elven Realm / Synty POLYGON Dungeons / Synty POLYGON Particle FX,,,FBX/GLB,static,2.0,battle/TreeStage,purchased_unverified,stage.heart,PROXY
-asset_stage_backdrop,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,30.0,battle/TreeStage,purchased_unverified,stage.backdrop,PROXY
-asset_prop_lantern,Synty POLYGON Fantasy Kingdom / Synty POLYGON Elven Realm / Synty POLYGON Dungeons,,,FBX/GLB,,1.25,battle,purchased_unverified,prop.lantern,PROXY
-asset_prop_mushroom_cluster,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,0.75,battle,purchased_unverified,prop.mushroom_cluster,PROXY
-asset_prop_crystal,Synty POLYGON Dungeons / Synty POLYGON Elven Realm / Synty POLYGON Dark Fantasy,,,FBX/GLB,,1.0,battle,purchased_unverified,prop.crystal,PROXY
-asset_prop_root_arch,Synty POLYGON Nature,,,FBX/GLB,,1.7,battle,purchased_unverified,prop.root_arch,PROXY
-asset_prop_rock,Synty POLYGON Nature / PolyPerfect Low Poly Ultimate Pack,,,FBX/GLB,,0.55,battle,purchased_unverified,prop.rock,PROXY
-asset_mutation_M01,Synty POLYGON Nature,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M01,PROXY
-asset_mutation_M02,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M02,PROXY
-asset_mutation_M03,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M03,PROXY
-asset_mutation_M04,Synty POLYGON Particle FX / Synty POLYGON Elven Realm,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M04,PROXY
-asset_fx_poison,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.poison,PROXY
-asset_fx_heal,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heal,PROXY
-asset_fx_armor,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.armor,PROXY
-asset_fx_thorns,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.thorns,PROXY
-asset_fx_growth,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.growth,PROXY
-asset_fx_spore_bolt,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.spore_bolt,PROXY
-asset_fx_bark_hit,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.bark_hit,PROXY
-asset_fx_ash_death,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ash_death,PROXY
-asset_fx_heart_pulse,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heart_pulse,PROXY
-asset_fx_heart_damage,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heart_damage,PROXY
-asset_fx_summon_bark,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.summon_bark,PROXY
-asset_fx_summon_spore,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.summon_spore,PROXY
-asset_fx_ash_puff,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ash_puff,PROXY
-asset_fx_wilt,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.wilt,PROXY
-asset_fx_wilt_spore,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.wilt_spore,PROXY
-asset_fx_ember_trail,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ember_trail,PROXY
-asset_fx_ring,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ring,PROXY
-asset_fx_floor_target,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.floor_target,PROXY
+asset_id,source_pack,source_path,checksum,format,rig_id,scale_m,target_scene,rights_status,slot_id,review_status,candidate,asset_map_ref
+asset_unit_B01,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals / Synty POLYGON Nature,,,FBX/GLB,humanoid,2.6,battle,purchased_unverified,unit.B01,PROXY,*Golem* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-b01
+asset_unit_B02,Synty POLYGON Nature / PolyPerfect Low Poly Ultimate Pack / Synty POLYGON Elven Realm,,,FBX/GLB,humanoid,1.22,battle,purchased_unverified,unit.B02,PROXY,*Sapling* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-b02
+asset_unit_B03,Synty POLYGON Fantasy Kingdom / Synty POLYGON Fantasy Characters / Synty POLYGON Nature,,,FBX/GLB,humanoid,1.57,battle,purchased_unverified,unit.B03,PROXY,SK_Chr_*Knight* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-b03
+asset_unit_B04,PolyPerfect Low Poly Animated Animals / PolyPerfect Low Poly Ultimate Pack / Synty POLYGON Nature,,,FBX/GLB,quadruped,2.29,battle,purchased_unverified,unit.B04,PROXY,*Deer* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-b04
+asset_unit_B05,Synty POLYGON Nature / Synty POLYGON Fantasy Characters / PolyPerfect Low Poly Ultimate Pack,,,FBX/GLB,humanoid,1.29,battle,purchased_unverified,unit.B05,PROXY,SK_Chr_*Dwarf* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-b05
+asset_unit_B06,Synty POLYGON Nature / Synty POLYGON Dark Fantasy,,,FBX/GLB,humanoid,2.56,battle,purchased_unverified,unit.B06,PROXY,*Treant* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-b06
+asset_unit_S01,Synty POLYGON Fantasy Characters / Synty POLYGON Elven Realm / Synty POLYGON Nature,,,FBX/GLB,humanoid,1.73,battle,purchased_unverified,unit.S01,PROXY,SK_Chr_*Wizard* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-s01
+asset_unit_S02,Synty POLYGON Nature / PolyPerfect Low Poly Ultimate Pack,,,FBX/GLB,humanoid,0.93,battle,purchased_unverified,unit.S02,PROXY,*Mushroom* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-s02
+asset_unit_S03,Synty POLYGON Nature / Synty POLYGON Dungeons,,,FBX/GLB,static,1.56,battle,purchased_unverified,unit.S03,PROXY,*Fungus* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-s03
+asset_unit_S04,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Characters,,,FBX/GLB,humanoid,1.39,battle,purchased_unverified,unit.S04,PROXY,SK_Chr_*Assassin* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-s04
+asset_unit_S05,Synty POLYGON Elven Realm / Synty POLYGON Fantasy Characters / Synty POLYGON Nature,,,FBX/GLB,humanoid,1.54,battle,purchased_unverified,unit.S05,PROXY,SK_Chr_*Druid* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-s05
+asset_unit_S06,Synty POLYGON Dark Fantasy / Synty POLYGON Nature,,,FBX/GLB,humanoid,2.33,battle,purchased_unverified,unit.S06,PROXY,SK_Chr_*Giant* (kandidat — verificér i pakken),docs/ASSET_MAP.md#unit-s06
+asset_enemy_E01,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals / Synty POLYGON Dungeons,,,FBX/GLB,humanoid,0.95,battle,purchased_unverified,enemy.E01,PROXY,SK_Chr_*Imp* (kandidat — verificér i pakken),docs/ASSET_MAP.md#enemy-e01
+asset_enemy_E02,Synty POLYGON Dark Fantasy / Synty POLYGON Dungeons,,,FBX/GLB,humanoid,1.13,battle,purchased_unverified,enemy.E02,PROXY,SK_Chr_*Skeleton*Shield* (kandidat — verificér i pakken),docs/ASSET_MAP.md#enemy-e02
+asset_enemy_E03,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals,,,FBX/GLB,humanoid,1.68,battle,purchased_unverified,enemy.E03,PROXY,SK_Chr_*Hunter* (kandidat — verificér i pakken),docs/ASSET_MAP.md#enemy-e03
+asset_enemy_E04,Synty POLYGON Dark Fantasy / Synty POLYGON Dungeons,,,FBX/GLB,humanoid,1.54,battle,purchased_unverified,enemy.E04,PROXY,SK_Chr_*Fat* (kandidat — verificér i pakken),docs/ASSET_MAP.md#enemy-e04
+asset_enemy_E05,Synty POLYGON Dark Fantasy / Synty POLYGON Dungeons / Synty POLYGON Fantasy Rivals,,,FBX/GLB,humanoid,2.03,battle,purchased_unverified,enemy.E05,PROXY,SK_Chr_*Golem* (kandidat — verificér i pakken),docs/ASSET_MAP.md#enemy-e05
+asset_enemy_E06,Synty POLYGON Dark Fantasy / Synty POLYGON Fantasy Rivals,,,FBX/GLB,humanoid,3.41,battle,purchased_unverified,enemy.E06,PROXY,SK_Chr_*King* (kandidat — verificér i pakken),docs/ASSET_MAP.md#enemy-e06
+asset_stage_floor_roots,Synty POLYGON Nature / Synty POLYGON Fantasy Kingdom,,,FBX/GLB,,0.2,battle/TreeStage,purchased_unverified,stage.floor_roots,PROXY,SM_Env_Rock_Flat* (kandidat — verificér i pakken),docs/ASSET_MAP.md#stage-floor-roots
+asset_stage_floor_trunk,Synty POLYGON Nature / Synty POLYGON Fantasy Kingdom,,,FBX/GLB,,0.2,battle/TreeStage,purchased_unverified,stage.floor_trunk,PROXY,SM_Env_Rock_Flat* (kandidat — verificér i pakken),docs/ASSET_MAP.md#stage-floor-trunk
+asset_stage_floor_crown,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,0.2,battle/TreeStage,purchased_unverified,stage.floor_crown,PROXY,SM_Env_Rock_Flat* (kandidat — verificér i pakken),docs/ASSET_MAP.md#stage-floor-crown
+asset_stage_trunk,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,4.5,battle/TreeStage,purchased_unverified,stage.trunk,PROXY,SM_Env_Tree_Trunk* (kandidat — verificér i pakken),docs/ASSET_MAP.md#stage-trunk
+asset_stage_heart,Synty POLYGON Elven Realm / Synty POLYGON Dungeons / Synty POLYGON Particle FX,,,FBX/GLB,static,2.0,battle/TreeStage,purchased_unverified,stage.heart,PROXY,*Gem* (kandidat — verificér i pakken),docs/ASSET_MAP.md#stage-heart
+asset_stage_backdrop,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,30.0,battle/TreeStage,purchased_unverified,stage.backdrop,PROXY,SM_Env_Rock_Large* (kandidat — verificér i pakken),docs/ASSET_MAP.md#stage-backdrop
+asset_prop_lantern,Synty POLYGON Fantasy Kingdom / Synty POLYGON Elven Realm / Synty POLYGON Dungeons,,,FBX/GLB,,1.25,battle,purchased_unverified,prop.lantern,PROXY,SM_Prop_Lantern* (kandidat — verificér i pakken),docs/ASSET_MAP.md#prop-lantern
+asset_prop_mushroom_cluster,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,0.75,battle,purchased_unverified,prop.mushroom_cluster,PROXY,SM_Env_Mushroom* (kandidat — verificér i pakken),docs/ASSET_MAP.md#prop-mushroom-cluster
+asset_prop_crystal,Synty POLYGON Dungeons / Synty POLYGON Elven Realm / Synty POLYGON Dark Fantasy,,,FBX/GLB,,1.0,battle,purchased_unverified,prop.crystal,PROXY,SM_Prop_Crystal* (kandidat — verificér i pakken),docs/ASSET_MAP.md#prop-crystal
+asset_prop_root_arch,Synty POLYGON Nature,,,FBX/GLB,,1.7,battle,purchased_unverified,prop.root_arch,PROXY,SM_Env_Tree_Root* (kandidat — verificér i pakken),docs/ASSET_MAP.md#prop-root-arch
+asset_prop_rock,Synty POLYGON Nature / PolyPerfect Low Poly Ultimate Pack,,,FBX/GLB,,0.55,battle,purchased_unverified,prop.rock,PROXY,SM_Env_Rock_0* (kandidat — verificér i pakken),docs/ASSET_MAP.md#prop-rock
+asset_mutation_M01,Synty POLYGON Nature,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M01,PROXY,egne Godot-meshes/attachments (se ASSET_MAP),docs/ASSET_MAP.md#mutation-m01
+asset_mutation_M02,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M02,PROXY,*Vine* (kandidat — verificér i pakken),docs/ASSET_MAP.md#mutation-m02
+asset_mutation_M03,Synty POLYGON Nature / Synty POLYGON Elven Realm,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M03,PROXY,*Blossom* (kandidat — verificér i pakken),docs/ASSET_MAP.md#mutation-m03
+asset_mutation_M04,Synty POLYGON Particle FX / Synty POLYGON Elven Realm,,,FBX/GLB,,1.0,battle,purchased_unverified,mutation.M04,PROXY,FX_*Glow* (kandidat — verificér i pakken),docs/ASSET_MAP.md#mutation-m04
+asset_fx_poison,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.poison,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-poison
+asset_fx_heal,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heal,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-heal
+asset_fx_armor,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.armor,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-armor
+asset_fx_thorns,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.thorns,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-thorns
+asset_fx_growth,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.growth,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-growth
+asset_fx_spore_bolt,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.spore_bolt,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-spore-bolt
+asset_fx_bark_hit,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.bark_hit,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-bark-hit
+asset_fx_ash_death,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ash_death,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-ash-death
+asset_fx_heart_pulse,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heart_pulse,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-heart-pulse
+asset_fx_heart_damage,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.heart_damage,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-heart-damage
+asset_fx_summon_bark,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.summon_bark,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-summon-bark
+asset_fx_summon_spore,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.summon_spore,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-summon-spore
+asset_fx_ash_puff,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ash_puff,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-ash-puff
+asset_fx_wilt,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.wilt,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-wilt
+asset_fx_wilt_spore,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.wilt_spore,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-wilt-spore
+asset_fx_ember_trail,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ember_trail,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-ember-trail
+asset_fx_ring,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.ring,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-ring
+asset_fx_floor_target,Synty POLYGON Particle FX,,,procedural,,1.0,battle,purchased_unverified,fx.floor_target,PROXY,Godot CPUParticles3D (fx_builder.gd); kun teksturer fra pakken,docs/ASSET_MAP.md#fx-floor-target
