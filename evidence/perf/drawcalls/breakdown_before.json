@@ -1,0 +1,231 @@
+{
+  "boss": {
+    "all": {
+      "draw_calls_3d": 1492,
+      "draw_calls_canvas": 240,
+      "draw_calls_shadow": 0,
+      "draw_calls_total": 1732,
+      "objects_3d": 1492,
+      "objects_total": 2365,
+      "primitives_3d": 42338,
+      "primitives_total": 52724
+    },
+    "delta_hidden": {
+      "backdrop": {
+        "draw_calls_3d": 40,
+        "objects_3d": 40,
+        "primitives_3d": 1076
+      },
+      "floors": {
+        "draw_calls_3d": 709,
+        "objects_3d": 709,
+        "primitives_3d": 18368
+      },
+      "heart": {
+        "draw_calls_3d": 28,
+        "objects_3d": 28,
+        "primitives_3d": 960
+      },
+      "mutations": {
+        "draw_calls_3d": 70,
+        "objects_3d": 70,
+        "primitives_3d": 2670
+      },
+      "units": {
+        "draw_calls_3d": 645,
+        "objects_3d": 645,
+        "primitives_3d": 19264
+      }
+    },
+    "stage_hidden": {
+      "draw_calls_3d": 0,
+      "draw_calls_canvas": 240,
+      "draw_calls_shadow": 0,
+      "draw_calls_total": 240,
+      "objects_3d": 0,
+      "objects_total": 873,
+      "primitives_3d": 0,
+      "primitives_total": 10386
+    },
+    "static": {
+      "backdrop": {
+        "instances": 104,
+        "surfaces": 104
+      },
+      "floors": {
+        "instances": 709,
+        "surfaces": 709
+      },
+      "heart": {
+        "instances": 28,
+        "surfaces": 28
+      },
+      "mutations": {
+        "instances": 70,
+        "surfaces": 70
+      },
+      "units": {
+        "instances": 329,
+        "overlay_surfaces": 316,
+        "surfaces": 329
+      }
+    }
+  },
+  "dioramas": {
+    "epilog_diorama": {
+      "draw_calls_total": 744,
+      "objects_total": 744,
+      "primitives_total": 22420
+    },
+    "menu_diorama": {
+      "draw_calls_total": 893,
+      "objects_total": 893,
+      "primitives_total": 25226
+    },
+    "route_diorama": {
+      "draw_calls_total": 418,
+      "objects_total": 418,
+      "primitives_total": 13262
+    }
+  },
+  "full_tree": {
+    "all": {
+      "draw_calls_3d": 2163,
+      "draw_calls_canvas": 559,
+      "draw_calls_shadow": 0,
+      "draw_calls_total": 2722,
+      "objects_3d": 2163,
+      "objects_total": 3816,
+      "primitives_3d": 60982,
+      "primitives_total": 78368
+    },
+    "delta_hidden": {
+      "backdrop": {
+        "draw_calls_3d": 40,
+        "objects_3d": 40,
+        "primitives_3d": 1076
+      },
+      "floors": {
+        "draw_calls_3d": 709,
+        "objects_3d": 709,
+        "primitives_3d": 18368
+      },
+      "heart": {
+        "draw_calls_3d": 28,
+        "objects_3d": 28,
+        "primitives_3d": 960
+      },
+      "mutations": {
+        "draw_calls_3d": 70,
+        "objects_3d": 70,
+        "primitives_3d": 2670
+      },
+      "units": {
+        "draw_calls_3d": 1316,
+        "objects_3d": 1316,
+        "primitives_3d": 37908
+      }
+    },
+    "stage_hidden": {
+      "draw_calls_3d": 0,
+      "draw_calls_canvas": 559,
+      "draw_calls_shadow": 0,
+      "draw_calls_total": 559,
+      "objects_3d": 0,
+      "objects_total": 1653,
+      "primitives_3d": 0,
+      "primitives_total": 17386
+    },
+    "static": {
+      "backdrop": {
+        "instances": 104,
+        "surfaces": 104
+      },
+      "floors": {
+        "instances": 709,
+        "surfaces": 709
+      },
+      "heart": {
+        "instances": 28,
+        "surfaces": 28
+      },
+      "mutations": {
+        "instances": 70,
+        "surfaces": 70
+      },
+      "units": {
+        "instances": 676,
+        "overlay_surfaces": 640,
+        "surfaces": 676
+      }
+    }
+  },
+  "midbattle": {
+    "all": {
+      "draw_calls_3d": 1037,
+      "draw_calls_canvas": 201,
+      "draw_calls_shadow": 0,
+      "draw_calls_total": 1238,
+      "objects_3d": 1037,
+      "objects_total": 1784,
+      "primitives_3d": 28600,
+      "primitives_total": 38094
+    },
+    "delta_hidden": {
+      "backdrop": {
+        "draw_calls_3d": 40,
+        "objects_3d": 40,
+        "primitives_3d": 1076
+      },
+      "floors": {
+        "draw_calls_3d": 709,
+        "objects_3d": 709,
+        "primitives_3d": 18368
+      },
+      "heart": {
+        "draw_calls_3d": 28,
+        "objects_3d": 28,
+        "primitives_3d": 960
+      },
+      "units": {
+        "draw_calls_3d": 260,
+        "objects_3d": 260,
+        "primitives_3d": 8196
+      }
+    },
+    "stage_hidden": {
+      "draw_calls_3d": 0,
+      "draw_calls_canvas": 201,
+      "draw_calls_shadow": 0,
+      "draw_calls_total": 201,
+      "objects_3d": 0,
+      "objects_total": 747,
+      "primitives_3d": 0,
+      "primitives_total": 9494
+    },
+    "static": {
+      "backdrop": {
+        "instances": 104,
+        "surfaces": 104
+      },
+      "floors": {
+        "instances": 709,
+        "surfaces": 709
+      },
+      "heart": {
+        "instances": 28,
+        "surfaces": 28
+      },
+      "units": {
+        "instances": 133,
+        "overlay_surfaces": 127,
+        "surfaces": 133
+      }
+    }
+  },
+  "renderer": "gl_compatibility",
+  "window": [
+    1920,
+    1080
+  ]
+}

@@ -161,6 +161,19 @@ func test_size_language() -> Array:
 	return f
 
 
+## Bounds of every visible part under root in root space; parts baked by
+## ProxyMerge are checked one by one, exactly as before the merge.
+static func _part_boxes(root: Node3D, skip_particles: bool = false) -> Array[AABB]:
+	var out: Array[AABB] = []
+	for n: Node in root.find_children("*", "VisualInstance3D", true, false):
+		if skip_particles and n is CPUParticles3D:
+			continue
+		var xf := RigLab._xf_to(root, n as Node3D)
+		for b: AABB in ProxyMerge.part_bounds(n as VisualInstance3D):
+			out.append(xf * b)
+	return out
+
+
 ## Floors: play area (x -5.5..5.5, front part of the depth) is flat at y<=0.02;
 ## props only on the back edge.
 func test_floor_play_area_free() -> Array:
@@ -168,10 +181,9 @@ func test_floor_play_area_free() -> Array:
 	for id: String in ["stage.floor_roots", "stage.floor_trunk", "stage.floor_crown"]:
 		var v := VisualSlots.make(id)
 		var play := AABB(Vector3(-5.5, 0.02, -0.9), Vector3(11.0, 6.0, 2.5))
-		for n: Node in v.find_children("*", "VisualInstance3D", true, false):
-			var b := RigLab._xf_to(v, n as Node3D) * (n as VisualInstance3D).get_aabb()
+		for b: AABB in _part_boxes(v):
 			if b.intersects(play):
-				f.append("%s: %s rises into the play area (top %.2f at z %.2f)" % [id, n.name, b.end.y, b.get_center().z])
+				f.append("%s: a part rises into the play area (top %.2f at z %.2f)" % [id, b.end.y, b.get_center().z])
 				break
 		v.free()
 	return f
@@ -182,10 +194,9 @@ func test_trunk_and_backdrop_stay_behind() -> Array:
 	var t := VisualSlots.make("stage.trunk")
 	# Everything at unit height (local y < 3.2) stays behind the units (z < -1.2);
 	# only the crown variant's branches above head height may reach further forward.
-	for n: Node in t.find_children("*", "VisualInstance3D", true, false):
-		var b := RigLab._xf_to(t, n as Node3D) * (n as VisualInstance3D).get_aabb()
+	for b: AABB in _part_boxes(t):
 		if b.get_center().y < 3.0 and b.end.z > -1.2:
-			f.append("trunk part %s at unit height reaches z=%.2f (must be < -1.2)" % [n.name, b.end.z])
+			f.append("trunk part at unit height reaches z=%.2f (must be < -1.2)" % b.end.z)
 			break
 	for k: String in ["roots", "trunk", "crown"]:
 		StageVariant.apply(t, k)
@@ -275,12 +286,9 @@ func test_mutations_keep_play_area_free() -> Array:
 		var v := VisualSlots.make(id)
 		if VisualSlots.bounds(v).size == Vector3.ZERO:
 			f.append(id + ": nothing visible")
-		for n: Node in v.find_children("*", "VisualInstance3D", true, false):
-			if n is CPUParticles3D:
-				continue
-			var b := RigLab._xf_to(v, n as Node3D) * (n as VisualInstance3D).get_aabb()
+		for b: AABB in _part_boxes(v, true):
 			if b.intersects(play):
-				f.append("%s: %s enters the play area (y %.2f..%.2f, z %.2f..%.2f)" % [id, n.name, b.position.y, b.end.y, b.position.z, b.end.z])
+				f.append("%s: a part enters the play area (y %.2f..%.2f, z %.2f..%.2f)" % [id, b.position.y, b.end.y, b.position.z, b.end.z])
 				break
 		if v.get_node_or_null("GlowPulse") == null:
 			f.append(id + ": no GlowPulse idle life")
@@ -453,4 +461,65 @@ func test_attack_state_follows_slot_clips() -> Array:
 	for id: String in want.keys():
 		if UnitAnimator.attack_state(id) != want[id]:
 			f.append("%s attack state %s, want %s" % [id, UnitAnimator.attack_state(id), want[id]])
+	return f
+
+
+## ProxyMerge (draw-call work) keeps the animation contract: every named part the
+## animators, HeartVisual, GlowPulse and StageVariant look up survives as its own
+## node, the bounds are unchanged, and the merged proxy has far fewer meshes.
+func test_proxy_merge_keeps_animated_parts() -> Array:
+	var f: Array = []
+	var names := func(v: Node) -> Dictionary:
+		var d := {}
+		for n: Node in v.find_children("*", "Node3D", true, false):
+			var s := String(n.name)
+			if not s.begins_with("@") and s != ProxyMerge.MERGED_NAME and not s.begins_with(ProxyMerge.MERGED_NAME):
+				d[String(v.get_path_to(n))] = true
+		return d
+	var total_on := 0
+	var total_off := 0
+	for id: String in VisualSlots.slot_ids():
+		if str(VisualSlots.slot(id).get("kind", "")) == "fx":
+			continue
+		ProxyMerge.enabled = false
+		var a := VisualSlots.make(id)
+		ProxyMerge.enabled = true
+		var b := VisualSlots.make(id)
+		var na: Dictionary = names.call(a)
+		var nb: Dictionary = names.call(b)
+		for k: String in na:
+			if not nb.has(k):
+				f.append("%s: named node %s lost by the merge" % [id, k])
+				break
+		var ba := VisualSlots.bounds(a)
+		var bb := VisualSlots.bounds(b)
+		if not ba.position.is_equal_approx(bb.position) or not ba.size.is_equal_approx(bb.size):
+			f.append("%s: bounds changed by the merge (%s vs %s)" % [id, ba, bb])
+		var ga := a.find_children("*", "GeometryInstance3D", true, false).size()
+		var gb := b.find_children("*", "GeometryInstance3D", true, false).size()
+		total_off += ga
+		total_on += gb
+		if gb > ga:
+			f.append("%s: merge added meshes (%d -> %d)" % [id, ga, gb])
+		a.free()
+		b.free()
+	if total_on * 2 > total_off:
+		f.append("merge removes too little: %d -> %d meshes" % [total_off, total_on])
+	# Animated sub-parts still move geometry.
+	var s01 := VisualSlots.make("unit.S01")
+	var staff := s01.find_child("Staff", true, false) as Node3D
+	if staff == null or staff.find_children("*", "GeometryInstance3D", true, false).is_empty():
+		f.append("unit.S01: Staff lost its geometry")
+	s01.free()
+	var b04 := VisualSlots.make("unit.B04")
+	var head := b04.find_child("Head", true, false) as Node3D
+	if head == null or head.find_children("*", "GeometryInstance3D", true, false).is_empty():
+		f.append("unit.B04 (quadruped): Head lost its geometry")
+	b04.free()
+	# Hidden trunk variants keep their own geometry (StageVariant switches them).
+	var t := VisualSlots.make("stage.trunk")
+	for g: Node in t.find_children("Variant_*", "Node3D", true, false):
+		if g.find_children("*", "GeometryInstance3D", true, false).is_empty():
+			f.append("stage.trunk: %s has no geometry after the merge" % g.name)
+	t.free()
 	return f

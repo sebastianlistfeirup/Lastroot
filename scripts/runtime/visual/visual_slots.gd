@@ -63,6 +63,7 @@ static func _read_json(path: String) -> Variant:
 static func reload() -> void:
 	_loaded = false
 	VisualPalette.reload()
+	ProxyMerge.clear_cache()
 	UnitAnimator._sets = {}
 
 
@@ -152,7 +153,10 @@ static func make(slot_id: String) -> Node3D:
 			root.free()
 			root = FxBuilder.build(slot_id, spec)
 		else:
-			root.add_child(ProxyBuilder.build(slot_id, spec))
+			var model := ProxyBuilder.build(slot_id, spec)
+			root.add_child(model)
+			# Bake the static parts into a few surfaces (draw calls); animated parts stay nodes.
+			ProxyMerge.merge(model, "%s#%d" % [slot_id, spec.hash()], str(s.get("rig_family", "")) == "quadruped")
 	if slot_id == "stage.heart" and root.get_script() == null:
 		root.set_script(HeartVisual)
 	root.name = slot_id.replace(".", "_") if not slot_id.is_empty() else "MissingSlot"
@@ -269,8 +273,10 @@ static func bounds(n: Node, xf: Transform3D = Transform3D.IDENTITY) -> AABB:
 	var out := AABB()
 	var first := true
 	if n is VisualInstance3D and not n is Light3D and not n is GPUParticles3D and not n is CPUParticles3D:
-		out = xf * (n as VisualInstance3D).get_aabb()
-		first = false
+		# A ProxyMerge node reports the union of its parts' boxes, as before the merge.
+		for pb: AABB in ProxyMerge.part_bounds(n as VisualInstance3D):
+			out = xf * pb if first else out.merge(xf * pb)
+			first = false
 	for c: Node in n.get_children():
 		var cxf := xf * (c as Node3D).transform if c is Node3D else xf
 		var cb := bounds(c, cxf)

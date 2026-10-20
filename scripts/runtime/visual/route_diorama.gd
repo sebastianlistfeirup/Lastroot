@@ -125,7 +125,7 @@ func _island(k: Vector2i, battle: bool) -> void:
 	if k.x == 10:
 		r = 1.3
 	b._p(ProxyMesh.cyl(r, r * 0.15, r * 1.9, 7), VisualPalette.mat("island"), Vector3(0, -r * 0.95, 0))
-	var top := b._p(ProxyMesh.cyl(r * 0.98, r, 0.22, 8), VisualPalette.mat("island_top"), Vector3(0, 0.0, 0))
+	var top := b._p(ProxyMesh.cyl(r * 0.98, r, 0.22, 8), VisualPalette.mat("island_top"), Vector3(0, 0.0, 0), Vector3.ZERO, Vector3.ONE, "Top")
 	for i: int in 3:
 		b._p(ProxyMesh.rock(r * 0.25, i + k.x * 3, 0.8), VisualPalette.mat("stone_dark"), Vector3(b._r(-r, r) * 0.6, 0.1, b._r(-r, r) * 0.5))
 	var fire := Node3D.new()
@@ -159,6 +159,8 @@ func _island(k: Vector2i, battle: bool) -> void:
 		particles.material_override = VisualPalette.glow("ember_hot")
 		fire.add_child(particles)
 	root.position = pos_of(k)
+	# Static rock parts -> one mesh; "Top" (recoloured) and "Fire" (toggled) stay nodes.
+	ProxyMerge.merge(root, "route_island|%s|%s|%s" % [k, battle, portrait], false, ["Fire"])
 	add_child(root)
 	_islands[k] = {"node": root, "fire": fire, "particles": particles, "top": top, "battle": battle}
 	_light_island(k, false)
@@ -195,6 +197,7 @@ func _layout_bridge(br: Dictionary) -> void:
 	lamp.mesh = ProxyMesh.sphere(0.09, 6, 3)
 	lamp.position = mid
 	n.add_child(lamp)
+	ProxyMerge.merge(n)
 	lamps.append(lamp)
 	br["lamps"] = lamps
 	_light_bridge(br, bool(br.get("lit", false)))

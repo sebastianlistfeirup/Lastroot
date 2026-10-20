@@ -1,0 +1,50 @@
+{
+    "battle_boss.png": {
+        "mean_abs": 0.006,
+        "pct_over_8": 0.02,
+        "pct_over_32": 0.002,
+        "max": 79
+    },
+    "battle_full_tree.png": {
+        "mean_abs": 0.013,
+        "pct_over_8": 0.075,
+        "pct_over_32": 0.002,
+        "max": 79
+    },
+    "battle_midbattle.png": {
+        "mean_abs": 0.005,
+        "pct_over_8": 0.018,
+        "pct_over_32": 0.002,
+        "max": 80
+    },
+    "epilog_won.png": {
+        "mean_abs": 0.12,
+        "pct_over_8": 0.227,
+        "pct_over_32": 0.17,
+        "max": 162
+    },
+    "gallery_lineup.png": {
+        "mean_abs": 0.007,
+        "pct_over_8": 0.015,
+        "pct_over_32": 0.002,
+        "max": 60
+    },
+    "gallery_stage.png": {
+        "mean_abs": 0.139,
+        "pct_over_8": 0.157,
+        "pct_over_32": 0.136,
+        "max": 253
+    },
+    "menu_1080p.png": {
+        "mean_abs": 0.074,
+        "pct_over_8": 0.154,
+        "pct_over_32": 0.091,
+        "max": 175
+    },
+    "route_1080p.png": {
+        "mean_abs": 0.038,
+        "pct_over_8": 0.076,
+        "pct_over_32": 0.052,
+        "max": 142
+    }
+}
