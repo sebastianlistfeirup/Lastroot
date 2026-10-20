@@ -42,8 +42,6 @@ File not found.,Filen findes ikke.
 No save.,Intet gemt spil.
 This save belongs to the demo.,Dette gemte spil hører til demoen.
 This save belongs to the full game.,Dette gemte spil hører til det fulde spil.
-"No space on the %s (%d/%d, needs %d).","Ingen plads på %s (%d/%d, kræver %d)."
-Not enough Resin (needs %d).,Ikke nok Harpiks (kræver %d).
 Choose a different position.,Vælg en anden plads.
 Choose a floor with an ally.,Vælg en etage med en allieret.
 Choose a floor with an enemy.,Vælg en etage med en fjende.

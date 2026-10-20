@@ -2,16 +2,16 @@
   "engine_version": "4.5.1-stable (official)",
   "failures": [],
   "files": {
-    "test_battle_matrix.gd": 25,
-    "test_cards.gd": 32,
+    "test_battle_matrix.gd": 26,
+    "test_cards.gd": 33,
     "test_catalog.gd": 8,
     "test_forecast.gd": 5,
     "test_meta_flow.gd": 5,
     "test_rng.gd": 5,
-    "test_run.gd": 11,
+    "test_run.gd": 12,
     "test_save.gd": 8,
     "test_save_hardness.gd": 23,
-    "test_visual_slots.gd": 19
+    "test_visual_slots.gd": 20
   },
   "names": [
     "test_battle_matrix/test_t01_poison_ignores_armor",
@@ -39,6 +39,7 @@
     "test_battle_matrix/test_boss_escalates_from_turn_ten",
     "test_battle_matrix/test_growth_heals_to_max_and_cannot_revive",
     "test_battle_matrix/test_new_poison_does_not_tick_twice",
+    "test_battle_matrix/test_boss_immune_to_move_and_remove",
     "test_cards/test_b01_barkwarden",
     "test_cards/test_b02_root_sprout",
     "test_cards/test_b03_barkshield",
@@ -71,6 +72,7 @@
     "test_cards/test_lifeweaver_and_gentle_crown_turn_start",
     "test_cards/test_venom_master_and_bulwark_stats",
     "test_cards/test_bloom_does_not_use_spore_lantern",
+    "test_cards/test_upgrade_matrix_all_cards",
     "test_catalog/test_24_types_22_normal_2_champions",
     "test_catalog/test_engine_data_matches_design_baseline",
     "test_catalog/test_both_start_decks_have_12_instances",
@@ -85,7 +87,7 @@
     "test_forecast/test_coverage_spans_required_cases",
     "test_forecast/test_preview_uses_no_sap_flags_or_rng",
     "test_meta_flow/test_settings_roundtrip",
-    "test_meta_flow/test_localization_complete",
+    "test_meta_flow/test_localization_english_only",
     "test_meta_flow/test_reward_screen_commands_after_bot_win",
     "test_meta_flow/test_champion_and_relic_commands",
     "test_meta_flow/test_node_screen_commands",
@@ -105,6 +107,7 @@
     "test_run/test_route_has_five_branches_of_two_types",
     "test_run/test_full_runs_with_both_champions",
     "test_run/test_demo_mode_ends_after_two_battles",
+    "test_run/test_hard_difficulty_scales_enemy_hp_only",
     "test_save/test_roundtrip_is_identical",
     "test_save/test_load_does_not_reroll_hand",
     "test_save/test_corrupt_detected",
@@ -138,6 +141,6 @@
     "test_save_hardness/test_demo_build_never_touches_full_files"
   ],
   "status": "PASS",
-  "tests": 141,
-  "timestamp": "2026-10-20T12:45:27"
+  "tests": 145,
+  "timestamp": "2026-10-20T14:53:56"
 }

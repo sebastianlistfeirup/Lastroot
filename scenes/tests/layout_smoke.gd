@@ -33,11 +33,9 @@ const WINDOWS := [
 const TEXT_MODES := [
 	{"id": "en_1.0", "lang": "en", "scale": 1.0},
 	{"id": "en_max", "lang": "en", "scale": -1.0},
-	{"id": "da_max", "lang": "da", "scale": -1.0},
 ]
 const STRESS_MODES := [
 	{"id": "en_1.5", "lang": "en", "scale": 1.5},
-	{"id": "da_1.5", "lang": "da", "scale": 1.5},
 ]
 
 var violations: Array = []

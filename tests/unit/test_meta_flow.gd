@@ -8,7 +8,7 @@ const SCRATCH := "user://test_settings_roundtrip.cfg"
 func test_settings_roundtrip() -> void:
 	var a: Node = load("res://scripts/autoload/settings_service.gd").new()
 	a.set("path", SCRATCH)
-	a.set("language", "da")
+	a.set("language", "da")  # an old settings file with Danish loads as English (D34)
 	a.set("text_scale", 1.3)
 	a.set("reduced_motion", true)
 	a.set("anim_speed", 2.0)
@@ -17,7 +17,7 @@ func test_settings_roundtrip() -> void:
 	var b: Node = load("res://scripts/autoload/settings_service.gd").new()
 	b.set("path", SCRATCH)
 	check(b.call("load_settings"), "settings load")
-	eq(b.get("language"), "da", "language survives")
+	eq(b.get("language"), "en", "unsupported language falls back to English")
 	check(absf(float(b.get("text_scale")) - 1.3) < 0.001, "text scale survives")
 	eq(b.get("reduced_motion"), true, "reduced motion survives")
 	check(absf(float(b.get("anim_speed")) - 2.0) < 0.001, "animation speed survives")
@@ -38,20 +38,25 @@ func test_settings_roundtrip() -> void:
 		n.free()
 
 
-## Every Loc.t("...") literal in the repo has a Danish translation with the
-## same placeholders (GDScript twin of tools/loc_extract.py --check).
-func test_localization_complete() -> void:
+## English only (D34): the game offers no other language, and every
+## Loc.t("...") literal is in the string inventory (translations.csv, en column)
+## so a language can be added later. The dormant da column keeps placeholders.
+func test_localization_english_only() -> void:
+	var loc_consts: Dictionary = (load("res://scripts/core/loc.gd") as GDScript).get_script_constant_map()
+	var set_consts: Dictionary = (load("res://scripts/autoload/settings_service.gd") as GDScript).get_script_constant_map()
+	eq(Array(loc_consts["LANGUAGES"]), ["en"], "Loc ships English only")
+	eq(Array(set_consts["LANGUAGES"]), ["en"], "Settings offer English only")
 	var table: Dictionary = {}
 	var f := FileAccess.open("res://localization/translations.csv", FileAccess.READ)
 	check(f != null, "translations.csv exists")
 	if f == null:
 		return
 	var header: PackedStringArray = f.get_csv_line()
-	eq(Array(header), ["en", "da"], "csv columns")
+	eq(header[0], "en", "csv key column is English")
 	while not f.eof_reached():
 		var row: PackedStringArray = f.get_csv_line()
-		if row.size() >= 2 and row[0] != "":
-			table[row[0]] = row[1]
+		if row.size() >= 1 and row[0] != "":
+			table[row[0]] = row[1] if row.size() >= 2 else ""
 	var re := RegEx.new()
 	re.compile("Loc\\.t\\(\\s*\"((?:[^\"\\\\]|\\\\.)*)\"\\s*\\)")
 	var ph := RegEx.new()
@@ -64,17 +69,12 @@ func test_localization_complete() -> void:
 		var src: String = FileAccess.get_file_as_string(path)
 		for m in re.search_all(src):
 			var key: String = m.get_string(1).replace("\\\"", "\"").replace("\\n", "\n")
-			var da: String = str(table.get(key, ""))
-			if da == "":
+			if not table.has(key):
 				missing.append("%s: %s" % [path.get_file(), key])
-			elif _ph(ph, key) != _ph(ph, da):
+			elif str(table[key]) != "" and _ph(ph, key) != _ph(ph, str(table[key])):
 				missing.append("placeholder mismatch: %s" % key)
-	check(missing.is_empty(), "keys without Danish: %s" % ", ".join(missing.slice(0, 8)))
-	check(table.size() > 150, "translation table is populated (%d rows)" % table.size())
-	# Catalog names/texts without *_da must be in the table too.
-	for p: Dictionary in Catalog.champion_paths("B01") + Catalog.champion_paths("S01"):
-		if not p.has("text_da"):
-			check(str(table.get(p["text"], "")) != "", "champion path text translated: %s" % p["text"])
+	check(missing.is_empty(), "strings missing from the inventory: %s" % ", ".join(missing.slice(0, 8)))
+	check(table.size() > 150, "string inventory is populated (%d rows)" % table.size())
 
 
 static func _ph(re: RegEx, s: String) -> Array:

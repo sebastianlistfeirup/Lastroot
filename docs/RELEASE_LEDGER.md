@@ -9,7 +9,7 @@ Hvad der faktisk ligger i en build, hvor det kommer fra, og hvad der skal tjekke
 | Motor | Godot Engine 4.5.1-stable (official) | godotengine.org | MIT. Licensteksten vises i spillet (Medvirkende) via `Engine.get_license_text()`. Tredjepartskomponenter i Godot har egne licenser (`Engine.get_copyright_info()`); de skal medfølge i en distribueret build. | I brug |
 | Kode | `scripts/`, `scenes/`, `tools/`, `tests/` | Projektets egen kode | Projektejerens (Sebastian List Feirup) | I brug |
 | Data | `data/definitions/catalog.json` (kort, fjender, relikvier, mutationer, kampe), `data/art/*.json` | Egen, efter udviklingsbiblen | Projektejerens | I brug |
-| Oversættelse | `localization/translations.csv` (en, da); danske navne/tekster i kataloget | Egen | Projektejerens | I brug |
+| Sprog | Kun engelsk i spillet (D34). `localization/translations.csv` er strenginventar; `da`-kolonnen og katalogets `*_da` er hvilende og vises ikke | Egen | Projektejerens | Engelsk i brug; dansk hvilende |
 | Skrifttype | `assets/fonts/DejaVuSans.ttf` som reservefont til symboler (◆☠✶✚⚔♥) | DejaVu-projektet | DejaVu-fontlicens (Bitstream Vera-afledt, fri brug og distribution); teksten ligger i `assets/fonts/DejaVu_LICENSE.txt` og skal medfølge | I brug |
 | Lyd | `assets/audio/placeholder/*.wav` (33 lyde + 3 musikloops, ca. 1,6 MB) | Genereret proceduralt af `tools/gen_placeholder_audio.py` (kun Python-standardbibliotek, ingen samples) | Egen | Pladsholder. Endelige lyde planlagt i `docs/AUDIO_LEDGER.csv` (prompts), ikke produceret |
 | Grafik (3D) | Proceduralt byggede proxy-modeller (`scripts/runtime/visual/proxy_builder.gd`) og kodetegnet UI | Egen | Projektejerens | I brug (greybox) |

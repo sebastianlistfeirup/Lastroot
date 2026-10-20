@@ -19,7 +19,7 @@ Brugerens seneste instruktion går forud for biblen; biblen (`docs/BIBLE.md`, PD
 - Præsentation (`scripts/presentation/`, `scripts/runtime/`) afspiller events med timere; ingen animation, lyd eller callback må ændre skade, død eller belønning. Manglende klip må aldrig låse flowet.
 - Kun stabile ID'er og primitive værdier i saves. Ingen noder, AnimationTree eller afledte caches.
 - Balance er data: `design/catalog.json` er baseline → `python3 tools/gen_definitions.py` → `data/definitions/catalog.json`. Ændr én variabelgruppe ad gangen, kør `tools/balance/run_balance.gd` før/efter, notér i DECISIONS.
-- Al spillertekst skrives på engelsk via `Loc.t("…")` eller datafelter; dansk i `localization/translations.csv` (`python3 tools/loc_extract.py`).
+- **Spillet er kun på engelsk (D34).** Al spillertekst skrives på engelsk via `Loc.t("…")` eller datafelter (så et sprog kan tilføjes senere); `localization/translations.csv` er strenginventaret (`python3 tools/loc_extract.py`), dens `da`-kolonne er hvilende og vises ikke. Dokumentation til ejeren er på dansk.
 - Grafik er VisualSlots (`data/art/asset_slots.json`). Købte vendorfiler (Synty, PolyPerfect, Mixamo) må aldrig committes — repoet er offentligt. Wrappers og egne varianter er projektejede.
 - Typed GDScript, snake_case filer, PascalCase `class_name`. `const X := KlasseNavn` er ikke et konstantudtryk i 4.5 — brug klassenavnet direkte. Ingen funktion må hedde `wrap` (global).
 - Ingen nye fraktioner, etager, multiplayer eller meta-progression uden nyt mandat.

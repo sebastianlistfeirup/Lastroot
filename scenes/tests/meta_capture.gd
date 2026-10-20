@@ -62,9 +62,6 @@ func _cases() -> Array:
 		{"id": "result_lost", "scene": "result", "run": MetaFixtures.lost()},
 		{"id": "result_demo", "scene": "result", "run": MetaFixtures.demo_done()},
 		{"id": "menu_demo", "scene": "menu", "run": {}, "demo": true},
-		{"id": "da_route", "scene": "run", "run": MetaFixtures.route(4), "lang": "da"},
-		{"id": "da_camp", "scene": "run", "run": MetaFixtures.node("camp", 1), "select": "first_upgradable", "lang": "da"},
-		{"id": "da_faction", "scene": "menu", "run": {}, "view": "faction", "lang": "da"},
 		{"id": "route_boss", "scene": "run", "run": MetaFixtures.route(5)},
 		{"id": "howto_floors", "scene": "menu", "run": {}, "open": "howto:0"},
 		{"id": "howto_sap", "scene": "menu", "run": {}, "open": "howto:1"},
@@ -73,7 +70,6 @@ func _cases() -> Array:
 		{"id": "howto_climb", "scene": "menu", "run": {}, "open": "howto:4"},
 		{"id": "howto_status", "scene": "menu", "run": {}, "open": "howto:5"},
 		{"id": "howto_boss", "scene": "menu", "run": {}, "open": "howto:6"},
-		{"id": "da_howto_status", "scene": "menu", "run": {}, "open": "howto:5", "lang": "da"},
 		{"id": "run_pause_abandon", "scene": "run", "run": MetaFixtures.route(1), "open": "abandon"},
 		{"id": "battle_mid", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3)},
 		{"id": "battle_pause", "scene": "battle", "run": DebugFixtures.make("midbattle", "BARK", 1), "open": "battle_pause"},
@@ -84,7 +80,6 @@ func _cases() -> Array:
 		{"id": "pbattle_mid_sheet", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "open": "battle_sheet", "sizes": ["phone"]},
 		{"id": "pbattle_mid_badge", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "open": "battle_badge", "sizes": ["phone"]},
 		{"id": "pbattle_boss", "scene": "battle", "run": DebugFixtures.make("boss", "BARK", 2), "sizes": ["phone"]},
-		{"id": "pbattle_mid_da130", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "lang": "da", "scale": 1.3, "sizes": ["phone"]},
 		{"id": "text130_reward_relic", "scene": "run", "run": MetaFixtures.reward_slot("relic"), "scale": 1.3},
 	]
 

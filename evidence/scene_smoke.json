@@ -1,5 +1,5 @@
 {
-  "checks": 40,
+  "checks": 46,
   "engine_version": "4.5.1-stable (official)",
   "failures": [],
   "results": [
@@ -144,6 +144,30 @@
       "ok": true
     },
     {
+      "name": "RB cycles to the champion card",
+      "ok": true
+    },
+    {
+      "name": "D-pad chooses a target",
+      "ok": true
+    },
+    {
+      "name": "A confirms the action",
+      "ok": true
+    },
+    {
+      "name": "Y ends the turn",
+      "ok": true
+    },
+    {
+      "name": "Start opens the menu",
+      "ok": true
+    },
+    {
+      "name": "B closes the menu",
+      "ok": true
+    },
+    {
       "name": "BARK wins battle 1 through the scene (phase reward)",
       "ok": true
     },
@@ -165,5 +189,5 @@
     }
   ],
   "status": "PASS",
-  "timestamp": "2026-10-20T12:45:40"
+  "timestamp": "2026-10-20T14:54:03"
 }

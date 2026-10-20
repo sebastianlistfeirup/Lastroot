@@ -13,7 +13,7 @@ const ANIM_SPEEDS: PackedFloat32Array = [0.5, 1.0, 2.0]
 const VOLUME_KEYS: PackedStringArray = ["master", "music", "sfx"]
 ## Same list as Loc.LANGUAGES; kept here so this script also compiles without
 ## autoloads (unit tests instantiate it directly).
-const LANGUAGES: PackedStringArray = ["en", "da"]
+const LANGUAGES: PackedStringArray = ["en"]  # English only (D34)
 
 var language: String = "en"
 var text_scale: float = 1.0

@@ -6,7 +6,9 @@ extends Node
 
 signal language_changed
 
-const LANGUAGES: PackedStringArray = ["en", "da"]
+## The game ships in English only (D34). The translation table and Loc.t stay
+## so a language can be added later without touching call sites.
+const LANGUAGES: PackedStringArray = ["en"]
 const CSV_PATH := "res://localization/translations.csv"
 
 var language: String = "en"
@@ -60,11 +62,11 @@ func reason(text: String) -> String:
 	if direct != text:
 		return direct
 	var templates: Array = [
-		["No space on the %s (%d/%d, needs %d).", Loc.t("No space on the %s (%d/%d, needs %d).")],
-		["Not enough Sap (needs %d).", Loc.t("Not enough Sap (needs %d).")],
-		["Not enough Resin (needs %d).", Loc.t("Not enough Resin (needs %d).")],
-		["This save comes from a newer version of the game (schema %d).", Loc.t("This save comes from a newer version of the game (schema %d).")],
-		["Your deck must keep at least %d normal cards.", Loc.t("Your deck must keep at least %d normal cards.")],
+		["No space on the %s (%d/%d, needs %d).", t("No space on the %s (%d/%d, needs %d).")],
+		["Not enough Sap (needs %d).", t("Not enough Sap (needs %d).")],
+		["Not enough Resin (needs %d).", t("Not enough Resin (needs %d).")],
+		["This save comes from a newer version of the game (schema %d).", t("This save comes from a newer version of the game (schema %d).")],
+		["Your deck must keep at least %d normal cards.", t("Your deck must keep at least %d normal cards.")],
 	]
 	for pair: Array in templates:
 		var args: Variant = _match_template(str(pair[0]), text)

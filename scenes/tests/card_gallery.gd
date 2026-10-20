@@ -4,7 +4,7 @@ extends Node
 ##   xvfb-run -a godot --path . --rendering-method gl_compatibility res://scenes/tests/card_gallery.tscn
 ## Writes evidence/meta_screens/cards_desktop.png (normal), cards_compact.png
 ## (portrait hand size, 430 wide), cards_text130.png (UiKit.font_scale 1.3),
-## cards_da.png (Danish) and cards_badges.png (UnitBadge samples). Also
+## cards_badges.png (UnitBadge samples). Also
 ## checks that no card's text overflows its frame (prints CARD_GALLERY).
 
 const OUT := "res://evidence/meta_screens/"
@@ -17,7 +17,6 @@ func _ready() -> void:
 	await _shot("cards_desktop", Vector2i(1920, 1500), false, 1.0, "en")
 	await _shot("cards_compact", Vector2i(430, 4300), true, 1.0, "en")
 	await _shot("cards_text130", Vector2i(1920, 2000), false, 1.3, "en")
-	await _shot("cards_da", Vector2i(1920, 1500), false, 1.0, "da")
 	await _badges()
 	print("CARD_GALLERY %d problems" % problems.size())
 	for p in problems:

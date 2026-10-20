@@ -42,11 +42,12 @@ func _on_settings_changed() -> void:
 
 
 func _build() -> void:
-	# Language names are shown in their own language on purpose.
-	var langs: Array = []
-	for code: String in Loc.LANGUAGES:
-		langs.append([code, LANGUAGE_NAMES.get(code, code)])
-	_row(Loc.t("Language"), langs, SettingsService.language, func(v: Variant) -> void: SettingsService.set_language(str(v)))
+	# English only (D34): the language row appears again once a second language ships.
+	if Loc.LANGUAGES.size() > 1:
+		var langs: Array = []
+		for code: String in Loc.LANGUAGES:
+			langs.append([code, LANGUAGE_NAMES.get(code, code)])
+		_row(Loc.t("Language"), langs, SettingsService.language, func(v: Variant) -> void: SettingsService.set_language(str(v)))
 	var scales: Array = []
 	for s: float in SettingsService.TEXT_SCALES:
 		scales.append([s, "%d%%" % int(round(s * 100.0))])

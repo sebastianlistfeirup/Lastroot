@@ -153,14 +153,15 @@ def main():
     dropped = sorted(k for k in existing if k not in keys)
     untranslated = sorted(k for k in keys if not existing.get(k, ""))
     bad_ph = sorted(k for k in keys if existing.get(k) and placeholders(k) != placeholders(existing[k]))
-    print("loc_extract: %d keys, %d not in csv, %d dropped, %d without Danish, %d placeholder mismatches"
+    # English only (D34): the da column is dormant, so missing Danish is reported, not a failure.
+    print("loc_extract: %d keys, %d not in csv, %d dropped, %d without Danish (dormant), %d placeholder mismatches"
           % (len(keys), len(missing_rows), len(dropped), len(untranslated), len(bad_ph)))
     if check:
-        for k in untranslated[:40]:
-            print("  NO DA  %s  (%s)" % (k[:90], keys[k]))
         for k in bad_ph[:20]:
             print("  PLACEHOLDER  %s  ->  %s" % (k[:60], existing[k][:60]))
-        return 1 if (missing_rows or untranslated or bad_ph) else 0
+        for k in missing_rows[:40]:
+            print("  NOT IN CSV  %s  (%s)" % (k[:90], keys[k]))
+        return 1 if (missing_rows or bad_ph) else 0
     os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
     with open(CSV_PATH, "w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh, quoting=csv.QUOTE_MINIMAL, lineterminator="\n")

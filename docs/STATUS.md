@@ -23,9 +23,9 @@
 | Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **145 tests, 0 fejl** → `evidence/test_report.json` |
 | Prognosescenarier | 120 gemte (`fixtures/forecast/scenarios.json`) | state-hash og eventrækkefølge matcher rigtig afvikling |
 | Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **46 checks, 0 fejl** (inkl. tastatur, gamepad, tekststørrelse, saves) → `evidence/scene_smoke.json` |
-| Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **637 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding, lyd, playtest-log, demo, telefon-kamp) → `evidence/meta_smoke.json` |
+| Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **635 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding, lyd, playtest-log, demo, telefon-kamp) → `evidence/meta_smoke.json` |
 | Web på telefon (rigtig touch) | `node tools/web_phone_flow.js` (Playwright, Chromium) | **12 trin bestået** → `evidence/web_phone_flow/` |
-| Layout (alle skærme) | `godot --headless --path . res://scenes/tests/layout_smoke.tscn` (i check.sh) | **330 skærme, 0 fejl** (720p, 1080p, telefon, tablet; tekst 100/130 %, en/da) → `evidence/layout/layout_report.json` |
+| Layout (alle skærme) | `godot --headless --path . res://scenes/tests/layout_smoke.tscn` (i check.sh) | **220 skærme, 0 fejl** (720p, 1080p, telefon, tablet; tekst 100/130 %, engelsk) → `evidence/layout/layout_report.json` |
 | Release-hygiejne | `python3 tools/release_check.py` (i check.sh) | ok → `evidence/release/release_check.json` |
 | Oversættelse | `python3 tools/loc_extract.py --check` | 423 nøgler, 0 mangler |
 | Grafikpipeline | `tools/synty/selftest.sh` | 22/22 (falske pakker) → `evidence/asset_pipeline/selftest.json` |
@@ -56,6 +56,8 @@
 Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, championretninger, relikvier, mutationer), "Sådan spiller du" + førstegangsguide, tastatur/gamepad, 3D-dioramaer bag menu/rute/resultat, kortportrætter fra visual slots, målringe og fare-ringe, hjertets skadestilstande, udtryksfulde proxy-animationer, lyd v2 (procedural, egen), lokal spiltest-log med svarformular og eksport, demo-tilstand (2 kampe, preset "Web Demo"), app-ikon og splash, telefonlayout med prognose-ark og tommelfinger-knaprække.
 
 ## Nyt 21.10 (anden ferierunde)
+
+- **Spillet er kun på engelsk (D34):** ingen sprogvælger; danske oversættelser er hvilende i CSV/katalog. Dokumenter forbliver danske.
 
 - **Sværhedsgrad "Svær"** i Indstillinger (D32): fjender/boss 130 % HP for nye løb — afprøv balanceforslaget direkte.
 - Danske afvisningsbeskeder med tal/etagenavne (`Loc.reason`); etageknapper var engelske.

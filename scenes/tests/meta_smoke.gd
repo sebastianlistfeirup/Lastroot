@@ -955,16 +955,17 @@ func _playtest_cases() -> void:
 
 
 
-## Danish card text comes from the table and shows the instance's real numbers.
+## English only (D34): asking for Danish stays English, cards show real numbers.
 func _danish_cases() -> void:
-	_case = "danish_cards"
+	_case = "english_only"
 	Loc.set_language("da")
+	ok(Loc.language == "en", "Danish is not offered; Loc stays English")
 	var cv := CardView.new().setup("B07", "damage_3")
 	var txt: String = cv._text.text
-	ok(txt.contains("8") and txt.contains("skade"), "upgraded Rodslag shows 8 damage in Danish (%s)" % txt)
+	ok(txt.contains("8") and txt.contains("damage"), "upgraded Root Strike shows 8 damage in English (%s)" % txt)
 	var champ := CardView.new().setup("S01", "", "VENOM", 2)
-	ok(champ._text.text.contains("4"), "Venom Master rank 2 shows 4 Poison in Danish")
-	ok(Loc.field(Catalog.card("B07"), "name") == "Rodslag", "card names still from the catalog")
+	ok(champ._text.text.contains("4"), "Venom Master rank 2 shows 4 Poison")
+	ok(Loc.field(Catalog.card("B07"), "name") == "Root Strike", "card names in English")
 	cv.free()
 	champ.free()
 	Loc.set_language("en")
@@ -1111,17 +1112,12 @@ func _touch_scroll_cases() -> void:
 	await _frames(1)
 
 
-## Reducer reasons with numbers/floor names are shown in Danish (Loc.reason),
-## and the Difficulty setting reaches new runs only.
+## Reducer reasons are shown as written (English only, D34), and the
+## Difficulty setting reaches new runs only.
 func _reason_and_difficulty_cases() -> void:
 	step("reasons + difficulty")
-	Loc.set_language("da")
-	ok(Loc.reason("No space on the Trunk (5/5, needs 1).") == "Ingen plads på Stammen (5/5, kræver 1).", "floor reason in Danish")
-	ok(Loc.reason("Not enough Resin (needs 15).") == "Ikke nok Harpiks (kræver 15).", "resin reason in Danish")
-	ok(Loc.reason("Choose an enemy.") == "Vælg en fjende.", "plain reason in Danish")
-	ok(Loc.reason("Something new (3).") == "Something new (3).", "unknown reason falls back to English")
-	Loc.set_language("en")
-	ok(Loc.reason("No space on the Trunk (5/5, needs 1).") == "No space on the Trunk (5/5, needs 1).", "English unchanged")
+	ok(Loc.reason("No space on the Trunk (5/5, needs 1).") == "No space on the Trunk (5/5, needs 1).", "reason shown in English")
+	ok(Loc.reason("Choose an enemy.") == "Choose an enemy.", "plain reason in English")
 	var before: String = SettingsService.difficulty
 	SettingsService.set_difficulty("hard")
 	GameSession.new_run("BARK", 77)
