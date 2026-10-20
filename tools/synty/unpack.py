@@ -66,7 +66,18 @@ def from_folder(src: str):
             yield os.path.relpath(full, src), lambda p=full: open(p, "rb").read()
 
 
+def fail(msg_da: str, msg_en: str, code: int = 2):
+    """Clear two-language message instead of a Python traceback (owner-facing tool)."""
+    print("FEJL: " + msg_da, file=sys.stderr)
+    print("ERROR: " + msg_en, file=sys.stderr)
+    raise SystemExit(code)
+
+
 def unpack(src: str, pack: str, root: str) -> dict:
+    if not os.path.exists(src):
+        fail("finder ikke '%s'. Angiv stien til en købt pakke (.unitypackage / .zip) eller en mappe med Mixamo-FBX. "
+             "Tip: sæt stien i anførselstegn, hvis den indeholder mellemrum." % src,
+             "'%s' does not exist. Pass a purchased pack (.unitypackage / .zip) or a folder of Mixamo FBX files." % src)
     if os.path.isdir(src):
         items = from_folder(src)
     elif src.lower().endswith(".zip"):
@@ -74,11 +85,33 @@ def unpack(src: str, pack: str, root: str) -> dict:
     elif src.lower().endswith(".unitypackage"):
         items = from_unitypackage(src)
     else:
-        raise SystemExit("unknown package type: " + src)
+        fail("ukendt pakketype: %s (kun .unitypackage, .zip eller en mappe; pak fx .rar/.7z ud til en mappe først)" % src,
+             "unknown package type: %s (only .unitypackage, .zip or a folder; extract .rar/.7z to a folder first)" % src)
     qroot = os.path.join(root, "assets", "quarantine")
     os.makedirs(qroot, exist_ok=True)
     open(os.path.join(qroot, ".gdignore"), "a").close()
     out = os.path.join(qroot, pack)
+    files, skipped = [], 0
+    try:
+        files, skipped = _extract(items, out)
+    except (tarfile.TarError, zipfile.BadZipFile, EOFError, OSError, ValueError) as e:
+        fail("kunne ikke læse '%s' (%s). Er downloaden færdig/hel? Prøv at hente pakken igen." % (src, e),
+             "could not read '%s' (%s). Is the download complete? Try downloading the pack again." % (src, e))
+    if not files:
+        fail("'%s' indeholder ingen modeller eller teksturer (%d Unity-filer sprunget over). Intet er skrevet til karantæne. "
+             "Er det den rigtige fil (Synty: 'Source Files'/FBX-zip eller .unitypackage)?" % (src, skipped),
+             "'%s' contains no models or textures (%d Unity-only files skipped). Nothing was written." % (src, skipped))
+    os.makedirs(out, exist_ok=True)
+    manifest = {"pack": pack, "source": os.path.basename(src.rstrip("/\\")), "files": files,
+                "models": sum(1 for f in files if os.path.splitext(f["path"])[1].lower() in (".fbx", ".glb", ".gltf", ".obj")),
+                "textures": sum(1 for f in files if os.path.splitext(f["path"])[1].lower() in (".png", ".tga", ".jpg", ".jpeg", ".psd", ".tif", ".tiff", ".exr")),
+                "skipped_unity_files": skipped}
+    with open(os.path.join(out, "manifest.json"), "w", encoding="utf-8") as fh:
+        json.dump(manifest, fh, indent=1)
+    return manifest
+
+
+def _extract(items, out):
     files, skipped = [], 0
     for rel, read in items:
         ext = os.path.splitext(rel)[1].lower()
@@ -93,13 +126,7 @@ def unpack(src: str, pack: str, root: str) -> dict:
             fh.write(data)
         files.append({"path": rel, "size": len(data), "sha256": hashlib.sha256(data).hexdigest()})
     files.sort(key=lambda f: f["path"])
-    manifest = {"pack": pack, "source": os.path.basename(src), "files": files,
-                "models": sum(1 for f in files if os.path.splitext(f["path"])[1].lower() in (".fbx", ".glb", ".gltf", ".obj")),
-                "textures": sum(1 for f in files if os.path.splitext(f["path"])[1].lower() in (".png", ".tga", ".jpg", ".jpeg", ".psd", ".tif", ".tiff", ".exr")),
-                "skipped_unity_files": skipped}
-    with open(os.path.join(out, "manifest.json"), "w", encoding="utf-8") as fh:
-        json.dump(manifest, fh, indent=1)
-    return manifest
+    return files, skipped
 
 
 def main() -> int:

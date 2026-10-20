@@ -1,133 +1,133 @@
-clip_id,source_asset_id,rig_id,state,duration_s,loop,in_place,event_times,interrupt_policy,blend_in_s,blend_out_s,review_status
-unit_B01_idle,asset_unit_B01,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_B01_summon,asset_unit_B01,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B01_attack,asset_unit_B01,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_B01_hit,asset_unit_B01,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B01_death,asset_unit_B01,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B01_defend,asset_unit_B01,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B01_victory,asset_unit_B01,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B01_move,asset_unit_B01,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_B02_idle,asset_unit_B02,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_B02_summon,asset_unit_B02,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B02_attack,asset_unit_B02,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_B02_hit,asset_unit_B02,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B02_death,asset_unit_B02,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B02_defend,asset_unit_B02,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B02_victory,asset_unit_B02,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B02_move,asset_unit_B02,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_B03_idle,asset_unit_B03,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_B03_summon,asset_unit_B03,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B03_attack,asset_unit_B03,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_B03_hit,asset_unit_B03,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B03_death,asset_unit_B03,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B03_defend,asset_unit_B03,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B03_victory,asset_unit_B03,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B03_move,asset_unit_B03,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_B04_idle,asset_unit_B04,quadruped,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_B04_summon,asset_unit_B04,quadruped,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B04_attack,asset_unit_B04,quadruped,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_B04_hit,asset_unit_B04,quadruped,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B04_death,asset_unit_B04,quadruped,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B04_move,asset_unit_B04,quadruped,move,,true,true,,any,0.12,0.12,NEEDED
-unit_B05_idle,asset_unit_B05,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_B05_summon,asset_unit_B05,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B05_attack,asset_unit_B05,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_B05_hit,asset_unit_B05,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B05_death,asset_unit_B05,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B05_defend,asset_unit_B05,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B05_victory,asset_unit_B05,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B05_move,asset_unit_B05,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_B06_idle,asset_unit_B06,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_B06_summon,asset_unit_B06,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B06_attack,asset_unit_B06,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_B06_hit,asset_unit_B06,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B06_death,asset_unit_B06,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B06_defend,asset_unit_B06,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B06_victory,asset_unit_B06,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_B06_move,asset_unit_B06,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_S01_idle,asset_unit_S01,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_S01_summon,asset_unit_S01,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_cast,asset_unit_S01,humanoid,cast,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_attack,asset_unit_S01,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_hit,asset_unit_S01,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_death,asset_unit_S01,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_defend,asset_unit_S01,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_victory,asset_unit_S01,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S01_move,asset_unit_S01,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_S02_idle,asset_unit_S02,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_S02_summon,asset_unit_S02,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S02_attack,asset_unit_S02,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S02_hit,asset_unit_S02,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S02_death,asset_unit_S02,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S02_defend,asset_unit_S02,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S02_victory,asset_unit_S02,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S02_move,asset_unit_S02,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_S03_idle,asset_unit_S03,static,idle,,true,true,,any,0.12,0.12,PROCEDURAL
-unit_S03_summon,asset_unit_S03,static,summon,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL
-unit_S03_hit,asset_unit_S03,static,hit,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL
-unit_S03_death,asset_unit_S03,static,death,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL
-unit_S03_defend,asset_unit_S03,static,defend,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL
-unit_S04_idle,asset_unit_S04,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_S04_summon,asset_unit_S04,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S04_attack,asset_unit_S04,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S04_hit,asset_unit_S04,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S04_death,asset_unit_S04,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S04_defend,asset_unit_S04,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S04_victory,asset_unit_S04,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S04_move,asset_unit_S04,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_S05_idle,asset_unit_S05,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_S05_summon,asset_unit_S05,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_cast,asset_unit_S05,humanoid,cast,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_attack,asset_unit_S05,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_hit,asset_unit_S05,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_death,asset_unit_S05,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_defend,asset_unit_S05,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_victory,asset_unit_S05,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S05_move,asset_unit_S05,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-unit_S06_idle,asset_unit_S06,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-unit_S06_summon,asset_unit_S06,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S06_attack,asset_unit_S06,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-unit_S06_hit,asset_unit_S06,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S06_death,asset_unit_S06,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S06_defend,asset_unit_S06,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S06_victory,asset_unit_S06,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-unit_S06_move,asset_unit_S06,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E01_idle,asset_enemy_E01,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-enemy_E01_summon,asset_enemy_E01,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E01_attack,asset_enemy_E01,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E01_hit,asset_enemy_E01,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E01_death,asset_enemy_E01,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E01_move,asset_enemy_E01,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E02_idle,asset_enemy_E02,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-enemy_E02_summon,asset_enemy_E02,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E02_attack,asset_enemy_E02,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E02_hit,asset_enemy_E02,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E02_death,asset_enemy_E02,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E02_move,asset_enemy_E02,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E03_idle,asset_enemy_E03,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-enemy_E03_summon,asset_enemy_E03,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E03_attack,asset_enemy_E03,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E03_hit,asset_enemy_E03,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E03_death,asset_enemy_E03,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E03_move,asset_enemy_E03,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E04_idle,asset_enemy_E04,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-enemy_E04_summon,asset_enemy_E04,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E04_attack,asset_enemy_E04,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E04_hit,asset_enemy_E04,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E04_death,asset_enemy_E04,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E04_move,asset_enemy_E04,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E05_idle,asset_enemy_E05,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-enemy_E05_summon,asset_enemy_E05,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E05_attack,asset_enemy_E05,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E05_hit,asset_enemy_E05,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E05_death,asset_enemy_E05,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E05_move,asset_enemy_E05,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E06_idle,asset_enemy_E06,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED
-enemy_E06_summon,asset_enemy_E06,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E06_attack,asset_enemy_E06,humanoid,attack,,false,true,contact,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E06_hit,asset_enemy_E06,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E06_death,asset_enemy_E06,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-enemy_E06_move,asset_enemy_E06,humanoid,move,,true,true,,any,0.12,0.12,NEEDED
-enemy_E06_victory,asset_enemy_E06,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED
-stage_heart_idle,asset_stage_heart,static,idle,,true,true,,any,0.12,0.12,PROCEDURAL
-stage_heart_hit,asset_stage_heart,static,hit,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL
+clip_id,source_asset_id,rig_id,state,duration_s,loop,in_place,event_times,interrupt_policy,blend_in_s,blend_out_s,review_status,planned_clip,asset_map_ref
+unit_B01_idle,asset_unit_B01,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-b01
+unit_B01_summon,asset_unit_B01,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-b01
+unit_B01_attack,asset_unit_B01,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-b01
+unit_B01_hit,asset_unit_B01,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-b01
+unit_B01_death,asset_unit_B01,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-b01
+unit_B01_defend,asset_unit_B01,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-b01
+unit_B01_victory,asset_unit_B01,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-b01
+unit_B01_move,asset_unit_B01,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-b01
+unit_B02_idle,asset_unit_B02,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-b02
+unit_B02_summon,asset_unit_B02,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-b02
+unit_B02_attack,asset_unit_B02,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-b02
+unit_B02_hit,asset_unit_B02,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-b02
+unit_B02_death,asset_unit_B02,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-b02
+unit_B02_defend,asset_unit_B02,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-b02
+unit_B02_victory,asset_unit_B02,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-b02
+unit_B02_move,asset_unit_B02,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-b02
+unit_B03_idle,asset_unit_B03,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-b03
+unit_B03_summon,asset_unit_B03,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-b03
+unit_B03_attack,asset_unit_B03,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-b03
+unit_B03_hit,asset_unit_B03,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-b03
+unit_B03_death,asset_unit_B03,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-b03
+unit_B03_defend,asset_unit_B03,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-b03
+unit_B03_victory,asset_unit_B03,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-b03
+unit_B03_move,asset_unit_B03,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-b03
+unit_B04_idle,asset_unit_B04,quadruped,idle,,true,true,,any,0.12,0.12,NEEDED,PolyPerfect: dyrets egen clip (Idle*),docs/ASSET_MAP.md#unit-b04
+unit_B04_summon,asset_unit_B04,quadruped,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,procedural (intet dyreklip forventet),docs/ASSET_MAP.md#unit-b04
+unit_B04_attack,asset_unit_B04,quadruped,attack,,false,true,contact@0.32s,finish_or_timeout,0.12,0.12,NEEDED,PolyPerfect: dyrets egen clip (Attack*),docs/ASSET_MAP.md#unit-b04
+unit_B04_hit,asset_unit_B04,quadruped,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,PolyPerfect: dyrets egen clip (Hit*),docs/ASSET_MAP.md#unit-b04
+unit_B04_death,asset_unit_B04,quadruped,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,PolyPerfect: dyrets egen clip (Death*),docs/ASSET_MAP.md#unit-b04
+unit_B04_move,asset_unit_B04,quadruped,move,,true,true,,any,0.12,0.12,NEEDED,PolyPerfect: dyrets egen clip (Walk*),docs/ASSET_MAP.md#unit-b04
+unit_B05_idle,asset_unit_B05,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-b05
+unit_B05_summon,asset_unit_B05,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-b05
+unit_B05_attack,asset_unit_B05,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-b05
+unit_B05_hit,asset_unit_B05,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-b05
+unit_B05_death,asset_unit_B05,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-b05
+unit_B05_defend,asset_unit_B05,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-b05
+unit_B05_victory,asset_unit_B05,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-b05
+unit_B05_move,asset_unit_B05,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-b05
+unit_B06_idle,asset_unit_B06,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-b06
+unit_B06_summon,asset_unit_B06,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-b06
+unit_B06_attack,asset_unit_B06,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-b06
+unit_B06_hit,asset_unit_B06,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-b06
+unit_B06_death,asset_unit_B06,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-b06
+unit_B06_defend,asset_unit_B06,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-b06
+unit_B06_victory,asset_unit_B06,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-b06
+unit_B06_move,asset_unit_B06,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-b06
+unit_S01_idle,asset_unit_S01,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-s01
+unit_S01_summon,asset_unit_S01,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-s01
+unit_S01_cast,asset_unit_S01,humanoid,cast,,false,true,contact@0.38s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing 1H Magic Attack 01,docs/ASSET_MAP.md#unit-s01
+unit_S01_attack,asset_unit_S01,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-s01
+unit_S01_hit,asset_unit_S01,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-s01
+unit_S01_death,asset_unit_S01,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-s01
+unit_S01_defend,asset_unit_S01,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-s01
+unit_S01_victory,asset_unit_S01,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-s01
+unit_S01_move,asset_unit_S01,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-s01
+unit_S02_idle,asset_unit_S02,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-s02
+unit_S02_summon,asset_unit_S02,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-s02
+unit_S02_attack,asset_unit_S02,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-s02
+unit_S02_hit,asset_unit_S02,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-s02
+unit_S02_death,asset_unit_S02,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-s02
+unit_S02_defend,asset_unit_S02,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-s02
+unit_S02_victory,asset_unit_S02,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-s02
+unit_S02_move,asset_unit_S02,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-s02
+unit_S03_idle,asset_unit_S03,static,idle,,true,true,,any,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#unit-s03
+unit_S03_summon,asset_unit_S03,static,summon,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#unit-s03
+unit_S03_hit,asset_unit_S03,static,hit,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#unit-s03
+unit_S03_death,asset_unit_S03,static,death,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#unit-s03
+unit_S03_defend,asset_unit_S03,static,defend,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#unit-s03
+unit_S04_idle,asset_unit_S04,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-s04
+unit_S04_summon,asset_unit_S04,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-s04
+unit_S04_attack,asset_unit_S04,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-s04
+unit_S04_hit,asset_unit_S04,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-s04
+unit_S04_death,asset_unit_S04,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-s04
+unit_S04_defend,asset_unit_S04,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-s04
+unit_S04_victory,asset_unit_S04,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-s04
+unit_S04_move,asset_unit_S04,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-s04
+unit_S05_idle,asset_unit_S05,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-s05
+unit_S05_summon,asset_unit_S05,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-s05
+unit_S05_cast,asset_unit_S05,humanoid,cast,,false,true,contact@0.38s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing 1H Magic Attack 01,docs/ASSET_MAP.md#unit-s05
+unit_S05_attack,asset_unit_S05,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-s05
+unit_S05_hit,asset_unit_S05,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-s05
+unit_S05_death,asset_unit_S05,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-s05
+unit_S05_defend,asset_unit_S05,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-s05
+unit_S05_victory,asset_unit_S05,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-s05
+unit_S05_move,asset_unit_S05,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-s05
+unit_S06_idle,asset_unit_S06,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#unit-s06
+unit_S06_summon,asset_unit_S06,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#unit-s06
+unit_S06_attack,asset_unit_S06,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#unit-s06
+unit_S06_hit,asset_unit_S06,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#unit-s06
+unit_S06_death,asset_unit_S06,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#unit-s06
+unit_S06_defend,asset_unit_S06,humanoid,defend,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Block Idle,docs/ASSET_MAP.md#unit-s06
+unit_S06_victory,asset_unit_S06,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#unit-s06
+unit_S06_move,asset_unit_S06,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#unit-s06
+enemy_E01_idle,asset_enemy_E01,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#enemy-e01
+enemy_E01_summon,asset_enemy_E01,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#enemy-e01
+enemy_E01_attack,asset_enemy_E01,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#enemy-e01
+enemy_E01_hit,asset_enemy_E01,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#enemy-e01
+enemy_E01_death,asset_enemy_E01,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#enemy-e01
+enemy_E01_move,asset_enemy_E01,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#enemy-e01
+enemy_E02_idle,asset_enemy_E02,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#enemy-e02
+enemy_E02_summon,asset_enemy_E02,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#enemy-e02
+enemy_E02_attack,asset_enemy_E02,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#enemy-e02
+enemy_E02_hit,asset_enemy_E02,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#enemy-e02
+enemy_E02_death,asset_enemy_E02,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#enemy-e02
+enemy_E02_move,asset_enemy_E02,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#enemy-e02
+enemy_E03_idle,asset_enemy_E03,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#enemy-e03
+enemy_E03_summon,asset_enemy_E03,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#enemy-e03
+enemy_E03_attack,asset_enemy_E03,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#enemy-e03
+enemy_E03_hit,asset_enemy_E03,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#enemy-e03
+enemy_E03_death,asset_enemy_E03,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#enemy-e03
+enemy_E03_move,asset_enemy_E03,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#enemy-e03
+enemy_E04_idle,asset_enemy_E04,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#enemy-e04
+enemy_E04_summon,asset_enemy_E04,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#enemy-e04
+enemy_E04_attack,asset_enemy_E04,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#enemy-e04
+enemy_E04_hit,asset_enemy_E04,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#enemy-e04
+enemy_E04_death,asset_enemy_E04,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#enemy-e04
+enemy_E04_move,asset_enemy_E04,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#enemy-e04
+enemy_E05_idle,asset_enemy_E05,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#enemy-e05
+enemy_E05_summon,asset_enemy_E05,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#enemy-e05
+enemy_E05_attack,asset_enemy_E05,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#enemy-e05
+enemy_E05_hit,asset_enemy_E05,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#enemy-e05
+enemy_E05_death,asset_enemy_E05,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#enemy-e05
+enemy_E05_move,asset_enemy_E05,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#enemy-e05
+enemy_E06_idle,asset_enemy_E06,humanoid,idle,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Breathing Idle,docs/ASSET_MAP.md#enemy-e06
+enemy_E06_summon,asset_enemy_E06,humanoid,summon,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Standing Up,docs/ASSET_MAP.md#enemy-e06
+enemy_E06_attack,asset_enemy_E06,humanoid,attack,,false,true,contact@0.30s,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Punching,docs/ASSET_MAP.md#enemy-e06
+enemy_E06_hit,asset_enemy_E06,humanoid,hit,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Hit Reaction,docs/ASSET_MAP.md#enemy-e06
+enemy_E06_death,asset_enemy_E06,humanoid,death,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Dying,docs/ASSET_MAP.md#enemy-e06
+enemy_E06_move,asset_enemy_E06,humanoid,move,,true,true,,any,0.12,0.12,NEEDED,Mixamo: Walking,docs/ASSET_MAP.md#enemy-e06
+enemy_E06_victory,asset_enemy_E06,humanoid,victory,,false,true,,finish_or_timeout,0.12,0.12,NEEDED,Mixamo: Victory,docs/ASSET_MAP.md#enemy-e06
+stage_heart_idle,asset_stage_heart,static,idle,,true,true,,any,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#stage-heart
+stage_heart_hit,asset_stage_heart,static,hit,,false,true,,finish_or_timeout,0.12,0.12,PROCEDURAL,procedural (UnitAnimator),docs/ASSET_MAP.md#stage-heart

@@ -147,6 +147,12 @@ def main() -> int:
     keywords = json.load(open(SETS, encoding="utf-8"))["keywords"]
     prev_doc = json.load(open(a.out, encoding="utf-8")) if os.path.exists(a.out) else {}
     inv = inventory(a.packs)
+    if not inv:
+        where = ("packs " + ", ".join(a.packs)) if a.packs else "assets/quarantine/"
+        print("FEJL: ingen udpakkede pakker i %s. Kør først: python3 tools/synty/unpack.py <pakke.unitypackage|.zip|mappe>. "
+              "%s er ikke ændret; spillet bruger stadig proxies." % (where, os.path.relpath(a.out, ROOT)), file=sys.stderr)
+        print("ERROR: no unpacked packs in %s. Run tools/synty/unpack.py first. Nothing was written." % where, file=sys.stderr)
+        return 2
     model_inv = [t for t in inv if not is_animation(t[1])]
     choices = propose(slots, sugg, model_inv, prev_doc.get("choices", {}))
     animations = propose_animations(inv, keywords, prev_doc.get("animations", {}))
@@ -159,6 +165,9 @@ def main() -> int:
     for fam, an in animations.items():
         print("%-22s anim    %s" % ("anim." + fam, ", ".join(sorted(an["states"]))))
     print("packs: %d · files: %d · %s" % (len({p for p, _r, _s in inv}), len(inv), counts))
+    if not animations:
+        print("NB: ingen Mixamo-/animationsklip fundet (mappe 'Mixamo/' eller filnavne A_*/Anim_*). Figurerne bruger procedural bevægelse, indtil du "
+              "kører unpack.py på en mappe med Mixamo-FBX. / no animation clips found: humanoids fall back to procedural motion.")
     if not a.report:
         doc = {"_note": "Slot -> chosen file (path inside assets/quarantine). Only names, never files: safe to commit. "
                         "status approved/manual locks a choice, skip keeps the proxy. Then: tools/synty/build.sh",
