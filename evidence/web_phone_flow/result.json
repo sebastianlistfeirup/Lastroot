@@ -1,0 +1,200 @@
+{
+  "what": "Playwright Chromium emulating a 390x844 phone (DPR 2, touch, isMobile), swiftshader GL; NOT a physical phone",
+  "input": "page.touchscreen.tap only; tap positions read from the game's --debug-state console read-out",
+  "url": "http://localhost:8791/index.html",
+  "date": "2026-10-20T01:04:41.572Z",
+  "seconds": 284,
+  "status": "PASS",
+  "steps": [
+    {
+      "step": "01_load",
+      "pass": true,
+      "detail": "title menu up",
+      "seconds": 14,
+      "state": {
+        "phase": "none",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "02_new_run",
+      "pass": true,
+      "detail": "New Run: tapped \"New Run\" at css 195,417",
+      "seconds": 7,
+      "state": {
+        "phase": "none",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "03_skip_guide",
+      "pass": true,
+      "detail": "Skip: tapped \"Skip\" at css 94,636",
+      "seconds": 8,
+      "state": {
+        "phase": "none",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "04_choose_spore",
+      "pass": true,
+      "detail": "swiped down the list, Choose Spore Sage: tapped \"Defend the tree as The Spore Sage\" at css 191,729",
+      "seconds": 85,
+      "state": {
+        "phase": "battle",
+        "turn": "1",
+        "energy": "3",
+        "hand": "6",
+        "allies": "0",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "05_champion_card",
+      "pass": true,
+      "detail": "champion card: tapped \"card:1\" at css 63,755",
+      "seconds": 19,
+      "state": {
+        "phase": "battle",
+        "turn": "1",
+        "energy": "3",
+        "hand": "6",
+        "allies": "0",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "06_plus_spot",
+      "pass": true,
+      "detail": "+ spot: tapped \"+\" at css 173,421",
+      "seconds": 19,
+      "state": {
+        "phase": "battle",
+        "turn": "1",
+        "energy": "3",
+        "hand": "6",
+        "allies": "0",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "07_confirm",
+      "pass": true,
+      "detail": "Confirm: tapped \"Confirm\" at css 205,652",
+      "seconds": 21,
+      "state": {
+        "phase": "battle",
+        "turn": "1",
+        "energy": "3",
+        "hand": "5",
+        "allies": "1",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "08_end_turn",
+      "pass": true,
+      "detail": "End turn: tapped \"End turn\" at css 321,652 -> turn 2, allies 1",
+      "seconds": 45,
+      "state": {
+        "phase": "battle",
+        "turn": "2",
+        "energy": "3",
+        "hand": "5",
+        "allies": "1",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "09_forecast_sheet",
+      "pass": true,
+      "detail": "forecast summary: tapped \"▴ Forecast:  ♥ 60 → 60\" at css 195,595",
+      "seconds": 19,
+      "state": {
+        "phase": "battle",
+        "turn": "2",
+        "energy": "3",
+        "hand": "5",
+        "allies": "1",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "10_menu",
+      "pass": true,
+      "detail": "menu: tapped \"≡\" at css 350,36",
+      "seconds": 18,
+      "state": {
+        "phase": "battle",
+        "turn": "2",
+        "energy": "3",
+        "hand": "5",
+        "allies": "1",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "11_save_quit",
+      "pass": true,
+      "detail": "Save & quit: tapped \"Save & quit to menu\" at css 195,533",
+      "seconds": 14,
+      "state": {
+        "phase": "battle",
+        "turn": "2",
+        "energy": "3",
+        "hand": "5",
+        "allies": "1",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    },
+    {
+      "step": "12_continue",
+      "pass": true,
+      "detail": "Continue: tapped \"Continue\" at css 195,368 -> turn 2 (was 2), allies 1 (was 1)",
+      "seconds": 14,
+      "state": {
+        "phase": "battle",
+        "turn": "2",
+        "energy": "3",
+        "hand": "5",
+        "allies": "1",
+        "bphase": "player",
+        "champ": "1",
+        "battle": "0",
+        "view": "430x930"
+      }
+    }
+  ],
+  "script_errors": [],
+  "findings": [
+    "Earlier runs FAILED at 04_choose_spore: on the phone champion list a finger swipe that starts on a card (or a panel) did not scroll the list, so the Spore Sage's Choose button could not be reached by touch.",
+    "Fixed: CardView and ChoiceTile now use MOUSE_FILTER_PASS and fire on release when the pointer moved <= 14 px (a drag over them scrolls instead of picking); UiKit.vscroll lists set non-button panels to PASS so touches reach the ScrollContainer.",
+    "Swipes are slow (20 moves over 5 s) because the emulated game runs at ~1-2 fps; fast swipes bunched into one frame did not scroll in this emulation.",
+    "Observed, not fixed (battle_screen.gd): after the turn's playback Cancel looks enabled while nothing is selected (_set_locked(false) clears btn_cancel.disabled)."
+  ]
+}

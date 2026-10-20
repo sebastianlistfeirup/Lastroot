@@ -35,9 +35,14 @@ var _text: RichTextLabel
 var _upg: Label
 
 
+## Max pointer travel (px) between press and release that still counts as a tap.
+const TAP_SLOP := 14.0
+var _press_at: Vector2 = Vector2(-1e9, -1e9)
+
 func _init() -> void:
 	custom_minimum_size = Vector2(W, H)
-	mouse_filter = Control.MOUSE_FILTER_STOP
+	# PASS: a finger dragging over it still scrolls the list it sits in.
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	focus_mode = Control.FOCUS_ALL  # keyboard / pad: arrows move, ui_accept = tap
 	focus_entered.connect(_apply_style)
 	focus_exited.connect(_apply_style)
@@ -278,9 +283,14 @@ func _apply_style() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	var press := false
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		# Tap = press and release without a drag, so swiping a list never picks.
 		var mb: InputEventMouseButton = event
-		press = mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT
+		if mb.pressed:
+			_press_at = mb.global_position
+		elif _press_at.x > -1e8:
+			press = mb.global_position.distance_to(_press_at) <= TAP_SLOP
+			_press_at = Vector2(-1e9, -1e9)
 	elif event is InputEventScreenTouch and not ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch", true):
 		# With mouse emulation on, the emulated click already arrives; don't fire twice.
 		press = (event as InputEventScreenTouch).pressed

@@ -376,6 +376,12 @@ func _build_faction() -> void:
 	scroll.add_child(holder)
 	for f: String in ["BARK", "SPORE"]:
 		holder.add_child(_faction_panel(f, portrait))
+	if portrait:
+		# Room below the last Choose button so a phone can scroll it well clear of
+		# the screen edge.
+		var tail := Control.new()
+		tail.custom_minimum_size = Vector2(0, 48)
+		holder.add_child(tail)
 	var first: Button = holder.find_child("Choose_BARK", true, false) as Button
 	# Portrait: start at the top (Back), so the first champion is not scrolled past.
 	(back if portrait or first == null else first).grab_focus.call_deferred()

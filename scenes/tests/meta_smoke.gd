@@ -47,6 +47,7 @@ func _ready() -> void:
 	_danish_cases()
 	await _demo_cases()
 	await _portrait_battle_cases()
+	await _touch_scroll_cases()
 	PlaytestLog.clear()
 	PlaytestLog.path = PlaytestLog.DEFAULT_PATH
 	_restore_save()
@@ -1074,3 +1075,36 @@ func _portrait_battle_cases() -> void:
 		ok(s.btn_speed.get_parent() == s.top_bar and s.btn_menu.text == Loc.t("Menu"), "desktop top bar restored")
 		sv.queue_free()
 		await _frames(2)
+
+
+## A finger landing on a panel inside a list must reach the ScrollContainer.
+func _touch_scroll_cases() -> void:
+	_case = "touch_scroll"
+	var sc: ScrollContainer = UiKit.vscroll()
+	add_child(sc)
+	var box := UiKit.vbox(4)
+	sc.add_child(box)
+	var panel := UiKit.panel(UiKit.PANEL, UiKit.LINE)
+	box.add_child(panel)
+	var b := UiKit.button("x")
+	panel.add_child(b)
+	await _frames(2)
+	ok(panel.mouse_filter == Control.MOUSE_FILTER_PASS, "panels in a scroll list pass touches to the list")
+	ok(b.mouse_filter == Control.MOUSE_FILTER_STOP, "buttons keep their own taps")
+	var cv := CardView.new().setup(Catalog.champion_for("BARK"))
+	box.add_child(cv)
+	var hits := [0]
+	cv.pressed.connect(func() -> void: hits[0] += 1)
+	for travel: float in [0.0, 60.0]:
+		var down := InputEventMouseButton.new()
+		down.button_index = MOUSE_BUTTON_LEFT
+		down.pressed = true
+		down.global_position = Vector2(50, 50)
+		cv._gui_input(down)
+		var up := down.duplicate() as InputEventMouseButton
+		up.pressed = false
+		up.global_position = Vector2(50, 50 + travel)
+		cv._gui_input(up)
+	ok(hits[0] == 1, "a card fires on a tap, not when a finger drags across it (%d)" % hits[0])
+	sc.queue_free()
+	await _frames(1)
