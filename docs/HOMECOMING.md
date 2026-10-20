@@ -179,12 +179,12 @@ Bed derefter agenten om LR-12 + fase 1-porten (`python3 tools/write_evidence.py`
 
 ## 9. Balance A/B (LR-27, D24/D29)
 
-Botten vinder 40/40 i baseline, og selv tilfældigt spil vinder ~73 % (`docs/BALANCE_NOTES.md`). Beslut efter §8:
+Botten vinder 40/40 i baseline, og selv tilfældigt spil vinder ~73 % (`docs/BALANCE_NOTES.md`). **Prøv B direkte i spillet:** Indstillinger → Sværhedsgrad → *Svær* (D32, gælder nye løb). Spil ét løb på Standard og ét på Svær med samme champion. Beslut efter §8:
 
 | Valg | Hvornår | Hvad agenten gør bagefter |
 |---|---|---|
 | ☐ **A — behold baseline** | løbene føltes spændende, du tabte hjerteliv | intet; D24 lukkes som "bekræftet" |
-| ☐ **B — fjende-HP ×1,3** (Askeling 5→7, Kulskjold 9→12, Glødjæger 7→9, Sodbærer 12→16, Stenbrud 16→21, Askekronen 60→78) | du vandt let uden at kigge på prognosen | ny D-linje i `docs/DECISIONS.md` → `design/catalog.json` → `python3 tools/gen_definitions.py` → `tools/make_forecast_fixtures.gd` → `run_balance.gd` før/efter |
+| ☐ **B — fjende-HP ×1,3** (= "Svær": Askeling 5→7, Kulskjold 9→12, Glødjæger 7→9, Sodbærer 12→16, Stenbrud 16→21, Askekronen 60→78) | du vandt let uden at kigge på prognosen | enten gør Svær til standard, eller ny D-linje i `docs/DECISIONS.md` → `design/catalog.json` → `python3 tools/gen_definitions.py` → `tools/make_forecast_fixtures.gd` → `run_balance.gd` før/efter |
 | ☐ andet: ____ | | samme kæde, én variabelgruppe ad gangen |
 
 Se varianterne selv (in-memory, ændrer ingen filer):
