@@ -209,11 +209,26 @@ func _light_island(k: Vector2i, on: bool, current: bool = false) -> void:
 			(c as GeometryInstance3D).visible = on
 	var p := d["particles"] as CPUParticles3D
 	if p:
-		p.emitting = on
 		p.visible = on
+		_set_emitting(p, on)
 	(d["top"] as MeshInstance3D).material_override = VisualPalette.mat("moss" if on else "stone_cool")
 	if current:
 		_current_light.position = (d["node"] as Node3D).position + Vector3(0, 1.0, 0.6)
+
+
+## CPUParticles3D.emitting reads the global transform, which errors outside the
+## tree (set_progress can run before the diorama is added, e.g. headless tests).
+## Outside the tree the wanted state is kept and applied on tree_entered.
+func _set_emitting(p: CPUParticles3D, on: bool) -> void:
+	p.set_meta("want_emitting", on)
+	if p.is_inside_tree():
+		p.emitting = on
+	elif not p.tree_entered.is_connected(_apply_emitting.bind(p)):
+		p.tree_entered.connect(_apply_emitting.bind(p), CONNECT_ONE_SHOT)
+
+
+func _apply_emitting(p: CPUParticles3D) -> void:
+	p.emitting = bool(p.get_meta("want_emitting", false))
 
 
 func _light_bridge(br: Dictionary, on: bool) -> void:
