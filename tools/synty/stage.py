@@ -20,7 +20,10 @@ IMAGE_EXT = (".png", ".tga", ".jpg", ".jpeg", ".psd")
 
 def atlas_files(pack):
     """Colour atlases: images named *Texture* (Synty convention) or in a Textures folder."""
-    mf = json.load(open(os.path.join(Q, pack, "manifest.json"), encoding="utf-8"))
+    mpath = os.path.join(Q, pack, "manifest.json")
+    if not os.path.exists(mpath):
+        return []
+    mf = json.load(open(mpath, encoding="utf-8"))
     imgs = [f["path"] for f in mf["files"] if f["path"].lower().endswith(IMAGE_EXT)]
     named = [p for p in imgs if "texture" in os.path.basename(p).lower()]
     return named or [p for p in imgs if "/textures/" in "/" + p.lower()]
@@ -43,7 +46,17 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--choices", default=os.path.join(ROOT, "data", "art", "synty_choices.json"))
     a = ap.parse_args()
-    doc = json.load(open(a.choices, encoding="utf-8"))
+    if not os.path.exists(a.choices):
+        print("FEJL: %s findes ikke endnu. Kør først: python3 tools/synty/unpack.py <pakke> og python3 tools/synty/match.py. "
+              "Intet er kopieret; spillet bruger stadig proxies." % os.path.relpath(a.choices, ROOT), file=sys.stderr)
+        print("ERROR: %s not found. Run unpack.py and match.py first. Nothing was staged." % a.choices, file=sys.stderr)
+        return 2
+    try:
+        doc = json.load(open(a.choices, encoding="utf-8"))
+    except ValueError as e:
+        print("FEJL: %s er ikke gyldig JSON (%s) — ret kommaer/anførselstegn efter håndredigering." % (a.choices, e), file=sys.stderr)
+        print("ERROR: %s is not valid JSON (%s)." % (a.choices, e), file=sys.stderr)
+        return 2
     staged = {}
     for slot, c in sorted(doc.get("choices", {}).items()):
         if c.get("status") not in BUILD_STATUS or not c.get("source"):
@@ -69,7 +82,8 @@ def main() -> int:
         print("staged %-28s %d models, %d clip sets, %d atlas textures -> assets/imported/%s/"
               % (pack, len(files["models"]), len(files["animations"]), len(files["atlas"]), pack))
     if not staged:
-        print("nothing to stage (no auto/approved choices with a source)")
+        print("nothing to stage (no auto/approved choices with a source) / intet at kopiere: ingen valg med status auto/approved/manual og en kilde")
+        return 3
     return 0
 
 
