@@ -189,7 +189,20 @@ static func vscroll() -> ScrollContainer:
 	s.follow_focus = true  # keyboard / pad focus scrolls into view
 	s.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	s.sort_children.connect(touch_pass.bind(s))
 	return s
+
+
+## Touch drag-scrolling: a finger that lands on a panel or label inside a
+## ScrollContainer must reach the container, so non-button Controls that would
+## swallow the press (MOUSE_FILTER_STOP, e.g. PanelContainer) pass it on.
+## Buttons, cards and tiles keep their own taps.
+static func touch_pass(n: Node) -> void:
+	for c in n.get_children():
+		if c is Control and not (c is BaseButton or c is Range or c is LineEdit or c is TextEdit or c.has_signal("pressed")):
+			if (c as Control).mouse_filter == Control.MOUSE_FILTER_STOP:
+				(c as Control).mouse_filter = Control.MOUSE_FILTER_PASS
+		touch_pass(c)
 
 
 static func px(v: float) -> int:
