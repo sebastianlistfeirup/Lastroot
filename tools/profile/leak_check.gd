@@ -79,7 +79,28 @@ func _sample(i: int, kind: String, steps: int, ms: int) -> void:
 		"resources": int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)),
 		"memory_static": int(Performance.get_monitor(Performance.MEMORY_STATIC)),
 	})
+	var conns := 0
+	for n: Node in get_tree().root.get_children():
+		if n == get_tree().current_scene:
+			continue
+		for sig: Dictionary in n.get_signal_list():
+			conns += n.get_signal_connection_list(sig["name"]).size()
+	for sig: Dictionary in get_tree().get_signal_list():
+		conns += get_tree().get_signal_connection_list(sig["name"]).size()
+	samples[-1]["global_connections"] = conns
+	var sizes := {}
+	for n: Node in get_tree().root.get_children():
+		if n == get_tree().current_scene or n == self:
+			continue
+		for prop: Dictionary in n.get_property_list():
+			if int(prop["usage"]) & PROPERTY_USAGE_SCRIPT_VARIABLE:
+				var v: Variant = n.get(prop["name"])
+				if v is Dictionary or v is Array or v is String or v is PackedStringArray:
+					sizes["%s.%s" % [n.name, prop["name"]]] = var_to_bytes(v).size()
+	samples[-1]["container_bytes"] = sizes
+	samples[-1]["engine_meta"] = Engine.get_meta_list().size()
 	var s: Dictionary = samples[-1]
+	print("LEAK_CONNS it=%d conns=%d meta=%d sizes=%s" % [i, conns, s["engine_meta"], JSON.stringify(s["container_bytes"])])
 	print("LEAK it=%d %s cmds=%d objs=%d nodes=%d orphans=%d res=%d mem=%.1fMB %d ms caches=%s" % [i, kind, steps,
 		s["objects"], s["nodes"], s["orphan_nodes"], s["resources"], float(s["memory_static"]) / 1048576.0, ms, JSON.stringify(s["static_caches"])])
 

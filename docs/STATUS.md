@@ -66,7 +66,7 @@ Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, champi
 - `docs/ASSET_MAP.md` (hver slot → Synty/PolyPerfect/Mixamo-kandidat) og `docs/HOMECOMING.md` (tjekliste til første session hjemme); `tools/synty/doctor.py` og `focus.py`.
 - Gem-skema 2 med migrering af ægte v1-saves (`fixtures/legacy/`), id-/typevalidering, tmp-gendannelse, karantæne af beskadigede filer, egen demo-gemmeplads (D33); dobbelt-belønning umulig efter reload.
 - Layout-smoke over 330 skærmkombinationer i check.sh; klipningsfejl rettet i menu, guide, credits, indstillinger, resultat, rute, kort og mærker.
-- Profilering: `evidence/perf/stress_profile.json` (softwarerendering, ikke spillerhardware), `leak_check.json` (noder og objekter stabile; lækket ved at forlade kampen midt i afspilning er rettet; statisk hukommelse stiger i fordoblende trin efter ~12/24/46 runs — **FAIL, årsag ikke fundet**, se `analysis_21_10`).
+- Profilering: `evidence/perf/stress_profile.json` (softwarerendering, ikke spillerhardware), `leak_check.json` (noder og objekter stabile; lækket ved at forlade kampen midt i afspilning er rettet; statisk hukommelse stiger ~36 KB pr. kamp — **årsag fundet: Godot 4.5.1 efterlader 48 B pr. oprettet Control** (minimal repro `tools/profile/control_growth.tscn`), ubetydeligt for spillere, se `analysis_21_10`).
 - Demo-optagelser (prognose, etagekamp, mutation, boss, demo-slut) i `evidence/video/`; butikstekst verificeret punkt for punkt; "Linux Demo"-preset; gamepad i kamp testet (simuleret).
 - Nightcap/Sporekolos bruger nærkampsangreb i stedet for magi-klip.
 - Mutationskombinationer (16), farveblindhedssimulering, lyd→visuelt-audit, valgrapport for balance-bot (`--meta=seeded`).
