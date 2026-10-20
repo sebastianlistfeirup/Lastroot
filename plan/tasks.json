@@ -371,7 +371,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Implementeret før porten: R01-R08, M01-M04 og fire championretninger med to trin; turflags, M02 afledt, M04 én gang, retning låses. Tests i test_cards/test_run. Mangler: før/efter-visning poleres i UI og fase 1-port."
+   "notes": "Implementeret før porten: R01-R08, M01-M04 og fire championretninger med to trin; turflags, M02 afledt, M04 én gang, retning låses. Tests i test_cards/test_run. Før/efter-visning i UI findes (kortpar + talrækker pr. retning, evidence/meta_screens/reward_champion_desktop.png). Mangler: fase 1-port."
   },
   {
    "id": "LR-16",

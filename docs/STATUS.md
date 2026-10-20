@@ -53,6 +53,16 @@
 
 Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, championretninger, relikvier, mutationer), "Sådan spiller du" + førstegangsguide, tastatur/gamepad, 3D-dioramaer bag menu/rute/resultat, kortportrætter fra visual slots, målringe og fare-ringe, hjertets skadestilstande, udtryksfulde proxy-animationer, lyd v2 (procedural, egen), lokal spiltest-log med svarformular og eksport, demo-tilstand (2 kampe, preset "Web Demo"), app-ikon og splash, telefonlayout med prognose-ark og tommelfinger-knaprække.
 
+## Nyt 21.10 (anden ferierunde)
+
+- **Sværhedsgrad "Svær"** i Indstillinger (D32): fjender/boss 130 % HP for nye løb — afprøv balanceforslaget direkte.
+- Danske afvisningsbeskeder med tal/etagenavne (`Loc.reason`); etageknapper var engelske.
+- Test af alle 31 kort×opgradering og bossens immunitet mod flyt/fjern.
+- `tools/release_check.py` i check.sh (ingen købte filer/hemmeligheder i git, interne mapper ude af builds); fandt og fjernede testscener fra eksporten; build-checksums.
+- `docs/ASSET_MAP.md` (hver slot → Synty/PolyPerfect/Mixamo-kandidat) og `docs/HOMECOMING.md` (tjekliste til første session hjemme); `tools/synty/doctor.py` og `focus.py`.
+- Nightcap/Sporekolos bruger nærkampsangreb i stedet for magi-klip.
+- Mutationskombinationer (16), farveblindhedssimulering, lyd→visuelt-audit, valgrapport for balance-bot (`--meta=seeded`).
+
 ## Kendte begrænsninger
 
 - Alle figurer/miljø er proxies; ingen rigtige animationsklip.
