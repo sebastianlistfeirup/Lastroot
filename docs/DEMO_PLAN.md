@@ -45,3 +45,5 @@ Bevis: `evidence/demo/result.json` (status **PARTIAL**), logs `evidence/demo/s1.
   - Demobuildet kan **fortsætte et fuldt løb** med Continue (s2: `mode=full` indlæst i demobuildet), og så gælder demogrænsen ikke.
   - Web: `user://` ligger i browserens IndexedDB pr. origin; en Web Demo på samme origin som det fulde web-build vil dele save (udledt af Godots web-platform, ikke testet).
   - **LR-34-kriteriet "Demo kan ikke ødelægge et fuldt run-save" er derfor ikke opfyldt på `6e98bfb`.** En anden agent tilføjer adskilte demo-savestier i `save_service.gd`; kør kontrollen igen bagefter (kommandoerne står i `evidence/demo/result.json`). Forslag: et "Linux Demo"-preset i repoet, og at demobuildet ignorerer et save med `mode=full`.
+
+**Linux Demo-preset (21.10):** `mkdir -p builds/linux_demo && godot --headless --export-release "Linux Demo" builds/linux_demo/LastrootDemo.x86_64` (samme som "Linux" + featuren `demo`). Godot laver ikke mappen selv.
