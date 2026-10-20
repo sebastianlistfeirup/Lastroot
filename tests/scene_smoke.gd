@@ -179,6 +179,12 @@ func _run() -> void:
 	await _frames(2)
 	# --- keyboard: 1 selects the first card, Tab picks a target, Enter confirms, E ends the turn
 	var kb: BattleScreen = await _open_battle("BARK", 1717)
+	await _frames(4)
+	var art_ok := kb.hand_box.get_child_count() > 0
+	for c: Node in kb.hand_box.get_children():
+		var cv := c as CardView
+		art_ok = art_ok and cv != null and cv._art.visible and cv._art.custom_minimum_size.y >= 30.0
+	ok(art_ok, "hand cards keep their picture at normal text size")
 	var before_units: int = BattleReducer.all_allies(GameSession.battle()).size()
 	var champ_pos: int = (GameSession.battle()["zones"]["hand"] as Array).find(int(GameSession.battle()["champion_iid"]))
 	_key(KEY_1 + champ_pos)

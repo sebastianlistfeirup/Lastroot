@@ -20,9 +20,9 @@
 |---|---|---|
 | Validatorer | `python3 tools/validate_catalog.py`, `validate_plan.py` | valid |
 | Parse | `godot --headless --path . res://scenes/tests/compile_all.tscn` | 0 fejl → `evidence/compile_report.json` |
-| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **145 tests, 0 fejl** → `evidence/test_report.json` |
+| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **146 tests, 0 fejl** → `evidence/test_report.json` |
 | Prognosescenarier | 120 gemte (`fixtures/forecast/scenarios.json`) | state-hash og eventrækkefølge matcher rigtig afvikling |
-| Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **46 checks, 0 fejl** (inkl. tastatur, gamepad, tekststørrelse, saves) → `evidence/scene_smoke.json` |
+| Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **47 checks, 0 fejl** (inkl. tastatur, gamepad, tekststørrelse, saves) → `evidence/scene_smoke.json` |
 | Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **635 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding, lyd, playtest-log, demo, telefon-kamp) → `evidence/meta_smoke.json` |
 | Web på telefon (rigtig touch) | `node tools/web_phone_flow.js` (Playwright, Chromium) | **12 trin bestået** → `evidence/web_phone_flow/` |
 | Layout (alle skærme) | `godot --headless --path . res://scenes/tests/layout_smoke.tscn` (i check.sh) | **220 skærme, 0 fejl** (720p, 1080p, telefon, tablet; tekst 100/130 %, engelsk) → `evidence/layout/layout_report.json` |
@@ -57,6 +57,8 @@ Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, champi
 
 ## Nyt 21.10 (anden ferierunde)
 
+- **Færre draw calls:** statiske proxy-dele bages sammen ved bygning (`ProxyMerge`): midtkamp 1238→388, boss 1732→522, fuldt træ 2722→1016 (−63–70 %), dioramaer −70–83 %; visuelt identisk (pixel-diff i `evidence/perf/drawcalls/`). Nødbremse: `ProxyMerge.enabled = false`.
+- Rettet: kortbilleder forsvandt i hånden efter layout-rettelsen (billedet blev krympet ved første måling og voksede aldrig tilbage); nu reversibelt + scene_smoke-tjek.
 - **Spillet er kun på engelsk (D34):** ingen sprogvælger; danske oversættelser er hvilende i CSV/katalog. Dokumenter forbliver danske.
 
 - **Sværhedsgrad "Svær"** i Indstillinger (D32): fjender/boss 130 % HP for nye løb — afprøv balanceforslaget direkte.

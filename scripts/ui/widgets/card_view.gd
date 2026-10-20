@@ -13,6 +13,7 @@ signal pressed
 const W := 168
 const H := 236
 const ART_H := 62.0
+var _art_base: float = ART_H  # picture height before large-text shrinking
 
 var def_id: String = ""
 var upgrade_id: String = ""
@@ -102,6 +103,12 @@ func _fit_height() -> void:
 	var sb: StyleBox = get_theme_stylebox("panel")
 	var avail: float = custom_minimum_size.y - (sb.get_minimum_size().y if sb else 0.0)
 	var excess: float = v.get_combined_minimum_size().y - avail
+	# Reversible: the first sort runs before the rules text knows its width
+	# (it measures far too tall), so the picture grows back once it fits.
+	if excess < -0.5 and _art.custom_minimum_size.y < _art_base:
+		_art.custom_minimum_size.y = minf(_art_base, _art.custom_minimum_size.y - excess)
+		_art.visible = _art.custom_minimum_size.y >= 12.0
+		return
 	if excess <= 0.5:
 		return
 	if _art.custom_minimum_size.y > 0.0:
@@ -149,7 +156,8 @@ func _apply_fonts() -> void:
 		r.add_theme_font_size_override("normal_font_size", fs)
 		r.add_theme_font_size_override("bold_font_size", fs)
 	# Compact hands keep every line but give the picture less room.
-	_art.custom_minimum_size = Vector2(0, ART_H * (0.55 if _k < 1.0 else 1.0))
+	_art_base = ART_H * (0.55 if _k < 1.0 else 1.0)
+	_art.custom_minimum_size = Vector2(0, _art_base)
 	_art.visible = true
 	var orb: float = 30.0 * k
 	_cost_box.custom_minimum_size = Vector2(orb, orb)
