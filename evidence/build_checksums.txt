@@ -1,3 +1,0 @@
-126e334c047fe983f3c561522ad97dec7b43a7af309763b53b78e97b444aca0b  builds/linux/Lastroot.x86_64
-e6c2f10fe0eadc6c7b3f9628078a3bd20933281998a3c8afbef6f559f7f98640  builds/windows/Lastroot.exe
-commit ec70d8d

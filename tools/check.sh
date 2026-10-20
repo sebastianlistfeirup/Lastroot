@@ -8,6 +8,8 @@ cd "$(dirname "$0")/.."
 python3 tools/validate_catalog.py >/dev/null && python3 tools/validate_plan.py >/dev/null
 V=$?
 echo "validators_exit=$V"
+python3 tools/release_check.py --quiet
+R=$?
 "$GODOT" --headless --path . --import --quit-after 2000 >/tmp/lr_import.log 2>&1
 grep -E "SCRIPT ERROR|Parse Error" /tmp/lr_import.log | sort -u | head -20
 C_OUT=$(timeout 120 "$GODOT" --headless --path . res://scenes/tests/compile_all.tscn 2>&1 | grep -E "^COMPILE")
@@ -33,5 +35,5 @@ if [ -f scenes/tests/meta_smoke.tscn ]; then
 	echo "$M_OUT" | grep -E "META_SMOKE|FAIL|SCRIPT ERROR" | head -60
 	if echo "$M_OUT" | grep -q "SCRIPT ERROR"; then M=1; fi
 fi
-echo "validators_exit=$V loc_exit=$L tests_exit=$T smoke_exit=$S meta_exit=$M"
-exit $(( V | L | T | S | M ))
+echo "validators_exit=$V release_exit=$R loc_exit=$L tests_exit=$T smoke_exit=$S meta_exit=$M"
+exit $(( V | R | L | T | S | M ))

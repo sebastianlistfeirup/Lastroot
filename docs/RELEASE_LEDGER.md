@@ -18,7 +18,8 @@ Hvad der faktisk ligger i en build, hvor det kommer fra, og hvad der skal tjekke
 
 ## Tjekliste pr. udgivelse
 
-- [ ] `tools/check.sh` grøn (validatorer, parse, tests, scene-smoke, meta-smoke, oversættelse).
+- [ ] `tools/check.sh` grøn (validatorer, release-tjek, parse, tests, scene-smoke, meta-smoke, oversættelse).
+- [ ] `python3 tools/release_check.py --checksums` efter eksport: ingen købte vendorfiler eller hemmeligheder i git, alle presets udelukker interne mapper (inkl. `scenes/tests/`), ingen interne filer i `.pck`, checksums skrevet. Rapport: `evidence/release/release_check.json`.
 - [ ] Versionsnummer i `project.godot` (`config/version`) og i build-navnet opdateret.
 - [ ] Credits-skærmen viser korrekt hold, motor og status for tredjepartspakker ("planlagt" fjernes først, når pakken faktisk er importeret og licensen tjekket).
 - [ ] Godot-licens og tredjepartsoplysninger medfølger (Credits + fil i build-mappen).
@@ -29,4 +30,4 @@ Hvad der faktisk ligger i en build, hvor det kommer fra, og hvad der skal tjekke
 - [ ] Gemte spil: en save fra forrige version indlæses (eller afvises med forklaring uden at blive slettet).
 - [ ] Eksport kørt og startet på hver målplatform (Windows, Linux, Web); resultat og maskine noteret i `docs/STATUS.md`.
 - [ ] Skærmbilleder til butikssiden taget fra den faktiske build (se `docs/STORE_PAGE_DRAFT.md`).
-- [ ] Checksums for build-filer skrevet til `evidence/build_checksums.txt`.
+- [ ] Checksums for build-filer skrevet til `evidence/build_checksums.txt` (`release_check.py --checksums`).
