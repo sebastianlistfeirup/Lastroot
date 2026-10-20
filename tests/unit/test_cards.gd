@@ -299,3 +299,76 @@ func test_bloom_does_not_use_spore_lantern() -> void:
 	eq(s2["flags"]["r03"], false, "Bloom leaves the Spore Lantern unused")
 	var r2 := _play(s2, "S07", {"target": e})
 	eq(BattleReducer.unit(r2["state"], e)["poison"], 8, "4 after Bloom + 3 + 1 from R03")
+
+
+## Upgrade matrix (LR-14): every card x every catalog upgrade, played through
+## the real reducer on the same board as the plain card. The upgraded copy
+## changes exactly its stat; B01/B12/S01 have no upgrades.
+func _matrix_board() -> Dictionary:
+	var s := _board()
+	for f in 3:
+		BattleBuilder.enemy(s, f, {"max_hp": 99, "poison": 3})
+	BattleBuilder.ally(s, 0, {"max_hp": 30, "hp": 4})
+	BattleBuilder.ally(s, 1, {"max_hp": 30, "hp": 4})
+	return s
+
+
+func _legal_cmd(def_id: String) -> Dictionary:
+	var s := _matrix_board()
+	var iid := BattleBuilder.give_card(s, def_id)
+	var targets: Array = [-1]
+	for k: String in (s["units"] as Dictionary).keys():
+		targets.append(int(k))
+	for f in [-1, 0, 1, 2]:
+		for t: int in targets:
+			var c := {"type": "play_card", "card": iid, "floor": f, "target": t}
+			if BattleReducer.validate(s, c) == "":
+				return {"floor": f, "target": t}
+	return {}
+
+
+func _sum(events: Array, kind: String) -> Array:
+	var total := 0
+	var n := 0
+	for e: Dictionary in events:
+		if e.get("kind", "") == kind:
+			total += int(e.get("amount", 0))
+			n += 1
+	return [total, n]
+
+
+func test_upgrade_matrix_all_cards() -> void:
+	var stat_event := {"damage": "damage", "poison": "poison_applied", "heal": "heal", "armor": "armor_gained"}
+	var covered := 0
+	for c: Dictionary in Catalog.data()["cards"]:
+		var cid: String = c["id"]
+		var ups: Array = c.get("upgrades", [])
+		if cid in ["B01", "B12", "S01"]:
+			eq(ups.size(), 0, "%s has no upgrades" % cid)
+			continue
+		check(not ups.is_empty(), "%s has an upgrade" % cid)
+		var cmd := _legal_cmd(cid)
+		if cmd.is_empty():
+			check(false, "%s: no legal play found on the matrix board" % cid)
+			continue
+		for u: Dictionary in ups:
+			var uid: String = u["id"]
+			var base := _play(_matrix_board(), cid, cmd)
+			var up := _play(_matrix_board(), cid, cmd, uid)
+			var stat: String = uid.rsplit("_", true, 1)[0]
+			var delta: int = int(uid.rsplit("_", true, 1)[1])
+			if stat in ["attack", "max_hp"]:
+				eq(int(_new_ally(up).get(stat, 0)) - int(_new_ally(base).get(stat, 0)), delta, "%s+%s on the unit" % [cid, uid])
+			elif stat == "cost":
+				var s := _matrix_board()
+				var a := BattleBuilder.give_card(s, cid)
+				var b := BattleBuilder.give_card(s, cid, uid)
+				eq(BattleReducer.play_cost(s, b) - BattleReducer.play_cost(s, a), delta, "%s %s cost" % [cid, uid])
+				eq(int(base["state"]["energy"]) - int(up["state"]["energy"]), delta, "%s %s Sap paid" % [cid, uid])
+			else:
+				var kb: Array = _sum(base["events"], stat_event[stat])
+				var ku: Array = _sum(up["events"], stat_event[stat])
+				check(int(ku[1]) > 0, "%s %s produces %s" % [cid, uid, stat_event[stat]])
+				eq(int(ku[0]) - int(kb[0]), delta * int(ku[1]), "%s %s adds %d per hit" % [cid, uid, delta])
+			covered += 1
+	eq(covered, 31, "card x upgrade pairs covered")

@@ -313,3 +313,20 @@ func _won_first_battle(seed_value: int) -> Dictionary:
 	var run := AutoPlayer.play_battle(BattleBuilder.run(seed_value))
 	check(run["phase"] == "reward", "bot wins battle 1 (seed %d, phase %s)" % [seed_value, run["phase"]])
 	return run
+
+
+## LR-17: the Ash Crown cannot be moved or removed — no move/remove spell
+## accepts an enemy target, the boss included.
+func test_boss_immune_to_move_and_remove() -> void:
+	var s := BattleBuilder.empty()
+	s["energy"] = 9
+	var boss := BattleBuilder.enemy(s, 0, {"max_hp": 60, "is_boss": true}, "E06")
+	var foe := BattleBuilder.enemy(s, 1, {"max_hp": 9})
+	BattleBuilder.ally(s, 0, {"max_hp": 10})
+	for cid in ["B10", "B12"]:
+		var iid := BattleBuilder.give_card(s, cid)
+		for t in [boss, foe]:
+			for f in [-1, 0, 1, 2]:
+				var r := BattleReducer.apply(s, {"type": "play_card", "card": iid, "target": t, "floor": f})
+				check(not r["ok"], "%s cannot target enemy %d (floor %d)" % [cid, t, f])
+	eq(int(BattleReducer.unit(s, boss)["floor"]), 0, "boss stays put")

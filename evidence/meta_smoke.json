@@ -1,6 +1,6 @@
 {
   "checks": 637,
-  "duration_ms": 9264,
+  "duration_ms": 9535,
   "engine_version": "4.5.1-stable (official)",
   "failed": 0,
   "failures": [],
@@ -124,5 +124,5 @@
     "demo_result: press NewRunButton",
     "touch_scroll: reasons + difficulty"
   ],
-  "timestamp": "2026-10-20T11:21:52"
+  "timestamp": "2026-10-20T11:24:57"
 }

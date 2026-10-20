@@ -2,8 +2,8 @@
   "engine_version": "4.5.1-stable (official)",
   "failures": [],
   "files": {
-    "test_battle_matrix.gd": 25,
-    "test_cards.gd": 32,
+    "test_battle_matrix.gd": 26,
+    "test_cards.gd": 33,
     "test_catalog.gd": 8,
     "test_forecast.gd": 5,
     "test_meta_flow.gd": 5,
@@ -38,6 +38,7 @@
     "test_battle_matrix/test_boss_escalates_from_turn_ten",
     "test_battle_matrix/test_growth_heals_to_max_and_cannot_revive",
     "test_battle_matrix/test_new_poison_does_not_tick_twice",
+    "test_battle_matrix/test_boss_immune_to_move_and_remove",
     "test_cards/test_b01_barkwarden",
     "test_cards/test_b02_root_sprout",
     "test_cards/test_b03_barkshield",
@@ -70,6 +71,7 @@
     "test_cards/test_lifeweaver_and_gentle_crown_turn_start",
     "test_cards/test_venom_master_and_bulwark_stats",
     "test_cards/test_bloom_does_not_use_spore_lantern",
+    "test_cards/test_upgrade_matrix_all_cards",
     "test_catalog/test_24_types_22_normal_2_champions",
     "test_catalog/test_engine_data_matches_design_baseline",
     "test_catalog/test_both_start_decks_have_12_instances",
@@ -115,6 +117,6 @@
     "test_save/test_truncated_save_rejected"
   ],
   "status": "PASS",
-  "tests": 119,
-  "timestamp": "2026-10-20T11:21:30"
+  "tests": 121,
+  "timestamp": "2026-10-20T11:24:34"
 }
