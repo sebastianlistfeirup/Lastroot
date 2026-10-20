@@ -83,7 +83,7 @@ Alt kan overstyres pr. slot i `synty_choices.json`: `"fit"`, `"extra_scale"`, `"
 * **quadruped** — Tornhjort (B04). Brug et PolyPerfect-dyr med **egne** clips (hjort/kronhjort; navne som `Idle`, `Attack`, `Death`, `Walk` — skal verificeres). Byggeren matcher dyrets indbyggede clips til tilstande via nøgleord og laver `art/animations/unit.B04.res`. **Aldrig** humanoid retarget på fire ben (biblen). Tornegevir laves som attachments af POLYGON Nature-grene.
 * **static** — Svampevæg (S03): ingen knogler; `UnitAnimator` bruger procedural bevægelse.
 
-**Mixamo-download:** Format *FBX Binary*, 30 fps, **In Place** slået til (gang), *Without Skin* for clip-filer. Navngiv filerne med Mixamo-navnet (fx `Breathing Idle.fbx`, `Punching.fbx`, `Standing 1H Magic Attack 01.fbx`, `Hit Reaction.fbx`, `Dying.fbx`, `Standing Block Idle.fbx`, `Victory.fbx`, `Standing Up.fbx`, `Walking.fbx`) og læg dem i én mappe. `match.py` læser tilstanden ud af filnavnet (nøgleord i `data/art/animation_sets.json`). Byggeren fjerner desuden hoftens vandrette fremdrift (in-place), så root motion aldrig flytter formationen.
+**Mixamo-download:** Format *FBX Binary*, 30 fps, **In Place** slået til (gang), *Without Skin* for clip-filer (prøvet, §6c). Læg dem i en mappe med "Mixamo" i navnet (eller kør `unpack.py --clips`), og læg Mixamo-*figurer* i en anden mappe. Navngiv filerne med Mixamo-navnet (fx `Breathing Idle.fbx`, `Punching.fbx`, `Standing 1H Magic Attack 01.fbx`, `Hit Reaction.fbx`, `Dying.fbx`, `Standing Block Idle.fbx`, `Victory.fbx`, `Standing Up.fbx`, `Walking.fbx`) og læg dem i én mappe. `match.py` læser tilstanden ud af filnavnet (nøgleord i `data/art/animation_sets.json`). Byggeren fjerner desuden hoftens vandrette fremdrift (in-place), så root motion aldrig flytter formationen.
 
 **Tilstande** (biblens minimumsbibliotek): `idle, summon, attack/cast, hit, death, defend, victory` + `move` (opstigning mellem etager). En manglende clip er ingen fejl: `UnitAnimator` spiller en procedural version og sender **altid** `finished`, så runnet aldrig hænger. RigLab og `docs/ANIMATION_LEDGER.csv` viser, hvad der mangler.
 
@@ -135,7 +135,49 @@ Kæden er kørt mod to rigtige FBX-filer (assimp's BSD-licenserede testmodeller,
 6. **Cm og flade modeller:** et objekt i centimeter, der skaleres efter højde, kan blive kæmpestort i fodaftryk, hvis det ligger ned eller er eksporteret Z-op. Byggeren advarer nu ("footprint … too wide"). Løsning: `"rotation_y"`/en anden model, `"fit": "natural"` eller `"extra_scale"`.
 7. **Facing** kan ikke gættes ud fra generiske knogler (`facing unknown`). Se på "front = −Z"-pilen i RigLab og sæt `"rotation_y"`.
 
-Ikke verificeret endnu: retarget af en rigtig humanoid FBX (Synty/Mixamo). Den del er kun bevist med glTF-selvtesten. Første gang du importerer en købt figur, så kør `model_probe.gd` på den og kig i RigLab, før du godkender den.
+Humanoid retarget er siden prøvet med rigtige FBX-humanoider: se §6c. Første gang du importerer en købt figur, så kør stadig `model_probe.gd` på den og kig i RigLab, før du godkender den.
+
+## 6c. Humanoid-prøven: Synty- og Mixamo-rigs, FBX og glTF (20.10.2026)
+
+Kør selv: `BPY_PYTHON=<python med pip install bpy==5.2.2> tools/synty/humanoid_dryrun.sh --capture` (eller `BLENDER=<sti til blender>`). Scriptet bygger egne, licensfrie testfigurer med Blender (`tools/synty/make_humanoid_pack.py`), kører hele ejerens vej (unpack → match → build.sh → spillet) og rydder op bagefter. Resultat: `evidence/asset_pipeline/humanoid_dryrun.json` (15/15 PASS), skærmbilleder `humanoid_*.png`. Samme kørsel før rettelserne: `humanoid_dryrun_before_fixes.json` (6 FAIL).
+
+**Testfigurerne** er bevidst forskellige på de punkter, hvor købte filer adskiller sig:
+
+| Slot | Rig | Format | Hvile-pose | Knoglenavne |
+|---|---|---|---|---|
+| unit.B03 | Synty-stil | FBX (armatur-node drejet Z-op, som en Unity-eksport) | A-pose (arme 45° ned), andre proportioner og knogle-roll | `Root, Hips, Spine_01..03, Neck, Head, Clavicle_L, Shoulder_L, Elbow_L, Hand_L, IndexFinger_01_L, Thumb_01_L, UpperLeg_L, LowerLeg_L, Ankle_L, Ball_L, Toes_L` |
+| unit.S01 | Synty-stil | glTF | A-pose | samme |
+| enemy.E03 | Mixamo-stil | FBX | T-pose | `mixamorig:Hips, Spine, Spine1, Spine2, Neck, Head, LeftShoulder, LeftArm, LeftForeArm, LeftHand, LeftHandIndex1, LeftUpLeg, LeftLeg, LeftFoot, LeftToeBase` |
+| enemy.E05 | Mixamo-stil | glTF | T-pose | samme |
+
+Klippene er 7 FBX-filer med Mixamo-navne (`Breathing Idle`, `Punching`, `Standing 1H Magic Attack 01`, `Hit Reaction`, `Dying`, `Walking`, `Victory`), **uden skin**, lavet på Mixamo-riggen og lagt fladt i én mappe `Mixamo/` — præcis som en mappe med downloads fra mixamo.com. `Punching` og `Walking` har rodbevægelse (ikke "In Place").
+
+Krydstjek med to **rigtige** Mixamo-eksporter (three.js' eksempelfiler `Samba Dancing.fbx` med skin og `Soldier.glb`; Mixamo-licens, kun lokalt, slettet igen, aldrig committet): `evidence/asset_pipeline/humanoid_real_mixamo_check.json`. Den rigtige Mixamo-dans spiller på Synty-riggen med samme knogleretninger som på Mixamo-riggene.
+
+**Fundet og rettet:**
+
+| # | Fejl (før) | Symptom | Rettelse |
+|---|---|---|---|
+| 1 | `match.py` fandt kun klip i en undermappe `Mixamo/` *inde i* en pakke. `unpack.py "D:/…/Mixamo"` (som HOMECOMING beskriver) gav pakken `Mixamo` med filerne i roden. | "ingen Mixamo-/animationsklip fundet", Mixamo-filerne blev foreslået som *modeller*. | En pakke er klip, når mappenavnet indeholder Mixamo/anim/clips, når `unpack.py --clips` er brugt, eller når den er uden teksturer og ≥ 60 % af filnavnene er tilstande. |
+| 1b | Klip valgtes efter første nøgleord i alfabetisk orden: "stand" (idle) ramte `Standing 1H Magic Attack 01`. | idle = magi-angreb, hvis "Breathing Idle" manglede. | Eksakte Mixamo-navne fra `animation_sets.json` først; derefter vinder en fil, der kun passer til én tilstand; FBX foran glTF. |
+| 2 | Bounds for **skinnede** meshes brugte den rå mesh-AABB. Efter knoglekortet flytter Godots "rest fixer" FBX'ens akse-/enhedsomregning ind i bind-poserne, så Synty-FBX'ens rå vertices ligger fladt og ~100× for små. | B03 skaleret ×614 → 7×1,6×10 m, "footprint too wide". | `VisualSlots.bounds` regner skinnede meshes som de tegnes (knoglepose × bind-pose × vertex). Rammer også ringen under fødderne og builderens advarsler. |
+| 3 | Godot overfører et klip som rotation **i forhold til hvile-posen**. Mixamo-klip (T-pose; for "Without Skin"-filer er hvilen tilmed første frame) på en Synty A-pose-rig. | Idle-arme vandrette på Mixamo-riggene, 45° skæve på Synty, slaget gik *bagud* (+Z), op til 133° forskel mellem rigs. | Knoglekortet sætter nu også **Rest Fixer → Fix Silhouette** (tærskel 5°) på klipfiler og figurer: alle hvile-poser drejes til profilens T-pose først. Resultat: 0,0° forskel mellem de fire rigs. Figurer uden humanoide klip får den ikke (de beholder deres A-pose til den procedurale bevægelse). |
+| 3b | Godots tærskel 15° lod en rigtig Mixamo-figur (arme 13° under vandret) være. | Alle klip ~11° lavere på den figur. | Tærskel 5°. |
+| 4 | Godots standard "Remove Immutable Tracks" smider spor væk, hvis værdien aldrig ændrer sig (en arm, der holdes stille under et slag). Efter retarget betyder et manglende spor "målriggens hvile-pose". | Den stille arm hopper til T/A-pose midt i klippet. | `animation/remove_immutable_tracks=false` på alle retargetede filer. |
+| 5 | Klipfilernes egne scene-noder (fx `Armature` med Blenders −90° X-drejning) kom med i det fælles bibliotek. | En advarsel ved hver afspilning ("couldn't resolve track 'Armature'") — og på en figur, der *også* har en node `Armature` (Mixamo/Blender-figurer), ville hele figuren vælte. | Det fælles humanoid-bibliotek beholder kun `%GeneralSkeleton:`-spor (rapporten lister de fjernede). |
+| 6 | En rigtig Mixamo-FBX har et tomt `Take 001` (1 nøgle) ved siden af `mixamo.com`; byggeren tog det første klip. | Klippet stod stille i hvile-posen. | Det længste klip, der bevæger sig, vinder; "mixamo" i navnet foretrækkes. |
+| — | Mixamo-fingre (`LeftHandIndex1`) blev ikke kortlagt. | Fingre fulgte ikke med (valgfrit). | `Hand`-præfikset fjernes før fingergenkendelse. |
+
+**Det du skal vide om navne og indstillinger:**
+
+* `mixamorig:Hips` bliver til `mixamorig_Hips` i Godot (kolon er ulovligt i nodenavne); begge kortlægges. Synty `Shoulder_L` er *overarmen* (fordi der også er en `Clavicle_L`); Mixamo `LeftShoulder` er kravebenet. `Ankle_L` = fod, `Ball_L` = tæer, `Spine_01..03` = Spine/Chest/UpperChest.
+* Byggeren skriver selv i `<fil>.import`: `retarget/bone_map`, `retarget/rest_fixer/fix_silhouette/enable=true`, `…/threshold=5`, `animation/remove_immutable_tracks=false`. Det svarer til Advanced Import Settings → Skeleton3D → Retarget. Ret dem ikke i hånden, medmindre RigLab viser en fejl; næste `build.sh` skriver dem igen.
+* Med Fix Silhouette står figurens **hvile-pose** i T-pose. Det ses kun, hvis et klip mangler *og* idle også mangler. Wrapperens bredde (og ringen under fødderne) måles i T-posen, så store figurer kan få en lidt for bred ring.
+* Mixamo "Without Skin" virker. "With Skin" virker også (filen bruges så både som figur og klip, se Samba-tjekket).
+* Lange Mixamo-klip (dansen er 18 s) afspilles helt, før `finished` kommer. Vælg korte klip til hit/attack/victory, eller trim dem på mixamo.com.
+* Mixamo-figurer og -klip i **hver sin mappe**: alt i en mappe med "Mixamo" i navnet behandles som klip.
+
+**Stadig ikke bevist:** dine købte filer. Testriggene er kasser på knogler, og den rigtige Mixamo-fil var en enkelt dans og en figur. Ukendte punkter i købte pakker: Synty-figurer med ekstra knogler (kappe, våben-sokkel, `Root`-variationer), Sidekick-rigs, figurer delt i flere meshes, Mixamo-klip med "In Place" slået fra på andet end gang, og teksturer i Synty-FBX. Første figur: kør `model_probe.gd`, se den i RigLab (arme ned i idle, slag fremad mod pilen, fødder på gitteret), og først derefter `"status": "approved"`.
 
 ## 7. Filer
 

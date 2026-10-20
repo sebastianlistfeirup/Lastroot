@@ -701,7 +701,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware. | 21.10: skema 2 + v1-migrering af ægte legacy-saves, validate_run, tmp-gendannelse, karantæne, demo-plads (D33), dobbelt-reward-tests; stress- og leak-profil i evidence/perf/. Leak-check FAIL (små objekt-/hukommelsesstigninger, årsag ukendt) ; exit midt i afspilning rettet (presenter-coroutines), objekter nu stabile. Statisk hukommelse stiger stadig i trin (åbent, se evidence/perf/leak_check.json analysis_21_10)."
+   "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware. | 21.10: skema 2 + v1-migrering af ægte legacy-saves, validate_run, tmp-gendannelse, karantæne, demo-plads (D33), dobbelt-reward-tests; stress- og leak-profil i evidence/perf/. Leak-check FAIL (små objekt-/hukommelsesstigninger, årsag ukendt) ; exit midt i afspilning rettet (presenter-coroutines), objekter nu stabile. Statisk hukommelse: årsag fundet — Godot 4.5.1 efterlader 48 B pr. oprettet Control (repro tools/profile/control_growth.tscn), ~36 KB pr. kamp; projektets egen kode er ren. Leak-check-kriteriet fejler stadig på denne motorvækst (ærligt FAIL)."
   },
   {
    "id": "LR-30",

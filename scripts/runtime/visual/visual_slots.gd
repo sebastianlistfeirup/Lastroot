@@ -273,10 +273,13 @@ static func bounds(n: Node, xf: Transform3D = Transform3D.IDENTITY) -> AABB:
 	var out := AABB()
 	var first := true
 	if n is VisualInstance3D and not n is Light3D and not n is GPUParticles3D and not n is CPUParticles3D:
-		# A ProxyMerge node reports the union of its parts' boxes, as before the merge.
-		for pb: AABB in ProxyMerge.part_bounds(n as VisualInstance3D):
-			out = xf * pb if first else out.merge(xf * pb)
-			first = false
+		out = _skinned_aabb(n as MeshInstance3D, xf) if n is MeshInstance3D else AABB()
+		if out.size == Vector3.ZERO:
+			# A ProxyMerge node reports the union of its parts' boxes, as before the merge.
+			for pb: AABB in ProxyMerge.part_bounds(n as VisualInstance3D):
+				out = xf * pb if first else out.merge(xf * pb)
+				first = false
+		first = false
 	for c: Node in n.get_children():
 		var cxf := xf * (c as Node3D).transform if c is Node3D else xf
 		var cb := bounds(c, cxf)
@@ -284,4 +287,47 @@ static func bounds(n: Node, xf: Transform3D = Transform3D.IDENTITY) -> AABB:
 			continue
 		out = cb if first else out.merge(cb)
 		first = false
+	return out
+
+
+## Bounds of a SKINNED mesh as it is drawn (skeleton pose x bind pose x vertex), not the
+## raw mesh-space AABB. Real-FBX lesson: after a humanoid bone map the importer's rest
+## fixer moves the FBX axis/unit conversion into the bind poses, so the raw vertices of a
+## Synty FBX lie flat and ~100x too small; the plain AABB made the builder scale it x600.
+## Returns an empty AABB when the mesh is not skinned (caller falls back to get_aabb()).
+static func _skinned_aabb(mi: MeshInstance3D, xf: Transform3D) -> AABB:
+	if mi.mesh == null or mi.skin == null:
+		return AABB()
+	var sk := mi.get_node_or_null(mi.skeleton) as Skeleton3D
+	if sk == null:
+		return AABB()
+	var skin := mi.skin
+	var binds: Array[Transform3D] = []
+	for i: int in skin.get_bind_count():
+		var bone := skin.get_bind_bone(i)
+		if bone < 0:
+			bone = sk.find_bone(String(skin.get_bind_name(i)))
+		binds.append((sk.get_bone_global_pose(bone) if bone >= 0 else Transform3D.IDENTITY) * skin.get_bind_pose(i))
+	var out := AABB()
+	var first := true
+	for s: int in mi.mesh.get_surface_count():
+		var arr := mi.mesh.surface_get_arrays(s)
+		var verts: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+		var bones: PackedInt32Array = arr[Mesh.ARRAY_BONES] if arr[Mesh.ARRAY_BONES] != null else PackedInt32Array()
+		var weights: PackedFloat32Array = arr[Mesh.ARRAY_WEIGHTS] if arr[Mesh.ARRAY_WEIGHTS] != null else PackedFloat32Array()
+		if verts.is_empty() or bones.is_empty() or weights.size() != bones.size():
+			return AABB()
+		var per: int = floori(float(bones.size()) / float(verts.size()))
+		for v: int in verts.size():
+			var best := 0
+			for j: int in range(1, per):
+				if weights[v * per + j] > weights[v * per + best]:
+					best = j
+			var b := bones[v * per + best]
+			var p := xf * ((binds[b] if b < binds.size() else Transform3D.IDENTITY) * verts[v])
+			if first:
+				out = AABB(p, Vector3.ZERO)
+				first = false
+			else:
+				out = out.expand(p)
 	return out

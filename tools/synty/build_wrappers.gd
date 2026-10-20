@@ -58,6 +58,7 @@ func _init() -> void:
 			states[state] = mp
 		if pending:
 			reimport = true
+			libs[fam + "_pending"] = true
 			print("%-22s bone map set on %d clips (re-import, then build again)" % ["anim." + fam, states.size()])
 			continue
 		var lr := AnimationLibraryBuilder.build_from_files(fam, states, lib_dir)

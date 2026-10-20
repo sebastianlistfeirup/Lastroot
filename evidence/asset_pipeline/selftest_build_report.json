@@ -3,24 +3,28 @@
     {
       "clips": {
         "attack": {
+          "dropped_node_tracks": [],
           "length_s": 0.9,
           "removed_travel_m": 1.0,
           "retargeted": true,
           "source": "res://assets/imported/SelfTestMixamo/Mixamo/Punching.gltf"
         },
         "death": {
+          "dropped_node_tracks": [],
           "length_s": 1.4,
           "removed_travel_m": 0.0,
           "retargeted": true,
           "source": "res://assets/imported/SelfTestMixamo/Mixamo/Dying.gltf"
         },
         "hit": {
+          "dropped_node_tracks": [],
           "length_s": 0.6,
           "removed_travel_m": 0.0,
           "retargeted": true,
           "source": "res://assets/imported/SelfTestMixamo/Mixamo/Hit Reaction.gltf"
         },
         "idle": {
+          "dropped_node_tracks": [],
           "length_s": 2.0,
           "removed_travel_m": 0.0,
           "retargeted": true,
@@ -47,9 +51,9 @@
       "height_m": 2.6,
       "library": "res://art/animations/_selftest/humanoid.res",
       "min_m": [
-        -1.19,
+        -1.21,
         0.0,
-        -0.18
+        -0.22
       ],
       "notes": [],
       "ok": true,
@@ -60,16 +64,16 @@
       ],
       "reimport": false,
       "rig": "Armature/GeneralSkeleton",
-      "scale": 1.4857,
+      "scale": 1.513,
       "scene": "res://art/prefabs/_selftest/unit.B01.tscn",
       "size_m": [
-        2.38,
+        2.42,
         2.6,
-        0.36
+        0.43
       ],
       "slot": "unit.B01",
       "source": "SelfTestSynty/PolygonNature/Models/Characters/SK_Chr_Golem_01.gltf",
-      "summary": "height x1.4857 -> 2.38x2.60x0.36 m, facing -Z · lib humanoid.res",
+      "summary": "height x1.5130 -> 2.42x2.60x0.43 m, facing -Z · lib humanoid.res",
       "uses_atlas": true,
       "warnings": []
     },
@@ -142,9 +146,9 @@
       "height_m": 1.13,
       "library": "res://art/animations/_selftest/humanoid.res",
       "min_m": [
-        -0.52,
+        -0.53,
         0.0,
-        -0.08
+        -0.09
       ],
       "notes": [],
       "ok": true,
@@ -155,16 +159,16 @@
       ],
       "reimport": false,
       "rig": "Armature/GeneralSkeleton",
-      "scale": 0.6457,
+      "scale": 0.6576,
       "scene": "res://art/prefabs/_selftest/enemy.E02.tscn",
       "size_m": [
-        1.03,
+        1.05,
         1.13,
-        0.15
+        0.19
       ],
       "slot": "enemy.E02",
       "source": "SelfTestSynty/PolygonNature/Models/Characters/SK_Chr_Golem_01.gltf",
-      "summary": "height x0.6457 -> 1.03x1.13x0.15 m, facing -Z · lib humanoid.res",
+      "summary": "height x0.6576 -> 1.05x1.13x0.19 m, facing -Z · lib humanoid.res",
       "uses_atlas": true,
       "warnings": []
     },
@@ -178,9 +182,9 @@
       "height_m": 2.03,
       "library": "res://art/animations/_selftest/humanoid.res",
       "min_m": [
-        -0.93,
+        -0.95,
         0.0,
-        -0.14
+        -0.17
       ],
       "notes": [],
       "ok": true,
@@ -191,16 +195,16 @@
       ],
       "reimport": false,
       "rig": "Armature/GeneralSkeleton",
-      "scale": 1.16,
+      "scale": 1.1813,
       "scene": "res://art/prefabs/_selftest/enemy.E05.tscn",
       "size_m": [
-        1.86,
+        1.89,
         2.03,
-        0.28
+        0.34
       ],
       "slot": "enemy.E05",
       "source": "SelfTestSynty/PolygonNature/Models/Characters/SK_Chr_Golem_01.gltf",
-      "summary": "height x1.1600 -> 1.86x2.03x0.28 m, facing -Z · lib humanoid.res",
+      "summary": "height x1.1813 -> 1.89x2.03x0.34 m, facing -Z · lib humanoid.res",
       "uses_atlas": true,
       "warnings": []
     },

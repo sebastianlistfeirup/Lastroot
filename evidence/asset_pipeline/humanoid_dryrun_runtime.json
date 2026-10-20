@@ -1,0 +1,756 @@
+{
+ "max_pose_difference_between_rigs_deg": {
+  "attack": 0.0,
+  "cast": 0.0,
+  "hit": 0.0,
+  "idle": 0.0,
+  "move": 0.0,
+  "victory": 0.0
+ },
+ "slots": {
+  "enemy.E03": {
+   "attack_contact": true,
+   "attack_finished_s": 0.96,
+   "clips": [
+    "lr/attack",
+    "lr/cast",
+    "lr/death",
+    "lr/hit",
+    "lr/idle",
+    "lr/move",
+    "lr/victory"
+   ],
+   "facing": "-Z",
+   "feet_y": 0.0,
+   "general_skeleton": true,
+   "height_m": 1.68,
+   "is_model": true,
+   "move_hips_drift_m": 0.0,
+   "move_thigh_swing_deg": 49.7,
+   "non_bone_tracks": 0,
+   "poses": {
+    "attack": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.32,
+      -0.94,
+      0.12
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      -0.17,
+      0.0,
+      -0.98
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "cast": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.77,
+      0.64,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "hit": {
+     "Hips": [
+      0.0,
+      0.98,
+      0.19
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.89,
+      -0.29
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.89,
+      -0.29
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "idle": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "move": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -0.91,
+      0.42
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -0.91,
+      -0.42
+     ]
+    },
+    "victory": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.5,
+      0.87,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.5,
+      0.87,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    }
+   },
+   "unit_animator_uses_clip": true
+  },
+  "enemy.E05": {
+   "attack_contact": true,
+   "attack_finished_s": 0.97,
+   "clips": [
+    "lr/attack",
+    "lr/cast",
+    "lr/death",
+    "lr/hit",
+    "lr/idle",
+    "lr/move",
+    "lr/victory"
+   ],
+   "facing": "-Z",
+   "feet_y": 0.0,
+   "general_skeleton": true,
+   "height_m": 2.03,
+   "is_model": true,
+   "move_hips_drift_m": 0.0,
+   "move_thigh_swing_deg": 49.7,
+   "non_bone_tracks": 0,
+   "poses": {
+    "attack": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.32,
+      -0.94,
+      0.12
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      -0.17,
+      0.0,
+      -0.98
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "cast": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.77,
+      0.64,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "hit": {
+     "Hips": [
+      0.0,
+      0.98,
+      0.19
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.89,
+      -0.29
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.89,
+      -0.29
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "idle": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "move": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -0.91,
+      0.42
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -0.91,
+      -0.42
+     ]
+    },
+    "victory": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.5,
+      0.87,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.5,
+      0.87,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    }
+   },
+   "unit_animator_uses_clip": true
+  },
+  "unit.B03": {
+   "attack_contact": true,
+   "attack_finished_s": 0.96,
+   "clips": [
+    "lr/attack",
+    "lr/cast",
+    "lr/death",
+    "lr/hit",
+    "lr/idle",
+    "lr/move",
+    "lr/victory"
+   ],
+   "facing": "-Z",
+   "feet_y": 0.0,
+   "general_skeleton": true,
+   "height_m": 1.57,
+   "is_model": true,
+   "move_hips_drift_m": 0.0,
+   "move_thigh_swing_deg": 49.7,
+   "non_bone_tracks": 0,
+   "poses": {
+    "attack": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.32,
+      -0.94,
+      0.12
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      -0.17,
+      0.0,
+      -0.98
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "cast": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.77,
+      0.64,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "hit": {
+     "Hips": [
+      0.0,
+      0.98,
+      0.19
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.89,
+      -0.29
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.89,
+      -0.29
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "idle": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "move": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -0.91,
+      0.42
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -0.91,
+      -0.42
+     ]
+    },
+    "victory": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.5,
+      0.87,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.5,
+      0.87,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    }
+   },
+   "unit_animator_uses_clip": true
+  },
+  "unit.S01": {
+   "attack_contact": true,
+   "attack_finished_s": 0.96,
+   "clips": [
+    "lr/attack",
+    "lr/cast",
+    "lr/death",
+    "lr/hit",
+    "lr/idle",
+    "lr/move",
+    "lr/victory"
+   ],
+   "facing": "-Z",
+   "feet_y": 0.0,
+   "general_skeleton": true,
+   "height_m": 1.73,
+   "is_model": true,
+   "move_hips_drift_m": 0.0,
+   "move_thigh_swing_deg": 49.7,
+   "non_bone_tracks": 0,
+   "poses": {
+    "attack": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.32,
+      -0.94,
+      0.12
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      -0.17,
+      0.0,
+      -0.98
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "cast": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.77,
+      0.64,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "hit": {
+     "Hips": [
+      0.0,
+      0.98,
+      0.19
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.89,
+      -0.29
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.89,
+      -0.29
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "idle": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    },
+    "move": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.34,
+      -0.94,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -0.91,
+      0.42
+     ],
+     "RightUpperArm": [
+      0.34,
+      -0.94,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -0.91,
+      -0.42
+     ]
+    },
+    "victory": {
+     "Hips": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "LeftUpperArm": [
+      -0.5,
+      0.87,
+      0.0
+     ],
+     "LeftUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "RightUpperArm": [
+      0.5,
+      0.87,
+      0.0
+     ],
+     "RightUpperLeg": [
+      0.0,
+      -1.0,
+      0.0
+     ]
+    }
+   },
+   "unit_animator_uses_clip": true
+  }
+ }
+}

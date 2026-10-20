@@ -24,7 +24,9 @@ static func build_from_files(name: String, states: Dictionary, out_dir: String =
 		if anim == null:
 			(report["errors"] as Array).append("%s: no clip in %s" % [state, src])
 			continue
+		var dropped := keep_skeleton_tracks(anim)
 		_add(lib, state, anim, src, report)
+		(report["clips"][state] as Dictionary)["dropped_node_tracks"] = dropped
 	return _save(lib, name, out_dir, report)
 
 
@@ -102,15 +104,32 @@ static func take_clip(src: String, clip: String) -> Animation:
 		return null
 	var root := ps.instantiate()
 	var out: Animation = null
+	var best := -1.0
 	for p: Node in root.find_children("*", "AnimationPlayer", true, false):
 		var ap := p as AnimationPlayer
 		for n: StringName in ap.get_animation_list():
 			if n == &"RESET":
 				continue
-			if clip.is_empty() or String(n) == clip or String(n).ends_with("/" + clip):
-				out = (ap.get_animation(n).duplicate(true)) as Animation
-				break
-		if out:
+			if not clip.is_empty():
+				if String(n) == clip or String(n).ends_with("/" + clip):
+					out = (ap.get_animation(n).duplicate(true)) as Animation
+					best = INF
+					break
+				continue
+			# No name given: real Mixamo FBX files carry an empty one-key "Take 001" next to
+			# the real "mixamo.com" take, so pick the clip that actually moves (longest,
+			# "mixamo" in the name wins), never simply the first one.
+			var an := ap.get_animation(n)
+			var moving := false
+			for t: int in an.get_track_count():
+				if an.track_get_key_count(t) > 1:
+					moving = true
+					break
+			var s := (an.length if moving else -1.0) + (1000.0 if moving and "mixamo" in String(n).to_lower() else 0.0)
+			if s > best:
+				best = s
+				out = (an.duplicate(true)) as Animation
+		if best == INF:
 			break
 	root.free()
 	return out
@@ -138,6 +157,23 @@ static func make_in_place(anim: Animation) -> float:
 			var v: Vector3 = anim.track_get_key_value(t, k)
 			anim.track_set_key_value(t, k, Vector3(first.x, v.y, first.z))
 	return removed
+
+
+## Shared humanoid clips must only touch bones. A clip file also animates its own scene
+## nodes (an "Armature" node carrying the Blender/FBX Z-up rotation, a "Camera"...): on
+## another rig those tracks either fail to resolve (a warning on every play) or, worse,
+## hit a node with the same name (Mixamo/Blender characters also have "Armature") and
+## tip the whole figure over. Returns the paths it removed.
+static func keep_skeleton_tracks(anim: Animation) -> Array:
+	var dropped: Array = []
+	if not is_retargeted(anim):
+		return dropped
+	for t: int in range(anim.get_track_count() - 1, -1, -1):
+		var p := String(anim.track_get_path(t))
+		if not p.begins_with("%GeneralSkeleton:"):
+			dropped.append(p)
+			anim.remove_track(t)
+	return dropped
 
 
 static func is_retargeted(anim: Animation) -> bool:

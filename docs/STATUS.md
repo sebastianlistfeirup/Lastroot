@@ -32,7 +32,7 @@
 | Balance (bot) | `tools/balance/run_balance.gd -- --seeds=20` | BARK 20/20, SPORE 20/20 sejre, ~10 hjerteliv tabt → `evidence/balance/` |
 | Eksport | Linux + Windows + Web | Linux-build kørt under Xvfb (boss-screenshot). Windows NOT_RUN på Windows. Web kørt i headless Chromium (swiftshader, ~2 fps = softwarerendering, ikke en telefonmåling). |
 | Video | Movie Maker + autoplay | `evidence/video/battle1_spore_autoplay.mp4` (kamp 1, 25 s) |
-| FBX-prøveimport | assimp BSD-testfiler (ikke humanoid) gennem hele kæden | wrapper bygget, klip afspillet; humanoid Synty/Mixamo-FBX stadig uafprøvet → `evidence/asset_pipeline/fbx_dryrun.json` |
+| FBX-prøveimport | assimp BSD-testfiler (ikke humanoid) gennem hele kæden | wrapper bygget, klip afspillet → `fbx_dryrun.json`. **Humanoid (21.10):** egne Synty- og Mixamo-navngivne rigs (FBX+glTF, A-/T-pose) + Mixamo-klip gennem hele kæden 15/15 efter seks rettede fejl (skala ×614, retarget A/T-pose, holdte knogler, Armature-spor, tom take, flad Mixamo-mappe); krydstjek med ægte Mixamo-eksport → `evidence/asset_pipeline/humanoid_dryrun.json`. Købte pakker stadig uafprøvet |
 | Prognose-latens | `tools/balance/profile_forecast.gd` | p95 1,6 ms (mål < 50 ms) → `evidence/perf/forecast_latency.json` |
 | Capture-sæt | `tools/capture_all.sh` | proxy-baseline (126 billeder) i `evidence/captures/proxies_baseline/` |
 | Menneskelig gennemspilning | — | NOT_RUN |
@@ -66,7 +66,7 @@ Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, champi
 - `docs/ASSET_MAP.md` (hver slot → Synty/PolyPerfect/Mixamo-kandidat) og `docs/HOMECOMING.md` (tjekliste til første session hjemme); `tools/synty/doctor.py` og `focus.py`.
 - Gem-skema 2 med migrering af ægte v1-saves (`fixtures/legacy/`), id-/typevalidering, tmp-gendannelse, karantæne af beskadigede filer, egen demo-gemmeplads (D33); dobbelt-belønning umulig efter reload.
 - Layout-smoke over 330 skærmkombinationer i check.sh; klipningsfejl rettet i menu, guide, credits, indstillinger, resultat, rute, kort og mærker.
-- Profilering: `evidence/perf/stress_profile.json` (softwarerendering, ikke spillerhardware), `leak_check.json` (noder og objekter stabile; lækket ved at forlade kampen midt i afspilning er rettet; statisk hukommelse stiger i fordoblende trin efter ~12/24/46 runs — **FAIL, årsag ikke fundet**, se `analysis_21_10`).
+- Profilering: `evidence/perf/stress_profile.json` (softwarerendering, ikke spillerhardware), `leak_check.json` (noder og objekter stabile; lækket ved at forlade kampen midt i afspilning er rettet; statisk hukommelse stiger ~36 KB pr. kamp — **årsag fundet: Godot 4.5.1 efterlader 48 B pr. oprettet Control** (minimal repro `tools/profile/control_growth.tscn`), ubetydeligt for spillere, se `analysis_21_10`).
 - Demo-optagelser (prognose, etagekamp, mutation, boss, demo-slut) i `evidence/video/`; butikstekst verificeret punkt for punkt; "Linux Demo"-preset; gamepad i kamp testet (simuleret).
 - Nightcap/Sporekolos bruger nærkampsangreb i stedet for magi-klip.
 - Mutationskombinationer (16), farveblindhedssimulering, lyd→visuelt-audit, valgrapport for balance-bot (`--meta=seeded`).

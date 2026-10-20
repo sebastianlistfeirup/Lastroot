@@ -1,0 +1,23 @@
+{
+ "status": "RUN",
+ "date": "2026-10-20",
+ "godot": "4.5.1.stable.official.f62fdbde1",
+ "what": "Cross-check of the humanoid fixes with two REAL Mixamo exports, run by hand after tools/synty/humanoid_dryrun.sh (same code as the commit that adds this file).",
+ "files": [
+  {"file": "Samba Dancing.fbx", "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/fbx/Samba%20Dancing.fbx",
+   "sha256": "b9003ee562c87bf03051c3a502411b0808d3513f1d74a2011f7530d9f067069f", "kind": "Mixamo FBX WITH skin, centimetres, mixamorig: bones, takes 'Take 001' (empty, 1 key) + 'mixamo.com' (18.2 s)"},
+  {"file": "Soldier.glb", "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Soldier.glb",
+   "sha256": "dfb230fc1f942f259dd00281a1186953ad602fc5d69067ce63e24b2aa439736b", "kind": "Mixamo character as glTF (mixamorig bones, arms ~13 deg below horizontal at rest), textured"}
+ ],
+ "licence": "Mixamo (Adobe) content redistributed by the three.js examples; NOT CC0. Used only locally as test data in /tmp and assets/quarantine + assets/imported (gitignored), deleted after the run. Never committed; no screenshot of them is committed.",
+ "setup": "Synty-style A-pose SK_Chr_Knight_01.fbx -> unit.B03; Samba FBX -> enemy.E04 (character) AND the humanoid 'victory' clip; Soldier.glb -> enemy.E06; other clips = generated Mixamo-named FBX without skin.",
+ "results": {
+  "build": "all wrappers OK, facing -Z, no warnings; Samba E04 1.65x1.54x0.32 m (cm -> m handled by the importer), Soldier E06 2.94x3.41x0.90 m (T-pose arm span after Fix Silhouette)",
+  "bug_found": "AnimationLibraryBuilder.take_clip took the first clip = the empty 'Take 001' (0.96 s, 1 key per track): victory showed the rest pose. Fixed: the longest clip that moves wins, 'mixamo' in the name preferred -> 'mixamo.com', 18.2 s, retargeted.",
+  "bug_found_2": "Soldier's rest arms are 13 deg below horizontal, under Godot's Fix Silhouette threshold (15 deg), so its rest was not straightened and every clip came out ~11 deg lower than on the other rigs (idle LeftUpperArm (-0.19,-0.98) vs (-0.41,-0.91)). Fixed: threshold 5 deg -> identical.",
+  "idle_LeftUpperArm_dir": {"unit.B03 (Synty-style FBX)": [-0.41, -0.91, -0.06], "enemy.E04 (Samba FBX)": [-0.41, -0.91, -0.06], "enemy.E06 (Soldier glb)": [-0.41, -0.91, -0.06]},
+  "attack_RightUpperArm_dir": {"unit.B03": [0.38, -0.66, -0.65], "enemy.E04": [0.38, -0.66, -0.65], "enemy.E06": [0.38, -0.66, -0.65]},
+  "victory_(Samba clip)_LeftUpperArm_dir": {"unit.B03": [0.83, -0.47, -0.30], "enemy.E04": [0.83, -0.47, -0.30], "enemy.E06": [0.83, -0.47, -0.30]},
+  "note": "Directions sampled at 45 % of each clip in the wrapper's space (facing -Z). The real Mixamo dance plays on the Synty-named A-pose rig with the same bone directions as on the Mixamo rigs it was made for."
+ }
+}

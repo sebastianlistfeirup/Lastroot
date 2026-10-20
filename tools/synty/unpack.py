@@ -7,7 +7,7 @@ Accepts a Unity package (.unitypackage, Synty and PolyPerfect), a zip (the Synty
 downloads). Only models and textures are kept; Unity-only files (.prefab, .mat,
 .meta, .asset, .controller, scripts, shaders) are skipped.
 
-  python3 tools/synty/unpack.py <package|zip|folder> [--pack NAME] [--root assets/quarantine]
+  python3 tools/synty/unpack.py <package|zip|folder> [--pack NAME] [--clips] [--root assets/quarantine]
 
 Result: assets/quarantine/<pack>/... with the pack's own folder layout, plus
 assets/quarantine/<pack>/manifest.json (path, size, sha256 per file). The
@@ -73,7 +73,7 @@ def fail(msg_da: str, msg_en: str, code: int = 2):
     raise SystemExit(code)
 
 
-def unpack(src: str, pack: str, root: str) -> dict:
+def unpack(src: str, pack: str, root: str, clips: bool = False) -> dict:
     if not os.path.exists(src):
         fail("finder ikke '%s'. Angiv stien til en købt pakke (.unitypackage / .zip) eller en mappe med Mixamo-FBX. "
              "Tip: sæt stien i anførselstegn, hvis den indeholder mellemrum." % src,
@@ -102,7 +102,7 @@ def unpack(src: str, pack: str, root: str) -> dict:
              "Er det den rigtige fil (Synty: 'Source Files'/FBX-zip eller .unitypackage)?" % (src, skipped),
              "'%s' contains no models or textures (%d Unity-only files skipped). Nothing was written." % (src, skipped))
     os.makedirs(out, exist_ok=True)
-    manifest = {"pack": pack, "source": os.path.basename(src.rstrip("/\\")), "files": files,
+    manifest = {"pack": pack, "source": os.path.basename(src.rstrip("/\\")), "kind": "clips" if clips else "", "files": files,
                 "models": sum(1 for f in files if os.path.splitext(f["path"])[1].lower() in (".fbx", ".glb", ".gltf", ".obj")),
                 "textures": sum(1 for f in files if os.path.splitext(f["path"])[1].lower() in (".png", ".tga", ".jpg", ".jpeg", ".psd", ".tif", ".tiff", ".exr")),
                 "skipped_unity_files": skipped}
@@ -134,8 +134,10 @@ def main() -> int:
     ap.add_argument("source")
     ap.add_argument("--pack", help="folder name in quarantine (default: from the file name)")
     ap.add_argument("--root", default=ROOT, help="project root (default: this repo)")
+    ap.add_argument("--clips", action="store_true", help="every model in it is an animation clip (a Mixamo download folder); "
+                    "match.py also guesses it from the folder name (Mixamo/anim/clips) or from clip-like file names")
     a = ap.parse_args()
-    m = unpack(a.source, a.pack or slug(a.source), a.root)
+    m = unpack(a.source, a.pack or slug(a.source), a.root, a.clips)
     print("unpacked %s: %d models, %d textures (%d Unity-only files skipped) -> assets/quarantine/%s/"
           % (m["source"], m["models"], m["textures"], m["skipped_unity_files"], m["pack"]))
     return 0
