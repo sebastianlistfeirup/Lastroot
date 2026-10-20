@@ -1,0 +1,27 @@
+extends SceneTree
+## Runs inside a checkout of commit 29da5a2 (first build) and writes real saves.
+func _w(name: String, run: Dictionary, pres: Dictionary) -> void:
+	var f := FileAccess.open(OS.get_environment("OUT") + "/" + name, FileAccess.WRITE)
+	f.store_string(SaveCodec.encode(run, pres))
+	f.close()
+	print("wrote ", name, " phase=", run["phase"])
+
+func _init() -> void:
+	var run := RunReducer.new_run(4242, "BARK")
+	var c: Dictionary = AutoPlayer.choose(run["battle"])
+	var r := RunReducer.apply(run, {"type": "battle", "cmd": c})
+	if r["ok"]:
+		run = r["run"]
+	_w("v1_battle.json", run, {"pending": false, "resolution_id": int(run["battle"].get("resolution_id", 0))})
+	run = AutoPlayer.play_battle(run)
+	_w("v1_reward.json", run, {"pending": true, "resolution_id": 0})
+	var guard := 0
+	while run["phase"] == "reward" and guard < 20:
+		guard += 1
+		var slot := RunReducer.current_slot(run)
+		run = RunReducer.apply(run, {"type": "claim", "slot": slot["id"], "choice": slot["offer"][0]})["run"]
+	_w("v1_route.json", run, {"pending": false, "resolution_id": 0})
+	var route := RunReducer.current_route(run)
+	run = RunReducer.apply(run, {"type": "choose_node", "node": route["options"][0]["id"]})["run"]
+	_w("v1_node.json", run, {"pending": false, "resolution_id": 0})
+	quit(0)
