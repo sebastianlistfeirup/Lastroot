@@ -38,6 +38,10 @@ Thorns 2.,Torne 2.
 Your Bark creatures get 3 Armor when played (champion included).,"Dine Bark-væsner får 3 Panser, når de spilles (også championen)."
 Your first Poison each turn gives +1 to its first target (lowest id on areas).,Din første Gift hver tur giver +1 til det første mål (ved områder: det først indsatte).
 Your normal creatures get +3 max HP when played (not the champion).,"Dine normale væsner får +3 maks. liv, når de spilles (ikke championen)."
+File not found.,Filen findes ikke.
+No save.,Intet gemt spil.
+This save belongs to the demo.,Dette gemte spil hører til demoen.
+This save belongs to the full game.,Dette gemte spil hører til det fulde spil.
 "No space on the %s (%d/%d, needs %d).","Ingen plads på %s (%d/%d, kræver %d)."
 Not enough Resin (needs %d).,Ikke nok Harpiks (kræver %d).
 Choose a different position.,Vælg en anden plads.
@@ -81,6 +85,13 @@ The Ash Crown has left the Crown!,Askekronen har forladt Kronen!
 The tree resolves,Træet afvikler turen
 Turn %d,Tur %d
 Wave %d of %d arrives on the Roots,Bølge %d af %d ankommer til Rødderne
+The save contains unknown or invalid data.,Det gemte spil indeholder ukendte eller ugyldige data.
+The save file cannot be read.,Filen med det gemte spil kan ikke læses.
+The save has no run.,Det gemte spil indeholder intet løb.
+The save is damaged (checksum mismatch).,Det gemte spil er beskadiget (kontrolsum passer ikke).
+The save is damaged.,Det gemte spil er beskadiget.
+This is not a LASTROOT save.,Dette er ikke et gemt LASTROOT-spil.
+This save comes from a newer version of the game (schema %d).,Dette gemte spil kommer fra en nyere version af spillet (skema %d).
 %d lost,%d tabt
 %d slain,%d nedlagt
 %s reached the Heart: −%d,%s nåede Hjertet: −%d

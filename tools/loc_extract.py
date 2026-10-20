@@ -30,6 +30,9 @@ CSV_PATH = os.path.join(ROOT, "localization", "translations.csv")
 LOC_CALL = re.compile(r'Loc\.t\(\s*"((?:[^"\\]|\\.)*)"\s*\)')
 PAIR = re.compile(r'"((?:[^"\\]|\\.)*)"\s*:\s*"((?:[^"\\]|\\.)*)"')
 RETURN_STR = re.compile(r'return\s+"((?:[^"\\]|\\.)+)"')
+# Save errors shown in the damaged-save dialog (SaveCodec._fail / SaveService "error").
+SAVE_MSG = re.compile(r'(?:_fail\(\s*"[a-z_]+"\s*,\s*|"error":\s*|\belse\s+)"((?:[^"\\]|\\.)+)"')
+SAVE_FILES = ["scripts/save/save_codec.gd", "scripts/autoload/save_service.gd"]
 PLACEHOLDER = re.compile(r"%[-+0-9.]*[dsfxX%]|\{[a-z_]+\}")
 DICT_NAMES = ["FACTION_PITCH", "FACTION_NAME", "stat_names"]
 REASON_FILES = ["scripts/domain/run/run_reducer.gd", "scripts/domain/battle/battle_reducer.gd",
@@ -97,6 +100,11 @@ def from_code():
             if "%" in s or not s[:1].isupper():
                 continue  # formatted reasons fall back to English; ids are not text
             out.setdefault(s, rel + ":reason")
+    for rel in SAVE_FILES:
+        p = os.path.join(ROOT, rel)
+        if os.path.exists(p):
+            for m in SAVE_MSG.finditer(open(p, encoding="utf-8").read()):
+                out.setdefault(unescape(m.group(1)), rel + ":save")
     return out
 
 

@@ -46,10 +46,7 @@ var accepted: Array = []
 var known: Array = []
 ## Real problems found by this test that are NOT fixed yet (owner outside the
 ## LR-28 layout pass). Listed in the report as known issues, not as passes.
-const KNOWN_ISSUES := [
-	{"kind": "outside_view", "config": "tablet_1024x1366", "screen": "battle_boss", "path": "Battle/",
-		"issue": "Portrait 1024x1366 (430x573 logical): at the largest text size the Ash Crown's unit badge is placed above the top edge (3D projection of the Crown floor). Fix belongs in BattleScreen._layout_badges_portrait (clamp badges below the top bar)."},
-]
+const KNOWN_ISSUES := []
 ## Deliberate truncations that are not lost information (reviewed, LR-28).
 const ACCEPTED := [
 	{"kind": "text_truncated", "path": "TopBar", "prefix": "⚑",

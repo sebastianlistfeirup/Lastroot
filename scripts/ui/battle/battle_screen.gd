@@ -513,6 +513,12 @@ func _layout_badges_portrait(cam: Camera3D) -> void:
 					moved = true
 					break
 		placed.append(c)
+	# Never under the top bar or off screen (tall boss + big text on a short
+	# portrait view): a badge that would leave the top stays just below the bar.
+	var top_node: Control = root.get_node_or_null("TopBar")
+	var min_y: float = (top_node.position.y + top_node.size.y + 2.0) if top_node else 2.0
+	for c: Control in order:
+		c.position.y = maxf(c.position.y, min_y)
 
 
 static func _badge_lower_first(a: Control, c: Control) -> bool:

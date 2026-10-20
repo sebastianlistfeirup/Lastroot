@@ -259,7 +259,7 @@ func _on_load_backup() -> void:
 	if res.get("ok", false):
 		_goto_phase()
 	else:
-		_dialog.show_message(Loc.t("Damaged save"), Loc.t("The backup could not be read either.") + "\n" + Loc.t(str(res.get("error", ""))),
+		_dialog.show_message(Loc.t("Damaged save"), Loc.t("The backup could not be read either.") + "\n" + Loc.reason(str(res.get("error", ""))),
 			[[Loc.t("OK"), UiKit.ASH, func() -> void: pass]])
 
 

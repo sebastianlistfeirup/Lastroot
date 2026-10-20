@@ -20,11 +20,13 @@
 |---|---|---|
 | Validatorer | `python3 tools/validate_catalog.py`, `validate_plan.py` | valid |
 | Parse | `godot --headless --path . res://scenes/tests/compile_all.tscn` | 0 fejl → `evidence/compile_report.json` |
-| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **122 tests, 0 fejl** → `evidence/test_report.json` |
+| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **145 tests, 0 fejl** → `evidence/test_report.json` |
 | Prognosescenarier | 120 gemte (`fixtures/forecast/scenarios.json`) | state-hash og eventrækkefølge matcher rigtig afvikling |
 | Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **46 checks, 0 fejl** (inkl. tastatur, gamepad, tekststørrelse, saves) → `evidence/scene_smoke.json` |
 | Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **637 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding, lyd, playtest-log, demo, telefon-kamp) → `evidence/meta_smoke.json` |
 | Web på telefon (rigtig touch) | `node tools/web_phone_flow.js` (Playwright, Chromium) | **12 trin bestået** → `evidence/web_phone_flow/` |
+| Layout (alle skærme) | `godot --headless --path . res://scenes/tests/layout_smoke.tscn` (i check.sh) | **330 skærme, 0 fejl** (720p, 1080p, telefon, tablet; tekst 100/130 %, en/da) → `evidence/layout/layout_report.json` |
+| Release-hygiejne | `python3 tools/release_check.py` (i check.sh) | ok → `evidence/release/release_check.json` |
 | Oversættelse | `python3 tools/loc_extract.py --check` | 423 nøgler, 0 mangler |
 | Grafikpipeline | `tools/synty/selftest.sh` | 22/22 (falske pakker) → `evidence/asset_pipeline/selftest.json` |
 | Balance (bot) | `tools/balance/run_balance.gd -- --seeds=20` | BARK 20/20, SPORE 20/20 sejre, ~10 hjerteliv tabt → `evidence/balance/` |
@@ -60,6 +62,10 @@ Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, champi
 - Test af alle 31 kort×opgradering og bossens immunitet mod flyt/fjern.
 - `tools/release_check.py` i check.sh (ingen købte filer/hemmeligheder i git, interne mapper ude af builds); fandt og fjernede testscener fra eksporten; build-checksums.
 - `docs/ASSET_MAP.md` (hver slot → Synty/PolyPerfect/Mixamo-kandidat) og `docs/HOMECOMING.md` (tjekliste til første session hjemme); `tools/synty/doctor.py` og `focus.py`.
+- Gem-skema 2 med migrering af ægte v1-saves (`fixtures/legacy/`), id-/typevalidering, tmp-gendannelse, karantæne af beskadigede filer, egen demo-gemmeplads (D33); dobbelt-belønning umulig efter reload.
+- Layout-smoke over 330 skærmkombinationer i check.sh; klipningsfejl rettet i menu, guide, credits, indstillinger, resultat, rute, kort og mærker.
+- Profilering: `evidence/perf/stress_profile.json` (softwarerendering, ikke spillerhardware), `leak_check.json` (noder stabile; objekter/statisk hukommelse vokser lidt pr. run — **FAIL, årsag ikke fundet**; 2 objekter lækker ved at forlade kampen midt i afspilning).
+- Demo-optagelser (prognose, etagekamp, mutation, boss, demo-slut) i `evidence/video/`; butikstekst verificeret punkt for punkt; "Linux Demo"-preset; gamepad i kamp testet (simuleret).
 - Nightcap/Sporekolos bruger nærkampsangreb i stedet for magi-klip.
 - Mutationskombinationer (16), farveblindhedssimulering, lyd→visuelt-audit, valgrapport for balance-bot (`--meta=seeded`).
 

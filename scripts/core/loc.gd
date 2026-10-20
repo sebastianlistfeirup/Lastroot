@@ -63,6 +63,7 @@ func reason(text: String) -> String:
 		["No space on the %s (%d/%d, needs %d).", Loc.t("No space on the %s (%d/%d, needs %d).")],
 		["Not enough Sap (needs %d).", Loc.t("Not enough Sap (needs %d).")],
 		["Not enough Resin (needs %d).", Loc.t("Not enough Resin (needs %d).")],
+		["This save comes from a newer version of the game (schema %d).", Loc.t("This save comes from a newer version of the game (schema %d).")],
 		["Your deck must keep at least %d normal cards.", Loc.t("Your deck must keep at least %d normal cards.")],
 	]
 	for pair: Array in templates:

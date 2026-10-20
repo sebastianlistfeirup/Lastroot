@@ -676,7 +676,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Grundlag: tekststørrelse, reduceret bevægelse, animationshastighed, en/da, glyf+tal for alle statusser, 48 px-mål, tastatur/gamepad i kampen, portrætlayout-prototype. Mangler fysisk telefon/iPad-test."
+   "notes": "Grundlag: tekststørrelse, reduceret bevægelse, animationshastighed, en/da, glyf+tal for alle statusser, 48 px-mål, tastatur/gamepad i kampen, portrætlayout-prototype. Mangler fysisk telefon/iPad-test. | 21.10: layout_smoke (330 skærmkombinationer, 720p/1080p/430x932/1024x1366, tekst 100/130 %, en/da, touch ≥ 44 px) i check.sh, 0 fejl; klipningsfejl rettet. Fysisk telefon/tablet stadig NOT_RUN."
   },
   {
    "id": "LR-29",
@@ -701,7 +701,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware."
+   "notes": "Grundlag: prognose p95 1,6 ms (evidence/perf), savefuzz og trunkering afvises, korrupt->backup, fremtidig version bevares. Mangler fps-måling på referencehardware. | 21.10: skema 2 + v1-migrering af ægte legacy-saves, validate_run, tmp-gendannelse, karantæne, demo-plads (D33), dobbelt-reward-tests; stress- og leak-profil i evidence/perf/. Leak-check FAIL (små objekt-/hukommelsesstigninger, årsag ukendt) + 2 objekter ved exit midt i afspilning — åbent."
   },
   {
    "id": "LR-30",
@@ -809,7 +809,8 @@
    "status": "TODO",
    "owner": null,
    "last_commit": null,
-   "evidence": []
+   "evidence": [],
+   "notes": " | 21.10: optagelser (prognose, etagekamp, mutation, boss, demo-slut) i evidence/video/ med prognose-vs-afvikling-log; butikstekst verificeret med bevis-kolonne; Web Demo + Linux Demo eksporteret, demo slutter efter 2 kampe og har egen gemmeplads (D33)."
   },
   {
    "id": "LR-35",
