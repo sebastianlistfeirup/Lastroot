@@ -23,3 +23,7 @@ Katalogtallene er **uændrede** (biblens baseline). Nedenstående er eksperiment
 **Forslag (ikke indført som standard):** start med *fjende-HP ×1,3* (Askeling 5→7, Kulskjold 9→12, Glødjæger 7→9, Sodbærer 12→16, Stenbrud 16→21, Askekronen 60→78). Det holder god leg sikker (greedy 100 %, men ~24 tabt hjerteliv) og gør tilfældigt spil til et nederlag i de fleste runs. Afprøv med mennesker før du låser det; registrér beslutningen i `docs/DECISIONS.md`, ret `design/catalog.json`, kør `python3 tools/gen_definitions.py`, regenerér prognosefixtures (`tools/make_forecast_fixtures.gd`) og genkør balance.
 
 Genskab: `godot --headless --path . --script res://tools/balance/run_balance.gd -- --seeds=20 --bot=casual --enemy_hp=1.3` (flags: `--enemy_hp`, `--enemy_atk`, `--boss_hp`, `--heart`, `--resin`). Rapporter: `evidence/balance/balance_report_*.json`.
+
+## Valg i bot-runs (LR-27, 21.10)
+
+`python3 tools/balance/pick_report.py` → `evidence/balance/picks_<tag>.md`: hvilke kort, relikvier, mutationer og retninger runs slutter med, og sejre med dem. Fund: botten vælger kun kort ud fra værdi; relikvie-, mutations-, retnings- og lejrvalg er "første mulighed", så M01+M02 i 100 % og Root Sprout+ i 90 % er bot-artefakter, ikke dominans. Biblens krav "ingen kort/relikvie dominerer alle valg" kræver derfor menneskelige spiltest (eller en smartere bot, hvis det ønskes).
