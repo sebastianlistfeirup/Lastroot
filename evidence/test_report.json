@@ -10,7 +10,7 @@
     "test_rng.gd": 5,
     "test_run.gd": 12,
     "test_save.gd": 8,
-    "test_visual_slots.gd": 19
+    "test_visual_slots.gd": 20
   },
   "names": [
     "test_battle_matrix/test_t01_poison_ignores_armor",
@@ -117,6 +117,6 @@
     "test_save/test_truncated_save_rejected"
   ],
   "status": "PASS",
-  "tests": 121,
-  "timestamp": "2026-10-20T11:29:09"
+  "tests": 122,
+  "timestamp": "2026-10-20T11:33:55"
 }

@@ -99,8 +99,9 @@ func _step(e: Dictionary, disp: Dictionary) -> void:
 		"attack":
 			var v: UnitView = screen.view(aid)
 			if v != null:
-				var contact: float = v.play(&"cast" if v.def_id.begins_with("S") else &"attack", speed)
-				if v.def_id.begins_with("S") and v.side == "ally":
+				var st: StringName = UnitAnimator.attack_state(v.slot_id)
+				var contact: float = v.play(st, speed)
+				if st == &"cast" and v.side == "ally":
 					screen.bolt(aid, tid, maxf(contact, 0.15))
 				AudioBridge.play("attack_enemy" if v.side == "enemy" else ("attack_spore" if v.def_id.begins_with("S") else "attack_bark"))
 				await _wait(contact * speed)

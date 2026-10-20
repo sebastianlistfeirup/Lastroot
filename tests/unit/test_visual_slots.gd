@@ -444,3 +444,13 @@ func test_heart_health_bands() -> Array:
 		f.append("backdrop: depth layers missing")
 	b.free()
 	return f
+
+
+func test_attack_state_follows_slot_clips() -> Array:
+	var f: Array = []
+	var want := {"unit.S01": &"cast", "unit.S05": &"cast", "unit.S04": &"attack", "unit.S06": &"attack",
+		"unit.B01": &"attack", "enemy.E01": &"attack"}
+	for id: String in want.keys():
+		if UnitAnimator.attack_state(id) != want[id]:
+			f.append("%s attack state %s, want %s" % [id, UnitAnimator.attack_state(id), want[id]])
+	return f

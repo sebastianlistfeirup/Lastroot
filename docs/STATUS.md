@@ -20,7 +20,7 @@
 |---|---|---|
 | Validatorer | `python3 tools/validate_catalog.py`, `validate_plan.py` | valid |
 | Parse | `godot --headless --path . res://scenes/tests/compile_all.tscn` | 0 fejl → `evidence/compile_report.json` |
-| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **121 tests, 0 fejl** → `evidence/test_report.json` |
+| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **122 tests, 0 fejl** → `evidence/test_report.json` |
 | Prognosescenarier | 120 gemte (`fixtures/forecast/scenarios.json`) | state-hash og eventrækkefølge matcher rigtig afvikling |
 | Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **40 checks, 0 fejl** (inkl. tastatur, tekststørrelse, saves) → `evidence/scene_smoke.json` |
 | Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **637 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding, lyd, playtest-log, demo, telefon-kamp) → `evidence/meta_smoke.json` |

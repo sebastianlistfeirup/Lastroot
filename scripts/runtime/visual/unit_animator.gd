@@ -107,6 +107,15 @@ static func _find_player(n: Node) -> AnimationPlayer:
 	return null
 
 
+## Which state an attack plays for a unit: "cast" when the slot lists a cast
+## clip (Spore Sage, Mycelium Keeper), else "attack" (Nightcap stabs, the
+## Colossus slams). Data: animation_sets.json -> slots.<id>.states.
+static func attack_state(slot_id: String) -> StringName:
+	_slot_set(slot_id)
+	var s: Dictionary = (_sets.get("slots", {}) as Dictionary).get(slot_id, {}) as Dictionary
+	return &"cast" if (s.get("states", []) as Array).has("cast") else &"attack"
+
+
 static func _slot_set(id: String) -> Dictionary:
 	if _sets.is_empty():
 		_sets = {"_": {}}
