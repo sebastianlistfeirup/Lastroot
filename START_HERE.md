@@ -32,6 +32,8 @@ Et spilbart **greybox-gennemløb** af hele LASTROOT:
 - `docs/ASSET_PLAN.md` — hvilke Synty-/PolyPerfect-pakker og Mixamo-klip der foreslås pr. slot (navnene er søgehints, *ikke* kontrolleret mod dine filer).
 - `docs/SCENE_ASSEMBLY.md` — hvor hver del sidder i træet (etager i y = 0 / 4,5 / 9, hjertet øverst, stamme bagved).
 - `scenes/tests/asset_gallery.tscn` — **style gate**: alle figurer under samme lys. `scenes/tests/rig_lab.tscn` — én rig: skala, fødder, retning, alle klip.
+- **Før/efter:** `tools/capture_all.sh efter_import --compare=proxies_baseline` tager alle screenshots og laver en side med proxies vs. dine rigtige modeller (`evidence/captures/…/compare_proxies_baseline.html`; disse mapper committes ikke).
+- Første rigtige import: se afsnit "6b. Første rigtige import" i `docs/SYNTY_INTEGRATION.md` (kæden er prøvet på rigtige FBX-filer, men endnu ikke på en humanoid Synty/Mixamo-fil).
 - Thornhart er et firbenet dyr: brug et PolyPerfect-dyr med egne klip, ikke humanoid retarget.
 - Editor-docken "Asset-slots" kan slås til i `project.godot` (se `docs/SYNTY_INTEGRATION.md`).
 
@@ -54,6 +56,10 @@ Se `docs/STATUS.md` (porte, opgaver, tests, blokeringer, næste tre opgaver) og 
 - **Fase 1** er implementeret og automatisk testet. Porten er *ikke* erklæret bestået, fordi den kræver ting containeren ikke kan: rigtig import af dine Synty/PolyPerfect-filer (LR-11), Windows-buildet kørt på din maskine og en menneskelig gennemspilning (LR-12).
 - Meget af **fase 2** er bygget i domænet (alle 24 kort, relikvier, mutationer, championretninger, rute/økonomi, kamp 2-5 og boss, 120 prognosescenarier). De står som `IN_PROGRESS` med noter i `plan/tasks.json`, fordi faseporten skal bestås først.
 - **Balance**: botten vinder alle 40 testruns. Sandsynligvis for let — men tal ændres først efter en rigtig spiltest (D24).
+
+## 5b. Spiltestere
+
+`docs/PLAYTEST_GUIDE.md`: testere spiller (desktop-build eller web), svarer på det lille skema efter hvert løb og sender eksportfilen (Indstillinger → Spiltestdata → Eksportér). Alt bliver på deres egen maskine. Demo-build: eksportér preset "Web Demo" (slutter efter 2 kampe, `docs/DEMO_PLAN.md`).
 
 ## 6. Når du kommer hjem (forslag til rækkefølge)
 

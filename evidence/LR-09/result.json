@@ -1,6 +1,6 @@
 {
   "task_id": "LR-09",
-  "commit": "0c6e186",
+  "commit": "8a0946d",
   "engine_version": "4.5.1-stable (official)",
   "command": "scene smoke (bot sender de samme kommandoer som UI'et)",
   "exit_code": 0,
@@ -32,7 +32,7 @@
     "Én menneskelig gennemspilning af kamp 1 med hver champion (onboarding-hints vurderes)."
   ],
   "fixture": null,
-  "timestamp": "2026-10-19T22:12:58+00:00",
+  "timestamp": "2026-10-20T00:17:20+00:00",
   "status": "VERIFYING",
   "artifacts": [
     "evidence/test_report.json",

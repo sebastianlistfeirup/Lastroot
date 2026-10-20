@@ -20,15 +20,18 @@
 |---|---|---|
 | Validatorer | `python3 tools/validate_catalog.py`, `validate_plan.py` | valid |
 | Parse | `godot --headless --path . res://scenes/tests/compile_all.tscn` | 0 fejl → `evidence/compile_report.json` |
-| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **115 tests, 0 fejl** → `evidence/test_report.json` |
+| Domæne + prognose + kort + saves + meta + visuals | `godot --headless --path . --script res://tests/run_tests.gd` | **117 tests, 0 fejl** → `evidence/test_report.json` |
 | Prognosescenarier | 120 gemte (`fixtures/forecast/scenarios.json`) | state-hash og eventrækkefølge matcher rigtig afvikling |
 | Kampscene (rigtigt input) | `godot --headless --path . res://scenes/tests/scene_smoke.tscn` | **40 checks, 0 fejl** (inkl. tastatur, tekststørrelse, saves) → `evidence/scene_smoke.json` |
-| Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **455 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding) → `evidence/meta_smoke.json` |
-| Oversættelse | `python3 tools/loc_extract.py --check` | 350 nøgler, 0 mangler |
+| Meta-skærme (rigtige knapper) | `godot --headless --path . res://scenes/tests/meta_smoke.tscn` | **625 checks, 0 fejl** (inkl. genoptag, tastatur/pad, onboarding, lyd, playtest-log, demo, telefon-kamp) → `evidence/meta_smoke.json` |
+| Oversættelse | `python3 tools/loc_extract.py --check` | 423 nøgler, 0 mangler |
 | Grafikpipeline | `tools/synty/selftest.sh` | 22/22 (falske pakker) → `evidence/asset_pipeline/selftest.json` |
 | Balance (bot) | `tools/balance/run_balance.gd -- --seeds=20` | BARK 20/20, SPORE 20/20 sejre, ~10 hjerteliv tabt → `evidence/balance/` |
 | Eksport | Linux + Windows + Web | Linux-build kørt under Xvfb (boss-screenshot). Windows NOT_RUN på Windows. Web kørt i headless Chromium (swiftshader, ~2 fps = softwarerendering, ikke en telefonmåling). |
 | Video | Movie Maker + autoplay | `evidence/video/battle1_spore_autoplay.mp4` (kamp 1, 25 s) |
+| FBX-prøveimport | assimp BSD-testfiler (ikke humanoid) gennem hele kæden | wrapper bygget, klip afspillet; humanoid Synty/Mixamo-FBX stadig uafprøvet → `evidence/asset_pipeline/fbx_dryrun.json` |
+| Prognose-latens | `tools/balance/profile_forecast.gd` | p95 1,6 ms (mål < 50 ms) → `evidence/perf/forecast_latency.json` |
+| Capture-sæt | `tools/capture_all.sh` | proxy-baseline (126 billeder) i `evidence/captures/proxies_baseline/` |
 | Menneskelig gennemspilning | — | NOT_RUN |
 | Fysisk telefon/iPad | — | NOT_RUN (kun browser-emulering) |
 
@@ -45,8 +48,12 @@
 2. LR-11/LR-13: `tools/synty/build.sh` med de købte pakker; godkend line-up i `scenes/tests/asset_gallery.tscn`.
 3. LR-27: menneskelig spiltest af sværhedsgrad (botten vinder for let, D24) før talændringer.
 
+## Også bygget (ud over fase 1)
+
+Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, championretninger, relikvier, mutationer), "Sådan spiller du" + førstegangsguide, tastatur/gamepad, 3D-dioramaer bag menu/rute/resultat, kortportrætter fra visual slots, målringe og fare-ringe, hjertets skadestilstande, udtryksfulde proxy-animationer, lyd v2 (procedural, egen), lokal spiltest-log med svarformular og eksport, demo-tilstand (2 kampe, preset "Web Demo"), app-ikon og splash, telefonlayout med prognose-ark og tommelfinger-knaprække.
+
 ## Kendte begrænsninger
 
 - Alle figurer/miljø er proxies; ingen rigtige animationsklip.
-- Portrætlayout er en prototype (tætte badges ved fulde etager).
+- Portrætlayout er gennemarbejdet, men kun testet i browser-emulering (ikke fysisk telefon). + -pladser kan ligge tæt ved fulde etager.
 - Nogle afvisningsårsager med tal fra reduceren vises på engelsk i dansk sprog (UI deaktiverer normalt handlingen med egen dansk årsag).
