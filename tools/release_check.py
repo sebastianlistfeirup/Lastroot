@@ -124,7 +124,8 @@ def main():
                             fails.append({"check": "secret_in_build", "file": rel, "pattern": name})
         if checksums and "--checksums" in sys.argv:
             os.makedirs(os.path.join(ROOT, "evidence"), exist_ok=True)
-            open(os.path.join(ROOT, "evidence", "build_checksums.txt"), "w").write("\n".join(sorted(checksums)) + "\n")
+            head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True).stdout.decode().strip()
+            open(os.path.join(ROOT, "evidence", "build_checksums.txt"), "w").write("\n".join(sorted(checksums)) + "\ncommit %s\n" % head)
     else:
         notes.append("no builds/ folder: checksums and pack scan skipped (NOT_RUN)")
 

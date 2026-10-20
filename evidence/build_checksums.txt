@@ -1,0 +1,5 @@
+5c676ab281e2536e8c9ac5e473d46723f68cce0b6ac97f9ff4ac24895bce5443  builds/windows/Lastroot.exe
+6498359ba889796a0d95a2f71113ac184badc0f2d84cf28f4103c7e399d2d547  builds/web/index.wasm
+8af7f3b108d415f22b80a37e82e423728399f096a36d64f49eff0015512001aa  builds/web/index.pck
+dc83597e67832e944e0e7e7cd96ca3e6130519ab9ed2f66f857ee905241342f8  builds/linux/Lastroot.x86_64
+commit eefacc7
