@@ -737,7 +737,7 @@ func _set_locked(v: bool) -> void:
 	locked = v
 	btn_end.disabled = v
 	btn_confirm.disabled = v or pending.is_empty()
-	btn_cancel.disabled = v
+	btn_cancel.disabled = v or mode == "idle"
 	for c in hand_box.get_children():
 		(c as CardView).playable = (not v) and _card_playable((c as CardView).instance_id)
 
