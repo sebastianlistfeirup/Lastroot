@@ -6,21 +6,47 @@ extends Node
 ## the run. Skip jumps straight to the final state; 0.5x/1x/2x only scale time.
 
 signal finished
+signal _resume
 
 var screen: Node  # BattleScreen
 var speed: float = 1.0
 var playing: bool = false
 var _skip: bool = false
+var _waiting: bool = false
+var _wait_id: int = 0
+## Set when the screen leaves mid-playback; the caller must not touch the UI then.
+var left_tree: bool = false
 
 
+## Skip also resumes a pending wait at once, so a replay never stays parked
+## on a timer (leaving the screen mid-playback used to strand the coroutine
+## states of play/_step, LR-29 leak finding).
 func skip() -> void:
 	_skip = true
+	if _waiting:
+		_waiting = false
+		_resume.emit()
+
+
+func _exit_tree() -> void:
+	if playing:
+		left_tree = true
+		skip()
 
 
 func _wait(t: float) -> void:
 	if _skip or t <= 0.0:
 		return
-	await get_tree().create_timer(t / maxf(speed, 0.1)).timeout
+	_wait_id += 1
+	_waiting = true
+	get_tree().create_timer(t / maxf(speed, 0.1)).timeout.connect(_on_wait_timeout.bind(_wait_id))
+	await _resume
+
+
+func _on_wait_timeout(id: int) -> void:
+	if id == _wait_id and _waiting:
+		_waiting = false
+		_resume.emit()
 
 
 ## `disp` = per-unit display snapshots (from the state before the command),

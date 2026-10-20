@@ -679,6 +679,8 @@ func _on_run_changed(events: Array) -> void:
 	var long_play: bool = events.any(func(e: Dictionary) -> bool: return e.get("kind", "") == "resolution_end")
 	btn_skip.visible = long_play
 	await presenter.play(visual_events, disp)
+	if presenter.left_tree or not is_inside_tree():
+		return  # left mid-playback (Save & quit): the save keeps its presentation checkpoint
 	btn_skip.visible = false
 	GameSession.presentation_done()
 	if GameSession.phase() == "battle":
