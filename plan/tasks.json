@@ -537,7 +537,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Grundlag: TreeStage med tre etager i REF_05-stemning (rødder/stamme/krone), stammevarianter, alle fire mutationer synlige uden for spilområdet, tomgangsglød. Proxies; Synty-træ mangler."
+   "notes": "Grundlag: TreeStage med tre etager i REF_05-stemning (rødder/stamme/krone), stammevarianter, alle fire mutationer synlige uden for spilområdet, tomgangsglød. Proxies; Synty-træ mangler. | 21.10: alle 16 mutationskombinationer optaget i rigtig kampskærm (tools/capture_mutation_combos.sh → evidence/mutations/, kontaktark); tal/prognose læsbare med proxies."
   },
   {
    "id": "LR-23",

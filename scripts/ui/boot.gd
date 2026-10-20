@@ -1,6 +1,6 @@
 extends Node
 ## Entry scene. Opens the main menu, or (dev/QA) a named fixture:
-##   godot --path . -- --setup=midbattle --faction=SPORE --seed=3
+##   godot --path . -- --setup=midbattle --faction=SPORE --seed=3 [--mutations=M01,M02]
 ##   ... --capture=evidence/shots/x.png [--frames=90] [--size=1920x1080]
 
 
@@ -14,6 +14,11 @@ func _ready() -> void:
 		get_window().size = Vector2i(int(wh[0]), int(wh[1]))
 	if args.has("setup"):
 		GameSession.run = DebugFixtures.make(args["setup"], args.get("faction", "BARK"), int(args.get("seed", "1")))
+		if args.has("mutations"):  # QA: --mutations=M01,M03 (or empty) overrides the fixture's tree
+			var muts: Array = Array(str(args["mutations"]).split(",", false))
+			GameSession.run["mutations"] = muts
+			if GameSession.run.get("phase", "") == "battle":
+				GameSession.run["battle"]["mutations"] = muts.duplicate()
 		GameSession.presentation_pending = false
 		AppFlow.goto_phase()
 	else:
