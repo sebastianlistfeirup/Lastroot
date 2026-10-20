@@ -629,7 +629,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Grundlag: boss-intro (kan springes over), bossbanner fra kampstart, boss-advarsler i prognosen, 36 placeholder-lydcues + musik, resultatskærm med træets opsummering."
+   "notes": "Grundlag: boss-intro (kan springes over), bossbanner fra kampstart, boss-advarsler i prognosen, 36 placeholder-lydcues + musik, resultatskærm med træets opsummering. | 21.10: audit \"kritisk lyd har visuelt alternativ\" for alle 24 cues → evidence/audio/visual_alternatives.md (ingen mangler)."
   },
   {
    "id": "LR-27",
