@@ -1,0 +1,59 @@
+{
+  "adapter": "",
+  "all_end_turns_match_forecast": true,
+  "args": {
+    "autoplay": "1",
+    "continue": "1",
+    "delay": "1000",
+    "log": "s2_demo_continue.json",
+    "max_seconds": "3"
+  },
+  "battles_won": 1,
+  "continue_result": {
+    "code": "ok",
+    "error": "",
+    "ok": true,
+    "source": "main"
+  },
+  "end_turns": [],
+  "engine": "4.5.1-stable (official)",
+  "final_mode": "full",
+  "final_mutations": [],
+  "final_phase": "reward",
+  "final_result": "",
+  "movie_seconds": 3.0,
+  "notes": [],
+  "phases": [
+    {
+      "battle_index": 0,
+      "phase": "reward",
+      "result": "",
+      "t": 0.0
+    }
+  ],
+  "renderer": "forward_plus",
+  "save_after": {
+    "battle_index": 0,
+    "faction": null,
+    "feature_demo": true,
+    "has_save": true,
+    "load_ok": true,
+    "mode": "full",
+    "phase": "reward",
+    "result": "",
+    "run_id": "LR-00000005",
+    "save_file": "$XDG_DATA_HOME/godot/app_userdata/LASTROOT/saves/run.json"
+  },
+  "save_before": {
+    "battle_index": 0,
+    "faction": null,
+    "feature_demo": true,
+    "has_save": true,
+    "load_ok": true,
+    "mode": "full",
+    "phase": "reward",
+    "result": "",
+    "run_id": "LR-00000005",
+    "save_file": "$XDG_DATA_HOME/godot/app_userdata/LASTROOT/saves/run.json"
+  }
+}

@@ -31,4 +31,17 @@ Mål til spiltest (forslag, ikke målt endnu): andel testere der gennemfører ka
 - Ingen manipulerede tal: belønninger, skade og prognose skal være dem, motoren giver.
 - Pladsholdergrafik og -lyd vises som det, de er; tekst som "work in progress" bevares, indtil rigtige assets er importeret.
 - Klip må forkortes og sættes sammen, men ikke vise funktioner, der ikke findes i demoen.
-- Hvert klip noteres i en optagelsesliste: fil, commit, seed, platform, opløsning.
+- Hvert klip noteres i en optagelsesliste: fil, commit, seed, platform, opløsning. Listen er `evidence/video/README.md` (fire klip: prognose, etagekamp, mutation, Askekronen; optaget med `tools/record_clip.sh`).
+
+## Demo-build check (20.10.2026, commit `6e98bfb`)
+
+Bevis: `evidence/demo/result.json` (status **PARTIAL**), logs `evidence/demo/s1..s3_*.json`, `evidence/demo/demo_complete_1280x720.png`, `evidence/demo/demo_end.mp4` (21,8 s: slutningen af kamp 2 → "End of the demo"), `evidence/demo/web_demo_title.png`.
+
+- **Web Demo eksporteret:** `godot --headless --path . --export-release "Web Demo" builds/web_demo/index.html` (exit 0). `index.pck` indeholder `_custom_features = demo`. `node tools/web_demo_check.js` (headless Chromium, swiftshader): titelmenuen nås efter 27 s uden scriptfejl og viser "DEMO · first two battles". Demoen er *ikke* spillet igennem i browseren.
+- **Linux-demo:** der findes intet Linux-demo-preset i `export_presets.cfg`. Til kontrollen fik en kopi af commit'et (uden for repoet) to ekstra presets, "Linux QA" og "Linux Demo QA" (`custom_features="demo"`), magen til "Linux" bortset fra at `scenes/tests/` ikke er udelukket, så QA-driveren `scenes/tests/record_clip.tscn` følger med. Driveren starter et løb ad spillerens vej (`GameSession.new_run`) og lader botten spille via `AutoDriver`; når løbet slutter, trykkes slutbannerets knap, og resultatskærmen vises.
+- **Demogrænsen virker i det eksporterede demobuild:** løb `mode=demo`; botten bad om 3 kampe, men løbet sluttede efter 2 vundne (`phase=won`, `result=demo_complete`, 60,7 s spilletid) med skærmen "End of the demo", panelet "In the full game" og rigtige tal (2/2 kampe, 6 ture, 20 kort). Alle 6 tur-afslutninger matchede prognosen.
+- **Save i dag (læst i `scripts/autoload/save_service.gd`, ikke ændret):** demo og fuldt spil bruger *samme* filer, `user://saves/run.json` + `run.backup.json` (desktop: `~/.local/share/godot/app_userdata/LASTROOT/saves/`; samme projektnavn, ingen egen brugermappe). Demotilstand er kun feltet `run.mode = "demo"`.
+  - Et nyt demoløb **overskriver et fuldt løb og dets backup** (kørsel s1 → s3: `LR-00000005 mode=full` → `LR-00000007 mode=demo`; hverken `run.json` eller `run.backup.json` indeholder det fulde løb bagefter). I menuen kommer først dialogen "Start a new run? Your current run will end" — driveren går uden om menuen, men en spiller, der bekræfter "New Run", mister det fulde løb.
+  - Demobuildet kan **fortsætte et fuldt løb** med Continue (s2: `mode=full` indlæst i demobuildet), og så gælder demogrænsen ikke.
+  - Web: `user://` ligger i browserens IndexedDB pr. origin; en Web Demo på samme origin som det fulde web-build vil dele save (udledt af Godots web-platform, ikke testet).
+  - **LR-34-kriteriet "Demo kan ikke ødelægge et fuldt run-save" er derfor ikke opfyldt på `6e98bfb`.** En anden agent tilføjer adskilte demo-savestier i `save_service.gd`; kør kontrollen igen bagefter (kommandoerne står i `evidence/demo/result.json`). Forslag: et "Linux Demo"-preset i repoet, og at demobuildet ignorerer et save med `mode=full`.

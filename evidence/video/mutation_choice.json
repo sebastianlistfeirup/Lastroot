@@ -1,0 +1,57 @@
+{
+  "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "all_end_turns_match_forecast": true,
+  "args": {
+    "autoplay": "1",
+    "battle_seconds": "9",
+    "delay": "1.6",
+    "faction": "BARK",
+    "log": "evidence/video/mutation_choice.json",
+    "max_seconds": "40",
+    "seed": "1",
+    "setup": "reward"
+  },
+  "end_turns": [],
+  "engine": "4.5.1-stable (official)",
+  "final_mutations": [
+    "M01"
+  ],
+  "final_phase": "battle",
+  "movie_seconds": 19.33,
+  "notes": [
+    {
+      "mutation_gained": "M01",
+      "mutations_now": [
+        "M01"
+      ],
+      "t": 5.16
+    }
+  ],
+  "phases": [
+    {
+      "battle_index": 0,
+      "phase": "reward",
+      "result": "",
+      "t": 0.0
+    },
+    {
+      "battle_index": 0,
+      "phase": "route",
+      "result": "",
+      "t": 5.16
+    },
+    {
+      "battle_index": 0,
+      "phase": "node",
+      "result": "",
+      "t": 7.72
+    },
+    {
+      "battle_index": 1,
+      "phase": "battle",
+      "result": "",
+      "t": 10.29
+    }
+  ],
+  "renderer": "gl_compatibility"
+}

@@ -1,0 +1,90 @@
+{
+  "adapter": "",
+  "all_end_turns_match_forecast": true,
+  "args": {
+    "autoplay": "1",
+    "log": "s1_full.json",
+    "max_seconds": "300",
+    "new_run": "BARK",
+    "seed": "5"
+  },
+  "battles_won": 1,
+  "continue_result": {},
+  "end_turns": [
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 20,
+      "t": 6.21,
+      "turn": 1
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 20,
+      "t": 16.32,
+      "turn": 2
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "won",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 20,
+      "t": 25.57,
+      "turn": 3
+    }
+  ],
+  "engine": "4.5.1-stable (official)",
+  "final_mode": "full",
+  "final_mutations": [],
+  "final_phase": "reward",
+  "final_result": "",
+  "movie_seconds": 28.57,
+  "notes": [],
+  "phases": [
+    {
+      "battle_index": 0,
+      "phase": "battle",
+      "result": "",
+      "t": 0.0
+    },
+    {
+      "battle_index": 0,
+      "phase": "reward",
+      "result": "",
+      "t": 25.57
+    }
+  ],
+  "renderer": "forward_plus",
+  "save_after": {
+    "battle_index": 0,
+    "faction": null,
+    "feature_demo": false,
+    "has_save": true,
+    "load_ok": true,
+    "mode": "full",
+    "phase": "reward",
+    "result": "",
+    "run_id": "LR-00000005",
+    "save_file": "$XDG_DATA_HOME/godot/app_userdata/LASTROOT/saves/run.json"
+  },
+  "save_before": {
+    "feature_demo": false,
+    "has_save": false,
+    "save_file": "$XDG_DATA_HOME/godot/app_userdata/LASTROOT/saves/run.json"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "all_end_turns_match_forecast": true,
+  "args": {
+    "autoplay": "1",
+    "faction": "SPORE",
+    "log": "evidence/video/ash_crown_boss.json",
+    "max_seconds": "34",
+    "seed": "3",
+    "setup": "boss"
+  },
+  "end_turns": [
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 2,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 2,
+      "real_heart_damage": 0,
+      "real_resolution_events": 24,
+      "t": 3.56,
+      "turn": 5
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 0,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 0,
+      "real_heart_damage": 0,
+      "real_resolution_events": 18,
+      "t": 11.66,
+      "turn": 6
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 22,
+      "t": 20.03,
+      "turn": 7
+    },
+    {
+      "enemy_climbs": 0,
+      "events_match_forecast": true,
+      "forecast_deaths": 1,
+      "forecast_heart_damage": 0,
+      "forecast_result": "won",
+      "real_deaths": 1,
+      "real_heart_damage": 0,
+      "real_resolution_events": 11,
+      "t": 29.39,
+      "turn": 8
+    }
+  ],
+  "engine": "4.5.1-stable (official)",
+  "final_mutations": [
+    "M01",
+    "M02"
+  ],
+  "final_phase": "won",
+  "movie_seconds": 32.43,
+  "notes": [],
+  "phases": [
+    {
+      "battle_index": 5,
+      "phase": "battle",
+      "result": "",
+      "t": 0.0
+    },
+    {
+      "battle_index": 5,
+      "phase": "won",
+      "result": "won",
+      "t": 29.39
+    }
+  ],
+  "renderer": "gl_compatibility"
+}
