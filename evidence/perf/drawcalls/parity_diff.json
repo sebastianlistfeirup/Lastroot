@@ -19,9 +19,9 @@
     },
     "epilog_won.png": {
         "mean_abs": 0.12,
-        "pct_over_8": 0.227,
-        "pct_over_32": 0.17,
-        "max": 162
+        "pct_over_8": 0.223,
+        "pct_over_32": 0.168,
+        "max": 164
     },
     "gallery_lineup.png": {
         "mean_abs": 0.007,
@@ -30,21 +30,21 @@
         "max": 60
     },
     "gallery_stage.png": {
-        "mean_abs": 0.139,
+        "mean_abs": 0.143,
         "pct_over_8": 0.157,
-        "pct_over_32": 0.136,
-        "max": 253
+        "pct_over_32": 0.138,
+        "max": 251
     },
     "menu_1080p.png": {
-        "mean_abs": 0.074,
-        "pct_over_8": 0.154,
-        "pct_over_32": 0.091,
+        "mean_abs": 0.071,
+        "pct_over_8": 0.149,
+        "pct_over_32": 0.086,
         "max": 175
     },
     "route_1080p.png": {
-        "mean_abs": 0.038,
-        "pct_over_8": 0.076,
-        "pct_over_32": 0.052,
+        "mean_abs": 0.039,
+        "pct_over_8": 0.079,
+        "pct_over_32": 0.055,
         "max": 142
     }
 }

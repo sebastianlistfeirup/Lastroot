@@ -10,6 +10,7 @@ extends Node
 ##    reducer's own new_unit; validated by SaveCodec.validate_run).
 ##    Each: 60 warm-up frames, then IDLE_FRAMES idle frames, then the replay of
 ##    one real End turn at 1x speed. V-sync off, no FPS cap.
+## `-- --load-only` prints the load times and exits (writes nothing).
 ## Writes evidence/perf/stress_profile.json. Software rendering (llvmpipe under
 ## Xvfb) is far slower than any GPU: these numbers are an upper bound for the
 ## CPU/driver cost, not a frame-rate claim for players.
@@ -51,6 +52,11 @@ func _main() -> void:
 	}
 	report["caveat"] = "Software rasterizer under Xvfb in a cloud container (no GPU). Frame times are dominated by CPU rasterization and are NOT representative of player hardware; use them to compare states and builds, not as an fps promise."
 	report["load"] = await _load_times()
+	if "--load-only" in OS.get_cmdline_user_args():
+		for k: String in report["load"]:
+			print("LOAD %s cold=%d ms warm=%d ms" % [k, report["load"][k]["cold_ms"], report["load"][k]["warm_ms"]])
+		get_tree().quit(0)
+		return
 	var states := {}
 	for fx: String in ["midbattle", "boss", "full_tree"]:
 		states[fx] = await _battle_profile(fx)

@@ -28,6 +28,7 @@ const PIVOTS := ["Staff", "Glow", "Variant_", "Crack", "Gem", "Model"]
 
 static var _mesh_cache: Dictionary = {}
 static var _vc_cache: Dictionary = {}
+static var _soup_cache: Dictionary = {}
 ## Off switch for A/B measurements (tools/profile) and as an emergency fallback.
 static var enabled: bool = true
 
@@ -44,6 +45,7 @@ static func part_bounds(n: VisualInstance3D) -> Array[AABB]:
 static func clear_cache() -> void:
 	_mesh_cache.clear()
 	_vc_cache.clear()
+	_soup_cache.clear()
 
 
 ## Merges the static parts under `model` (the proxy's "Model" node).
@@ -175,19 +177,66 @@ static func _target(mat: BaseMaterial3D, mesh_has_color: bool) -> Array:
 	return [_vc_cache[sig], true]
 
 
+## Triangle soup (de-indexed vertices, normals, colours) of one mesh surface.
+## The proxy meshes are shared (ProxyMesh cache), so this is mostly a cache hit.
+static func _soup(mesh: Mesh, si: int) -> Array:
+	var k := "%d|%d" % [mesh.get_instance_id(), si]
+	if _soup_cache.has(k):
+		return _soup_cache[k]
+	var arr: Array = mesh.surface_get_arrays(si)
+	var verts: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+	var norms: PackedVector3Array = arr[Mesh.ARRAY_NORMAL] if arr[Mesh.ARRAY_NORMAL] != null else PackedVector3Array()
+	var cols: PackedColorArray = arr[Mesh.ARRAY_COLOR] if arr[Mesh.ARRAY_COLOR] != null else PackedColorArray()
+	var idx: PackedInt32Array = arr[Mesh.ARRAY_INDEX] if arr[Mesh.ARRAY_INDEX] != null else PackedInt32Array()
+	if norms.size() != verts.size():
+		norms = PackedVector3Array()
+		norms.resize(verts.size())
+		norms.fill(Vector3.UP)
+	if cols.size() != verts.size():
+		cols = PackedColorArray()
+	if not idx.is_empty():
+		var v2 := PackedVector3Array()
+		var n2 := PackedVector3Array()
+		var c2 := PackedColorArray()
+		v2.resize(idx.size())
+		n2.resize(idx.size())
+		if not cols.is_empty():
+			c2.resize(idx.size())
+		for i: int in idx.size():
+			v2[i] = verts[idx[i]]
+			n2[i] = norms[idx[i]]
+			if not cols.is_empty():
+				c2[i] = cols[idx[i]]
+		verts = v2
+		norms = n2
+		cols = c2
+	var tri := verts.size() - verts.size() % 3
+	verts.resize(tri)
+	norms.resize(tri)
+	if not cols.is_empty():
+		cols.resize(tri)
+	var out := [verts, norms, cols]
+	_soup_cache[k] = out
+	return out
+
+
 static func _bake(parts: Array) -> ArrayMesh:
-	# material -> {verts, norms, colors, vc}
+	# bucket key -> {m, v, n, c, vc, src_col}
 	var buckets: Dictionary = {}
 	var mats: Array = []
 	for p: Array in parts:
 		var mi := p[0] as MeshInstance3D
 		var xf := p[1] as Transform3D
 		var nb := xf.basis.inverse().transposed()
+		var sc := xf.basis.get_scale()
+		var uniform := is_equal_approx(sc.x, sc.y) and is_equal_approx(sc.y, sc.z) \
+			and xf.basis.orthonormalized().is_equal_approx(Basis(xf.basis.x / sc.x, xf.basis.y / sc.y, xf.basis.z / sc.z))
 		var flip := xf.basis.determinant() < 0.0
 		var src_mat := mi.material_override as BaseMaterial3D
+		var col := Color(src_mat.albedo_color.r, src_mat.albedo_color.g, src_mat.albedo_color.b, 1.0)
 		for si: int in mi.mesh.get_surface_count():
-			var arr: Array = mi.mesh.surface_get_arrays(si)
-			var has_col: bool = arr[Mesh.ARRAY_COLOR] != null and (arr[Mesh.ARRAY_COLOR] as PackedColorArray).size() > 0
+			var soup := _soup(mi.mesh, si)
+			var has_col := not (soup[2] as PackedColorArray).is_empty()
 			var tgt := _target(src_mat, has_col)
 			var m: Material = tgt[0]
 			var bk := "%d|%s" % [m.get_instance_id(), has_col]
@@ -195,27 +244,39 @@ static func _bake(parts: Array) -> ArrayMesh:
 				buckets[bk] = {"m": m, "v": PackedVector3Array(), "n": PackedVector3Array(), "c": PackedColorArray(), "vc": tgt[1], "src_col": has_col}
 				mats.append(bk)
 			var b: Dictionary = buckets[bk]
-			var verts: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
-			var norms: PackedVector3Array = arr[Mesh.ARRAY_NORMAL] if arr[Mesh.ARRAY_NORMAL] != null else PackedVector3Array()
-			var cols: PackedColorArray = arr[Mesh.ARRAY_COLOR] if has_col else PackedColorArray()
-			var idx: PackedInt32Array = arr[Mesh.ARRAY_INDEX] if arr[Mesh.ARRAY_INDEX] != null else PackedInt32Array()
-			if idx.is_empty():
-				idx.resize(verts.size())
-				for i: int in verts.size():
-					idx[i] = i
-			var col := Color(src_mat.albedo_color.r, src_mat.albedo_color.g, src_mat.albedo_color.b, 1.0)
+			var tv: PackedVector3Array = xf * (soup[0] as PackedVector3Array)
+			var tn: PackedVector3Array
+			if uniform:
+				# Rotation (+ uniform scale): normals stay unit length under the rotation.
+				tn = Transform3D(xf.basis.orthonormalized(), Vector3.ZERO) * (soup[1] as PackedVector3Array)
+			else:
+				tn = Transform3D(nb, Vector3.ZERO) * (soup[1] as PackedVector3Array)
+				for i: int in tn.size():
+					tn[i] = tn[i].normalized()
+			var tc: PackedColorArray = (soup[2] as PackedColorArray).duplicate()
+			if b["vc"]:
+				tc.resize(tv.size())
+				tc.fill(col)
+			if flip:
+				# A mirrored part: keep the front faces facing out.
+				for t: int in range(0, tv.size(), 3):
+					var v1 := tv[t + 1]
+					tv[t + 1] = tv[t + 2]
+					tv[t + 2] = v1
+					var n1 := tn[t + 1]
+					tn[t + 1] = tn[t + 2]
+					tn[t + 2] = n1
+					if not tc.is_empty():
+						var c1 := tc[t + 1]
+						tc[t + 1] = tc[t + 2]
+						tc[t + 2] = c1
+			# Packed arrays are values: append to a local and store it back.
 			var bv: PackedVector3Array = b["v"]
 			var bn: PackedVector3Array = b["n"]
 			var bc: PackedColorArray = b["c"]
-			for t: int in range(0, idx.size() - 2, 3):
-				var tri := [idx[t], idx[t + 2], idx[t + 1]] if flip else [idx[t], idx[t + 1], idx[t + 2]]
-				for k: int in tri:
-					bv.append(xf * verts[k])
-					bn.append((nb * norms[k]).normalized() if not norms.is_empty() else Vector3.UP)
-					if b["vc"]:
-						bc.append(col)
-					elif b["src_col"]:
-						bc.append(cols[k] if k < cols.size() else Color.WHITE)
+			bv.append_array(tv)
+			bn.append_array(tn)
+			bc.append_array(tc)
 			b["v"] = bv
 			b["n"] = bn
 			b["c"] = bc

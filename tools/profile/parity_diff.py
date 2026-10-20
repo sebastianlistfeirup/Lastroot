@@ -14,7 +14,7 @@ from PIL import Image, ImageChops
 
 def stats(a: Image.Image, b: Image.Image) -> dict:
     d = ImageChops.difference(a.convert("RGB"), b.convert("RGB"))
-    px = d.getdata()
+    px = d.get_flattened_data() if hasattr(d, "get_flattened_data") else d.getdata()
     n = len(px)
     tot = 0
     over8 = 0
