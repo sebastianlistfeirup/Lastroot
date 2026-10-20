@@ -41,7 +41,7 @@ Between battles you choose your path: camps to upgrade a card, encounters, card 
 
 **Planned (not in the build yet, or not verified — do not publish as features):**
 - Windows: the export exists, but it has not been run on a Windows machine (LR-12).
-- Gamepad: menu buttons (A/B) and battle buttons (LB/RB, D-pad, A, Y, Start) are coded in `scripts/ui/battle/battle_screen.gd` and the menus, but tests only check the A/B mapping and the focus ring; no battle test uses pad events and no real controller has been tried.
+- Gamepad: menu buttons (A/B) and battle buttons (LB/RB, D-pad, A, Y, Start) are coded in `scripts/ui/battle/battle_screen.gd` and the menus. Since 21.10 `tests/scene_smoke.gd` drives a battle turn with simulated pad events (RB card, D-pad target, A confirm, Y end turn, Start/B menu). Still planned until a **real controller** has been tried.
 - Final 3D art and animation (Synty Studios, PolyPerfect, Mixamo; pending import and licence check). Today all 3D is procedural placeholder geometry.
 - Final sound and music (today: procedural placeholders).
 - Native mobile builds and testing on real phones/tablets.
@@ -73,6 +73,6 @@ Do not use `references/REF_*.jpeg` (concept images) on the store page.
 
 ## Kontrol (20.10.2026)
 
-- Rettet: "24 cards" præciseret (12 pr. champion, inkl. championkortet); "Each turn new enemies arrive" → "Wave after wave" (kampe har 3 bølger, ikke en ny hver tur); "front line next to the trunk" → front pr. etage (reglen er "indeks 0 er fronten", ikke placering ved stammen); "Desktop (Windows, Linux)" → Linux + web, Windows flyttet til planlagt (ikke kørt på Windows); gamepad flyttet til planlagt (battle-knapperne er ikke testet; den gamle tekst "simulated in tests" var kun sand for menuernes A/B).
+- Rettet: "24 cards" præciseret (12 pr. champion, inkl. championkortet); "Each turn new enemies arrive" → "Wave after wave" (kampe har 3 bølger, ikke en ny hver tur); "front line next to the trunk" → front pr. etage (reglen er "indeks 0 er fronten", ikke placering ved stammen); "Desktop (Windows, Linux)" → Linux + web, Windows flyttet til planlagt (ikke kørt på Windows); gamepad flyttet til planlagt (battle-knapperne var ikke testet; den gamle tekst "simulated in tests" var kun sand for menuernes A/B). 21.10: simuleret pad i kamp nu testet i scene_smoke; rigtig controller mangler stadig.
 - Tilføjet (verificeret): sværhedsgrad Standard/Hard, demo (med forbehold for fælles save).
 - Skærmbilledtabellen: alle 14 oprindelige stier findes; to rækker tilføjet (mutation, demo-slut).

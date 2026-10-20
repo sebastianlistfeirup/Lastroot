@@ -196,6 +196,34 @@ func _run() -> void:
 	ok(int(GameSession.battle()["turn"]) == 2, "E ends the turn")
 	kb.queue_free()
 	await _frames(2)
+	# --- gamepad: RB cycles cards, D-pad picks a target, A confirms, Y ends the turn, Start/B menu
+	var gp: BattleScreen = await _open_battle("SPORE", 1818)
+	var gp_units: int = BattleReducer.all_allies(GameSession.battle()).size()
+	var champ_iid: int = int(GameSession.battle()["champion_iid"])
+	for i in 8:
+		if gp.selected_card == champ_iid:
+			break
+		_pad(JOY_BUTTON_RIGHT_SHOULDER)
+		await _frames(2)
+	ok(gp.selected_card == champ_iid and gp.mode == "card", "RB cycles to the champion card")
+	_pad(JOY_BUTTON_DPAD_RIGHT)
+	await _frames(2)
+	ok(not gp.pending.is_empty(), "D-pad chooses a target")
+	_pad(JOY_BUTTON_A)
+	await _settle(gp)
+	ok(BattleReducer.all_allies(GameSession.battle()).size() == gp_units + 1, "A confirms the action")
+	_pad(JOY_BUTTON_Y)
+	await get_tree().process_frame
+	await _settle(gp)
+	ok(int(GameSession.battle()["turn"]) == 2, "Y ends the turn")
+	_pad(JOY_BUTTON_START)
+	await _frames(3)
+	ok(gp._pause != null and bool(gp._pause.get("is_open")), "Start opens the menu")
+	_pad(JOY_BUTTON_B)
+	await _frames(3)
+	ok(not bool(gp._pause.get("is_open")), "B closes the menu")
+	gp.queue_free()
+	await _frames(2)
 	# --- complete battle 1 with both champions via the screen's command path
 	for faction in ["BARK", "SPORE"]:
 		var s2: BattleScreen = await _open_battle(faction, 777)
@@ -233,6 +261,16 @@ func _run() -> void:
 func _key(k: Key) -> void:
 	var e := InputEventKey.new()
 	e.keycode = k
+	e.pressed = true
+	get_viewport().push_input(e)
+	var u := e.duplicate()
+	u.pressed = false
+	get_viewport().push_input(u)
+
+
+func _pad(b: JoyButton) -> void:
+	var e := InputEventJoypadButton.new()
+	e.button_index = b
 	e.pressed = true
 	get_viewport().push_input(e)
 	var u := e.duplicate()
