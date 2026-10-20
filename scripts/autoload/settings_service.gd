@@ -35,6 +35,71 @@ func _ready() -> void:
 	load_settings()
 	apply()
 	add_pad_ui_events()
+	if "--debug-state" in OS.get_cmdline_user_args():
+		var t := Timer.new()
+		t.wait_time = 0.5
+		t.autostart = true
+		t.timeout.connect(_dump_state)
+		add_child(t)
+
+
+# ------------------------------------------- --debug-state (test harness only)
+# Prints the run state and the on-screen tap targets whenever they change, so
+# an outside driver (tools/web_phone_flow.js) can tap like a player. Output:
+#   STATE phase=battle turn=2 energy=3 hand=4 allies=1 bphase=player champ=12 view=430x932
+#   UI <name>|<text>|<cx>|<cy>|<w>|<h>   (logical viewport pixels)
+var _last_dump: String = ""
+
+
+func _dump_state() -> void:
+	var gs: Node = get_node_or_null("/root/GameSession")
+	var run: Dictionary = gs.get("run") if gs != null else {}
+	var vp: Vector2 = get_viewport().get_visible_rect().size
+	var line := "STATE phase=%s" % str(run.get("phase", "none"))
+	var b: Dictionary = run.get("battle", {}) if run.get("phase", "") == "battle" else {}
+	if not b.is_empty():
+		var allies := 0
+		for u: Dictionary in (b.get("units", {}) as Dictionary).values():
+			if u.get("side", "") == "ally" and u.get("alive", false):
+				allies += 1
+		line += " turn=%d energy=%d hand=%d allies=%d bphase=%s champ=%d battle=%d" % [int(b.get("turn", 0)), int(b.get("energy", 0)),
+			(b.get("zones", {}).get("hand", []) as Array).size(), allies, str(b.get("phase", "")), int(b.get("champion_iid", -1)), int(b.get("battle_index", 0))]
+	line += " view=%dx%d" % [int(vp.x), int(vp.y)]
+	var ui: PackedStringArray = []
+	_collect_targets(get_tree().root, ui)
+	var out: String = line + "\n" + "\n".join(ui)
+	if out != _last_dump:
+		_last_dump = out
+		print(line)
+		for u: String in ui:
+			print(u)
+		print("STATE_END")
+
+
+func _collect_targets(n: Node, out: PackedStringArray) -> void:
+	if out.size() > 120:
+		return
+	if n is CanvasItem and not (n as CanvasItem).visible:
+		return
+	if n is SubViewport or (n is CanvasLayer and not (n as CanvasLayer).visible):
+		return
+	if n is Control:
+		var c: Control = n
+		if c is ScrollContainer and c.is_visible_in_tree():
+			var sr: Rect2 = c.get_global_rect()
+			out.append("UI %s|scroll:%d|%d|%d|%d|%d|filter%d" % [c.name, (c as ScrollContainer).scroll_vertical, int(sr.get_center().x), int(sr.get_center().y), int(sr.size.x), int(sr.size.y), c.mouse_filter])
+		var tappable: bool = c is BaseButton or c.has_signal("pressed")
+		if tappable and c.mouse_filter != Control.MOUSE_FILTER_IGNORE and c.is_visible_in_tree():
+			var r: Rect2 = c.get_global_rect()
+			var label: String = str(c.get("text")) if c.get("text") != null else ""
+			if c.get("instance_id") != null:
+				label = "card:%d" % int(c.get("instance_id"))
+			elif c.get("unit_id") != null:
+				label = "unit:%d" % int(c.get("unit_id"))
+			var dis: String = "|disabled" if c is BaseButton and (c as BaseButton).disabled else ""
+			out.append("UI %s|%s|%d|%d|%d|%d%s" % [c.name, label.replace("|", "/").replace("\n", " "), int(r.get_center().x), int(r.get_center().y), int(r.size.x), int(r.size.y), dis])
+	for ch in n.get_children():
+		_collect_targets(ch, out)
 
 
 ## Focus ring only for keyboard / pad users: shown after the first key or pad
