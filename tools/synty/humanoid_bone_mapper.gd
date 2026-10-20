@@ -16,6 +16,9 @@ const CORE := ["Hips", "Spine", "Chest", "Neck", "Head", "LeftUpperArm", "LeftLo
 ## More unmapped core bones than this = not treated as a humanoid (no bone map written).
 const MAX_MISSING_CORE := 4
 
+## Rest bones further than this from the profile's T-pose are turned (Fix Silhouette).
+const SILHOUETTE_THRESHOLD_DEG := 5.0
+
 ## part (side-less, normalised) -> profile bone suffix. Order matters only for ties.
 const PARTS := {
 	"hips": "Hips", "hip": "Hips", "pelvis": "Hips", "root_hips": "Hips",
@@ -109,6 +112,12 @@ static func parse(raw: String) -> Dictionary:
 	if dm:
 		num = int(dm.get_string(1))
 	var letters := RegEx.create_from_string("[^a-z]").sub(low, "", true)
+	# Mixamo fingers: "LeftHandIndex1", "LeftHandThumb2" -> index / thumb.
+	if letters.begins_with("hand") and letters.length() > 4:
+		for f: String in FINGERS.keys():
+			if letters.substr(4).begins_with(f):
+				letters = letters.substr(4)
+				break
 	var finger := ""
 	for f: String in FINGERS.keys():
 		if letters.begins_with(f):
@@ -131,8 +140,11 @@ static func _depth(skel: Skeleton3D, i: int) -> int:
 ## Makes a model import as a retargeted humanoid: finds its Skeleton3D, builds
 ## the BoneMap, saves it to art/rigs/ and points the model's import settings at
 ## it (what "Retarget > Bone Map" in Advanced Import Settings does).
+## fix_silhouette: also "Rest Fixer > Fix Silhouette" (needed whenever clips from one rig
+## play on another; the builder turns it off for a character without a humanoid clip
+## library, so it keeps its own A-pose instead of standing in a T-pose).
 ## Returns {ok, changed, skeleton, missing_core, bone_map}. changed = re-import needed.
-static func apply_retarget(model_path: String, rig_dir: String = "res://art/rigs/") -> Dictionary:
+static func apply_retarget(model_path: String, rig_dir: String = "res://art/rigs/", fix_silhouette: bool = true) -> Dictionary:
 	var ps: PackedScene = load(model_path)
 	if ps == null:
 		return {"ok": false, "error": "cannot load " + model_path}
@@ -144,8 +156,8 @@ static func apply_retarget(model_path: String, rig_dir: String = "res://art/rigs
 	var skel: Skeleton3D = found[0]
 	var path := str(root.get_path_to(skel))
 	if skel.name == "GeneralSkeleton" and skel.find_bone("Hips") >= 0:
-		root.free()  # already imported with a humanoid bone map
-		return {"ok": true, "changed": false, "skeleton": path, "missing_core": [], "bone_map": ""}
+		root.free()  # already imported with a humanoid bone map: only keep the flags right
+		return {"ok": true, "changed": _set_flags(model_path, "", null, fix_silhouette), "skeleton": path, "missing_core": [], "bone_map": ""}
 	var r := build(skel)
 	root.free()
 	# A rig with generic names (Bone, Bone.001 ... from Blender) or a non-biped would
@@ -157,16 +169,47 @@ static func apply_retarget(model_path: String, rig_dir: String = "res://art/rigs
 	var pack := model_path.trim_prefix("res://assets/imported/").get_slice("/", 0) if model_path.begins_with("res://assets/imported/") else "local"
 	var bm_path := rig_dir.path_join("%s__%s.bonemap.tres" % [pack, model_path.get_file().get_basename()])
 	ResourceSaver.save(r["map"], bm_path)
+	if not FileAccess.file_exists(model_path + ".import"):
+		return {"ok": false, "error": "no .import file for " + model_path}
+	_set_flags(model_path, "PATH:" + path, load(bm_path) as BoneMap, fix_silhouette)
+	return {"ok": true, "changed": true, "skeleton": path, "missing_core": r["missing_core"], "bone_map": bm_path}
+
+
+## Writes the humanoid import settings into <model>.import. key + bone_map: put the bone map
+## on that skeleton node; key "" = update every node that already has a bone map.
+## Lessons from the humanoid dry run (evidence/asset_pipeline/humanoid_dryrun.json):
+##  - Fix Silhouette: Godot transfers a clip as rotations RELATIVE TO THE REST POSE. A Mixamo
+##    clip (T-pose rest; for "Without Skin" files whatever the first frame was) on a Synty
+##    A-pose rig put the arms 45-90 degrees off (idle arms horizontal, the punch going
+##    backwards). Fix Silhouette first turns every rest towards the profile's T-pose, on the
+##    clip files and on the characters, so one clip gives the same pose on every rig.
+##  - remove_immutable_tracks=false: Godot's default drops every track whose value never
+##    changes (an arm held still during a punch); after retargeting a missing track means
+##    "the target's REST pose", so that arm snapped to T/A-pose.
+## Returns true when the file changed (re-import needed).
+static func _set_flags(model_path: String, key: String, bone_map: BoneMap, fix_silhouette: bool) -> bool:
 	var cfg := ConfigFile.new()
 	if cfg.load(model_path + ".import") != OK:
-		return {"ok": false, "error": "no .import file for " + model_path}
+		return false
+	var before := cfg.encode_to_text()
 	var sub: Dictionary = cfg.get_value("params", "_subresources", {})
 	var nodes: Dictionary = sub.get("nodes", {})
-	var key := "PATH:" + path
-	var cur: Dictionary = nodes.get(key, {})
-	cur["retarget/bone_map"] = load(bm_path)
-	nodes[key] = cur
+	var keys: Array = [key]
+	if key.is_empty():
+		keys = nodes.keys().filter(func(k: Variant) -> bool: return (nodes[k] as Dictionary).has("retarget/bone_map"))
+	for k: Variant in keys:
+		var cur: Dictionary = nodes.get(k, {})
+		if bone_map:
+			cur["retarget/bone_map"] = bone_map
+		cur["retarget/rest_fixer/fix_silhouette/enable"] = fix_silhouette
+		# Default threshold 15 deg left a real Mixamo rig (arms 13 deg below horizontal at
+		# rest) unfixed: its clips then came out ~11 deg lower than on every other rig.
+		cur["retarget/rest_fixer/fix_silhouette/threshold"] = SILHOUETTE_THRESHOLD_DEG
+		nodes[k] = cur
 	sub["nodes"] = nodes
 	cfg.set_value("params", "_subresources", sub)
+	cfg.set_value("params", "animation/remove_immutable_tracks", false)
+	if cfg.encode_to_text() == before:
+		return false
 	cfg.save(model_path + ".import")
-	return {"ok": true, "changed": true, "skeleton": path, "missing_core": r["missing_core"], "bone_map": bm_path}
+	return true

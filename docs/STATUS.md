@@ -32,7 +32,7 @@
 | Balance (bot) | `tools/balance/run_balance.gd -- --seeds=20` | BARK 20/20, SPORE 20/20 sejre, ~10 hjerteliv tabt → `evidence/balance/` |
 | Eksport | Linux + Windows + Web | Linux-build kørt under Xvfb (boss-screenshot). Windows NOT_RUN på Windows. Web kørt i headless Chromium (swiftshader, ~2 fps = softwarerendering, ikke en telefonmåling). |
 | Video | Movie Maker + autoplay | `evidence/video/battle1_spore_autoplay.mp4` (kamp 1, 25 s) |
-| FBX-prøveimport | assimp BSD-testfiler (ikke humanoid) gennem hele kæden | wrapper bygget, klip afspillet; humanoid Synty/Mixamo-FBX stadig uafprøvet → `evidence/asset_pipeline/fbx_dryrun.json` |
+| FBX-prøveimport | assimp BSD-testfiler (ikke humanoid) gennem hele kæden | wrapper bygget, klip afspillet → `fbx_dryrun.json`. **Humanoid (21.10):** egne Synty- og Mixamo-navngivne rigs (FBX+glTF, A-/T-pose) + Mixamo-klip gennem hele kæden 15/15 efter seks rettede fejl (skala ×614, retarget A/T-pose, holdte knogler, Armature-spor, tom take, flad Mixamo-mappe); krydstjek med ægte Mixamo-eksport → `evidence/asset_pipeline/humanoid_dryrun.json`. Købte pakker stadig uafprøvet |
 | Prognose-latens | `tools/balance/profile_forecast.gd` | p95 1,6 ms (mål < 50 ms) → `evidence/perf/forecast_latency.json` |
 | Capture-sæt | `tools/capture_all.sh` | proxy-baseline (126 billeder) i `evidence/captures/proxies_baseline/` |
 | Menneskelig gennemspilning | — | NOT_RUN |

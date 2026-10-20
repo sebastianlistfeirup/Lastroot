@@ -1,0 +1,242 @@
+{
+  "animations": [
+    {
+      "clips": {
+        "attack": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 0.97,
+          "removed_travel_m": 1.0,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Punching.fbx"
+        },
+        "cast": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 1.17,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Standing 1H Magic Attack 01.fbx"
+        },
+        "death": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 1.47,
+          "removed_travel_m": 0.5,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Dying.fbx"
+        },
+        "hit": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 0.63,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Hit Reaction.fbx"
+        },
+        "idle": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 1.97,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Breathing Idle.fbx"
+        },
+        "move": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 0.97,
+          "removed_travel_m": 1.2,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Walking.fbx"
+        },
+        "victory": {
+          "dropped_node_tracks": [
+            "Armature",
+            "Armature",
+            "Armature"
+          ],
+          "length_s": 1.3,
+          "removed_travel_m": 0.0,
+          "retargeted": true,
+          "source": "res://assets/imported/Mixamo/Victory.fbx"
+        }
+      },
+      "errors": [],
+      "library": "res://art/animations/humanoid.res",
+      "ok": true,
+      "set": "humanoid"
+    }
+  ],
+  "built": 4,
+  "failed": 0,
+  "reimport_needed": false,
+  "slots": [
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 1.57,
+      "library": "res://art/animations/humanoid.res",
+      "min_m": [
+        -0.73,
+        0.0,
+        -0.14
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        1.54,
+        1.57,
+        1.26
+      ],
+      "reimport": false,
+      "rig": "SK_Chr_Knight_01/GeneralSkeleton",
+      "scale": 1.0032,
+      "scene": "res://art/prefabs/unit.B03.tscn",
+      "size_m": [
+        1.46,
+        1.57,
+        0.28
+      ],
+      "slot": "unit.B03",
+      "source": "CC0Test_Synty/Characters/SK_Chr_Knight_01.fbx",
+      "summary": "height x1.0032 -> 1.46x1.57x0.28 m, facing -Z · lib humanoid.res",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 0,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 1.73,
+      "library": "res://art/animations/humanoid.res",
+      "min_m": [
+        -0.81,
+        0.0,
+        -0.15
+      ],
+      "notes": [],
+      "ok": true,
+      "proxy_m": [
+        1.53,
+        1.73,
+        1.37
+      ],
+      "reimport": false,
+      "rig": "SK_Chr_Wizard_01/GeneralSkeleton",
+      "scale": 1.1054,
+      "scene": "res://art/prefabs/unit.S01.tscn",
+      "size_m": [
+        1.61,
+        1.73,
+        0.31
+      ],
+      "slot": "unit.S01",
+      "source": "CC0Test_Synty/Characters/SK_Chr_Wizard_01.glb",
+      "summary": "height x1.1054 -> 1.61x1.73x0.31 m, facing -Z · lib humanoid.res",
+      "uses_atlas": true,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 1,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 1.68,
+      "library": "res://art/animations/humanoid.res",
+      "min_m": [
+        -0.79,
+        0.0,
+        -0.15
+      ],
+      "notes": [
+        "no atlas texture staged for CC0Test_Characters"
+      ],
+      "ok": true,
+      "proxy_m": [
+        0.61,
+        1.7,
+        1.58
+      ],
+      "reimport": false,
+      "rig": "Armature/GeneralSkeleton",
+      "scale": 0.9912,
+      "scene": "res://art/prefabs/enemy.E03.tscn",
+      "size_m": [
+        1.59,
+        1.68,
+        0.3
+      ],
+      "slot": "enemy.E03",
+      "source": "CC0Test_Characters/Ch_TestBot.fbx",
+      "summary": "height x0.9912 -> 1.59x1.68x0.30 m, facing -Z · lib humanoid.res",
+      "uses_atlas": false,
+      "warnings": []
+    },
+    {
+      "anim": {
+
+      },
+      "atlas_materials": 1,
+      "facing": "-Z",
+      "fit": "height",
+      "height_m": 2.03,
+      "library": "res://art/animations/humanoid.res",
+      "min_m": [
+        -0.96,
+        0.0,
+        -0.18
+      ],
+      "notes": [
+        "no atlas texture staged for CC0Test_Characters"
+      ],
+      "ok": true,
+      "proxy_m": [
+        2.51,
+        2.03,
+        1.16
+      ],
+      "reimport": false,
+      "rig": "Armature/GeneralSkeleton",
+      "scale": 1.1976,
+      "scene": "res://art/prefabs/enemy.E05.tscn",
+      "size_m": [
+        1.92,
+        2.03,
+        0.36
+      ],
+      "slot": "enemy.E05",
+      "source": "CC0Test_Characters/Ch_TestBot.glb",
+      "summary": "height x1.1976 -> 1.92x2.03x0.36 m, facing -Z · lib humanoid.res",
+      "uses_atlas": false,
+      "warnings": []
+    }
+  ]
+}

@@ -65,7 +65,7 @@ python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Synty/POLYGON_Nature_SourceFil
 python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Synty/POLYGON_DarkFantasy_SourceFiles.zip"
 python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Synty/POLYGON_FantasyCharacters_SourceFiles.zip"
 python3 tools/synty/unpack.py "D:/LASTROOT_vendor/PolyPerfect/Low_Poly_Animated_Animals.unitypackage"
-python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Mixamo"          # mappenavnet skal indeholde "Mixamo"
+python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Mixamo"          # mappenavnet skal indeholde "Mixamo" (eller "clips"/"anim"; ellers --clips)
 python3 tools/synty/doctor.py                                       # pakker + Mixamo-navne ok?
 python3 tools/synty/match.py --report                               # se forslag uden at skrive
 python3 tools/synty/match.py                                        # skriver data/art/synty_choices.json
@@ -76,7 +76,9 @@ tools/synty/build.sh                                                # stage -> i
 - `match.py` skriver kun **navne** (sikkert at committe). `"status"`: `auto` = bygges · `weak` = kun ét fælles ord, bygges først når du skriver `approved` · `none` = intet fundet · `skip` = behold proxy · `approved`/`manual` = låst ved næste `match.py`.
 - Forkert model valgt? Kopiér en sti fra `"alternatives"` ind i `"source"` (eller skriv en fra `assets/quarantine/<pakke>/manifest.json`) og sæt `"status": "approved"`.
 - Byg-rapport: `evidence/asset_pipeline/build_report.json` (højde, skala, facing, knoglekort, advarsler pr. slot).
-- Første humanoide figur: `godot --headless --path . --script res://tools/synty/model_probe.gd -- res://assets/imported/<pakke>/<fil>.fbx` viser knogler, humanoid-match, klip, cm/m og op-akse (`docs/SYNTY_INTEGRATION.md` §6b). Retarget af en *rigtig* Synty/Mixamo-humanoid er det eneste led, der ikke er bevist i containeren.
+- Første humanoide figur: `godot --headless --path . --script res://tools/synty/model_probe.gd -- res://assets/imported/<pakke>/<fil>.fbx` viser knogler, humanoid-match, klip, cm/m og op-akse (`docs/SYNTY_INTEGRATION.md` §6b).
+- Humanoid retarget er nu prøvet ende-til-ende (`docs/SYNTY_INTEGRATION.md` §6c, `evidence/asset_pipeline/humanoid_dryrun.json`): Synty-navngivet A-pose-rig og Mixamo-navngivet T-pose-rig, FBX og glTF, Mixamo-klip *uden skin* i en flad mappe, plus to rigtige Mixamo-eksporter lokalt. Fem fejl blev fundet og rettet. Ikke bevist: *dine* købte filer — kig efter i RigLab (arme ned i idle, slag fremad mod pilen), før du godkender.
+- Mixamo-klip og -figurer i **hver sin mappe**: alt i en mappe med "Mixamo" i navnet behandles som klip. Hent en Mixamo-figur til en mappe uden "Mixamo" i navnet (fx `D:/LASTROOT_vendor/Characters`) og vælg den som `"manual"` i `synty_choices.json`.
 - Exitkoder fra `build.sh`: 0 bygget · 1 en wrapper fejlede (se rapporten) · 2 manglende input (ingen Godot / ingen valgfil) · 3 intet at bygge (ingen auto/approved).
 
 ## 4. Hvad du kigger efter
@@ -219,3 +221,4 @@ Kørt med tomt `assets/quarantine/` og uden `data/art/synty_choices.json` — in
 | `python3 tools/synty/focus.py unit.B01` | "FEJL: data/art/synty_choices.json findes ikke …", exit 2 |
 | `python3 tools/synty/doctor.py` | OK/NB-linjer, `resultat: klar`, exit 0 |
 | `tools/synty/selftest.sh` (falske pakker, hele kæden, efter ændringerne ovenfor) | 22/22 PASS (`evidence/asset_pipeline/selftest.json`) |
+| `BPY_PYTHON=<python med bpy> tools/synty/humanoid_dryrun.sh --capture` (genererede humanoider, 20.10.2026) | 15/15 PASS (`evidence/asset_pipeline/humanoid_dryrun.json`); før rettelserne 6 FAIL (`humanoid_dryrun_before_fixes.json`) |

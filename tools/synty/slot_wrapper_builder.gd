@@ -97,7 +97,10 @@ func build_one(slot_id: String, c: Dictionary, prefab_dir: String = PREFABS, lib
 	var reimport := false
 	var own_clips := false
 	if character and has_skel and family == "humanoid":
-		rig = HumanoidBoneMapper.apply_retarget(model_path)
+		# Fix Silhouette (T-pose rest) only when shared humanoid clips will drive this rig;
+		# without clips the character keeps its own (A-)pose for the procedural fallback.
+		var clips_coming := not str(libs.get("humanoid", "")).is_empty() or bool(libs.get("humanoid_pending", false))
+		rig = HumanoidBoneMapper.apply_retarget(model_path, "res://art/rigs/", clips_coming)
 		if not rig.get("ok", false) and rig.get("humanoid", true) == false:
 			# Real-FBX lesson: generic bone names cannot be retargeted. Fall back to the
 			# model's own embedded clips (map them via the choice's "clips": {state: clip}).
