@@ -73,7 +73,11 @@ The Ash Crown has left the Crown!,Askekronen har forladt Kronen!
 The tree resolves,Træet afvikler turen
 Turn %d,Tur %d
 Wave %d of %d arrives on the Roots,Bølge %d af %d ankommer til Rødderne
+%d lost,%d tabt
+%d slain,%d nedlagt
 %s reached the Heart: −%d,%s nåede Hjertet: −%d
++%d in %d turns,+%d om %d ture
++%d next turn,+%d næste tur
 An enemy,En fjende
 Ash Crown: turn %d,Askekronen: tur %d
 B%d · T%d,K%d · T%d
@@ -83,20 +87,23 @@ Confirm,Bekræft
 Consumed,Forbrugt
 DEFEAT: the Ash Crown leaves the Crown.,NEDERLAG: Askekronen forlader Kronen.
 DEFEAT: the Heart falls.,NEDERLAG: Hjertet falder.
+Defeat,Nederlag
 Discard pile,Kasserede kort
 Draw %d · Discard %d · Played %d,Træk %d · Kasseret %d · Spillet %d
 Draw pile (sorted; order hidden),Trækbunke (sorteret; rækkefølge skjult)
 End turn,Afslut tur
+Forecast,Prognose
 Forecast — end of turn,Prognose — ved turens slutning
 From turn 10 it gains +2 attack every turn.,Fra tur 10 får den +2 angreb hver tur.
 Full,Fuld
 Full %d/%d,Fuld %d/%d
 Got it,Forstået
+If confirmed:,Hvis bekræftet:
 "If it leaves the Crown, the run is lost.","Forlader den Kronen, er løbet tabt."
 If you confirm and then end the turn:,Hvis du bekræfter og derefter afslutter turen:
 In %d turns: %s,Om %d ture: %s
 It has already moved this turn.,Den har allerede flyttet denne tur.
-Last wave is in,Sidste bølge er ankommet
+Last wave,Sidste bølge
 Last wave is in · defeat every enemy,Sidste bølge er ankommet · besejr alle fjender
 Move: tap a + spot on this or a neighbouring floor (%d Sap).,Flyt: tryk på et +-felt på denne eller en naboetage (%d Saftkraft).
 Next turn: %s,Næste tur: %s

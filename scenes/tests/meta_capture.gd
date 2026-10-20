@@ -27,6 +27,8 @@ func _ready() -> void:
 		if only != "" and not str(c["id"]).contains(only):
 			continue
 		for size_name: String in SIZES.keys():
+			if c.has("sizes") and not (c["sizes"] as Array).has(size_name):
+				continue
 			await _capture(c, size_name, SIZES[size_name])
 			n += 1
 	_restore_save()
@@ -75,6 +77,14 @@ func _cases() -> Array:
 		{"id": "run_pause_abandon", "scene": "run", "run": MetaFixtures.route(1), "open": "abandon"},
 		{"id": "battle_mid", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3)},
 		{"id": "battle_pause", "scene": "battle", "run": DebugFixtures.make("midbattle", "BARK", 1), "open": "battle_pause"},
+		{"id": "pbattle_b1_hint", "scene": "battle", "run": DebugFixtures.make("battle1", "BARK", 1), "sizes": ["phone"]},
+		{"id": "pbattle_b1_ghosts", "scene": "battle", "run": DebugFixtures.make("battle1", "BARK", 1), "open": "battle_card", "sizes": ["phone"]},
+		{"id": "pbattle_mid", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "sizes": ["phone"]},
+		{"id": "pbattle_mid_ghosts", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "open": "battle_card", "sizes": ["phone"]},
+		{"id": "pbattle_mid_sheet", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "open": "battle_sheet", "sizes": ["phone"]},
+		{"id": "pbattle_mid_badge", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "open": "battle_badge", "sizes": ["phone"]},
+		{"id": "pbattle_boss", "scene": "battle", "run": DebugFixtures.make("boss", "BARK", 2), "sizes": ["phone"]},
+		{"id": "pbattle_mid_da130", "scene": "battle", "run": DebugFixtures.make("midbattle", "SPORE", 3), "lang": "da", "scale": 1.3, "sizes": ["phone"]},
 		{"id": "text130_reward_relic", "scene": "run", "run": MetaFixtures.reward_slot("relic"), "scale": 1.3},
 	]
 
@@ -155,6 +165,21 @@ func _apply_open(screen: Node, what: String) -> void:
 			(screen.find_child("PauseMenu", true, false) as PauseMenu).ask_abandon()
 		"battle_pause":
 			screen.call("_open_menu")
+		"battle_card":
+			var b: Dictionary = GameSession.battle()
+			for iid: int in b["zones"]["hand"]:
+				if Catalog.is_creature(BattleReducer.card_def(b, iid)) and BattleReducer.play_cost(b, iid) <= int(b["energy"]):
+					screen.call("_on_card_pressed", iid)
+					return
+		"battle_sheet":
+			if screen.has_method("set_sheet_open"):
+				screen.call("set_sheet_open", true)
+		"battle_badge":
+			var b: Dictionary = GameSession.battle()
+			for key: String in b["units"].keys():
+				if b["units"][key]["side"] == "enemy" and b["units"][key]["alive"]:
+					screen.call("_on_badge_pressed", int(key))
+					return
 		"settings":
 			(screen.find_child("SettingsPanel", true, false) as SettingsPanel).open()
 		"credits":

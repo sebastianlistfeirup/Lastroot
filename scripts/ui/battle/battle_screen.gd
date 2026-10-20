@@ -54,6 +54,20 @@ var reason_label: Label
 var end_banner: PanelContainer
 var ghost_nodes: Array[Control] = []
 var floor_buttons: Array[Button] = []
+# Portrait (phone) only: collapsible forecast sheet and a thumb-zone action bar.
+var sheet_open: bool = false
+var sheet_summary: Button
+var sheet_info: Label
+var action_bar: HBoxContainer
+var _rv: VBoxContainer
+var _fscroll: ScrollContainer
+var _btn_row: HBoxContainer
+var _hint_got: Button
+var _inspecting: bool = false
+var _framed_bottom: float = -1.0
+var _hint_active: bool = false
+var _forecast_portrait: bool = false
+var _hint_h: float = 0.0
 
 
 func _ready() -> void:
@@ -137,21 +151,38 @@ func _build_hud() -> void:
 	var rv := VBoxContainer.new()
 	rv.add_theme_constant_override("separation", 8)
 	right_panel.add_child(rv)
+	_rv = rv
 	rv.add_child(UiKit.label(Loc.t("Forecast — end of turn"), 20, UiKit.LIFE, true))
+	sheet_summary = UiKit.button("", UiKit.LIFE, 17)
+	sheet_summary.name = "SheetSummary"
+	sheet_summary.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	sheet_summary.clip_text = true
+	sheet_summary.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	sheet_summary.focus_mode = Control.FOCUS_NONE
+	sheet_summary.visible = false
+	sheet_summary.pressed.connect(_toggle_sheet)
+	rv.add_child(sheet_summary)
 	var fscroll := ScrollContainer.new()
+	_fscroll = fscroll
 	fscroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	fscroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	rv.add_child(fscroll)
 	forecast_box = VBoxContainer.new()
 	forecast_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	fscroll.add_child(forecast_box)
+	sheet_info = UiKit.label("", 15, UiKit.TEXT_DIM)
+	sheet_info.visible = false
+	rv.add_child(sheet_info)
 	inspector = UiKit.label("", 16, UiKit.TEXT_DIM)
 	rv.add_child(inspector)
 	reason_label = UiKit.label("", 16, UiKit.DANGER)
 	rv.add_child(reason_label)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.size_flags_stretch_ratio = 2.2
 	rv.add_child(row)
+	_btn_row = row
 	btn_cancel = UiKit.button(Loc.t("Cancel"), UiKit.TEXT_DIM)
 	btn_cancel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	btn_cancel.pressed.connect(_cancel)
@@ -162,12 +193,19 @@ func _build_hud() -> void:
 	row.add_child(btn_confirm)
 	btn_end = UiKit.button(Loc.t("End turn"), UiKit.AMBER, 22)
 	btn_end.custom_minimum_size.y = 64
+	btn_end.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn_end.size_flags_stretch_ratio = 1.4
 	btn_end.pressed.connect(_end_turn)
 	rv.add_child(btn_end)
 	btn_skip = UiKit.button(Loc.t("Skip animation"), UiKit.TEXT_DIM)
 	btn_skip.visible = false
 	btn_skip.pressed.connect(func() -> void: presenter.skip())
 	rv.add_child(btn_skip)
+	action_bar = HBoxContainer.new()
+	action_bar.name = "ActionBar"
+	action_bar.add_theme_constant_override("separation", 6)
+	action_bar.visible = false
+	root.add_child(action_bar)
 	# Hand
 	hand_scroll = ScrollContainer.new()
 	hand_scroll.name = "Hand"
@@ -178,6 +216,7 @@ func _build_hud() -> void:
 	hand_box.alignment = BoxContainer.ALIGNMENT_CENTER
 	hand_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hand_scroll.add_child(hand_box)
+	hand_scroll.scroll_ended.connect(_snap_hand)
 	# Toasts + hints
 	toast_box = VBoxContainer.new()
 	toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -192,8 +231,10 @@ func _build_hud() -> void:
 	var got := UiKit.button(Loc.t("Got it"), UiKit.LIFE, 16)
 	got.pressed.connect(func() -> void:
 		hints_dismissed = true
+		_hint_active = false
 		hint_panel.visible = false)
 	hv.add_child(got)
+	_hint_got = got
 	root.add_child(hint_panel)
 
 
@@ -223,22 +264,22 @@ func _relayout() -> void:
 	inspector.visible = not portrait
 	btn_end.custom_minimum_size.y = 50 if portrait else 64
 	(right_panel.get_child(0).get_child(0) as Control).visible = not portrait
+	_portrait_parents(portrait)
 	if portrait:
 		top_h = top.get_combined_minimum_size().y
 		var card_h := 176.0
 		hand_scroll.position = Vector2(4, vp.y - card_h - 6)
 		hand_scroll.size = Vector2(vp.x - 8, card_h)
-		right_panel.position = Vector2(6, vp.y - card_h - 230)
-		right_panel.size = Vector2(vp.x - 12, 222)
-		hint_label.custom_minimum_size.x = vp.x - 150
-		hint_panel.position = Vector2(8, vp.y - card_h - 230 - 4)
-		hint_panel.size = Vector2(vp.x - 16, 0)
-		hint_panel.reset_size()
-		toast_box.position = Vector2(vp.x * 0.5 - 180, top_h + 90)
+		var bar_h := 52.0
+		action_bar.position = Vector2(6, vp.y - card_h - 10 - bar_h)
+		action_bar.size = Vector2(vp.x - 12, bar_h)
+		hint_label.custom_minimum_size.x = vp.x - 160
+		toast_box.position = Vector2(vp.x * 0.5 - 180, top_h + 60)
 		toast_box.size = Vector2(360, 120)
 		for c in hand_box.get_children():
 			(c as Control).scale = Vector2.ONE
-		stage.frame_camera(true, 0.0)
+		_framed_bottom = -1.0
+		_layout_portrait()
 	else:
 		var rw := 440.0
 		right_panel.position = Vector2(vp.x - rw - 8, top_h + 16)
@@ -255,7 +296,250 @@ func _relayout() -> void:
 		stage.frame_camera(false, rw / vp.x)
 	if not battle.is_empty():
 		_refresh_top()
+		if not locked and _forecast_portrait != portrait:
+			_refresh_forecast()
 	_refresh_hand()
+
+
+# ------------------------------------------------------- portrait (phone)
+
+## Moves the action buttons between the desktop right panel and the portrait
+## thumb bar, and swaps the few texts that differ. Desktop keeps its layout.
+func _portrait_parents(p: bool) -> void:
+	if p:
+		_place(btn_speed, action_bar, 0)
+		_place(_btn_row, action_bar, 1)
+		_place(btn_end, action_bar, 2)
+		_place(btn_skip, action_bar, 3)
+		_place(inspector, _rv, sheet_summary.get_index() + 1)
+	else:
+		_place(btn_speed, top_bar, btn_menu.get_index())
+		for n: Node in [inspector, reason_label, _btn_row, btn_end, btn_skip]:
+			_place(n, _rv, -1)
+		sheet_open = false
+	action_bar.visible = p
+	sheet_summary.visible = p
+	sheet_info.visible = false
+	_fscroll.visible = not p
+	reason_label.visible = true
+	top_bar.add_theme_constant_override("h_separation", 12 if p else 22)
+	lbl_wave.size_flags_horizontal = Control.SIZE_EXPAND_FILL if p else Control.SIZE_FILL
+	# Portrait: the wave text shrinks (ellipsis) so the bar stays one row.
+	lbl_wave.clip_text = p
+	lbl_wave.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS if p else TextServer.OVERRUN_NO_TRIMMING
+	btn_menu.text = "≡" if p else Loc.t("Menu")
+	btn_menu.tooltip_text = Loc.t("Menu")
+	btn_menu.custom_minimum_size = Vector2(UiKit.MIN_HIT * (1.0 if p else 2.0), UiKit.MIN_HIT)
+	btn_menu.add_theme_font_size_override("font_size", int((26 if p else 18) * UiKit.font_scale))
+	btn_speed.custom_minimum_size = Vector2(UiKit.MIN_HIT * (1.05 if p else 1.3), UiKit.MIN_HIT)
+	btn_skip.text = Loc.t("Skip") if p else Loc.t("Skip animation")
+	for b: Button in [btn_cancel, btn_confirm, btn_end, btn_skip]:
+		b.custom_minimum_size = Vector2(56, 52) if p else Vector2(UiKit.MIN_HIT * 2, UiKit.MIN_HIT)
+		b.clip_text = p
+	btn_end.custom_minimum_size.y = 52 if p else 64
+	for b: Button in [btn_cancel, btn_confirm, btn_skip]:
+		b.add_theme_font_size_override("font_size", int(18 * minf(UiKit.font_scale, 1.1)) if p else int(20 * UiKit.font_scale))
+	btn_end.add_theme_font_size_override("font_size", int(19 * minf(UiKit.font_scale, 1.1)) if p else int(22 * UiKit.font_scale))
+	hint_label.add_theme_font_size_override("font_size", int((15 if p else 17) * UiKit.font_scale))
+	_hint_got.add_theme_font_size_override("font_size", int((15 if p else 16) * UiKit.font_scale))
+	inspector.add_theme_font_size_override("font_size", int((15 if p else 16) * UiKit.font_scale))
+	reason_label.add_theme_font_size_override("font_size", int((15 if p else 16) * UiKit.font_scale))
+
+
+func _place(n: Node, parent: Node, idx: int) -> void:
+	if n.get_parent() != parent:
+		n.get_parent().remove_child(n)
+		parent.add_child(n)
+	parent.move_child(n, mini(idx, parent.get_child_count() - 1) if idx >= 0 else parent.get_child_count() - 1)
+
+
+## Portrait forecast sheet. Collapsed it is one summary line (plus a short
+## instruction or reason while one applies); expanded it shows the full
+## forecast, waves, relics and the tapped unit. Stacked bottom-up above the
+## action bar; the hint sits on top of it, never over the floors.
+func _layout_portrait() -> void:
+	var vp: Vector2 = root.get_viewport_rect().size
+	var w: float = vp.x - 12
+	var bottom: float = action_bar.position.y - 4
+	_fscroll.visible = sheet_open
+	sheet_info.visible = sheet_open and sheet_info.text != ""
+	inspector.visible = inspector.text != "" and (mode != "idle" or (sheet_open and _inspecting))
+	reason_label.visible = reason_label.text != ""
+	right_panel.size = Vector2(w, 0)
+	var h: float = right_panel.get_combined_minimum_size().y
+	if sheet_open:
+		h = maxf(h, floorf(vp.y * 0.5))
+	right_panel.size = Vector2(w, h)
+	right_panel.position = Vector2(6, bottom - h)
+	var top_y: float = right_panel.position.y
+	var reserve: float = bottom - sheet_summary.get_combined_minimum_size().y - 18
+	if hint_panel.visible:
+		hint_panel.size = Vector2(vp.x - 16, hint_panel.get_combined_minimum_size().y)
+		hint_panel.position = Vector2(8, top_y - hint_panel.size.y - 4)
+		_hint_h = hint_panel.size.y
+	# While the first-battle hints run, their space stays reserved (the
+	# instruction for a selected card takes it), so the stage never jumps.
+	if _hint_active:
+		reserve -= _hint_h + 4
+	if not sheet_open and absf(reserve - _framed_bottom) > 1.0:
+		_framed_bottom = reserve
+		_frame_portrait(reserve)
+
+
+## Fits the whole tree (roots to Heart) between the top bar and the sheet.
+func _frame_portrait(bottom: float) -> void:
+	stage.frame_camera(true, 0.0)
+	var cam: Camera3D = stage.camera
+	if cam == null:
+		return
+	var vp: Vector2 = root.get_viewport_rect().size
+	var top: Control = root.get_node("TopBar")
+	var top_y: float = top.position.y + top.size.y + 4
+	var area: float = maxf(bottom - top_y, 120.0)
+	var lo := -1.4
+	var hi: float = StageLayout.HEART_Y + 2.4
+	cam.size = clampf(vp.x * (hi - lo) / area, 15.0, 19.0)
+	var mid := Vector3(0, (lo + hi) * 0.5, 0)
+	var s0: float = cam.unproject_position(mid).y
+	var ppu: float = s0 - cam.unproject_position(mid + Vector3.UP).y
+	if ppu > 0.01:
+		cam.v_offset += ((top_y + bottom) * 0.5 - s0) / ppu
+
+
+func set_sheet_open(v: bool) -> void:
+	sheet_open = v and portrait
+	if sheet_open:
+		hint_panel.visible = false
+	elif not battle.is_empty():
+		_refresh_hints()
+	_update_summary()
+	if portrait:
+		_layout_portrait()
+
+
+func _toggle_sheet() -> void:
+	AudioBridge.play("ui_click")
+	set_sheet_open(not sheet_open)
+
+
+var _summary_text: String = ""
+var _summary_bad: bool = false
+
+
+func _update_summary() -> void:
+	if sheet_summary == null:
+		return
+	sheet_summary.text = ("▾ " if sheet_open else "▴ ") + _summary_text
+	var c: Color = UiKit.DANGER if _summary_bad else UiKit.GOOD
+	sheet_summary.add_theme_color_override("font_color", c)
+	sheet_summary.add_theme_color_override("font_hover_color", c.lightened(0.25))
+	sheet_summary.add_theme_color_override("font_pressed_color", c)
+
+
+## Lets a flicked hand come to rest on a whole card.
+func _snap_hand() -> void:
+	if not portrait or hand_box.get_child_count() == 0:
+		return
+	var step: float = (hand_box.get_child(0) as Control).size.x + float(hand_box.get_theme_constant("separation"))
+	if step < 10.0:
+		return
+	var target: int = int(roundf(float(hand_scroll.scroll_horizontal) / step) * step)
+	create_tween().tween_property(hand_scroll, "scroll_horizontal", target, 0.12)
+
+
+## Portrait badges: per floor and side, badges keep the units' order and are
+## pushed apart so none overlaps; a crowded floor uses a second, raised row.
+func _layout_badges_portrait(cam: Camera3D) -> void:
+	var vp: Vector2 = root.get_viewport_rect().size
+	var mid: float = cam.unproject_position(Vector3.ZERO).x
+	var groups: Dictionary = {}
+	for uid: int in badges.keys():
+		if not views.has(uid):
+			continue
+		var b: UnitBadge = badges[uid]
+		b.size = b.get_combined_minimum_size()
+		var p: Vector2 = cam.unproject_position((views[uid] as UnitView).head_world())
+		var u: Dictionary = unit_snapshot(uid)
+		var key: String = "%s%d" % [str(u.get("side", "?")), int(u.get("floor", -1))]
+		if not groups.has(key):
+			groups[key] = []
+		(groups[key] as Array).append({"b": b, "p": p, "ally": str(u.get("side", "")) == "ally"})
+	for key: String in groups.keys():
+		var items: Array = groups[key]
+		items.sort_custom(_badge_x_less)
+		var ally: bool = items[0]["ally"]
+		# A side may spill past the trunk when the other side of that floor is empty.
+		var other: bool = groups.has(("enemy" if ally else "ally") + key.substr(key.length() - 1))
+		var lo: float = 4.0 if ally or not other else mid + 2.0
+		var hi: float = (mid - 2.0 if other else vp.x - 4.0) if ally else vp.x - 4.0
+		# Fewest rows (round-robin, so order still reads left to right) that fit.
+		var rows: Array = []
+		var top_h := 0.0
+		var base: float = INF
+		for it: Dictionary in items:
+			top_h = maxf(top_h, (it["b"] as Control).size.y)
+			base = minf(base, (it["p"] as Vector2).y)
+		for n in range(1, 5):
+			rows = []
+			for r in n:
+				rows.append([])
+			for i in items.size():
+				(rows[i % n] as Array).append(items[i])
+			var fits := true
+			for row: Array in rows:
+				var total := -3.0
+				for it: Dictionary in row:
+					total += (it["b"] as Control).size.x + 3.0
+				fits = fits and total <= hi - lo
+			if fits or n == mini(4, items.size()):
+				break
+		for r in rows.size():
+			_badge_row(rows[r], lo, hi, base, r * (top_h + 3.0))
+	# Last pass, bottom-up: anything still overlapping (a crowded floor's
+	# extra rows reaching the floor above) moves up just clear of it.
+	var placed: Array[Control] = []
+	var order: Array = badges.values().filter(func(c: Control) -> bool: return c.visible)
+	order.sort_custom(_badge_lower_first)
+	for c: Control in order:
+		var moved := true
+		var guard := 0
+		while moved and guard < 12:
+			moved = false
+			guard += 1
+			var r := Rect2(c.position, c.size).grow(-1.0)
+			for o: Control in placed:
+				if r.intersects(Rect2(o.position, o.size).grow(-1.0)):
+					c.position.y = o.position.y - c.size.y - 2.0
+					moved = true
+					break
+		placed.append(c)
+
+
+static func _badge_lower_first(a: Control, c: Control) -> bool:
+	return a.position.y + a.size.y > c.position.y + c.size.y
+
+
+static func _badge_x_less(a: Dictionary, c: Dictionary) -> bool:
+	return (a["p"] as Vector2).x < (c["p"] as Vector2).x
+
+
+func _badge_row(items: Array, lo: float, hi: float, base: float, lift: float) -> void:
+	var gap := 3.0
+	var xs: Array[float] = []
+	var prev: float = lo - gap
+	for it: Dictionary in items:
+		var bw: float = (it["b"] as Control).size.x
+		var x: float = maxf((it["p"] as Vector2).x - bw * 0.5, prev + gap)
+		xs.append(x)
+		prev = x + bw
+	var nxt: float = hi + gap
+	for i in range(items.size() - 1, -1, -1):
+		var bw2: float = (items[i]["b"] as Control).size.x
+		xs[i] = maxf(lo, minf(xs[i], nxt - gap - bw2))
+		nxt = xs[i]
+	for i in items.size():
+		var b: Control = items[i]["b"]
+		b.position = Vector2(xs[i], base - lift - b.size.y)
 
 
 # ------------------------------------------------------------------ syncing
@@ -462,6 +746,8 @@ func _end_turn() -> void:
 	if locked or battle_over:
 		return
 	_clear_selection()
+	if sheet_open:
+		set_sheet_open(false)
 	AudioBridge.play("ui_confirm")
 	GameSession.battle_cmd({"type": "end_turn"})
 
@@ -485,6 +771,7 @@ func _cancel() -> void:
 
 func _clear_selection() -> void:
 	_target_cursor = -1
+	_inspecting = false
 	mode = "idle"
 	selected_card = -1
 	selected_unit = -1
@@ -512,6 +799,8 @@ func _on_card_pressed(iid: int) -> void:
 		_cancel()
 		return
 	_clear_selection()
+	if sheet_open:
+		set_sheet_open(false)
 	AudioBridge.play("ui_click")
 	var def: Dictionary = BattleReducer.card_def(battle, iid)
 	selected_card = iid
@@ -569,6 +858,11 @@ func _on_badge_pressed(uid: int) -> void:
 			selected_unit = uid
 			_show_move_slots(u)
 			inspector.text += "\n" + Loc.t("Move: tap a + spot on this or a neighbouring floor (%d Sap).") % BattleReducer.move_cost(battle)
+	_inspecting = true
+	if portrait:
+		if mode == "move":
+			inspector.text = Loc.t("Move: tap a + spot on this or a neighbouring floor (%d Sap).") % BattleReducer.move_cost(battle)
+		set_sheet_open(mode == "idle" and not u.is_empty())
 	_refresh_all()
 
 
@@ -684,8 +978,11 @@ func _process(_dt: float) -> void:
 	if stage == null or stage.camera == null:
 		return
 	var cam: Camera3D = stage.camera
+	if portrait and root != null:
+		_layout_portrait()
+		_layout_badges_portrait(cam)
 	for uid: int in badges.keys():
-		if not views.has(uid):
+		if portrait or not views.has(uid):
 			continue
 		var b: UnitBadge = badges[uid]
 		var p: Vector2 = cam.unproject_position((views[uid] as UnitView).head_world())
@@ -727,11 +1024,15 @@ func _refresh_top() -> void:
 	lbl_heart.tooltip_text = Loc.t("World Heart")
 	lbl_sap.text = "%s %d %s" % [UiKit.status_glyph("sap"), battle["energy"], Loc.t("Sap")]
 	if portrait:
+		lbl_sap.text = "%s %d" % [UiKit.status_glyph("sap"), battle["energy"]]
+		lbl_sap.tooltip_text = Loc.t("Sap")
+	if portrait:
 		lbl_turn.text = Loc.t("B%d · T%d") % [int(battle["battle_index"]) + 1, battle["turn"]]
 	else:
 		lbl_turn.text = Loc.t("Battle %d/6 · Turn %d") % [int(battle["battle_index"]) + 1, battle["turn"]]
 	var waves: Array = battle["waves"]
 	var wi: int = int(battle["wave_index"])
+	var short := ""
 	if wi < waves.size():
 		var w: Dictionary = waves[wi]
 		var counts := {}
@@ -742,11 +1043,19 @@ func _refresh_top() -> void:
 			parts.append("%d× %s" % [counts[eid], Loc.field(Catalog.enemy(eid), "name")])
 		var when: int = int(w["turn"]) - int(battle["turn"])
 		lbl_wave.text = (Loc.t("Next turn: %s") if when <= 1 else Loc.t("In %d turns: %s").replace("%d", str(when))) % ", ".join(parts)
+		var n: int = (w["enemies"] as Array).size()
+		short = "⚑ " + (Loc.t("+%d next turn") % n if when <= 1 else Loc.t("+%d in %d turns") % [n, when])
 	else:
-		lbl_wave.text = Loc.t("Last wave is in") if portrait else Loc.t("Last wave is in · defeat every enemy")
+		lbl_wave.text = Loc.t("Last wave is in · defeat every enemy")
+		short = "⚑ " + Loc.t("Last wave")
 	if battle.get("is_boss", false) and int(battle.get("boss_unit_id", -1)) < 0:
 		var arrive: int = int(Catalog.boss()["arrival_turn"])
 		lbl_wave.text += "  ♛ " + (Loc.t("Ash Crown: turn %d") % arrive)
+		short += " · ♛ T%d" % arrive
+	var long_wave: String = lbl_wave.text
+	if portrait:
+		lbl_wave.text = short
+		lbl_wave.tooltip_text = long_wave
 	var z: Dictionary = battle["zones"]
 	lbl_piles.text = Loc.t("Draw %d · Discard %d · Played %d") % [(z["draw"] as Array).size(), (z["discard"] as Array).size(), (z["deployed"] as Array).size() + (z["consumed"] as Array).size()]
 	var rel: PackedStringArray = []
@@ -755,7 +1064,12 @@ func _refresh_top() -> void:
 	for mid: String in battle["mutations"]:
 		rel.append(Loc.field(Catalog.mutation(mid), "name"))
 	lbl_relics.text = " · ".join(rel)
-	lbl_relics.visible = not rel.is_empty()
+	lbl_relics.visible = not rel.is_empty() and not portrait
+	var info: PackedStringArray = [long_wave]
+	if not rel.is_empty():
+		info.append(lbl_relics.text)
+	info.append(lbl_piles.text)
+	sheet_info.text = "\n".join(info)
 	btn_speed.text = "%s×" % str(_anim_speed()).trim_suffix(".0")
 
 
@@ -786,6 +1100,8 @@ func _refresh_targets() -> void:
 		if pending.get("target", -1) == uid or (mode == "move" and selected_unit == uid):
 			h = "selected"
 		(badges[uid] as UnitBadge).set_highlight(h)
+		# Phone: while placing, plain badges fade so the + spots read first.
+		(badges[uid] as Control).modulate.a = 0.55 if portrait and mode != "idle" and h == "" and not ghost_nodes.is_empty() else 1.0
 		if views.has(uid):
 			var ring: String = h
 			if ring == "" and _forecast_deaths.has(uid):
@@ -816,6 +1132,9 @@ func _refresh_forecast() -> void:
 		title = Loc.t("If you end the turn now:")
 	if not fc.get("ok", false):
 		forecast_box.add_child(UiKit.label(str(fc.get("error", "")), 16, UiKit.DANGER))
+		_summary_text = str(fc.get("error", ""))
+		_summary_bad = true
+		_update_summary()
 		return
 	var sm: Dictionary = fc["summary"]
 	_forecast_deaths = {}
@@ -831,6 +1150,9 @@ func _refresh_forecast() -> void:
 	if sm["boss_on_crown"] and not sm["boss_escapes"]:
 		forecast_box.add_child(UiKit.label(Loc.t("Warning: the Ash Crown is on the Crown. Keep a defender there."), 16, UiKit.AMBER))
 	var after: Dictionary = fc["state"]
+	_forecast_portrait = portrait
+	var lost := 0
+	var slain := 0
 	for key: String in sm["units"].keys():
 		var d: Dictionary = sm["units"][key]
 		var u: Dictionary = battle["units"][key]
@@ -862,17 +1184,42 @@ func _refresh_forecast() -> void:
 				line = (line + "  " if line != "" else nm + " ") + hp_txt
 				badge_text = (badge_text + " " if badge_text != "" else "") + hp_txt
 				danger = u["side"] == "ally" and int(d["hp"][1]) < int(d["hp"][0])
+		if portrait and d["escapes"]:
+			badge_text = "→ ♥ −%d" % maxi(1, int(after["units"][key]["attack"]))
+		elif portrait and not d["dies"] and d["floor"][0] != d["floor"][1]:
+			badge_text = "↑" + ((" ♥ %d→%d" % [d["hp"][0], d["hp"][1]]) if d["hp"][0] != d["hp"][1] else "")
+		if d["dies"]:
+			if u["side"] == "ally":
+				lost += 1
+			else:
+				slain += 1
 		if badges.has(int(key)):
 			(badges[int(key)] as UnitBadge).show_forecast(badge_text, danger)
 		if line != "":
 			forecast_box.add_child(UiKit.label(line, 16, col))
+	var sparts: PackedStringArray = ["%s %d → %d" % [UiKit.status_glyph("hp"), battle["heart"], sm["heart_after"]]]
+	if lost > 0:
+		sparts.append("✝ " + Loc.t("%d lost") % lost)
+	if slain > 0:
+		sparts.append("✝ " + Loc.t("%d slain") % slain)
+	match str(sm["result"]):
+		"won":
+			sparts.append("★ " + Loc.t("Victory"))
+		"lost":
+			sparts.append(Loc.t("Defeat"))
+	var lead: String = Loc.t("If confirmed:") if not pending.is_empty() and not awaiting_heal_target else Loc.t("Forecast") + ":"
+	_summary_text = lead + "  " + "  ·  ".join(sparts)
+	_summary_bad = int(sm["heart_damage"]) > 0 or lost > 0 or str(sm["result"]) == "lost"
+	_update_summary()
 
 
 func _refresh_hints() -> void:
 	if hints_dismissed or int(battle.get("battle_index", 0)) != 0 or int(battle["turn"]) > 3:
 		hint_panel.visible = false
+		_hint_active = false
 		return
-	hint_panel.visible = true
+	_hint_active = true
+	hint_panel.visible = not (portrait and (sheet_open or mode != "idle"))
 	var champ_in_hand: bool = (battle["zones"]["hand"] as Array).has(int(battle["champion_iid"]))
 	if int(battle["turn"]) == 1 and champ_in_hand:
 		hint_label.text = Loc.t("Tap your champion, then a + spot on a floor. Champions cost 0 Sap and hold the line.")
