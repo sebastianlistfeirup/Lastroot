@@ -582,7 +582,7 @@
    "owner": "claude-code (ferie-session 19.10.2026)",
    "last_commit": "8a0946d",
    "evidence": [],
-   "notes": "Grundlag: kortportrætter renderet fra visual slots (skifter automatisk til Synty), emblemer for besværgelser, fraktionsrammer, glyf+tal for statusser, galleri over alle 24 kort + upgrades (evidence/meta_screens/cards_*.png)."
+   "notes": "Grundlag: kortportrætter renderet fra visual slots (skifter automatisk til Synty), emblemer for besværgelser, fraktionsrammer, glyf+tal for statusser, galleri over alle 24 kort + upgrades (evidence/meta_screens/cards_*.png). | 21.10: farveblindhedssimulering (protan/deutan/tritan) af kamp, boss, kort og rute → evidence/colorblind/; information bæres af glyf+tal, ingen ændring krævet."
   },
   {
    "id": "LR-25",
