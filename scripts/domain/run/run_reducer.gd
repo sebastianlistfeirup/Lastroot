@@ -20,9 +20,12 @@ const FACTIONS: PackedStringArray = ["BARK", "SPORE"]
 
 ## Demo runs end after DEMO_BATTLES won battles (docs/DEMO_PLAN.md); rules are identical.
 const DEMO_BATTLES := 2
+## Optional difficulty (D32): enemy and boss max HP in percent of the catalog.
+## "standard" is the bible baseline and is not stored in the run.
+const DIFFICULTY_ENEMY_HP_PCT := {"standard": 100, "hard": 130}
 
 
-static func new_run(seed_value: int, faction: String, mode: String = "full") -> Dictionary:
+static func new_run(seed_value: int, faction: String, mode: String = "full", difficulty: String = "standard") -> Dictionary:
 	var rules: Dictionary = Catalog.rules()
 	var champion: String = Catalog.champion_for(faction)
 	var run := {
@@ -45,6 +48,8 @@ static func new_run(seed_value: int, faction: String, mode: String = "full") -> 
 		"stats": {"turns": 0, "cards_played": 0, "heart_lost": 0, "battles_won": 0},
 		"result": "", "history": [], "mode": mode,
 	}
+	if difficulty != "standard" and DIFFICULTY_ENEMY_HP_PCT.has(difficulty):
+		run["difficulty"] = difficulty
 	_add_card(run, champion)
 	var counts: Dictionary = Catalog.data()["start_deck"]["normal_counts"]
 	var ids: Array = counts.keys()

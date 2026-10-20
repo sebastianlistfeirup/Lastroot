@@ -18,6 +18,8 @@ Katalogtallene er **uændrede** (biblens baseline). Nedenstående er eksperiment
 
 **Observation:** I baseline vinder selv tilfældigt spil ~73 %. Kampene slutter typisk før fjenderne når Kronen, så prognosen og etagevalgene betyder for lidt.
 
-**Forslag (ikke indført):** start med *fjende-HP ×1,3* (Askeling 5→7, Kulskjold 9→12, Glødjæger 7→9, Sodbærer 12→16, Stenbrud 16→21, Askekronen 60→78). Det holder god leg sikker (greedy 100 %, men ~24 tabt hjerteliv) og gør tilfældigt spil til et nederlag i de fleste runs. Afprøv med mennesker før du låser det; registrér beslutningen i `docs/DECISIONS.md`, ret `design/catalog.json`, kør `python3 tools/gen_definitions.py`, regenerér prognosefixtures (`tools/make_forecast_fixtures.gd`) og genkør balance.
+**Nu afprøvbart i spillet (D32):** Indstillinger → Sværhedsgrad → *Svær* = fjende-HP ×1,3 for nye løb. Genkørt gennem den rigtige kode: greedy 20/20 + 20/20 (~24 tabt hjerteliv), casual 4/20 + 4/20 (`--difficulty=hard`). Spil begge og vælg; vil du gøre Svær til standard, er det `DIFFICULTY_ENEMY_HP_PCT` i `scripts/domain/run/run_reducer.gd` eller tallene i kataloget.
+
+**Forslag (ikke indført som standard):** start med *fjende-HP ×1,3* (Askeling 5→7, Kulskjold 9→12, Glødjæger 7→9, Sodbærer 12→16, Stenbrud 16→21, Askekronen 60→78). Det holder god leg sikker (greedy 100 %, men ~24 tabt hjerteliv) og gør tilfældigt spil til et nederlag i de fleste runs. Afprøv med mennesker før du låser det; registrér beslutningen i `docs/DECISIONS.md`, ret `design/catalog.json`, kør `python3 tools/gen_definitions.py`, regenerér prognosefixtures (`tools/make_forecast_fixtures.gd`) og genkør balance.
 
 Genskab: `godot --headless --path . --script res://tools/balance/run_balance.gd -- --seeds=20 --bot=casual --enemy_hp=1.3` (flags: `--enemy_hp`, `--enemy_atk`, `--boss_hp`, `--heart`, `--resin`). Rapporter: `evidence/balance/balance_report_*.json`.

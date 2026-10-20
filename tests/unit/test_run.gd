@@ -150,3 +150,31 @@ func test_demo_mode_ends_after_two_battles() -> void:
 	eq(run["result"], "demo_complete", "marked as demo complete")
 	eq(int(run["stats"]["battles_won"]), 2, "after two battles")
 	eq(RunReducer.new_run(101, "BARK")["mode"], "full", "default is the full game")
+
+
+func test_hard_difficulty_scales_enemy_hp_only() -> void:
+	var std := RunReducer.new_run(21, "BARK")
+	var hard := RunReducer.new_run(21, "BARK", "full", "hard")
+	check(not std.has("difficulty"), "standard is not stored (baseline unchanged)")
+	eq(hard.get("difficulty", ""), "hard", "hard is stored in the run")
+	check(not (std["battle"] as Dictionary).has("enemy_hp_pct"), "standard battle has no scale key")
+	eq(int(hard["battle"]["enemy_hp_pct"]), 130, "hard battle scale")
+	var want := {5: 7, 9: 12, 7: 9, 12: 16, 16: 21, 60: 78}
+	var defs: Array = (Catalog.data()["enemies"] as Array).duplicate()
+	defs.append(Catalog.boss())
+	for d: Dictionary in defs:
+		var s: Dictionary = (hard["battle"] as Dictionary).duplicate(true)
+		var uid := BattleReducer.spawn_enemy(s, [], str(d["id"]))
+		var base: int = int(d["max_hp"])
+		var got: int = int(BattleReducer.unit(s, uid)["max_hp"])
+		eq(got, int(want.get(base, (base * 130 + 50) / 100)), "%s hard max_hp" % d["id"])
+		eq(int(BattleReducer.unit(s, uid)["attack"]), int(d["attack"]), "%s attack unchanged" % d["id"])
+		var s2: Dictionary = (std["battle"] as Dictionary).duplicate(true)
+		eq(int(BattleReducer.unit(s2, BattleReducer.spawn_enemy(s2, [], str(d["id"])))["max_hp"]), base, "%s standard max_hp" % d["id"])
+	var dec: Dictionary = SaveCodec.decode(SaveCodec.encode(hard))
+	check(dec["ok"], "hard run decodes")
+	eq(dec["run"].get("difficulty", ""), "hard", "difficulty survives reload")
+	var next := AutoPlayer.play_battle(hard)
+	next = _bot_until(next, "battle")
+	if next["phase"] == "battle":
+		eq(int(next["battle"].get("enemy_hp_pct", 100)), 130, "next battle keeps hard scale")

@@ -57,6 +57,9 @@ static func create(run: Dictionary, battle_index: int) -> Dictionary:
 		"champion_id": run["champion_id"], "champion_path": run.get("champion_path", ""),
 		"champion_rank": int(run.get("champion_rank", 0)),
 	}
+	var hp_pct: int = int(RunReducer.DIFFICULTY_ENEMY_HP_PCT.get(str(run.get("difficulty", "standard")), 100))
+	if hp_pct != 100:
+		s["enemy_hp_pct"] = hp_pct
 	RngStream.shuffle(s["rng"], s["zones"]["draw"])
 	if champion_iid >= 0:
 		s["zones"]["hand"].append(champion_iid)  # tur 1: champion separat

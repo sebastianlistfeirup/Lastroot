@@ -62,6 +62,9 @@ func _build() -> void:
 	_row(Loc.t("3D backgrounds"), [[false, Loc.t("Off")], [true, Loc.t("On")]], SettingsService.backgrounds_3d,
 		func(v: Variant) -> void: SettingsService.set_backgrounds_3d(bool(v)),
 		Loc.t("Animated 3D scenes behind the menu and the route. Turn off for slow devices."))
+	_row(Loc.t("Difficulty"), [["standard", Loc.t("Standard")], ["hard", Loc.t("Hard")]], SettingsService.difficulty,
+		func(v: Variant) -> void: SettingsService.set_difficulty(str(v)),
+		Loc.t("Hard gives enemies and the boss 30% more health. Applies to new runs."))
 	body.add_child(UiKit.label(Loc.t("Volume"), 20, UiKit.TEXT, true))
 	_slider(Loc.t("Master"), "master")
 	_slider(Loc.t("Music"), "music")

@@ -174,8 +174,10 @@ static func new_unit(s: Dictionary, side: String, def_id: String, card_iid: int,
 static func spawn_enemy(s: Dictionary, ev: Array, def_id: String) -> int:
 	var d: Dictionary = Catalog.enemy(def_id)
 	var is_boss: bool = d.get("id", "") == Catalog.boss()["id"]
+	# Difficulty scales max HP with round-half-up integer math (D32).
+	var max_hp: int = (int(d["max_hp"]) * int(s.get("enemy_hp_pct", 100)) + 50) / 100
 	var uid: int = new_unit(s, "enemy", def_id, -1, 0, {
-		"attack": int(d["attack"]), "max_hp": int(d["max_hp"]), "armor": int(d["start_armor"]),
+		"attack": int(d["attack"]), "max_hp": max_hp, "armor": int(d["start_armor"]),
 		"is_boss": is_boss,
 	})
 	floor_list(s, 0, "enemy").append(uid)

@@ -422,3 +422,7 @@ cost,pris
 damage,skade
 healing,helbredelse
 max HP,maks. liv
+Difficulty,Sværhedsgrad
+Standard,Standard
+Hard,Svær
+Hard gives enemies and the boss 30% more health. Applies to new runs.,Svær giver fjender og bossen 30 % mere liv. Gælder nye løb.

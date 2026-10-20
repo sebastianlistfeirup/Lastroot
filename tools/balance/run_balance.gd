@@ -13,6 +13,10 @@ func _init() -> void:
 			AutoPlayer.style = a.get_slice("=", 1)
 	# Balance experiments run on an in-memory copy of the catalog only; the
 	# baseline files are never touched (AGENTS.md: balance changes need a decision).
+	var difficulty := "standard"
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--difficulty="):
+			difficulty = a.get_slice("=", 1)
 	var exp := {}
 	for a in OS.get_cmdline_user_args():
 		for key in ["enemy_hp", "enemy_atk", "heart", "resin", "boss_hp"]:
@@ -41,7 +45,7 @@ func _init() -> void:
 		var t0 := Time.get_ticks_msec()
 		for i in n:
 			var seed_value: int = 1000 + i
-			var res: Dictionary = AutoPlayer.play_run(RunReducer.new_run(seed_value, faction))
+			var res: Dictionary = AutoPlayer.play_run(RunReducer.new_run(seed_value, faction, "full", difficulty))
 			var run: Dictionary = res["run"]
 			var won: bool = run["phase"] == "won"
 			var bw: int = int(run["stats"]["battles_won"])
@@ -62,7 +66,7 @@ func _init() -> void:
 		print("%s: %d/%d wins, avg heart lost %.1f, avg turns %.1f, reached %s" % [faction, wins, n,
 			float(heart_lost) / float(n), float(turns) / float(n), reached])
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://evidence/balance"))
-	var tag: String = AutoPlayer.style
+	var tag: String = AutoPlayer.style + ("" if difficulty == "standard" else "_" + difficulty)
 	for k: String in exp.keys():
 		tag += "_%s%s" % [k, str(exp[k])]
 	var f := FileAccess.open("res://evidence/balance/balance_report_%s.json" % tag, FileAccess.WRITE)

@@ -8,7 +8,7 @@
     "test_forecast.gd": 5,
     "test_meta_flow.gd": 5,
     "test_rng.gd": 5,
-    "test_run.gd": 11,
+    "test_run.gd": 12,
     "test_save.gd": 8,
     "test_visual_slots.gd": 19
   },
@@ -104,6 +104,7 @@
     "test_run/test_route_has_five_branches_of_two_types",
     "test_run/test_full_runs_with_both_champions",
     "test_run/test_demo_mode_ends_after_two_battles",
+    "test_run/test_hard_difficulty_scales_enemy_hp_only",
     "test_save/test_roundtrip_is_identical",
     "test_save/test_load_does_not_reroll_hand",
     "test_save/test_corrupt_detected",
@@ -114,6 +115,6 @@
     "test_save/test_truncated_save_rejected"
   ],
   "status": "PASS",
-  "tests": 118,
-  "timestamp": "2026-10-20T01:09:43"
+  "tests": 119,
+  "timestamp": "2026-10-20T11:16:49"
 }

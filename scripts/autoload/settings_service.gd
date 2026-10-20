@@ -27,6 +27,9 @@ var path: String = PATH  # tests point this at a scratch file
 var onboarding_done: bool = false
 ## 3D dioramas behind menu and route (off = the light 2D backdrop).
 var backgrounds_3d: bool = true
+## Difficulty for NEW runs (D32); a running run keeps the one it started with.
+const DIFFICULTIES: PackedStringArray = ["standard", "hard"]
+var difficulty: String = "standard"
 var keyboard_nav: bool = false
 
 
@@ -135,6 +138,11 @@ func set_backgrounds_3d(v: bool) -> void:
 	_commit()
 
 
+func set_difficulty(v: String) -> void:
+	difficulty = v if DIFFICULTIES.has(v) else "standard"
+	save_settings()
+
+
 func set_onboarding_done(v: bool = true) -> void:
 	onboarding_done = v
 	save_settings()
@@ -232,6 +240,9 @@ func load_settings() -> bool:
 	anim_speed = clampf(float(cfg.get_value("settings", "anim_speed", anim_speed)), 0.25, 4.0)
 	onboarding_done = bool(cfg.get_value("settings", "onboarding_done", onboarding_done))
 	backgrounds_3d = bool(cfg.get_value("settings", "backgrounds_3d", backgrounds_3d))
+	difficulty = str(cfg.get_value("settings", "difficulty", difficulty))
+	if not DIFFICULTIES.has(difficulty):
+		difficulty = "standard"
 	for k: String in VOLUME_KEYS:
 		volumes[k] = clampf(float(cfg.get_value("volume", k, volumes[k])), 0.0, 1.0)
 	return true
@@ -246,6 +257,7 @@ func save_settings() -> bool:
 	cfg.set_value("settings", "anim_speed", anim_speed)
 	cfg.set_value("settings", "onboarding_done", onboarding_done)
 	cfg.set_value("settings", "backgrounds_3d", backgrounds_3d)
+	cfg.set_value("settings", "difficulty", difficulty)
 	for k: String in VOLUME_KEYS:
 		cfg.set_value("volume", k, volumes[k])
 	return cfg.save(path) == OK
@@ -254,7 +266,8 @@ func save_settings() -> bool:
 ## Plain snapshot (tests, debug).
 func snapshot() -> Dictionary:
 	return {"language": language, "text_scale": text_scale, "reduced_motion": reduced_motion,
-		"anim_speed": anim_speed, "volumes": volumes.duplicate(), "onboarding_done": onboarding_done}
+		"anim_speed": anim_speed, "volumes": volumes.duplicate(), "onboarding_done": onboarding_done,
+		"difficulty": difficulty}
 
 
 func reset_defaults() -> void:
@@ -263,3 +276,4 @@ func reset_defaults() -> void:
 	reduced_motion = false
 	anim_speed = 1.0
 	volumes = {"master": 0.8, "music": 0.6, "sfx": 0.9}
+	difficulty = "standard"
