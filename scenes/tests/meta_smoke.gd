@@ -48,6 +48,7 @@ func _ready() -> void:
 	await _demo_cases()
 	await _portrait_battle_cases()
 	await _touch_scroll_cases()
+	await _reason_and_difficulty_cases()
 	PlaytestLog.clear()
 	PlaytestLog.path = PlaytestLog.DEFAULT_PATH
 	_restore_save()
@@ -1108,3 +1109,26 @@ func _touch_scroll_cases() -> void:
 	ok(hits[0] == 1, "a card fires on a tap, not when a finger drags across it (%d)" % hits[0])
 	sc.queue_free()
 	await _frames(1)
+
+
+## Reducer reasons with numbers/floor names are shown in Danish (Loc.reason),
+## and the Difficulty setting reaches new runs only.
+func _reason_and_difficulty_cases() -> void:
+	step("reasons + difficulty")
+	Loc.set_language("da")
+	ok(Loc.reason("No space on the Trunk (5/5, needs 1).") == "Ingen plads på Stammen (5/5, kræver 1).", "floor reason in Danish")
+	ok(Loc.reason("Not enough Resin (needs 15).") == "Ikke nok Harpiks (kræver 15).", "resin reason in Danish")
+	ok(Loc.reason("Choose an enemy.") == "Vælg en fjende.", "plain reason in Danish")
+	ok(Loc.reason("Something new (3).") == "Something new (3).", "unknown reason falls back to English")
+	Loc.set_language("en")
+	ok(Loc.reason("No space on the Trunk (5/5, needs 1).") == "No space on the Trunk (5/5, needs 1).", "English unchanged")
+	var before: String = SettingsService.difficulty
+	SettingsService.set_difficulty("hard")
+	GameSession.new_run("BARK", 77)
+	ok(str(GameSession.run.get("difficulty", "")) == "hard", "new run uses Hard")
+	ok(int(GameSession.run["battle"].get("enemy_hp_pct", 100)) == 130, "battle carries Hard scale")
+	SettingsService.set_difficulty("nonsense")
+	ok(SettingsService.difficulty == "standard", "unknown difficulty falls back to standard")
+	GameSession.new_run("BARK", 78)
+	ok(not GameSession.run.has("difficulty"), "standard run stores nothing")
+	SettingsService.set_difficulty(before)

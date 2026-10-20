@@ -729,7 +729,7 @@ func _on_layout_changed(_p: bool) -> void:
 
 
 func _on_rejected(reason: String) -> void:
-	reason_label.text = reason
+	reason_label.text = Loc.reason(reason)
 	AudioBridge.play("ui_invalid")
 
 
@@ -822,7 +822,7 @@ func _on_card_pressed(iid: int) -> void:
 				pending = {"type": "play_card", "card": iid}
 				_preview()
 		elif legal_units.is_empty() and legal_floors.is_empty():
-			reason_label.text = BattleReducer.validate(battle, {"type": "play_card", "card": iid, "target": -1, "floor": -1})
+			reason_label.text = Loc.reason(BattleReducer.validate(battle, {"type": "play_card", "card": iid, "target": -1, "floor": -1}))
 		inspector.text = Loc.t("Choose a highlighted target.") if pending.is_empty() else ""
 	_refresh_all()
 
@@ -905,7 +905,7 @@ func _on_floor_pressed(f: int) -> void:
 func _preview() -> void:
 	var err: String = BattleReducer.validate(battle, pending)
 	if err != "":
-		reason_label.text = err
+		reason_label.text = Loc.reason(err)
 		pending = {}
 		_refresh_all()
 		return
@@ -1114,7 +1114,7 @@ func _refresh_targets() -> void:
 		_set_floor_strip(f, strip_kind)
 		var show: bool = mode == "card" and legal_floors.has(f) and not awaiting_heal_target
 		floor_buttons[f].visible = show
-		floor_buttons[f].text = Catalog.floor_name(f) if show else ""
+		floor_buttons[f].text = Loc.t(Catalog.floor_name(f)) if show else ""
 		if show and pending.get("floor", -1) == f:
 			floor_buttons[f].text = "✔ " + Loc.t(Catalog.floor_name(f))
 

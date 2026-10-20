@@ -38,7 +38,11 @@ Thorns 2.,Torne 2.
 Your Bark creatures get 3 Armor when played (champion included).,"Dine Bark-væsner får 3 Panser, når de spilles (også championen)."
 Your first Poison each turn gives +1 to its first target (lowest id on areas).,Din første Gift hver tur giver +1 til det første mål (ved områder: det først indsatte).
 Your normal creatures get +3 max HP when played (not the champion).,"Dine normale væsner får +3 maks. liv, når de spilles (ikke championen)."
+"No space on the %s (%d/%d, needs %d).","Ingen plads på %s (%d/%d, kræver %d)."
+Not enough Resin (needs %d).,Ikke nok Harpiks (kræver %d).
 Choose a different position.,Vælg en anden plads.
+Choose a floor with an ally.,Vælg en etage med en allieret.
+Choose a floor with an enemy.,Vælg en etage med en fjende.
 Choose a floor.,Vælg en etage.
 Choose a poisoned enemy.,Vælg en forgiftet fjende.
 Choose an ally below the Crown with space on the floor above.,Vælg en allieret under Kronen med plads på etagen ovenover.
@@ -51,12 +55,15 @@ Creatures move one floor at a time.,Væsner flytter én etage ad gangen.
 Invalid target.,Ugyldigt mål.
 That card is not in your hand.,Kortet er ikke på din hånd.
 The battle is not waiting for you.,Det er ikke din tur lige nu.
+There are no enemies.,Der er ingen fjender.
 Choose Resin or healing.,Vælg Harpiks eller helbredelse.
 Choose a card from your deck.,Vælg et kort fra dit dæk.
 Choose one of the offered options.,Vælg en af de tilbudte muligheder.
 Choose one of the two paths.,Vælg en af de to veje.
 Finish the earlier reward first.,Tag stilling til den forrige belønning først.
 That card cannot get this upgrade.,Kortet kan ikke få denne opgradering.
+That reward has already been claimed.,Den belønning er allerede taget.
+That reward has already been skipped.,Den belønning er allerede sprunget over.
 That reward is not available.,Den belønning er ikke tilgængelig.
 The champion's path is locked.,Championens retning er låst.
 There is no battle in progress.,Der er ingen kamp i gang.
@@ -66,6 +73,7 @@ This place has already been used.,Dette sted er allerede brugt.
 Unknown command.,Ukendt kommando.
 You already own that relic.,Du har allerede det relikvie.
 You are not at a node.,Du er ikke på et sted på ruten.
+You are not at that place.,Du er ikke på det sted.
 Anchored,Forankret
 Discard pile shuffled into the draw pile,Kasserede kort blandes ind i trækbunken
 Spore Colossus bursts,Sporekolossen brister
@@ -388,7 +396,10 @@ Animation speed,Animationshastighed
 Clear,Ryd
 Delete,Slet
 Delete all logged runs and feedback on this device?,Slet alle loggede løb og svar på denne enhed?
+Difficulty,Sværhedsgrad
 Export,Eksporter
+Hard,Svær
+Hard gives enemies and the boss 30% more health. Applies to new runs.,Svær giver fjender og bossen 30 % mere liv. Gælder nye løb.
 How fast battle animations replay. The outcome never changes.,Hvor hurtigt kampanimationer afspilles. Udfaldet ændres aldrig.
 Keep the data,Behold dataene
 Keeps the camera still and turns off pulsing and drifting effects.,Holder kameraet stille og slår pulserende og drivende effekter fra.
@@ -403,6 +414,7 @@ Reduced motion,Reduceret bevægelse
 Runs logged on this device: %d,Løb logget på denne enhed: %d
 Saved to:,Gemt i:
 Sound effects,Lydeffekter
+Standard,Standard
 Text size,Tekststørrelse
 Volume,Lydstyrke
 Abandon run,Opgiv løbet
@@ -422,7 +434,3 @@ cost,pris
 damage,skade
 healing,helbredelse
 max HP,maks. liv
-Difficulty,Sværhedsgrad
-Standard,Standard
-Hard,Svær
-Hard gives enemies and the boss 30% more health. Applies to new runs.,Svær giver fjender og bossen 30 % mere liv. Gælder nye løb.

@@ -50,6 +50,54 @@ func t(en: String) -> String:
 	return tab.get(en, en)
 
 
+## A reason string from a reducer (English, possibly already formatted with
+## numbers or floor names). Plain reasons translate directly; formatted ones
+## are matched against their template, then re-formatted in the language.
+func reason(text: String) -> String:
+	if language == "en" or text == "":
+		return text
+	var direct: String = t(text)
+	if direct != text:
+		return direct
+	var templates: Array = [
+		["No space on the %s (%d/%d, needs %d).", Loc.t("No space on the %s (%d/%d, needs %d).")],
+		["Not enough Sap (needs %d).", Loc.t("Not enough Sap (needs %d).")],
+		["Not enough Resin (needs %d).", Loc.t("Not enough Resin (needs %d).")],
+		["Your deck must keep at least %d normal cards.", Loc.t("Your deck must keep at least %d normal cards.")],
+	]
+	for pair: Array in templates:
+		var args: Variant = _match_template(str(pair[0]), text)
+		if args != null:
+			return str(pair[1]) % args
+	return text
+
+
+func _match_template(tpl: String, text: String) -> Variant:
+	var codes: Array = []
+	var pat := "^"
+	var i := 0
+	while i < tpl.length():
+		var c := tpl[i]
+		if c == "%" and i + 1 < tpl.length() and tpl[i + 1] in ["d", "s"]:
+			codes.append(tpl[i + 1])
+			pat += "(-?\\d+)" if tpl[i + 1] == "d" else "(.+?)"
+			i += 2
+			continue
+		pat += ("\\" + c) if "\\^$.|?*+()[]{}/".contains(c) else c
+		i += 1
+	var re := RegEx.new()
+	if re.compile(pat + "$") != OK:
+		return null
+	var m := re.search(text)
+	if m == null:
+		return null
+	var out: Array = []
+	for k in codes.size():
+		var v: String = m.get_string(k + 1)
+		out.append(int(v) if codes[k] == "d" else t(v))
+	return out
+
+
 ## Name/text field of a data definition in the active language.
 ## The translation table wins over a definition's `<key>_<lang>` field: the
 ## catalog's text_da is design-spec wording without {placeholders}, so it

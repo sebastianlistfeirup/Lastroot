@@ -116,7 +116,7 @@ func _on_run_changed(events: Array) -> void:
 
 func _on_rejected(reason: String) -> void:
 	AudioService.play("ui_invalid")
-	toast(Loc.t(reason))
+	toast(Loc.reason(reason))
 
 
 ## Re-renders everything from GameSession.run (or leaves for another scene).

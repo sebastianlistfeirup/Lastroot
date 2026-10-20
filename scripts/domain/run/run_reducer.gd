@@ -262,7 +262,9 @@ static func _claim(r: Dictionary, slot_id: String, choice: Variant, ev: Array) -
 	if slot.is_empty():
 		return "That reward is not available."
 	if slot["status"] != "offered":
-		return "That reward has already been %s." % slot["status"]
+		if slot["status"] == "skipped":
+			return "That reward has already been skipped."
+		return "That reward has already been claimed."
 	if r["phase"] == "reward" and current_slot(r).get("id", "") != slot_id:
 		return "Finish the earlier reward first."
 	var c: String = str(choice)
@@ -302,7 +304,9 @@ static func _skip(r: Dictionary, slot_id: String, ev: Array) -> String:
 	if slot.is_empty():
 		return "That reward is not available."
 	if slot["status"] != "offered":
-		return "That reward has already been %s." % slot["status"]
+		if slot["status"] == "skipped":
+			return "That reward has already been skipped."
+		return "That reward has already been claimed."
 	if not slot.get("skippable", true):
 		return "This choice cannot be skipped."
 	slot["status"] = "skipped"
@@ -364,7 +368,7 @@ static func _choose_node(r: Dictionary, node_id: String, ev: Array) -> String:
 
 static func _require_node(r: Dictionary, type: String) -> String:
 	if r["phase"] != "node" or r["node"].get("type", "") != type:
-		return "You are not at a %s." % type
+		return "You are not at that place."
 	if r["node"]["status"] != "open":
 		return "This place has already been used."
 	return ""

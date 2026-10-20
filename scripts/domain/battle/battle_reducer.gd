@@ -609,7 +609,9 @@ static func _play_spell(s: Dictionary, cmd: Dictionary, ev: Array, iid: int, def
 				return _target_reason(s, tgt_type, op)
 		"enemy_floor", "ally_floor":
 			if not (legal["floors"] as Array).has(f):
-				return "Choose a floor with %s." % ("an enemy" if tgt_type == "enemy_floor" else "an ally")
+				if tgt_type == "enemy_floor":
+					return "Choose a floor with an enemy."
+				return "Choose a floor with an ally."
 		"all_enemies":
 			if (legal["floors"] as Array).is_empty():
 				return "There are no enemies to affect."
@@ -687,7 +689,9 @@ static func _play_spell(s: Dictionary, cmd: Dictionary, ev: Array, iid: int, def
 static func _target_reason(s: Dictionary, tgt_type: String, op: String) -> String:
 	match tgt_type:
 		"enemy":
-			return "Choose an enemy." if not all_enemies(s).is_empty() else "There are no enemies."
+			if all_enemies(s).is_empty():
+				return "There are no enemies."
+			return "Choose an enemy."
 		"enemy_poisoned":
 			return "Choose a poisoned enemy."
 		"ally_normal":
