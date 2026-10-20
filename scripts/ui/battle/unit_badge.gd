@@ -12,6 +12,7 @@ var _status: RichTextLabel
 var _k: float = 1.0
 var _fc: Label
 var _highlight: String = ""  # "" | target | selected | invalid
+var _last: Array = []  # last show_unit() arguments, re-applied when compact changes
 
 
 func _init() -> void:
@@ -65,9 +66,17 @@ func set_compact(c: bool) -> void:
 	_apply_fonts()
 	_fc.add_theme_font_size_override("font_size", int(15 * k * UiKit.font_scale))
 	custom_minimum_size = Vector2(UiKit.MIN_HIT * (1.0 if c else 1.6), UiKit.MIN_HIT * (0.8 if c else 1.0))
+	if not _last.is_empty():
+		show_unit(_last[0], _last[1], _last[2])
+
+
+## Compact badges put statuses on the stats line (one row, same information).
+func is_compact() -> bool:
+	return _k < 1.0
 
 
 func show_unit(u: Dictionary, attack_value: int, extra: String = "") -> void:
+	_last = [u, attack_value, extra]
 	unit_id = int(u["unit_id"])
 	side = str(u["side"])
 	var champ: String = "[color=#%s]★[/color] " % UiKit.AMBER.to_html(false) if u.get("is_champion", false) else ""
@@ -82,6 +91,13 @@ func show_unit(u: Dictionary, attack_value: int, extra: String = "") -> void:
 			parts.append(_part(k, str(int(u[k]))))
 	_status.text = ("[center]" + "  ".join(parts) + extra + "[/center]") if (not parts.is_empty() or extra != "") else ""
 	_status.visible = _status.text != ""
+	if is_compact():
+		# Phone: one short row; current HP only (red when at half or less),
+		# statuses inline. Max HP and the rules are one tap away (sheet).
+		_stats.text = "[center]%s%s [color=#%s]%s[/color][b][color=#%s]%d[/color][/b]%s[/center]" % [champ, _part("attack", str(attack_value)),
+			UiKit.status_color("hp").to_html(false), UiKit.status_glyph("hp"), hp_col.to_html(false), int(u["hp"]),
+			(" " + " ".join(parts) + extra) if (not parts.is_empty() or extra != "") else ""]
+		_status.visible = false
 	_restyle()
 
 

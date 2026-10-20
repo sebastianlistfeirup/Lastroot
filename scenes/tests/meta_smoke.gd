@@ -46,6 +46,7 @@ func _ready() -> void:
 	await _playtest_cases()
 	_danish_cases()
 	await _demo_cases()
+	await _portrait_battle_cases()
 	PlaytestLog.clear()
 	PlaytestLog.path = PlaytestLog.DEFAULT_PATH
 	_restore_save()
@@ -993,3 +994,83 @@ func _demo_cases() -> void:
 	m = await mount(MENU, {})
 	ok(m.find_child("DemoTag", true, false) == null or OS.has_feature("demo"), "no demo tag in the full game")
 	await unmount(m)
+
+
+# ------------------------------------------------ portrait (phone) battle
+
+func _portrait_battle_cases() -> void:
+	var phone := Vector2i(430, 932)
+	for fx: String in ["battle1", "midbattle", "boss"]:
+		_case = "phone_battle_" + fx
+		GameSession.run = DebugFixtures.make(fx, "BARK", 2)
+		var sv := SubViewport.new()
+		sv.size = phone
+		add_child(sv)
+		var s: BattleScreen = (load("res://scenes/battle/battle.tscn") as PackedScene).instantiate() as BattleScreen
+		sv.add_child(s)
+		await _frames(6)
+		ok(s.portrait, "portrait layout")
+		var top: Control = s.root.get_node("TopBar")
+		ok(top.size.y <= 72.0, "top bar is one row (%d px)" % int(top.size.y))
+		ok(s.btn_menu.get_parent() == s.top_bar and s.btn_speed.get_parent() == s.action_bar, "menu in the bar, speed with the actions")
+		var hand_top: float = s.hand_scroll.position.y
+		ok(s.action_bar.visible and s.action_bar.position.y + s.action_bar.size.y <= hand_top + 1.0, "action bar sits right above the hand")
+		ok(s.action_bar.position.y >= phone.y * 0.62, "Confirm / End turn in the thumb zone")
+		for b: Button in [s.btn_confirm, s.btn_end, s.btn_cancel, s.btn_speed]:
+			ok(b.is_visible_in_tree() and b.size.y >= UiKit.MIN_HIT, "%s visible and >= 48 px" % b.text)
+		ok(s.right_panel.position.y + s.right_panel.size.y <= s.action_bar.position.y, "sheet above the action bar")
+		ok(s.sheet_summary.is_visible_in_tree() and s.sheet_summary.text.contains(UiKit.status_glyph("hp")), "summary line shows the Heart forecast")
+		if s.hint_panel.visible:
+			ok(s.hint_panel.position.y + s.hint_panel.size.y <= s.right_panel.position.y + 1.0, "hint sits on the sheet, not over the floors")
+		var overlaps := 0
+		var first := ""
+		var rects: Array[Rect2] = []
+		var who: Array[String] = []
+		for uid: int in s.badges.keys():
+			var b: Control = s.badges[uid]
+			if b.visible:
+				rects.append(Rect2(b.position, b.size).grow(-1.0))
+				var u: Dictionary = s.unit_snapshot(uid)
+				who.append("%s f%d" % [u.get("side", "?"), int(u.get("floor", -1))])
+		for i in rects.size():
+			for j in range(i + 1, rects.size()):
+				if rects[i].intersects(rects[j]):
+					overlaps += 1
+					if first == "":
+						first = "%s %s / %s %s" % [who[i], rects[i], who[j], rects[j]]
+		ok(overlaps == 0, "no badges overlap (%d pairs; %s)" % [overlaps, first])
+		var h := JsonUtil.state_hash(GameSession.battle())
+		s.sheet_summary.pressed.emit()
+		await _frames(2)
+		ok(s.sheet_open and s.forecast_box.is_visible_in_tree() and s.right_panel.size.y >= phone.y * 0.4, "summary tap expands the sheet")
+		s.sheet_summary.pressed.emit()
+		await _frames(2)
+		ok(not s.sheet_open and not s.forecast_box.is_visible_in_tree(), "second tap collapses it")
+		var enemy := -1
+		for key: String in GameSession.battle()["units"].keys():
+			var u: Dictionary = GameSession.battle()["units"][key]
+			if u["side"] == "enemy" and u["alive"] and s.badges.has(int(key)):
+				enemy = int(key)
+				break
+		if enemy >= 0:
+			s._on_badge_pressed(enemy)
+			await _frames(2)
+			ok(s.sheet_open and s.inspector.is_visible_in_tree() and s.inspector.text != "", "badge tap shows its details in the sheet")
+		var creature := -1
+		for iid: int in GameSession.battle()["zones"]["hand"]:
+			if Catalog.is_creature(BattleReducer.card_def(GameSession.battle(), iid)) and s._card_playable(iid):
+				creature = iid
+				break
+		if creature >= 0:
+			s._on_card_pressed(creature)
+			await _frames(2)
+			ok(not s.sheet_open and s.ghost_nodes.size() > 0, "card selection closes the sheet and shows + spots")
+			s._cancel()
+		ok(JsonUtil.state_hash(GameSession.battle()) == h, "sheet and inspection never change the battle")
+		sv.size = Vector2i(1920, 1080)
+		await _frames(3)
+		s._relayout()
+		ok(not s.portrait and s.btn_end.get_parent() == s.btn_confirm.get_parent().get_parent() and not s.action_bar.visible, "desktop gets its right panel back")
+		ok(s.btn_speed.get_parent() == s.top_bar and s.btn_menu.text == Loc.t("Menu"), "desktop top bar restored")
+		sv.queue_free()
+		await _frames(2)
