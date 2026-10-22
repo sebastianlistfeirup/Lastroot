@@ -3,13 +3,13 @@
 *Til dig, Sebastian. Én tjekliste fra `git pull` til de beslutninger, kun du kan tage. **Alle assets er valgt på forhånd** (`data/art/synty_selection.json`, begrundet i `docs/REALMREND_LESSONS.md`): du henter, pakker ud og bygger (§2–§3). Regn med 3–4 timer; afsnit 1–2 (≈45 min) giver mest. Alle kommandoer herunder er kørt i containeren den 20.10.2026 (Linux, Godot 4.5.1) — undtagelser står ved kommandoen. Asset-oversigt pr. slot: `docs/ASSET_MAP.md`.*
 
 **På Windows:** kør `.sh`-kommandoerne i **Git Bash** (følger med Git for Windows) fra projektmappen. Peg på konsol-udgaven af Godot, så du ser output:
-`export GODOT_BIN="/c/Godot/Godot_v4.5.1-stable_win64_console.exe"` (ret stien). Python hedder ofte `python` eller `py` på Windows — brug det i stedet for `python3`, hvis `python3` ikke findes.
+`export GODOT_BIN="/c/Godot/Godot_v4.7.1-stable_win64_console.exe"` (ret stien). Python hedder ofte `python` eller `py` på Windows — brug det i stedet for `python3`, hvis `python3` ikke findes.
 
 ---
 
 ## 0. Klar (10 min)
 
-- [ ] `git pull` (main) og åbn mappen i **Godot 4.5.1-stable** (samme version: `docs/VERSION_MATRIX.md`). Første åbning importerer i et par minutter.
+- [ ] `git pull` (main) og åbn mappen i **Godot 4.7.1-stable** (samme version: `docs/VERSION_MATRIX.md`). Første åbning importerer i et par minutter.
 - [ ] `tools/check.sh` → sidste linje skal kun vise `…_exit=0` (validators, release, selection, loc, tests, smoke, meta, layout) (i containeren: 118 tests, 40 smoke-checks, 628 meta-checks, 0 fejl). Kør den ikke samtidig med en anden testsuite/capture (de deler `user://`).
 - [ ] `python3 tools/synty/doctor.py` → tjekker Godot-version, Pillow, xvfb (kun Linux), hvad der er pakket ud, dine valg, og at **ingen købte filer er i git**. Ændrer intet. `resultat: klar` = fortsæt.
 
@@ -194,7 +194,7 @@ Rækkefølge med det bindende valg (etager, stamme og hjerte forbliver proxy): d
 
 ## 7. Windows-build (LR-12, 15 min)
 
-Kræver Godots eksportskabeloner: *Editor → Manage Export Templates → Download and Install* (4.5.1). Derefter:
+Kræver Godots eksportskabeloner: *Editor → Manage Export Templates → Download and Install* (4.7.1). Derefter:
 
 ```bash
 godot --headless --path . --export-release "Windows Desktop" builds/windows/Lastroot.exe

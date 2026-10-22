@@ -5,7 +5,7 @@
 | project | LASTROOT |
 | spec_version | Udviklingsbibel v2.0 (19.10.2026) |
 | game_status | GREYBOX_PLAYABLE (hele runnet spilbart med proxies) |
-| engine_version | Godot 4.5.1-stable (official, f62fdbde1) |
+| engine_version | Godot 4.7.1-stable (official, a13da4feb) — opgraderet fra 4.5.1 22.10 (D35) |
 | profile | HOLIDAY (cloud-container, headless + Xvfb; ingen Synty/PolyPerfect-filer, ingen Windows-maskine, ingen fysisk telefon) |
 | current_phase | 1 · Fundament (port ikke erklæret bestået) |
 | last_passed_gate | — (fase 1-porten kræver LR-08/09/11/12 DONE, som kræver menneske/rigtige assets/Windows) |

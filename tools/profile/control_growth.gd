@@ -4,7 +4,7 @@ extends Node
 ## it never comes back; Node/Node2D/Node3D and raw canvas-item RIDs stay flat.
 ## Object count stays flat, so nothing in project code holds them.
 ##   godot --headless --path . res://tools/profile/control_growth.tscn [-- --kind=panel|label|node2d|node]
-## Prints CONTROL_GROWTH <kind> <bytes per created node>. Godot 4.5.1-stable.
+## Prints CONTROL_GROWTH <kind> <bytes per created node>. Godot 4.5.1-stable and 4.7.1-stable (same 48 B).
 
 var kind := "panel"
 const ROUNDS := 120

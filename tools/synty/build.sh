@@ -14,7 +14,7 @@ while [ $# -gt 0 ] && [ "$1" != "--" ]; do STAGE_ARGS+=("$1"); shift; done
 [ "${1:-}" = "--" ] && shift
 BUILD_ARGS=("$@")
 if ! command -v "$GODOT" >/dev/null 2>&1; then
-	echo "FEJL: Godot findes ikke som '$GODOT'. Installér Godot 4.5.1 eller sæt GODOT_BIN=/sti/til/godot." >&2
+	echo "FEJL: Godot findes ikke som '$GODOT'. Installér Godot 4.7.1 eller sæt GODOT_BIN=/sti/til/godot." >&2
 	echo "ERROR: Godot binary '$GODOT' not found (set GODOT_BIN)." >&2
 	exit 2
 fi

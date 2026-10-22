@@ -3,14 +3,14 @@
 > Defend the last world tree. Build a deck that can take root.
 > Tre etager. To fraktioner. Ét hjerte, du ikke må miste.
 
-Turbaseret roguelike-deckbuilder i **Godot 4.5.1 (typed GDScript)**, bygget efter *LASTROOT Godot Udviklingsbibel v2* (`docs/BIBLE.md` / `docs/LASTROOT_Godot_Udviklingsbibel_v2.pdf`). Grafikken bliver Synty/PolyPerfect med animationer fra Synty/PolyPerfect eller Mixamo; indtil pakkerne er importeret, kører hele spillet med registrerede greybox-proxies (`data/art/asset_slots.json`).
+Turbaseret roguelike-deckbuilder i **Godot 4.7.1 (typed GDScript)**, bygget efter *LASTROOT Godot Udviklingsbibel v2* (`docs/BIBLE.md` / `docs/LASTROOT_Godot_Udviklingsbibel_v2.pdf`). Grafikken bliver Synty/PolyPerfect med animationer fra Synty/PolyPerfect eller Mixamo; indtil pakkerne er importeret, kører hele spillet med registrerede greybox-proxies (`data/art/asset_slots.json`).
 
 **Start her:** [`START_HERE.md`](START_HERE.md) · **Status:** [`docs/STATUS.md`](docs/STATUS.md) · **Assets:** [`docs/SYNTY_INTEGRATION.md`](docs/SYNTY_INTEGRATION.md)
 
 ## Hurtigt
 
 ```bash
-godot --path .                                                  # spil (Godot 4.5.1)
+godot --path .                                                  # spil (Godot 4.7.1)
 tools/check.sh                                                  # validatorer + import + tests + scenesmoke
 godot --headless --path . --script res://tests/run_tests.gd     # domæne- og prognosetests
 godot --headless --path . res://scenes/tests/scene_smoke.tscn   # kampscene med rigtigt input

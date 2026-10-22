@@ -4,8 +4,8 @@ Registreret 19.10.2026 i den autonome ferie-session (cloud-container, Linux x86_
 
 | Værktøj / service | Status | auth_mode | Tilladte handlinger | Input → output | Bemærkning |
 |---|---|---|---|---|---|
-| Godot 4.5.1 (Linux) | available | — | import, tests, scenetests, eksport | projekt → builds/evidence | Officiel binær hentet fra GitHub releases. Headless + Xvfb. |
-| Export templates 4.5.1 | available | — | Linux, Windows, Web (no threads) | projekt → `.x86_64` / `.exe` / web | macOS/Android/iOS ikke installeret. |
+| Godot 4.7.1 (Linux) | available | — | import, tests, scenetests, eksport | projekt → builds/evidence | Officiel binær hentet fra GitHub releases. Headless + Xvfb. |
+| Export templates 4.7.1 | available | — | Linux, Windows, Web (no threads) | projekt → `.x86_64` / `.exe` / web | macOS/Android/iOS ikke installeret. |
 | Xvfb + Mesa llvmpipe | available | — | screenshots (`DebugCapture`) | scene → PNG | Softwarerendering i GL Compatibility. Visuel kvalitet ≠ målmaskine. |
 | Synty-pakker | **unavailable her** | købt af ejeren | — | — | Ingen filer i containeren. Alle visuals er registrerede proxies (VisualSlots). Importkæden er klar i `tools/synty/`. |
 | PolyPerfect-pakker | **unavailable her** | købt af ejeren | — | — | Samme som Synty. |

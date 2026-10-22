@@ -1,6 +1,6 @@
 # Synty · PolyPerfect · Mixamo → LASTROOT
 
-*Godot 4.5.1 · gælder biblens afsnit "Synty og PolyPerfect: konkret assetplan" og "Animation: dramatisér et allerede afgjort resultat".*
+*Godot 4.7.1 · gælder biblens afsnit "Synty og PolyPerfect: konkret assetplan" og "Animation: dramatisér et allerede afgjort resultat".*
 
 Guiden er skrevet til dig som ejer. Du behøver ikke kunne programmere. Spillet kører i dag med procedurale low-poly proxies for hvert visuelt *slot*. Du skifter ét slot ad gangen til en købt model; kampreglerne ændres aldrig af grafik.
 

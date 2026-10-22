@@ -1,5 +1,5 @@
 ; Engine configuration file.
-; LASTROOT — locked engine: Godot 4.5.1-stable (see docs/VERSION_MATRIX.md)
+; LASTROOT — locked engine: Godot 4.7.1-stable (D35) (see docs/VERSION_MATRIX.md)
 
 config_version=5
 
@@ -9,7 +9,7 @@ config/name="LASTROOT"
 config/description="Defend the last world tree. Build a deck that can take root."
 config/version="0.1.0"
 run/main_scene="res://scenes/boot/boot.tscn"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://assets/branding/icon.svg"
 boot_splash/bg_color=Color(0.051, 0.063, 0.098, 1)
 boot_splash/show_image=true

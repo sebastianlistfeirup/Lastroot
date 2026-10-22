@@ -39,10 +39,10 @@ def run(cmd):
 def check_tools():
     r = run([GODOT, "--version"])
     if r is None or r.returncode != 0:
-        line("FEJL", "Godot findes ikke ('%s'). Installér 4.5.1-stable eller sæt GODOT_BIN." % GODOT, "godot not found")
+        line("FEJL", "Godot findes ikke ('%s'). Installér 4.7.1-stable eller sæt GODOT_BIN." % GODOT, "godot not found")
     else:
         v = r.stdout.strip().splitlines()[0] if r.stdout.strip() else "?"
-        line("OK" if v.startswith("4.5.1") else "NB", "Godot " + v + ("" if v.startswith("4.5.1") else " (projektet er låst til 4.5.1-stable, docs/VERSION_MATRIX.md)"))
+        line("OK" if v.startswith("4.7.1") else "NB", "Godot " + v + ("" if v.startswith("4.7.1") else " (projektet er låst til 4.7.1-stable, docs/VERSION_MATRIX.md)"))
     try:
         import PIL  # noqa: F401
         line("OK", "Pillow findes (tools/capture_all.sh kan lave kontaktark)")

@@ -27,7 +27,7 @@ Synty/PolyPerfect-filer må aldrig committes. Spørg mig kun ved valg, der er mi
 
 ---
 
-Hej Sebastian. Dette er overdragelsen fra den autonome ferie-session (19. oktober 2026), bygget på samme måde som GENESIS ARK: Godot 4.5.1, ren domænemotor med tests, greybox-proxies der kan byttes til Synty/PolyPerfect, beviser i `evidence/`. Alt herunder er kørt i containeren; hvad der *ikke* kunne afprøves, står eksplicit.
+Hej Sebastian. Dette er overdragelsen fra den autonome ferie-session (19. oktober 2026), bygget på samme måde som GENESIS ARK: Godot (nu 4.7.1, D35), ren domænemotor med tests, greybox-proxies der kan byttes til Synty/PolyPerfect, beviser i `evidence/`. Alt herunder er kørt i containeren; hvad der *ikke* kunne afprøves, står eksplicit.
 
 ## 1. Hvad er der?
 
@@ -46,7 +46,7 @@ Et spilbart **greybox-gennemløb** af hele LASTROOT:
 
 ## 2. Spil det
 
-1. Installér **Godot 4.5.1-stable** (samme version — `docs/VERSION_MATRIX.md`).
+1. Installér **Godot 4.7.1-stable** (samme som Realmrend; kræves af Synty Dark Fantasy Godot-pakken) (samme version — `docs/VERSION_MATRIX.md`).
 2. Åbn mappen i Godot → **F5**. Eller kør `builds/windows/Lastroot.exe` efter eksport (se §5).
 3. Mus/touch: tap kort → tap mål → Bekræft (eller tap samme mål igen). `Esc` annullerer/åbner menu. Tastatur/pad: se punkt 10 ovenfor.
    **På telefonen nu:** Artifact "Lastroot Playtest" (https://claude.ai/artifact/BsnV9QwztLZ5haFiHhnAjX) er web-buildet af spillet — virker i telefonens browser, op- eller nedvendt (greybox, kan være tungt på ældre telefoner). `1×/2×/½×` styrer animationshastighed; "Skip animation" springer afspilningen over.
@@ -90,7 +90,7 @@ Se `docs/STATUS.md` (porte, opgaver, tests, blokeringer, næste tre opgaver) og 
 
 ## 6. Når du kommer hjem (forslag til rækkefølge)
 
-1. `git pull`, åbn i Godot 4.5.1, F5, spil kamp 1 med begge champions (≈10 min). Notér de tre største friktioner.
+1. `git pull`, åbn i Godot 4.7.1, F5, spil kamp 1 med begge champions (≈10 min). Notér de tre største friktioner.
 2. Kør grafik-"Hurtig vej" med dine pakker; godkend line-up i `asset_gallery.tscn` (LR-11/LR-13).
 3. Eksportér Windows (`godot --headless --path . --export-release "Windows Desktop" builds/windows/Lastroot.exe`), kør på din maskine, og bed agenten markere LR-12.
 4. Derefter: LR-18 (rigtige animationer), LR-27 (balance med mennesker), LR-28 (portræt/telefon).

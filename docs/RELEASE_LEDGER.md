@@ -6,7 +6,7 @@ Hvad der faktisk ligger i en build, hvor det kommer fra, og hvad der skal tjekke
 
 | Del | Indhold | Kilde / ejer | Licens / rettigheder | Status |
 | --- | --- | --- | --- | --- |
-| Motor | Godot Engine 4.5.1-stable (official) | godotengine.org | MIT. Licensteksten vises i spillet (Medvirkende) via `Engine.get_license_text()`. Tredjepartskomponenter i Godot har egne licenser (`Engine.get_copyright_info()`); de skal medfølge i en distribueret build. | I brug |
+| Motor | Godot Engine 4.7.1-stable (official) | godotengine.org | MIT. Licensteksten vises i spillet (Medvirkende) via `Engine.get_license_text()`. Tredjepartskomponenter i Godot har egne licenser (`Engine.get_copyright_info()`); de skal medfølge i en distribueret build. | I brug |
 | Kode | `scripts/`, `scenes/`, `tools/`, `tests/` | Projektets egen kode | Projektejerens (Sebastian List Feirup) | I brug |
 | Data | `data/definitions/catalog.json` (kort, fjender, relikvier, mutationer, kampe), `data/art/*.json` | Egen, efter udviklingsbiblen | Projektejerens | I brug |
 | Sprog | Kun engelsk i spillet (D34). `localization/translations.csv` er strenginventar; `da`-kolonnen og katalogets `*_da` er hvilende og vises ikke | Egen | Projektejerens | Engelsk i brug; dansk hvilende |

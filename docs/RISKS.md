@@ -12,4 +12,4 @@
 
 Registrér reproduktion, påvirket gate og næste handling ved konkrete blokeringer.
 
-- **Godot 4.5.1: 48 B statisk hukommelse pr. oprettet Control (21.10).** Minimal repro `tools/profile/control_growth.tscn`. ~36 KB pr. kamp; ubetydeligt nu. Afbødning hvis nødvendigt: genbrug popups/mærker/prognoserækker; tjek ved Godot-opgradering; indberet upstream.
+- **Godot 4.5.1 og 4.7.1: 48 B statisk hukommelse pr. oprettet Control (21.10, genbekræftet på 4.7.1 22.10).** Minimal repro `tools/profile/control_growth.tscn`. ~36 KB pr. kamp; ubetydeligt nu. Afbødning hvis nødvendigt: genbrug popups/mærker/prognoserækker; tjek ved Godot-opgradering; indberet upstream.
