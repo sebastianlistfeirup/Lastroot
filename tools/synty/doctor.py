@@ -86,7 +86,8 @@ def check_quarantine():
 
 def check_choices():
     if not os.path.exists(CHOICES):
-        line("NB", "data/art/synty_choices.json findes ikke endnu: kør python3 tools/synty/match.py efter unpack.py", "no choices yet")
+        line("NB", "data/art/synty_choices.json findes ikke endnu: kør python3 tools/synty/apply_selection.py efter unpack.py "
+             "(det bindende valg; match.py er kun reserve)", "no choices yet")
         return
     try:
         doc = json.load(open(CHOICES, encoding="utf-8"))
@@ -112,6 +113,22 @@ def check_choices():
         line("OK", "alle 9 humanoide tilstande har et klip")
 
 
+def check_selection():
+    r = run([sys.executable, os.path.join(ROOT, "tools", "synty", "apply_selection.py"), "--check"])
+    if r is None:
+        line("NB", "kunne ikke køre apply_selection.py --check")
+    elif r.returncode == 0:
+        line("OK", r.stdout.strip().splitlines()[-1] if r.stdout.strip() else "synty_selection ok")
+    else:
+        line("FEJL", "data/art/synty_selection.json er ugyldig: " + (r.stderr.strip().splitlines() or ["?"])[0], "invalid selection")
+    # Realmrend lesson: a Synty Godot build ships Assets/<Pack>/...; copied into the project root on
+    # Windows it merges into Lastroot's assets/ folder (case-insensitive) OUTSIDE the gitignored folders.
+    for d in ("assets/PolygonFantasyKingdom", "assets/Synty", "assets/PolygonDungeon", "assets/PolygonDarkFantasy"):
+        if os.path.isdir(os.path.join(ROOT, d)):
+            line("FEJL", "'%s' ligner et kopieret Synty Godot-projekt i repoet (ikke gitignored!). Flyt det ud; brug kun unpack.py." % d,
+                 "vendor Godot project copied into the repo")
+
+
 def check_git():
     r = run(["git", "ls-files", "assets/quarantine", "assets/imported"])
     if r is None or r.returncode != 0:
@@ -134,6 +151,7 @@ def main() -> int:
     print("LASTROOT asset-doctor (læser kun, ændrer intet)")
     check_tools()
     check_quarantine()
+    check_selection()
     check_choices()
     check_git()
     print("resultat: %s" % ("klar" if errors == 0 else "%d FEJL — ret dem før tools/synty/build.sh" % errors))

@@ -1,0 +1,121 @@
+{
+ "status": "PASS",
+ "note": "Fake manifests named after files Realmrend saw in the real Synty packs; no purchased files.",
+ "checks": [
+  {
+   "check": "selection valid and covers every slot in asset_slots.json",
+   "result": "PASS",
+   "detail": "synty_selection ok: 51 slots \u00b7 fx=18, keep_proxy=8, needs_download/pattern_only=2, owned/pattern_only=16, owned/verified_in_realmrend=7"
+  },
+  {
+   "check": "dry-run without packs prints the plan, writes nothing, exit 0",
+   "result": "PASS",
+   "detail": "0"
+  },
+  {
+   "check": "real run without packs: clear error, exit 2, nothing written",
+   "result": "PASS",
+   "detail": "2"
+  },
+  {
+   "check": "partial packs: file written, exit 3, missing slots listed",
+   "result": "PASS",
+   "detail": "3"
+  },
+  {
+   "check": "S01 -> Source_Files/Characters/SK_Chr_Hermit_01.fbx, approved, faces via rotation_y 180",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "E06 boss -> verified Dark Lord",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "B06 needs_download pack absent -> owned fallback (Demon) used and reported",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "B02 (Dungeon not unpacked) stays proxy with a reason",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "keep_proxy floors + FX written like match.py (skip / manual, no source)",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "ambiguous pattern (two flowers) resolved to _01 and flagged",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "humanoid clips: verified Synty names for idle/move/hit/death; attack falls back to HeavyCombo01A",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "atlas: SourceFiles FBX gets the Godot build's Texture_01_A (not the Alts/ B variant)",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "--allow-missing -> exit 0",
+   "result": "PASS",
+   "detail": "0"
+  },
+  {
+   "check": "re-run keeps hand edit (S01 manual) and focus --revert (E06 skip)",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "--force restores the selection",
+   "result": "PASS",
+   "detail": ""
+  },
+  {
+   "check": "focus.py unit.S01: S01 approved, other selection choices -> weak (not built)",
+   "result": "PASS",
+   "detail": "fokus: unit.S01 -> approved; 11 andre auto-valg sat til weak (bygges ikke). N\u00e6ste: tools/synty/build.sh\n"
+  },
+  {
+   "check": "stage.py: preferred atlas first for the SourceFiles pack (copied from the Godot-build pack)",
+   "result": "PASS",
+   "detail": "['imported/POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0/PolygonFantasyKingdom/Textures/PolygonFantasyKingdom_Texture_01_A.png']"
+  },
+  {
+   "check": "--archives on an empty folder: 16 missing, exit 3",
+   "result": "PASS",
+   "detail": "3"
+  },
+  {
+   "check": "--archives: wrong size/checksum -> FEJL, exit 2",
+   "result": "PASS",
+   "detail": "2"
+  },
+  {
+   "check": "invalid selection (missing slot, bad decision) -> exit 2 with both problems",
+   "result": "PASS",
+   "detail": "2"
+  },
+  {
+   "check": "uid tool: finds the shared collider uid (report mode exit 1)",
+   "result": "PASS",
+   "detail": "1"
+  },
+  {
+   "check": "uid tool --fix: Kingdom keeps uid, Dark Fantasy collider + its reference get one new uid",
+   "result": "PASS",
+   "detail": "s/Synty/PolygonDarkFantasy/Models/Collision/Synty_Character_Collider.tres -> uid://2cofbbd3qbrgq\nrettet: 2 filer \u00e6ndret; tilbage: 0 dubletter. K\u00f8r derefter: godot --headless --path <projekt> --import\n"
+  },
+  {
+   "check": "uid tool: idempotent (second scan clean, exit 0)",
+   "result": "PASS",
+   "detail": "0"
+  }
+ ]
+}

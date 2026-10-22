@@ -1,0 +1,1734 @@
+{
+ "_note": "BINDENDE asset-valg for LASTROOT (erstatter match.py's gæt). Hvert slot: decision owned/needs_download/keep_proxy, pack = arkivnavn (eller glob for en pakke der skal hentes), file = filnavn/mønster inde i arkivet, alternatives i prioriteret rækkefølge. tools/synty/apply_selection.py finder filerne i assets/quarantine/ og skriver data/art/synty_choices.json. confidence verified_in_realmrend = navnet er set i Realmrends rigtige pakker (sti i 'evidence' / docs/REALMREND_LESSONS.md); pattern_only = Synty-navnekonvention eller butiksliste, ikke set. NB: for figurer er modelNAVNET set (SM_Chr_<X>_01 i Godot-buildet); præfikset SK_Chr_ i SourceFiles er kun bevist for FK (Source_Files/Characters/SK_Chr_King_01.fbx) — reserven '*<X>*.fbx' dækker begge. Figurer: SourceFiles først (én figur pr. SK_Chr_*.fbx, bevist sti Source_Files/Characters/), fordi Godot-buildets figur-prefabs har alle varianter i én scene og hverken kan læses af unpack.py eller deformerede i Realmrend (R16). Statiske modeller: Godot-buildet først (samme navne som de verificerede prefabs), SourceFiles som reserve.",
+ "version": 1,
+ "date": "2026-10-22",
+ "sources": [
+  "realmrend-crowns-at-war/docs/ledgers/asset_ledger.csv",
+  "realmrend-crowns-at-war/docs/reviews/*",
+  "realmrend-crowns-at-war/game/characters/lord_raven.tscn",
+  "realmrend-crowns-at-war/tools/r06_retarget.py",
+  "Synty/Unity store listings (Dark Fantasy, Dungeon, Fantasy Kingdom, Fantasy Rivals)"
+ ],
+ "licence": "SyntyPass Standard (faktura SS-415943, 2026-08-16, 3 mdr, udløber ca. 2026-11-16): aktivt abonnement kræves for videre udvikling (EULA 12.3); Synty-assets må aldrig bruges som input til generativ AI (EULA 1.4). Rå filer aldrig i git (repoet er offentligt).",
+ "polyperfect": "Kun unit.B04 (Tornhjort, firbenet) har brug for PolyPerfect (Low Poly Animated Animals). Valgfri: uden den bliver B04 på proxy. Intet andet slot bruger PolyPerfect.",
+ "packs": {
+  "FK_GODOT": {
+   "archive": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+   "ledger_id": "SYN-15",
+   "bytes": 105217496,
+   "sha256": "e7fe0612344a43449ac5abac08b2a5bec17afd4153bf5d9e2b872a19fc8f9726",
+   "owned": true,
+   "kind": "models",
+   "godot_build": "4.5.1",
+   "sibling": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+   "atlas": [
+    "Textures/PolygonFantasyKingdom_Texture_01_A.png",
+    "PolygonFantasyKingdom_Texture_01_A.png"
+   ],
+   "notes": "Godot 4.5.1-projekt: Assets/PolygonFantasyKingdom/{Prefabs,Models,Materials,Textures}. unpack.py beholder kun FBX/GLB/PNG; .tscn-prefabs og Models/extracted/*.res/*.mesh springes over. Verificeret atlas: Textures/PolygonFantasyKingdom_Texture_01_A.png."
+  },
+  "FK_SOURCE": {
+   "archive": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+   "ledger_id": "SYN-16",
+   "bytes": 375411418,
+   "sha256": "281ca1fc820d98f72c054d3fd43ee805638122d1f48618d0a5f0dc5fef8d88c8",
+   "owned": true,
+   "kind": "models",
+   "sibling": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+   "atlas": [
+    "PolygonFantasyKingdom_Texture_01_A.png",
+    "*Texture_01_A*.png"
+   ],
+   "notes": "Rå FBX. Verificeret sti: Source_Files/Characters/SK_Chr_King_01.fbx (55 knogler, UE-agtige navne Pelvis/UpperArm_L/lowerarm_l/Thigh_L/calf_l/Foot_L + ik_*). FBX-materialer peger på ikke-eksisterende teksturfiler -> brug atlas fra Godot-buildet."
+  },
+  "DF_GODOT": {
+   "archive": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+   "ledger_id": "SYN-11",
+   "bytes": 106758922,
+   "sha256": "6b8b122d840aa3c5bf9b9422b50708345b139322b8c1dc26dc4ac2b45acd34ea",
+   "owned": true,
+   "kind": "models",
+   "godot_build": "4.6.2",
+   "sibling": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "atlas": [
+    "Textures/PolygonDarkFantasy_01_A.png",
+    "PolygonDarkFantasy_01_A.png",
+    "*PolygonDarkFantasy*_01_A.png"
+   ],
+   "notes": "Godot 4.6.2-projekt (NYERE end Lastroots 4.5.1): åbn aldrig dets .tscn/.res i Lastroot; kun FBX/PNG bruges (unpack.py). Rod: Assets/Synty/PolygonDarkFantasy/. Verificeret: Textures/Alts/PolygonDarkFantasy_01_A.png, Textures/Emissive/PolygonDarkFantasy_01_A_Emissive.png. Deler UID uid://cj5gwdnnnm3q3 (Synty_Character_Collider.tres) med Fantasy Kingdom."
+  },
+  "DF_SOURCE": {
+   "archive": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "ledger_id": "SYN-12",
+   "bytes": 143066623,
+   "sha256": "39f54fa9abe3cf8144443533510239ad9cfe6d07715e74667fb2263fa1af4d9b",
+   "owned": true,
+   "kind": "models",
+   "sibling": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+   "atlas": [
+    "PolygonDarkFantasy_01_A.png",
+    "*PolygonDarkFantasy*_01_A.png"
+   ],
+   "notes": "Rå FBX (mappestruktur ikke set i Realmrend; mønstre bruger */)."
+  },
+  "DU_GODOT": {
+   "archive": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+   "ledger_id": "SYN-13",
+   "bytes": 42283618,
+   "sha256": "77aaaa7a519f2bc52640e70c4b08c20412ee8b07393c1f0d67233788827d4535",
+   "owned": true,
+   "kind": "models",
+   "godot_build": "4.5.1",
+   "sibling": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+   "atlas": [
+    "*Dungeon*Texture_01*.png",
+    "*Dungeon*_01_A*.png"
+   ],
+   "notes": "Godot 4.5.1. Ikke åbnet i Realmrend (kun ledger). Butikssiden: 16 figurer inkl. Goblin_Female/Male/Shaman/Warchief/Warrior_Female/Warrior_Male, 4 store krystaller, 12 svampe."
+  },
+  "DU_SOURCE": {
+   "archive": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+   "ledger_id": "SYN-14",
+   "bytes": 54043765,
+   "sha256": "e6be76712680d5dfc3052aad695c62776581c3778dbbcc329a228c20d7645f28",
+   "owned": true,
+   "kind": "models",
+   "sibling": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+   "atlas": [
+    "*Dungeon*Texture_01*.png",
+    "*Dungeon*_01_A*.png"
+   ],
+   "notes": "Rå FBX."
+  },
+  "ANIM_BASE_LOCOMOTION": {
+   "archive": "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+   "ledger_id": "SYN-01",
+   "bytes": 96390430,
+   "sha256": "948051cbc770380a86142bdea0ca3932e3b5b1a83863bda02c81bd0271020f3b",
+   "owned": true,
+   "kind": "clips",
+   "notes": "Verificeret: A_Idle_Standing_Masc.fbx, A_Walk_F_Masc.fbx, A_Run_F_Masc.fbx. Rig: Root, Hips, Spine_01..03, Clavicle_L, Shoulder_L, Elbow_L, Hand_L, UpperLeg_L, LowerLeg_L, Ankle_L, Ball_L, Toes_L, Prop_L/R, Jaw; arme NED i hvile."
+  },
+  "ANIM_BOW_COMBAT": {
+   "archive": "ANIMATION_Bow_Combat_SourceFiles_v1.zip",
+   "ledger_id": "SYN-02",
+   "bytes": 77050534,
+   "sha256": "303c6f4ccf1eb03f453ba54d136551fe0ac065113fc8a9d18fae106d688e5a66",
+   "owned": true,
+   "kind": "clips",
+   "notes": "Verificeret: A_POLY_BOW_Stand_Aiming_ToDrawn_Neut.fbx, A_POLY_BOW_Stand_Aiming_Drawn_Neut.fbx, A_POLY_BOW_Stand_Shoot_ToAiming_Neut.fbx (slip ved 0,067 s)."
+  },
+  "ANIM_EMOTES": {
+   "archive": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+   "ledger_id": "SYN-03",
+   "bytes": 78239321,
+   "sha256": "2bbea3fb534843796ba04e7cfed5bad8ffa76ecbc29bac9c4b17e2f89c3244aa",
+   "owned": true,
+   "kind": "clips",
+   "notes": "Ingen filnavne set i Realmrend; mønstre A_*."
+  },
+  "ANIM_GOBLIN_LOCOMOTION": {
+   "archive": "ANIMATION_Goblin_Locomotion_SourceFiles_v2.zip",
+   "ledger_id": "SYN-04",
+   "bytes": 69529408,
+   "sha256": "92345d58c3438cfb2df89c91889e69902f1cc1202672f674c8c5342ed32c8beb",
+   "owned": true,
+   "kind": "clips",
+   "notes": "Egen goblin-rig: Realmrend krævede separat retarget-test før brug (ikke kørt)."
+  },
+  "ANIM_IDLES": {
+   "archive": "ANIMATION_Idles_SourceFiles_v3.zip",
+   "ledger_id": "SYN-05",
+   "bytes": 65713449,
+   "sha256": "6c185d31adedb92bd80827b28996f519b15fb43ae4d6c9658d24c344e0e73ad7",
+   "owned": true,
+   "kind": "clips",
+   "notes": "Ingen filnavne set i Realmrend; mønstre A_Idle_*."
+  },
+  "ANIM_SWORD_COMBAT": {
+   "archive": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+   "ledger_id": "SYN-06",
+   "bytes": 20432439,
+   "sha256": "84ebd715f483302689cf08fabe6e9f5e506809b347311ebb5662b2d1d54d4f5e",
+   "owned": true,
+   "kind": "clips",
+   "notes": "Verificeret: A_Attack_HeavyCombo01A_Sword.fbx (2,10 s, kontakt 1,19 s), A_Hit_F_React_Sword.fbx (0,90 s), A_Death_F_01_Sword.fbx (1,50 s). Butikken: 105 FBX inkl. root-motion-versioner."
+  },
+  "UI_DARK_FANTASY_HUD": {
+   "archive": "INTERFACE_Dark_Fantasy_HUD_SourceSprites_v3.zip",
+   "ledger_id": "SYN-07",
+   "bytes": 330390104,
+   "sha256": "833f6db545e70e6ccf6c0a0ebed0aa212a90ddfd591d6b388ceede9ab4330c37",
+   "owned": true,
+   "kind": "ui",
+   "notes": "Ikke en del af slot-pipelinen (UI-sprites). Valgfri senere til kort-/menurammer."
+  },
+  "UI_DARK_FANTASY_MENUS": {
+   "archive": "INTERFACE_Dark_Fantasy_Menus_SourceFiles_v1.zip",
+   "ledger_id": "SYN-08",
+   "bytes": 213353430,
+   "sha256": "2faf614016bafe1e30c277399312121df2dbc06bdfbe230f55ddb6305242fe23",
+   "owned": true,
+   "kind": "ui",
+   "notes": "Ikke i slot-pipelinen."
+  },
+  "UI_FANTASY_MENUS": {
+   "archive": "INTERFACE_Fantasy_Menus_SourceFiles_v2.zip",
+   "ledger_id": "SYN-09",
+   "bytes": 105433383,
+   "sha256": "baf704df96f47bd9d3868fcafd6fb3599e2ce11908c5bbda4c49741b08afc250",
+   "owned": true,
+   "kind": "ui",
+   "notes": "Ikke i slot-pipelinen."
+  },
+  "UI_FANTASY_WARRIOR_HUD": {
+   "archive": "INTERFACE_Fantasy_Warrior_HUD_Source_Sprites_v3.zip",
+   "ledger_id": "SYN-10",
+   "bytes": 211288035,
+   "sha256": "06fb997e4811da5acee579d6c127fe656c5fec1acf369c19e770f146af4ff67e",
+   "owned": true,
+   "kind": "ui",
+   "notes": "Ikke i slot-pipelinen."
+  },
+  "RIVALS": {
+   "archive_glob": "POLYGON_Fantasy_Rivals*",
+   "owned": false,
+   "needs_download": true,
+   "kind": "models",
+   "source": "SyntyPass-katalog (aktivt abonnement) — POLYGON Fantasy Rivals; tag Godot-build hvis den findes, ellers SourceFiles",
+   "notes": "Butikslisten (Unity Asset Store): 20 figurer inkl. Forest Guardian, Fort Golem, Elemental Golem, Mechanical Golem, Troll, Barbarian Giant, Dwarf, Forest Witch, Spirit Demon. Filnavne ikke set -> pattern_only."
+  },
+  "NATURE": {
+   "archive_glob": "POLYGON_Nature*",
+   "owned": false,
+   "needs_download": true,
+   "kind": "models",
+   "source": "SyntyPass-katalog — POLYGON Nature (eller POLYGON Enchanted Forest - Nature Biome)",
+   "notes": "Kun valgfri opgradering af etager/stamme/rødder; indhold (svampe/rødder) ikke bekræftet."
+  },
+  "ENCHANTED_FOREST": {
+   "archive_glob": "POLYGON_Enchanted_Forest*",
+   "owned": false,
+   "needs_download": true,
+   "kind": "models",
+   "source": "SyntyPass-katalog — POLYGON Enchanted Forest - Nature Biome",
+   "notes": "Mosdækket terræn og lysende planter ifølge butikken; filnavne ukendte."
+  },
+  "POLYPERFECT_ANIMALS": {
+   "archive_glob": "*Animated_Animals*",
+   "owned": false,
+   "needs_download": true,
+   "kind": "models",
+   "source": "PolyPerfect Low Poly Animated Animals (KØB, ikke SyntyPass) — kun til unit.B04",
+   "notes": "Eneste slot der har brug for PolyPerfect. Uden den: proxy (tilladt)."
+  },
+  "MIXAMO": {
+   "archive_glob": "*Mixamo*",
+   "owned": false,
+   "needs_download": true,
+   "kind": "clips",
+   "source": "mixamo.com (gratis Adobe-konto), mappe med 'Mixamo' i navnet",
+   "notes": "Kun reserve for cast/summon, som ingen ejet Synty-animationspakke dækker."
+  }
+ },
+ "animation_sets": {
+  "humanoid": {
+   "_note": "Ét fælles humanoid-bibliotek (art/animations/humanoid.res) for alle tobenede slots — det er hvad build_wrappers.gd bygger i dag. Varianter pr. vægtklasse står pr. slot under 'clips' (dokumentation/LR-18; kræver 'anim_family' i byggeren). Synty-klip er på Synty-skelettet (Hips/Shoulder_L…, arme NED i hvile) — Godots BoneMap + Fix Silhouette retargeter dem (docs/SYNTY_INTEGRATION.md §6c). Bland ikke Synty- og Mixamo-klip i ét sæt uden RigLab-tjek.",
+   "rig": "Synty animation rig (Root/Hips/Spine_01..03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/UpperLeg_L/LowerLeg_L/Ankle_L/Ball_L/Toes_L/Prop_L/Prop_R/Jaw)",
+   "states": {
+    "idle": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+       "file": "A_Idle_Standing_Masc.fbx",
+       "confidence": "verified_in_realmrend"
+      },
+      {
+       "pack": "ANIMATION_Idles_SourceFiles_v3.zip",
+       "file": "A_Idle_*Standing*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Idles_SourceFiles_v3.zip",
+       "file": "A_Idle_*.fbx",
+       "confidence": "pattern_only"
+      }
+     ],
+     "length_s": 1.83,
+     "loop": true,
+     "note": "Verificeret: 1,83 s, bækken stabilt 0,87 m (R06)."
+    },
+    "move": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+       "file": "A_Walk_F_Masc.fbx",
+       "confidence": "verified_in_realmrend"
+      },
+      {
+       "pack": "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+       "file": "A_Walk_F_*.fbx",
+       "confidence": "pattern_only"
+      }
+     ],
+     "length_s": 1.1,
+     "loop": true,
+     "note": "Verificeret: 1,10 s. Byggeren fjerner hoftens fremdrift (in-place); tjek i RigLab at en evt. 'Root'-knogle heller ikke flytter figuren."
+    },
+    "attack": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Attack_LightCombo01A_Sword.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Attack_Light*_Sword.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Attack_HeavyCombo01A_Sword.fbx",
+       "confidence": "verified_in_realmrend"
+      }
+     ],
+     "contact_s": 0.3,
+     "note": "Kort let slag foretrækkes (Lastroot-kontakt 0,30 s). Faldes der tilbage til det verificerede HeavyCombo01A (2,10 s, kontakt 1,19 s målt i Realmrend), sæt animation_sets.json -> sets.humanoid.contact.attack = 1.19."
+    },
+    "hit": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Hit_F_React_Sword.fbx",
+       "confidence": "verified_in_realmrend"
+      },
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Hit_F_*.fbx",
+       "confidence": "pattern_only"
+      }
+     ],
+     "length_s": 0.9,
+     "note": "Verificeret 0,90 s."
+    },
+    "death": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Death_F_01_Sword.fbx",
+       "confidence": "verified_in_realmrend"
+      },
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Death_*.fbx",
+       "confidence": "pattern_only"
+      }
+     ],
+     "length_s": 1.5,
+     "note": "Verificeret 1,50 s; bækken falder til 0,49 m (ok, oprethedstjek gælder ikke death)."
+    },
+    "defend": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Block_Idle*_Sword.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_Block_*_Sword.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+       "file": "A_*Block*.fbx",
+       "confidence": "pattern_only"
+      }
+     ],
+     "optional": true,
+     "note": "Kun galleri/RigLab i dag."
+    },
+    "victory": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+       "file": "A_*Victory*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+       "file": "A_*Cheer*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+       "file": "A_*Celebrat*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "*Mixamo*",
+       "file": "Victory.fbx",
+       "confidence": "pattern_only",
+       "decision": "needs_download"
+      }
+     ],
+     "optional": true,
+     "note": "Menu-/epilog-dioramaer."
+    },
+    "cast": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+       "file": "A_*Point*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+       "file": "A_*Taunt*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Bow_Combat_SourceFiles_v1.zip",
+       "file": "A_POLY_BOW_Stand_Shoot_ToAiming_Neut.fbx",
+       "confidence": "verified_in_realmrend"
+      },
+      {
+       "pack": "*Mixamo*",
+       "file": "Standing 1H Magic Attack 01.fbx",
+       "confidence": "pattern_only",
+       "decision": "needs_download"
+      }
+     ],
+     "contact_s": 0.38,
+     "optional": true,
+     "note": "Ingen ejet pakke har magi. Emote (peg/taunt) som 'kast', ellers bue-slip (slipper ved 0,067 s — sæt contact.cast). Mangler den: procedural cast + sporebolt (tilladt). Mixamo er gratis reserve."
+    },
+    "summon": {
+     "candidates": [
+      {
+       "pack": "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip",
+       "file": "A_*Roar*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+       "file": "A_*Land*.fbx",
+       "confidence": "pattern_only"
+      },
+      {
+       "pack": "*Mixamo*",
+       "file": "Standing Up.fbx",
+       "confidence": "pattern_only",
+       "decision": "needs_download"
+      }
+     ],
+     "optional": true,
+     "note": "Proceduralt 'vokser op af gulvet' + FX er godt nok; klip er pynt."
+    }
+   }
+  }
+ },
+ "slots": {
+  "unit.B01": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Gargoyle*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Gargoyle*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Rivals*",
+     "file": "*Fort_Golem*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Rivals*",
+     "file": "*Elemental_Golem*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Demon*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "~1,9 m native -> 2,60 m (×≈1,35, fit height)",
+   "material_note": "Stenatlas tonet mod bark (bark/bark_dark) + mos; rav-emissive øjne. Vinger: skjul vinge-mesh/attachment, hvis de er separate.",
+   "reason": "Dark Fantasys Gargoyle (butikslisten) er den eneste ejede sten-/monsterkrop i tung størrelse. Fantasy Rivals' Fort/Elemental Golem er bedre match til REF_02 — hentes den, vinder den automatisk ikke; skift rækkefølge her.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_HeavyCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Rock_05.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Basalt_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Wep_Shield_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ]
+  },
+  "unit.S01": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+   "file": "SK_Chr_Hermit_01.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Hermit_01*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SK_Chr_Mage_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "*Mage_01*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SK_Chr_Monk_01.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "~1,8 m native -> 1,73 m (×≈0,96)",
+   "material_note": "Kappe omfarvet hvid/violet (cap_white/cap_violet), skæg beard; svampehat = Dungeon-svamp på hovedknoglen (×3–4), stav med turkis emissive spids.",
+   "reason": "Fantasy Kingdom Hermit (skæg + kappe, findes: SM_Chr_Hermit_01 i FK-buildet) matcher REF_02's skæggede vismand; Mage er reserve.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Victory*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx",
+    "cast": "A_*Point*.fbx (Emotes) / A_POLY_BOW_Stand_Shoot_ToAiming_Neut.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Staff*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Mage*Cape*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "evidence": [
+    "realmrend game/characters/lord_raven.tscn (SM_Chr_Hermit_01.mesh, SM_Chr_Mage_01.mesh)"
+   ]
+  },
+  "unit.B02": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+   "file": "SK_Chr_Goblin_Male*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Goblin_Male*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SK_Chr_Fairy_01.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "~1,0–1,2 m native -> 1,22 m",
+   "material_note": "bark_light + leaf_bright; bladkrone af FK SM_Env_Bush_Small_0* på hovedet, rodfødder.",
+   "reason": "Lille humanoid fra Dungeon (Goblin_Male på butikslisten) skjult under blade/bark.",
+   "anim_pack": [
+    "ANIMATION_Goblin_Locomotion_SourceFiles_v2.zip",
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip"
+   ],
+   "clips": {
+    "idle": "A_*Idle*.fbx (Goblin Locomotion) / A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_*Walk*.fbx (Goblin Locomotion, efter retarget-test)"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Bush_Small_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ]
+  },
+  "unit.B03": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+   "file": "SK_Chr_Soldier_Male_01.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Soldier_Male_01*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SK_Chr_Soldier_Female_01.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "1,94 m native (med hjelm) -> 1,57 m (×≈0,81)",
+   "material_note": "Træ-/planketonet (wood_plank, bark); skjold SM_Wep_Shield_03/05/08 på Hand_L (greb centreret, ~0,10 m fri).",
+   "reason": "Soldier_Male_01 er Realmrends mest gennemprøvede figur (R04: 50 knogler, 3884 synlige tris; R16 Lord Raven).",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Wep_Shield_08.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Wep_Shield_05.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "evidence": [
+    "realmrend docs/reviews/R04_import_proof.log",
+    "realmrend docs/reviews/R05_blender_roundtrip.log",
+    "realmrend docs/reviews/R16_hero_summary.md"
+   ]
+  },
+  "unit.B04": {
+   "decision": "needs_download",
+   "pack": "*Animated_Animals*",
+   "file": "*Deer*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "*Animated_Animals*",
+     "file": "*Stag*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "*Animated_Animals*",
+     "file": "*Elk*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "dyrets egen -> 2,29 m",
+   "material_note": "Bark-omfarvning; torngevir af FK SM_Env_Tree_Thin_0*/DF SM_Env_Tree_Dead_0* grene på hovedknoglen.",
+   "reason": "Ingen ejet pakke har et firbenet dyr; biblen forbyder humanoid retarget på fire ben. PolyPerfect Animated Animals (køb) er eneste slot med brug for PolyPerfect. Uden den: proxy.",
+   "anim_pack": [
+    "(embedded in model)"
+   ],
+   "clips": {
+    "idle": "Idle* (dyrets egne)",
+    "attack": "Attack*",
+    "hit": "Hit* (mangler ofte -> procedural)",
+    "death": "Death*",
+    "move": "Walk*",
+    "summon": "(procedural)"
+   }
+  },
+  "unit.B05": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+   "file": "SK_Chr_Goblin_Female*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Goblin_Female*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Rivals*",
+     "file": "*Dwarf*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "-> 1,29 m",
+   "material_note": "Amber-emissive kugle/krukke (FK props, mønster *Jar*/*Lantern*) i hænderne.",
+   "reason": "Rund, kort humanoid; Dungeon-goblin hun.",
+   "anim_pack": [
+    "ANIMATION_Goblin_Locomotion_SourceFiles_v2.zip",
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip"
+   ],
+   "clips": {
+    "idle": "A_*Idle*.fbx (Goblin Locomotion) / A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_*Walk*.fbx (Goblin Locomotion, efter retarget-test)"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Prop_Lantern_*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Jar*.fbx",
+     "confidence": "pattern_only"
+    }
+   ]
+  },
+  "unit.B06": {
+   "decision": "needs_download",
+   "pack": "POLYGON_Fantasy_Rivals*",
+   "file": "*Forest_Guardian*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Demon*.fbx",
+     "confidence": "pattern_only",
+     "decision": "owned"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Demon*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 2,56 m (3 pladser)",
+   "material_note": "bark_dark/moss/leaf; lav egekrone af FK SM_Env_Tree_Round_0* (skær toppen, så tal ses).",
+   "reason": "Gammel Eg er en treant; Fantasy Rivals' Forest Guardian er det bedste kendte match (SyntyPass). Ejet reserve: DF Demon + trækrone-attachment (falder automatisk tilbage).",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_HeavyCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Tree_Round_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ]
+  },
+  "unit.S02": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+   "file": "SK_Chr_Goblin_Shaman*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Goblin_Shaman*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "SK_Chr_Goblin_Warrior_Female*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 0,93 m",
+   "material_note": "Hvid/violet svampehat (Dungeon-svamp) + turkis antenne-sporer; spore_body.",
+   "reason": "Mindste humanoid; hat dækker goblin-hovedet.",
+   "anim_pack": [
+    "ANIMATION_Goblin_Locomotion_SourceFiles_v2.zip",
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip"
+   ],
+   "clips": {
+    "idle": "A_*Idle*.fbx (Goblin Locomotion) / A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_*Walk*.fbx (Goblin Locomotion, efter retarget-test)",
+    "cast": "(som S01)"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    }
+   ]
+  },
+  "unit.S03": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+   "file": "*Mushroom*Large*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "*Mushroom*Large*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 1,56 m (static, fit height)",
+   "material_note": "cap_violet + emissive lameller.",
+   "reason": "Statisk svampeklynge; Dungeon har 12 svampe (butikslisten)."
+  },
+  "unit.S04": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Hunter_Female*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Hunter_Female*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Plague_Doctor*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_*PlagueDoctor*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 1,39 m",
+   "material_note": "Spids indigo hætte (svampehat, cap_violet_dark) + tornedolke.",
+   "reason": "Smidig mørk figur (Dark Fantasy Hunter Female); Plague Doctor er reserve.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "(cast, §2.1)",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx"
+   }
+  },
+  "unit.S05": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+   "file": "SK_Chr_Monk_01.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Monk_01*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SK_Chr_Nun_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SK_Chr_FortuneTeller_01.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "~1,8 m -> 1,54 m",
+   "material_note": "Turkis-emissive lanterne (FK SM_Prop_Lantern_* / Street_Lamp-top) + svampehat.",
+   "reason": "Druide-/munkesilhuet; findes i FK (SM_Chr_Monk_01).",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Victory*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx",
+    "cast": "A_*Point*.fbx (Emotes) / A_POLY_BOW_Stand_Shoot_ToAiming_Neut.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Prop_Lantern_*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    }
+   ]
+  },
+  "unit.S06": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Demon_01*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Demon_01*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Rivals*",
+     "file": "*Troll*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Rivals*",
+     "file": "*Barbarian_Giant*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "-> 2,33 m",
+   "material_note": "cap_violet kæmpehat (Dungeon-svamp ×6) + poison_violet sporesække.",
+   "reason": "Tung kæmpe: Dark Fantasy Demon (2 varianter på listen) — Demon_01 her, Demon_02 til E05.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "(cast, §2.1)",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "defend": "A_Block_*_Sword.fbx",
+    "victory": "A_*Roar*.fbx (Emotes)",
+    "move": "A_Walk_F_Masc.fbx"
+   }
+  },
+  "enemy.E01": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+   "file": "SK_Chr_Goblin_Warrior_Male*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Goblin_Warrior_Male*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Skeleton_0*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 0,95 m (rig A lille, afspilning 1,3×)",
+   "material_note": "Fjende: ingen farvet tøjtekstur — ét mørkt ash-materiale (ash_black/charcoal) + ember-emissive øjne/revner (palette.json). Multiply-tint kan kun mørkne, ikke skifte farvetone (Realmrend R15) -> brug fladt mørkt materiale + emissive. Lang hale = egen mesh.",
+   "reason": "Lille, hurtig fjende; samme Dungeon-familie som B02 men anden variant + aske-materiale.",
+   "anim_pack": [
+    "ANIMATION_Goblin_Locomotion_SourceFiles_v2.zip",
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "move": "A_*Walk*.fbx (Goblin Locomotion)"
+   }
+  },
+  "enemy.E02": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Skeleton_Heavy*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Skeleton_Heavy*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Skeleton_0*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 1,13 m (rig B kompakt)",
+   "material_note": "Fjende: ingen farvet tøjtekstur — ét mørkt ash-materiale (ash_black/charcoal) + ember-emissive øjne/revner (palette.json). Multiply-tint kan kun mørkne, ikke skifte farvetone (Realmrend R15) -> brug fladt mørkt materiale + emissive. Pladeskjold FK SM_Wep_Shield_08 med ember-kant.",
+   "reason": "Panserfjende: Dark Fantasy Skeleton Heavy Armor.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "move": "A_Walk_F_Masc.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Wep_Shield_08.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ]
+  },
+  "enemy.E03": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Hunter_Male*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Hunter_Male*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Skeleton_Ranger*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 1,68 m",
+   "material_note": "Fjende: ingen farvet tøjtekstur — ét mørkt ash-materiale (ash_black/charcoal) + ember-emissive øjne/revner (palette.json). Multiply-tint kan kun mørkne, ikke skifte farvetone (Realmrend R15) -> brug fladt mørkt materiale + emissive. Ember-spyd (mønster *Spear*), foroverlænet.",
+   "reason": "Jæger-silhuet fra Dark Fantasy.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "move": "A_Walk_F_Masc.fbx"
+   }
+  },
+  "enemy.E04": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Grave_Digger*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Grave_Digger*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_*GraveDigger*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "SK_Chr_Goblin_Warchief*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 1,54 m",
+   "material_note": "Fjende: ingen farvet tøjtekstur — ét mørkt ash-materiale (ash_black/charcoal) + ember-emissive øjne/revner (palette.json). Multiply-tint kan kun mørkne, ikke skifte farvetone (Realmrend R15) -> brug fladt mørkt materiale + emissive. Sodsæk på ryggen.",
+   "reason": "Bærer-silhuet: Dark Fantasy Grave Digger Male.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "move": "A_Walk_F_Masc.fbx"
+   }
+  },
+  "enemy.E05": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_Demon_02*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*Demon_02*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Rivals*",
+     "file": "*Fort_Golem*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Demon*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "-> 2,03 m (rig C tung)",
+   "material_note": "Fjende: ingen farvet tøjtekstur — ét mørkt ash-materiale (ash_black/charcoal) + ember-emissive øjne/revner (palette.json). Multiply-tint kan kun mørkne, ikke skifte farvetone (Realmrend R15) -> brug fladt mørkt materiale + emissive. Basaltplader (DF SM_Env_Basalt_0*) som attachments.",
+   "reason": "Tung fjende: Demon variant 2.",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "move": "A_Walk_F_Masc.fbx"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Basalt_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ]
+  },
+  "enemy.E06": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+   "file": "SK_Chr_DarkLord_Male_01.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "*DarkLord_Male_01*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SK_Chr_Demon*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "1,84 m native -> 3,41 m (×≈1,85); krone < 3,6 m",
+   "material_note": "Fjende: ingen farvet tøjtekstur — ét mørkt ash-materiale (ash_black/charcoal) + ember-emissive øjne/revner (palette.json). Multiply-tint kan kun mørkne, ikke skifte farvetone (Realmrend R15) -> brug fladt mørkt materiale + emissive. Emissive kerne i brystet; krone af DF crown-attachment eller FK SM_Chr_Attach_King_Crown_01 + DF døde grene.",
+   "reason": "Dark Lord er verificeret i Realmrend (R04: 50 knogler, 6948 synlige tris, 3 synlige meshes).",
+   "anim_pack": [
+    "ANIMATION_Sword_Combat_SourceFiles_v5.zip",
+    "ANIMATION_Base_Locomotion_SourceFiles_v3.zip",
+    "ANIMATION_Idles_SourceFiles_v3.zip",
+    "ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip"
+   ],
+   "clips": {
+    "idle": "A_Idle_Standing_Masc.fbx",
+    "summon": "(procedural)",
+    "attack": "A_Attack_LightCombo01A_Sword.fbx",
+    "hit": "A_Hit_F_React_Sword.fbx",
+    "death": "A_Death_F_01_Sword.fbx",
+    "move": "A_Walk_F_Masc.fbx",
+    "victory": "A_*Taunt*.fbx (Emotes)"
+   },
+   "attachments": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Chr_Attach_King_Crown_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Tree_Dead_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "evidence": [
+    "realmrend docs/reviews/R04_import_proof.log",
+    "realmrend docs/reviews/R05_blender_roundtrip.log",
+    "realmrend sandbox/fixture_manifest.json"
+   ]
+  },
+  "stage.floor_roots": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Prop_Path_Rock_Group_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Rock_Cliff_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Enchanted_Forest*",
+     "file": "*Rock*Flat*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "11,6 × 3,2 m, top y=0 (fit footprint, align top)",
+   "material_note": "Proxyens sten+mos+hængende rødder; dressing med props på bagkanten.",
+   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing."
+  },
+  "stage.floor_trunk": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Prop_Path_Rock_Group_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Rock_Cliff_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Enchanted_Forest*",
+     "file": "*Rock*Flat*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "11,6 × 3,2 m, top y=0 (fit footprint, align top)",
+   "material_note": "Proxyens sten+mos+hængende rødder; dressing med props på bagkanten.",
+   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing."
+  },
+  "stage.floor_crown": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Prop_Path_Rock_Group_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Rock_Cliff_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Enchanted_Forest*",
+     "file": "*Rock*Flat*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "11,6 × 3,2 m, top y=0 (fit footprint, align top)",
+   "material_note": "Proxyens sten+mos+hængende rødder; dressing med props på bagkanten.",
+   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing."
+  },
+  "stage.trunk": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Tree_Dead_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Tree_Large_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Enchanted_Forest*",
+     "file": "*Tree*Giant*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "4,5 m segment",
+   "material_note": "Rav-døråbning (emissive amber) skal være synlig.",
+   "reason": "Ejede træer er hele træer med krone (FK Tree_Large, DF Tree_Dead) — ikke et stammesegment med dør. Proxyen bevares; en Nature-/Enchanted Forest-kæmpestamme kan prøves senere."
+  },
+  "stage.heart": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Crystal*Large*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "*Crystal*Large*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "~2,0 m",
+   "material_note": "Turkis emissive + eget OmniLight.",
+   "reason": "Højeste visuelle prioritet og skadestilstande er procedurale; biblen tillader proxy. Dungeons store krystal kan prøves som kerne."
+  },
+  "stage.backdrop": {
+   "decision": "owned",
+   "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+   "file": "SM_Env_Cliff_Basalt_01.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dark_Fantasy_SourceFiles_v3.zip",
+     "file": "SM_Env_Cliff_Basalt_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Cliff_Basalt_0*.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Rock_Cliff_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Generic_Mountains_Grass_01.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "natural (z < −15); ægte størrelse",
+   "material_note": "Mørk basalt + violet dis (haze); ingen skygger nødvendige.",
+   "reason": "Basaltspir = de mørke klippespir/flydende øer i REF_02/REF_04. Brugt i Realmrend (R14 Mountains).",
+   "evidence": [
+    "realmrend docs/reviews/r14_asset_mapping.md"
+   ]
+  },
+  "prop.lantern": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+   "file": "SM_Prop_Lantern_0*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SM_Prop_Lantern_0*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Prop_Street_Lamp_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Prop_Brazier_01.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "natural ~1,25 m",
+   "material_note": "Amber-emissive glas (palette amber).",
+   "reason": "FK har 794 props; lanterne-mønster. Verificeret reserve: Street_Lamp_01 (høj — byggeren advarer >250 %), DF Brazier_01."
+  },
+  "prop.mushroom_cluster": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+   "file": "*Mushroom*0*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Mushroom*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "natural ~0,75 m",
+   "material_note": "cap_violet + emissive lameller, turkis prikker.",
+   "reason": "Dungeon: 12 svampe (butikslisten)."
+  },
+  "prop.crystal": {
+   "decision": "owned",
+   "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+   "file": "*Crystal*Large*0*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Dungeon_Pack_SourceFiles_v3.zip",
+     "file": "*Crystal*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip",
+     "file": "*Crystal*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "natural ~1,0 m (stor krystal skaleres ned med extra_scale)",
+   "material_note": "Turquoise-emissive.",
+   "reason": "Dungeon: 4 store krystaller (butikslisten)."
+  },
+  "prop.root_arch": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+   "file": "SM_Prop_Archway_01.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SM_Prop_Archway_01.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Tree_Dead_03.fbx",
+     "confidence": "verified_in_realmrend"
+    }
+   ],
+   "scale_hint": "natural ~1,7 m bred",
+   "material_note": "Bark/mos-tint over sten (mørkere, grønligt).",
+   "reason": "Ingen ejet rodbue; FK Archway_01 (verificeret, ruiner i R14) giver buesilhuetten; DF dødt træ er reserve."
+  },
+  "prop.rock": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+   "file": "SM_Env_Rock_05.fbx",
+   "confidence": "verified_in_realmrend",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SM_Env_Rock_05.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip",
+     "file": "SM_Env_Basalt_03.fbx",
+     "confidence": "verified_in_realmrend"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "SM_Env_Rock_0*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "natural ~0,55 m",
+   "material_note": "stone + moss.",
+   "reason": "Verificeret i Realmrend (R14 plateau-rampe).",
+   "evidence": [
+    "realmrend docs/reviews/R14_environment_polish_review.md"
+   ]
+  },
+  "mutation.M01": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Nature*",
+     "file": "*Root*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    },
+    {
+     "pack": "POLYGON_Enchanted_Forest*",
+     "file": "*Root*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "etage-ramme",
+   "material_note": "bark_dark",
+   "reason": "Ekstra rødder skal følge etagens kant præcist; ingen ejet rod-mesh. Procedural."
+  },
+  "mutation.M02": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Nature*",
+     "file": "*Vine*.fbx",
+     "confidence": "pattern_only",
+     "decision": "needs_download"
+    }
+   ],
+   "scale_hint": "stamme-ramme",
+   "material_note": "Turkise emissive årer",
+   "reason": "Emissive årer/barkbånd følger stammeproxyen; procedural."
+  },
+  "mutation.M03": {
+   "decision": "owned",
+   "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+   "file": "SM_Env_Flower*.fbx",
+   "confidence": "pattern_only",
+   "alternatives": [
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip",
+     "file": "SM_Env_Flower*.fbx",
+     "confidence": "pattern_only"
+    },
+    {
+     "pack": "POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip",
+     "file": "*Flower*.fbx",
+     "confidence": "pattern_only"
+    }
+   ],
+   "scale_hint": "natural (etage-ramme)",
+   "material_note": "blossom / blossom_gold.",
+   "reason": "FK har 'Flowers' i miljølisten; gyldne blomster langs Kronens bagkant."
+  },
+  "mutation.M04": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "hjerte-ramme",
+   "material_note": "turquoise",
+   "reason": "Større glorie/lys/skår om hjertet = Godot-effekt (ASSET_MAP §7)."
+  },
+  "fx.poison": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.heal": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.armor": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.thorns": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.growth": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.spore_bolt": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.bark_hit": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.ash_death": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.heart_pulse": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.heart_damage": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.summon_bark": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.summon_spore": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.ash_puff": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.wilt": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.wilt_spore": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.ember_trail": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.ring": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  },
+  "fx.floor_target": {
+   "decision": "keep_proxy",
+   "confidence": "pattern_only",
+   "alternatives": [],
+   "scale_hint": "-",
+   "material_note": "palette.json",
+   "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
+  }
+ }
+}

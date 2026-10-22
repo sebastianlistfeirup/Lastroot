@@ -4,6 +4,9 @@
 For every slot in data/art/synty_choices.json with status auto/approved/manual and a
 source, copies the model (plus a .gltf's .bin) and the pack's atlas textures to
 assets/imported/<pack>/<same relative path>; also every chosen animation clip.
+A top-level "atlas": {pack: "<pack>/<rel>"} (written by apply_selection.py) puts that
+texture first, so the builder's shared pack material uses the right atlas instead of
+the alphabetically first image (e.g. an Alts/ variant or a normal map).
 Nothing else from a pack enters the project. Writes assets/imported/<pack>/staged.json.
 
   python3 tools/synty/stage.py [--choices data/art/synty_choices.json]
@@ -75,8 +78,17 @@ def main() -> int:
                 print("  missing in quarantine:", src)
                 continue
             staged.setdefault(pack, {"models": {}, "animations": {}, "atlas": []})["animations"].setdefault(fam, {})[state] = copy(pack, rel)
+    preferred = doc.get("atlas", {})  # apply_selection.py: {pack: "<pack>/<rel>"} = the pack's verified colour atlas
     for pack, files in staged.items():
         files["atlas"] = [copy(pack, rel) for rel in atlas_files(pack)]
+        pref = preferred.get(pack, "")
+        if pref and "/" in pref:
+            ppack, prel = pref.split("/", 1)
+            if os.path.exists(os.path.join(Q, ppack, prel)):
+                first = copy(ppack, prel)  # may live in the sibling pack (Godot-build atlas for SourceFiles FBX)
+                files["atlas"] = [first] + [t for t in files["atlas"] if t != first]
+            else:
+                print("  atlas missing in quarantine:", pref)
         with open(os.path.join(IMPORTED, pack, "staged.json"), "w", encoding="utf-8") as fh:
             json.dump(files, fh, indent=1)
         print("staged %-28s %d models, %d clip sets, %d atlas textures -> assets/imported/%s/"

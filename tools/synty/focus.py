@@ -6,7 +6,8 @@ to the slots you name, or puts one slot back on its proxy.
   python3 tools/synty/focus.py unit.B01 unit.S01      # build ONLY these next time
   python3 tools/synty/focus.py --revert unit.B01      # back to the proxy (undo)
 
-Focus: the named slots get "status": "approved"; every other "auto" choice becomes
+Focus: the named slots get "status": "approved"; every other "auto" choice (and every
+"approved" one written by apply_selection.py, "origin": "selection") becomes
 "weak" (kept in the list, not built until you approve it; a new match.py run
 proposes it again). Slots already built stay mapped, so earlier approved slots keep
 their model. --revert sets the choice to "skip" and removes the slot from
@@ -62,6 +63,7 @@ def main() -> int:
     if a.revert:
         for sid in a.slots:
             choices[sid]["status"] = "skip"
+            choices[sid]["reverted_by_owner"] = True  # apply_selection.py keeps this unless --force
         save(a.choices, doc)
         note = "ingen wrapper var bygget"
         if os.path.exists(SCENES):
@@ -81,7 +83,8 @@ def main() -> int:
     for sid, c in choices.items():
         if sid in a.slots:
             c["status"] = "approved"
-        elif c.get("status") == "auto":
+            c.pop("reverted_by_owner", None)
+        elif c.get("status") == "auto" or (c.get("status") == "approved" and c.get("origin") == "selection"):
             c["status"] = "weak"
             demoted += 1
     save(a.choices, doc)

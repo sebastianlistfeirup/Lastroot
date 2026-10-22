@@ -1,0 +1,63 @@
+PLAN (dry-run, intet skrives / nothing written) · 51 slots · fx=18, keep_proxy=8, needs_download/pattern_only=2, owned/pattern_only=16, owned/verified_in_realmrend=7
+NB: ingen udpakkede pakker i assets/quarantine — viser kun valget. Næste: tools/synty/unpack.py <arkiv> for hvert arkiv i docs/HOMECOMING.md §2.
+slot                 decision        confidence             pack -> file                                 quarantine
+unit.B01             owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Gargoyle*.fbx 
+unit.B02             owned           pattern_only           POLYGON_Dungeon_Pack :: SK_Chr_Goblin_Male*.fbx 
+unit.B03             owned           verified_in_realmrend  POLYGON_Fantasy_King :: SK_Chr_Soldier_Male_01.fbx 
+unit.B04             needs_download  pattern_only           *Animated_Animals* :: *Deer*.fbx             
+unit.B05             owned           pattern_only           POLYGON_Dungeon_Pack :: SK_Chr_Goblin_Female*.fbx 
+unit.B06             needs_download  pattern_only           POLYGON_Fantasy_Riva :: *Forest_Guardian*.fbx 
+unit.S01             owned           verified_in_realmrend  POLYGON_Fantasy_King :: SK_Chr_Hermit_01.fbx 
+unit.S02             owned           pattern_only           POLYGON_Dungeon_Pack :: SK_Chr_Goblin_Shaman*.fbx 
+unit.S03             owned           pattern_only           POLYGON_Dungeon_Godo :: *Mushroom*Large*.fbx 
+unit.S04             owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Hunter_Female*.fbx 
+unit.S05             owned           verified_in_realmrend  POLYGON_Fantasy_King :: SK_Chr_Monk_01.fbx   
+unit.S06             owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Demon_01*.fbx 
+enemy.E01            owned           pattern_only           POLYGON_Dungeon_Pack :: SK_Chr_Goblin_Warrior_Male*.fbx 
+enemy.E02            owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Skeleton_Heavy*.fbx 
+enemy.E03            owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Hunter_Male*.fbx 
+enemy.E04            owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Grave_Digger*.fbx 
+enemy.E05            owned           pattern_only           POLYGON_Dark_Fantasy :: SK_Chr_Demon_02*.fbx 
+enemy.E06            owned           verified_in_realmrend  POLYGON_Dark_Fantasy :: SK_Chr_DarkLord_Male_01.fbx 
+stage.floor_roots    keep_proxy      -                      proxy: Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet 
+stage.floor_trunk    keep_proxy      -                      proxy: Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet 
+stage.floor_crown    keep_proxy      -                      proxy: Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet 
+stage.trunk          keep_proxy      -                      proxy: Ejede træer er hele træer med krone (FK Tree_Large, DF Tree_Dead) — ik
+stage.heart          keep_proxy      -                      proxy: Højeste visuelle prioritet og skadestilstande er procedurale; biblen t
+stage.backdrop       owned           verified_in_realmrend  POLYGON_Dark_Fantasy :: SM_Env_Cliff_Basalt_01.fbx 
+prop.lantern         owned           pattern_only           POLYGON_Fantasy_King :: SM_Prop_Lantern_0*.fbx 
+prop.mushroom_cluster owned           pattern_only           POLYGON_Dungeon_Godo :: *Mushroom*0*.fbx     
+prop.crystal         owned           pattern_only           POLYGON_Dungeon_Godo :: *Crystal*Large*0*.fbx 
+prop.root_arch       owned           verified_in_realmrend  POLYGON_Fantasy_King :: SM_Prop_Archway_01.fbx 
+prop.rock            owned           verified_in_realmrend  POLYGON_Fantasy_King :: SM_Env_Rock_05.fbx   
+mutation.M01         keep_proxy      -                      proxy: Ekstra rødder skal følge etagens kant præcist; ingen ejet rod-mesh. Pr
+mutation.M02         keep_proxy      -                      proxy: Emissive årer/barkbånd følger stammeproxyen; procedural.
+mutation.M03         owned           pattern_only           POLYGON_Fantasy_King :: SM_Env_Flower*.fbx   
+mutation.M04         keep_proxy      -                      proxy: Større glorie/lys/skår om hjertet = Godot-effekt (ASSET_MAP §7).
+fx.poison            keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.heal              keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.armor             keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.thorns            keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.growth            keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.spore_bolt        keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.bark_hit          keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.ash_death         keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.heart_pulse       keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.heart_damage      keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.summon_bark       keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.summon_spore      keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.ash_puff          keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.wilt              keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.wilt_spore        keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.ember_trail       keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.ring              keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+fx.floor_target      keep_proxy      -                      proxy: FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity
+anim.idle            owned           verified_in_realmrend  ANIMATION_Base_Locom :: A_Idle_Standing_Masc.fbx 
+anim.move            owned           verified_in_realmrend  ANIMATION_Base_Locom :: A_Walk_F_Masc.fbx    
+anim.attack          owned           pattern_only           ANIMATION_Sword_Comb :: A_Attack_LightCombo01A_Sword.fbx 
+anim.hit             owned           verified_in_realmrend  ANIMATION_Sword_Comb :: A_Hit_F_React_Sword.fbx 
+anim.death           owned           verified_in_realmrend  ANIMATION_Sword_Comb :: A_Death_F_01_Sword.fbx 
+anim.defend          optional        pattern_only           ANIMATION_Sword_Comb :: A_Block_Idle*_Sword.fbx 
+anim.victory         optional        pattern_only           ANIMATION_Emotes_And :: A_*Victory*.fbx      
+anim.cast            optional        pattern_only           ANIMATION_Emotes_And :: A_*Point*.fbx        
+anim.summon          optional        pattern_only           ANIMATION_Emotes_And :: A_*Roar*.fbx         

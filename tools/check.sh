@@ -10,6 +10,10 @@ V=$?
 echo "validators_exit=$V"
 python3 tools/release_check.py --quiet
 R=$?
+# Binding asset selection (data/art/synty_selection.json) + apply_selection/stage/focus/uid tools, no Godot needed
+SEL_OUT=$(python3 tools/synty/test_selection_tools.py 2>&1)
+SEL=$?
+echo "$SEL_OUT" | grep -E "^FAIL|^selection tools"
 "$GODOT" --headless --path . --import --quit-after 2000 >/tmp/lr_import.log 2>&1
 grep -E "SCRIPT ERROR|Parse Error" /tmp/lr_import.log | sort -u | head -20
 C_OUT=$(timeout 120 "$GODOT" --headless --path . res://scenes/tests/compile_all.tscn 2>&1 | grep -E "^COMPILE")
@@ -42,5 +46,5 @@ if [ -f scenes/tests/layout_smoke.tscn ]; then
 	echo "$LY_OUT" | grep -E "LAYOUT_SMOKE|LAYOUT_FAIL|SCRIPT ERROR" | head -30
 	if echo "$LY_OUT" | grep -q "SCRIPT ERROR"; then LY=1; fi
 fi
-echo "validators_exit=$V release_exit=$R loc_exit=$L tests_exit=$T smoke_exit=$S meta_exit=$M layout_exit=$LY"
-exit $(( V | R | L | T | S | M | LY ))
+echo "validators_exit=$V release_exit=$R selection_exit=$SEL loc_exit=$L tests_exit=$T smoke_exit=$S meta_exit=$M layout_exit=$LY"
+exit $(( V | R | SEL | L | T | S | M | LY ))
