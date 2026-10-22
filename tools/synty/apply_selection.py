@@ -36,7 +36,7 @@ OUT = os.path.join(ROOT, "data", "art", "synty_choices.json")
 Q = os.path.join(ROOT, "assets", "quarantine")
 MODEL_EXT = (".fbx", ".glb", ".gltf", ".obj")
 IMAGE_EXT = (".png", ".tga", ".jpg", ".jpeg", ".psd")
-DECISIONS = ("owned", "needs_download", "keep_proxy")
+DECISIONS = ("owned", "needs_download", "keep_proxy", "generated")  # generated: docs/ASSET_GAP_WORKFLOW.md
 CONFIDENCE = ("verified_in_realmrend", "pattern_only")
 STATES = ("idle", "summon", "attack", "cast", "hit", "death", "defend", "victory", "move")
 KEEP_STATUS = ("approved", "manual", "skip")
@@ -111,6 +111,11 @@ def validate(sel, slots):
         if not spec.get("reason"):
             probs.append("%s: mangler 'reason'" % sid)
         if d == "keep_proxy":
+            continue
+        if d == "generated":
+            # Project-built asset (image -> scan -> Godot rebuild); its scene is set on the slot.
+            if not str(spec.get("scene", "")).startswith("res://art/generated/"):
+                probs.append("%s: decision generated kræver 'scene' under res://art/generated/" % sid)
             continue
         if not spec.get("pack") or not spec.get("file"):
             probs.append("%s: decision %s kræver 'pack' og 'file'" % (sid, d))
@@ -208,8 +213,8 @@ def build(sel, slots, inv, previous, force=False):
             choices[sid] = {"source": "", "status": "manual", "origin": "selection", "note": FX_NOTE}
             report["proxy"].append(sid)
             continue
-        if spec.get("decision") == "keep_proxy":
-            choices[sid] = {"source": "", "status": "skip", "origin": "selection", "note": "keep_proxy: " + spec.get("reason", "")}
+        if spec.get("decision") in ("keep_proxy", "generated"):
+            choices[sid] = {"source": "", "status": "skip", "origin": "selection", "note": spec.get("decision") + ": " + spec.get("reason", "")}
             report["proxy"].append(sid)
             continue
         hit, tried = resolve(candidates(spec), inv)
@@ -327,8 +332,8 @@ def print_plan(sel, slots, inv):
     for sid in slots:
         spec = sel["slots"].get(sid, {})
         d = spec.get("decision", "?")
-        if d == "keep_proxy" or slots[sid].get("kind") == "fx":
-            print("%-20s %-15s %-22s %s" % (sid, d, "-", "proxy: " + spec.get("reason", "")[:70]))
+        if d in ("keep_proxy", "generated") or slots[sid].get("kind") == "fx":
+            print("%-20s %-15s %-22s %s" % (sid, d, "-", ("scene: " + str(spec.get("scene", ""))) if d == "generated" else "proxy: " + spec.get("reason", "")[:70]))
             continue
         hit = None
         if inv:
@@ -371,7 +376,7 @@ def main():
     counts = {}
     for sid in slots:
         spec = sel["slots"][sid]
-        k = "fx" if slots[sid].get("kind") == "fx" else spec["decision"] + ("/" + spec.get("confidence", "") if spec["decision"] != "keep_proxy" else "")
+        k = "fx" if slots[sid].get("kind") == "fx" else spec["decision"] + ("/" + spec.get("confidence", "") if spec["decision"] not in ("keep_proxy", "generated") else "")
         counts[k] = counts.get(k, 0) + 1
     if a.check:
         print("synty_selection ok: %d slots · %s" % (len(slots), ", ".join("%s=%d" % kv for kv in sorted(counts.items()))))

@@ -1,5 +1,32 @@
 # START HER — LASTROOT
 
+## 0. I morgen: sådan sætter du projektet i gang
+
+**Før du åbner Claude/Codex (≈20 min):**
+1. `git clone https://github.com/sebastianlistfeirup/Lastroot` (eller `git pull` på main).
+2. Hent de 16 Synty-arkiver fra din SyntyPass-konto **før abonnementet udløber (~16.11.2026)** — liste + sha256 i `docs/HOMECOMING.md` §2. Læg dem *uden for* repoet, fx `C:\LastrootPacks\`.
+3. Godot: Lastroot er låst til 4.5.1. Opgradering til 4.7.1 (din Realmrend-version) er testet grøn på grenen `godot-4.7` og venter på dit ja (D35, se `docs/STATUS.md`).
+
+**Første besked til Claude Code** (åbn i repo-mappen og indsæt):
+```
+Læs START_HERE.md, AGENTS.md, docs/STATUS.md, docs/HOMECOMING.md og docs/REALMREND_LESSONS.md.
+Mine Synty-arkiver ligger i <sti>. Kør docs/HOMECOMING.md fra §1: tools/check.sh, doctor,
+udpak pakkerne (tools/synty/unpack.py), kør tools/synty/apply_selection.py --archives <sti>
+og tools/synty/build.sh, og vis mig asset-galleriet og en kampcapture med de rigtige modeller.
+Ret fejl undervejs (én slot ad gangen med tools/synty/focus.py), commit og push små skridt.
+Synty/PolyPerfect-filer må aldrig committes. Spørg mig kun ved valg, der er mine
+(Godot 4.7.1-opgradering, balance Standard/Svær, assets der skal laves via docs/ASSET_GAP_WORKFLOW.md).
+```
+
+**Samme opgave i Codex:** Codex læser `AGENTS.md` automatisk. Brug samme tekst, men tilføj
+"skills ligger i `.claude/skills/` — læs SKILL.md-filen direkte, når en opgave matcher".
+
+**Manglende assets (fx Thornhart):** se `docs/ASSET_GAP_WORKFLOW.md` — dér står en færdig prompt til billede → Meshy → Godot-genopbygning (kræver Higgsfield MCP eller Meshy-nøgle).
+
+**Spil først selv 10 min** (LR-08/09): F5 i Godot, kamp 1 med begge champions, prøv Indstillinger → Difficulty → Hard.
+
+---
+
 Hej Sebastian. Dette er overdragelsen fra den autonome ferie-session (19. oktober 2026), bygget på samme måde som GENESIS ARK: Godot 4.5.1, ren domænemotor med tests, greybox-proxies der kan byttes til Synty/PolyPerfect, beviser i `evidence/`. Alt herunder er kørt i containeren; hvad der *ikke* kunne afprøves, står eksplicit.
 
 ## 1. Hvad er der?
@@ -12,7 +39,7 @@ Et spilbart **greybox-gennemløb** af hele LASTROOT:
 4. **Runnet**: fem kampe + boss, fast belønningsrækkefølge (R05 → +20 harpiks → kortvalg → mutation/championforbedring + relikvie), rutegren med to knuder (lejr, kort, møde, fjernelse), resultatskærm.
 5. **Save/load** efter hver handling: atomisk skrivning, backup, korrupt-/fremtidig-version-håndtering, JSON-eksport/-import, presentation checkpoint (load viser færdigt resultat — intet afregnes igen).
 6. **Grafik**: stiliserede low-poly proxies for alle 12 væsner, 6 fjender, træets dele, props og 10 effekter (`scripts/runtime/visual/`). Hver proxy er et *slot*, som skiftes til en købt model uden at røre koden.
-7. **Engelsk spil, dansk oversættelse** (Indstillinger → Sprog). Lyd: procedurelle placeholder-cues.
+7. **Spillet er kun på engelsk** (D34; danske tekster ligger hvilende). Lyd: procedurelle placeholder-cues.
 8. **"Sådan spiller du"** (7 illustrerede sider) fra menu og pause, tilbydes automatisk ved første run. Rutekortet viser næste kamps bølger og bossens regler.
 9. **Kort med rigtig tekst og portrætter** renderet fra de samme visual slots som kampen (skifter automatisk til Synty/PolyPerfect), 3D-målringe og "fare"-ringe fra prognosen, udtryksfulde proxy-animationer.
 10. **Tastatur og gamepad** overalt: i kampen `1-9` kort, `Tab`/pile mål, `Enter` bekræft, `E` afslut tur (pad: LB/RB, D-pad, A, Y). Indstillinger: tekststørrelse, reduceret bevægelse, animationshastighed, lydstyrker.

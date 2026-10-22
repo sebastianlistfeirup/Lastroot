@@ -264,3 +264,7 @@ Kørt med tomt `assets/quarantine/` og uden `data/art/synty_choices.json` — in
 | `python3 tools/synty/test_selection_tools.py` (falske manifester med Realmrends rigtige filnavne; i `tools/check.sh`) | 23/23 PASS (`evidence/asset_pipeline/selection_tools_test.json`) |
 | `tools/synty/selftest.sh` (falske pakker, hele kæden, efter ændringerne ovenfor) | 22/22 PASS (`evidence/asset_pipeline/selftest.json`) |
 | `BPY_PYTHON=<python med bpy> tools/synty/humanoid_dryrun.sh --capture` (genererede humanoider, 20.10.2026) | 15/15 PASS (`evidence/asset_pipeline/humanoid_dryrun.json`); før rettelserne 6 FAIL (`humanoid_dryrun_before_fixes.json`) |
+
+## Manglende assets → billede → Meshy → Godot (D36)
+
+Slots uden ejet model (Thornhart, Old Oak) eller med svag pladsholder (hjerte, stamme, rødder, etager) prøves med arbejdsgangen i `docs/ASSET_GAP_WORKFLOW.md` (skill: `.claude/skills/lastroot-gap-asset/SKILL.md`). Start med én lille ting og 1–2 godkendte genereringer. Kræver Higgsfield MCP (eller en Meshy-API-nøgle) og en billedgenerator. Aldrig Synty-billeder som input.

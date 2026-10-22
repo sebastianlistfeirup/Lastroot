@@ -691,6 +691,11 @@
     "death": "Death*",
     "move": "Walk*",
     "summon": "(procedural)"
+   },
+   "gap_workflow": {
+    "priority": 1,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
    }
   },
   "unit.B05": {
@@ -785,7 +790,12 @@
      "file": "SM_Env_Tree_Round_0*.fbx",
      "confidence": "verified_in_realmrend"
     }
-   ]
+   ],
+   "gap_workflow": {
+    "priority": 2,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "unit.S02": {
    "decision": "owned",
@@ -1273,7 +1283,12 @@
    ],
    "scale_hint": "11,6 × 3,2 m, top y=0 (fit footprint, align top)",
    "material_note": "Proxyens sten+mos+hængende rødder; dressing med props på bagkanten.",
-   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing."
+   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing.",
+   "gap_workflow": {
+    "priority": 6,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "stage.floor_trunk": {
    "decision": "keep_proxy",
@@ -1298,7 +1313,12 @@
    ],
    "scale_hint": "11,6 × 3,2 m, top y=0 (fit footprint, align top)",
    "material_note": "Proxyens sten+mos+hængende rødder; dressing med props på bagkanten.",
-   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing."
+   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing.",
+   "gap_workflow": {
+    "priority": 7,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "stage.floor_crown": {
    "decision": "keep_proxy",
@@ -1323,7 +1343,12 @@
    ],
    "scale_hint": "11,6 × 3,2 m, top y=0 (fit footprint, align top)",
    "material_note": "Proxyens sten+mos+hængende rødder; dressing med props på bagkanten.",
-   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing."
+   "reason": "Spilbar flade skal være præcis plan på y=0 og 11,6 m bred. Ingen ejet mesh er en flydende plade med rødder: klipper (Rock_Cliff) bliver flere meter høje ved footprint-skalering og rammer etagen under (4,5 m afstand); Realmrend R14 fandt svævende Ground_Flat-plader. Proxy + Synty-props som dressing.",
+   "gap_workflow": {
+    "priority": 8,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "stage.trunk": {
    "decision": "keep_proxy",
@@ -1348,7 +1373,12 @@
    ],
    "scale_hint": "4,5 m segment",
    "material_note": "Rav-døråbning (emissive amber) skal være synlig.",
-   "reason": "Ejede træer er hele træer med krone (FK Tree_Large, DF Tree_Dead) — ikke et stammesegment med dør. Proxyen bevares; en Nature-/Enchanted Forest-kæmpestamme kan prøves senere."
+   "reason": "Ejede træer er hele træer med krone (FK Tree_Large, DF Tree_Dead) — ikke et stammesegment med dør. Proxyen bevares; en Nature-/Enchanted Forest-kæmpestamme kan prøves senere.",
+   "gap_workflow": {
+    "priority": 4,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "stage.heart": {
    "decision": "keep_proxy",
@@ -1367,7 +1397,12 @@
    ],
    "scale_hint": "~2,0 m",
    "material_note": "Turkis emissive + eget OmniLight.",
-   "reason": "Højeste visuelle prioritet og skadestilstande er procedurale; biblen tillader proxy. Dungeons store krystal kan prøves som kerne."
+   "reason": "Højeste visuelle prioritet og skadestilstande er procedurale; biblen tillader proxy. Dungeons store krystal kan prøves som kerne.",
+   "gap_workflow": {
+    "priority": 3,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "stage.backdrop": {
    "decision": "owned",
@@ -1540,7 +1575,12 @@
    ],
    "scale_hint": "etage-ramme",
    "material_note": "bark_dark",
-   "reason": "Ekstra rødder skal følge etagens kant præcist; ingen ejet rod-mesh. Procedural."
+   "reason": "Ekstra rødder skal følge etagens kant præcist; ingen ejet rod-mesh. Procedural.",
+   "gap_workflow": {
+    "priority": 5,
+    "doc": "docs/ASSET_GAP_WORKFLOW.md",
+    "skill": ".claude/skills/lastroot-gap-asset/SKILL.md"
+   }
   },
   "mutation.M02": {
    "decision": "keep_proxy",
@@ -1730,5 +1770,18 @@
    "material_note": "palette.json",
    "reason": "FX bygges i Godot (fx_builder.gd). Ingen ejet Particle FX-pakke; Unity-partikler konverteres ikke."
   }
+ },
+ "gap_workflow": {
+  "_note": "D36: missing assets try image -> AI scan (Meshy) -> Godot rebuild before buying or keeping a proxy. On success set decision 'generated' + 'scene' res://art/generated/<slot>/<slot>.tscn.",
+  "order": [
+   "unit.B04",
+   "unit.B06",
+   "stage.heart",
+   "stage.trunk",
+   "mutation.M01",
+   "stage.floor_roots",
+   "stage.floor_trunk",
+   "stage.floor_crown"
+  ]
  }
 }

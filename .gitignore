@@ -9,6 +9,8 @@ export_credentials.cfg
 # Purchased asset packs never go into git (bible p.18/27, AGENTS.md rule 8).
 /assets/quarantine/
 /assets/vendor_raw/
+# AI scans (Meshy/Tripo) are references, not deliverables (docs/ASSET_GAP_WORKFLOW.md)
+/assets/generated_src/
 *.unitypackage
 /assets/imported/*
 !/assets/imported/README.md
@@ -18,8 +20,9 @@ Thumbs.db
 *.tmp
 __pycache__/
 
-# Agent worktrees
-/.claude/
+# Agent worktrees and local Claude state; project skills are committed
+/.claude/*
+!/.claude/skills/
 
 # Captures after a real asset import show purchased content (public repo)
 /evidence/captures/*

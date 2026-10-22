@@ -20,7 +20,8 @@ Brugerens seneste instruktion går forud for biblen; biblen (`docs/BIBLE.md`, PD
 - Kun stabile ID'er og primitive værdier i saves. Ingen noder, AnimationTree eller afledte caches.
 - Balance er data: `design/catalog.json` er baseline → `python3 tools/gen_definitions.py` → `data/definitions/catalog.json`. Ændr én variabelgruppe ad gangen, kør `tools/balance/run_balance.gd` før/efter, notér i DECISIONS.
 - **Spillet er kun på engelsk (D34).** Al spillertekst skrives på engelsk via `Loc.t("…")` eller datafelter (så et sprog kan tilføjes senere); `localization/translations.csv` er strenginventaret (`python3 tools/loc_extract.py`), dens `da`-kolonne er hvilende og vises ikke. Dokumentation til ejeren er på dansk.
-- Grafik er VisualSlots (`data/art/asset_slots.json`). Købte vendorfiler (Synty, PolyPerfect, Mixamo) må aldrig committes — repoet er offentligt. Wrappers og egne varianter er projektejede.
+- Grafik er VisualSlots (`data/art/asset_slots.json`). Købte vendorfiler (Synty, PolyPerfect, Mixamo) må aldrig committes — repoet er offentligt. Wrappers og egne varianter er projektejede. Det bindende assetvalg er `data/art/synty_selection.json` (`tools/synty/apply_selection.py`); erfaringer fra Realmrend i `docs/REALMREND_LESSONS.md`.
+- **Manglende assets (D36):** prøv arbejdsgangen billede → AI-scan (Meshy) → Godot-genopbygning i `docs/ASSET_GAP_WORKFLOW.md` via skill'en `.claude/skills/lastroot-gap-asset/SKILL.md` (wrapper om vendoreret `image-to-3d-rebuild`, MIT). Aldrig Synty/PolyPerfect-materiale som input til generativ AI (Synty EULA §1.4). Betalte genereringer kun i det antal ejeren har godkendt. Codex: skills ligger i `.claude/skills/<navn>/SKILL.md` — læs filen direkte.
 - Typed GDScript, snake_case filer, PascalCase `class_name`. `const X := KlasseNavn` er ikke et konstantudtryk i 4.5 — brug klassenavnet direkte. Ingen funktion må hedde `wrap` (global).
 - Ingen nye fraktioner, etager, multiplayer eller meta-progression uden nyt mandat.
 
