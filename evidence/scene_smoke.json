@@ -1,9 +1,7 @@
 {
   "checks": 47,
-  "engine_version": "4.5.1-stable (official)",
-  "failures": [
-    "hand cards keep their picture at normal text size"
-  ],
+  "engine_version": "4.7.1-stable (official)",
+  "failures": [],
   "results": [
     {
       "name": "save writes",
@@ -131,7 +129,7 @@
     },
     {
       "name": "hand cards keep their picture at normal text size",
-      "ok": false
+      "ok": true
     },
     {
       "name": "key selects a card",
@@ -194,6 +192,6 @@
       "ok": true
     }
   ],
-  "status": "FAIL",
-  "timestamp": "2026-10-20T19:48:37"
+  "status": "PASS",
+  "timestamp": "2026-10-22T18:22:49"
 }

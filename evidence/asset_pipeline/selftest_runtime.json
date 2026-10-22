@@ -5,7 +5,7 @@
   "b01_facing": "-Z",
   "b01_feet_y": 0.0,
   "b01_finished_attack_s": 0.9,
-  "b01_finished_death_s": 1.4,
+  "b01_finished_death_s": 1.39,
   "b01_finished_victory_fallback_s": 1.1,
   "b01_has_clip_attack": true,
   "b01_has_clip_idle": true,

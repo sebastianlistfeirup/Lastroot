@@ -91,9 +91,7 @@
   "reimport_needed": false,
   "slots": [
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "-Z",
       "fit": "height",
@@ -127,9 +125,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "-Z",
       "fit": "height",
@@ -163,9 +159,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 1,
       "facing": "-Z",
       "fit": "height",
@@ -201,9 +195,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 1,
       "facing": "-Z",
       "fit": "height",

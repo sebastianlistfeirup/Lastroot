@@ -42,9 +42,7 @@
   "reimport_needed": false,
   "slots": [
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "-Z",
       "fit": "height",
@@ -137,9 +135,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "-Z",
       "fit": "height",
@@ -173,9 +169,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "-Z",
       "fit": "height",
@@ -209,9 +203,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "footprint",
@@ -247,9 +239,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "footprint",
@@ -285,9 +275,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "footprint",
@@ -323,9 +311,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "height",
@@ -359,9 +345,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "natural",
@@ -395,9 +379,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "natural",
@@ -433,9 +415,7 @@
       "warnings": []
     },
     {
-      "anim": {
-
-      },
+      "anim": {},
       "atlas_materials": 0,
       "facing": "unknown",
       "fit": "natural",

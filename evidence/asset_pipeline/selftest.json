@@ -1,7 +1,7 @@
 {
  "status": "PASS",
- "date": "2026-10-20 19:05:45",
- "godot": "4.5.1.stable.official.f62fdbde1",
+ "date": "2026-10-22 18:24:34",
+ "godot": "4.7.1.stable.official.a13da4feb",
  "note": "Fake packs from tools/synty/make_test_pack.py (glTF models; FBX goes through the same Godot importer interface but is not exercised here).",
  "checks": [
   {
@@ -101,7 +101,7 @@
   "b01_facing": "-Z",
   "b01_feet_y": 0.0,
   "b01_finished_attack_s": 0.9,
-  "b01_finished_death_s": 1.4,
+  "b01_finished_death_s": 1.39,
   "b01_finished_victory_fallback_s": 1.1,
   "b01_has_clip_attack": true,
   "b01_has_clip_idle": true,

@@ -10,7 +10,7 @@
  "slots": {
   "enemy.E03": {
    "attack_contact": true,
-   "attack_finished_s": 0.96,
+   "attack_finished_s": 0.97,
    "clips": [
     "lr/attack",
     "lr/cast",
@@ -382,7 +382,7 @@
   },
   "unit.B03": {
    "attack_contact": true,
-   "attack_finished_s": 0.96,
+   "attack_finished_s": 0.97,
    "clips": [
     "lr/attack",
     "lr/cast",

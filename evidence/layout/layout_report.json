@@ -3,7 +3,7 @@
     {
       "config": "phone_430x932/en_max",
       "kind": "text_truncated",
-      "node": "Battle/@CanvasLayer@33603/@Control@33604/TopBar/@HFlowContainer@33609/@Label@33613",
+      "node": "Battle/@CanvasLayer@35041/@Control@35042/TopBar/@HFlowContainer@35047/@Label@35051",
       "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
       "screen": "battle_battle1",
       "text": "⚑ +2 next turn"
@@ -11,7 +11,7 @@
     {
       "config": "phone_430x932/en_max",
       "kind": "text_truncated",
-      "node": "Battle/@CanvasLayer@36488/@Control@36489/RightPanel/@VBoxContainer@36503/SheetSummary",
+      "node": "Battle/@CanvasLayer@38014/@Control@38015/RightPanel/@VBoxContainer@38029/SheetSummary",
       "reason": "Portrait forecast summary button: one-line teaser that opens the full forecast sheet when tapped.",
       "screen": "battle_boss",
       "text": "▴ Forecast:  ♥ 57 → 57  ·  ✝ 1 lost  ·  ✝ 1 slain"
@@ -19,7 +19,7 @@
     {
       "config": "tablet_1024x1366/en_max",
       "kind": "text_truncated",
-      "node": "Battle/@CanvasLayer@45889/@Control@45890/TopBar/@HFlowContainer@45895/@Label@45899",
+      "node": "Battle/@CanvasLayer@47859/@Control@47860/TopBar/@HFlowContainer@47865/@Label@47869",
       "reason": "Portrait battle top bar: the wave preview ellipsizes by design so the bar stays one row; the full wave text is in the forecast sheet and the route map.",
       "screen": "battle_battle1",
       "text": "⚑ +2 next turn"
@@ -27,7 +27,7 @@
     {
       "config": "tablet_1024x1366/en_max",
       "kind": "text_truncated",
-      "node": "Battle/@CanvasLayer@48774/@Control@48775/RightPanel/@VBoxContainer@48789/SheetSummary",
+      "node": "Battle/@CanvasLayer@50832/@Control@50833/RightPanel/@VBoxContainer@50847/SheetSummary",
       "reason": "Portrait forecast summary button: one-line teaser that opens the full forecast sheet when tapped.",
       "screen": "battle_boss",
       "text": "▴ Forecast:  ♥ 57 → 57  ·  ✝ 1 lost  ·  ✝ 1 slain"
@@ -35,8 +35,8 @@
   ],
   "command": "godot --headless --path . res://scenes/tests/layout_smoke.tscn",
   "controls_checked": 8192,
-  "duration_ms": 25695,
-  "engine_version": "4.5.1-stable (official)",
+  "duration_ms": 22553,
+  "engine_version": "4.7.1-stable (official)",
   "known_issues": [],
   "max_text_scale": 1.29999995231628,
   "note": "Headless: fonts are the project fonts, shaped by the real TextServer; nothing is rendered. 1280x720 and 1920x1080 share the 1920x1080 logical layout (AppFlow), so they differ only in physical size.",
@@ -88,12 +88,10 @@
       "scale": -1.0
     }
   ],
-  "timestamp": "2026-10-20T14:54:41",
+  "timestamp": "2026-10-22T18:23:23",
   "touch_min_px": 44.0,
   "violations": [],
-  "violations_by_kind": {
-
-  },
+  "violations_by_kind": {},
   "warnings": [],
   "windows": [
     {
