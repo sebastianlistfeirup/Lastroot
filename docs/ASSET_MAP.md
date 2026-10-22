@@ -1,5 +1,9 @@
 # LASTROOT · Asset-kort (slot → pakke → prefab → animation)
 
+> **BINDENDE VALG (22.10.2026): `data/art/synty_selection.json`.** Den fil afgør pr. slot, hvilken pakke og fil der bruges (eller at proxyen beholdes), med reserver i prioriteret rækkefølge. Den bygger på ejerens *faktisk ejede* SyntyPass-pakker (16 arkiver, faktura SS-415943) og navne set i de rigtige pakker i Realmrend. `python3 tools/synty/apply_selection.py` gør valget til `data/art/synty_choices.json` (match.py er kun reserve). Begrundelser og lærdomme: `docs/REALMREND_LESSONS.md`. Download-tjekliste: `docs/HOMECOMING.md` §2.
+>
+> **Resten af dette dokument (§0–§9) er den oprindelige kandidatoversigt fra før pakkerne var kendt.** Den er stadig nyttig som baggrund for materialer, palette, skala, rigfamilier og FX, men hvor den nævner andre pakker (POLYGON Nature, Fantasy Characters, Elven Realm …) eller Mixamo-klip, **vinder `synty_selection.json`**. Kort fortalt: figurer kommer fra Fantasy Kingdom (Hermit, Soldier, Monk), Dark Fantasy (Dark Lord, Demon, Gargoyle, Hunter, Skeleton, Grave Digger) og Dungeon (Goblins). Klip kommer fra de ejede Synty ANIMATION-pakker. Etager, stamme, hjerte, M01/M02/M04 og alle FX forbliver procedurale. B04 Tornhjort kræver PolyPerfect (valgfri), og B06 Gammel Eg foretrækker Fantasy Rivals (valgfri, ellers ejet reserve).
+
 *Til dig som ejer, til første session med de købte pakker (LR-11/LR-13/LR-18). Trinvis arbejdsgang: `docs/HOMECOMING.md`. Værktøjskæden: `docs/SYNTY_INTEGRATION.md`. Søgemønstre pr. slot i maskinform: `data/art/vendor_suggestions.json` (genereret af `tools/synty/gen_slots.py`, ligesom `docs/ASSET_PLAN.md`).*
 
 > **Ærlighedsnote.** Ingen købt pakke er åbnet i dette repo, og intet er downloadet. Pakkenavnene er rigtige produktlinjer; **alle prefab-, mesh-, tekstur- og klipnavne er "kandidat — verificér i pakken"**: typiske Synty-/PolyPerfect-konventioner (`SK_Chr_*` = rigget figur, `SM_Chr_*` = statisk figur, `SM_Env_*` = miljø, `SM_Prop_*` = rekvisit, `SM_Wep_*` = våben, `SM_Bld_*` = bygning, `FX_*` = partikler), ikke kontrolleret mod dine filer. Mixamo-klipnavnene er søgeord på mixamo.com; de fleste er velkendte, men tjek stavningen i søgefeltet. Pakkenavne markeret *(usikkert produktnavn)* skal slås op i butikken. `rights_status` i ledgerne er og bliver `purchased_unverified`, indtil du har bekræftet købet og indsat sti + sha256 (fra `assets/quarantine/<pakke>/manifest.json`).
@@ -9,6 +13,8 @@ Hver række har et anker (`#unit-b01`, `#stage-heart` …). `docs/ASSET_LEDGER.c
 ---
 
 ## 0. Købsliste / tjekliste
+
+> *Historisk (før ejede pakker var kendt). Gældende liste: `docs/HOMECOMING.md` §2 og `data/art/synty_selection.json → packs`.*
 
 **Minimum** (giver alle 51 slots en rigtig kandidat eller en bevidst procedural løsning):
 
@@ -102,6 +108,8 @@ Regler: fjenderne må **ikke** få pakkens farvede tøj — brug en mørk omfarv
 Bemærk: **alle** Spore-væsner (også Sporeunge, Nattehætte, Sporekolos) spiller `cast` ved angreb, fordi præsentationen sender en sporebolt. Med det fælles bibliotek får Nattehætten derfor magiklippet. Vil du have dolkestik dér, er det en lille præsentationsændring (uden for asset-arbejdet) — notér det, hvis det generer.
 
 ### 2.2 Minimum: ét fælles Mixamo-sæt (9 filer) — det pipelinen bygger i dag
+
+> *Erstattet af de ejede Synty-klip i `synty_selection.json → animation_sets.humanoid` (idle `A_Idle_Standing_Masc`, move `A_Walk_F_Masc`, attack `A_Attack_LightCombo01A_Sword` / `A_Attack_HeavyCombo01A_Sword`, hit `A_Hit_F_React_Sword`, death `A_Death_F_01_Sword`). Mixamo er kun reserve for cast/summon/victory.*
 
 `match.py` vælger **én fil pr. tilstand** for hele `humanoid`-familien (første filnavn i alfabetisk orden, der indeholder et nøgleord fra `data/art/animation_sets.json → keywords`). Læg derfor kun disse 9 filer i mappen første gang:
 

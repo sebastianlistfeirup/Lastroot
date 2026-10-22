@@ -10,6 +10,8 @@ Guiden er skrevet til dig som ejer. Du behøver ikke kunne programmere. Spillet 
 
 ## Hurtig vej
 
+> **Fra 22.10.2026 er valget gjort på forhånd:** `data/art/synty_selection.json` (bindende, ud fra de ejede SyntyPass-pakker og Realmrends erfaringer i `docs/REALMREND_LESSONS.md`). Vejen er `unpack.py` (alle arkiver i `docs/HOMECOMING.md` §2) → `python3 tools/synty/apply_selection.py` (i stedet for `match.py`; `--dry-run` viser planen, `--archives <mappe>` tjekker sha256) → `tools/synty/build.sh`. Skridt 2–3 herunder (`match.py`) er reserven, hvis du vil have andre forslag.
+
 ```bash
 # 1. Pak ud i karantæne (kommer aldrig i git — repoet er offentligt)
 python3 tools/synty/unpack.py "D:/Synty/POLYGON_Nature.unitypackage"

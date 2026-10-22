@@ -1,6 +1,6 @@
 # Hjemkomst · første session (LR-08/09/11/12/13 + balancebeslutning)
 
-*Til dig, Sebastian. Én tjekliste fra `git pull` til de beslutninger, kun du kan tage. Regn med 3–4 timer; afsnit 1–2 (≈45 min) giver mest. Alle kommandoer herunder er kørt i containeren den 20.10.2026 (Linux, Godot 4.5.1) — undtagelser står ved kommandoen. Asset-oversigt pr. slot: `docs/ASSET_MAP.md`.*
+*Til dig, Sebastian. Én tjekliste fra `git pull` til de beslutninger, kun du kan tage. **Alle assets er valgt på forhånd** (`data/art/synty_selection.json`, begrundet i `docs/REALMREND_LESSONS.md`): du henter, pakker ud og bygger (§2–§3). Regn med 3–4 timer; afsnit 1–2 (≈45 min) giver mest. Alle kommandoer herunder er kørt i containeren den 20.10.2026 (Linux, Godot 4.5.1) — undtagelser står ved kommandoen. Asset-oversigt pr. slot: `docs/ASSET_MAP.md`.*
 
 **På Windows:** kør `.sh`-kommandoerne i **Git Bash** (følger med Git for Windows) fra projektmappen. Peg på konsol-udgaven af Godot, så du ser output:
 `export GODOT_BIN="/c/Godot/Godot_v4.5.1-stable_win64_console.exe"` (ret stien). Python hedder ofte `python` eller `py` på Windows — brug det i stedet for `python3`, hvis `python3` ikke findes.
@@ -10,7 +10,7 @@
 ## 0. Klar (10 min)
 
 - [ ] `git pull` (main) og åbn mappen i **Godot 4.5.1-stable** (samme version: `docs/VERSION_MATRIX.md`). Første åbning importerer i et par minutter.
-- [ ] `tools/check.sh` → sidste linje skal være `validators_exit=0 loc_exit=0 tests_exit=0 smoke_exit=0 meta_exit=0` (i containeren: 118 tests, 40 smoke-checks, 628 meta-checks, 0 fejl). Kør den ikke samtidig med en anden testsuite/capture (de deler `user://`).
+- [ ] `tools/check.sh` → sidste linje skal kun vise `…_exit=0` (validators, release, selection, loc, tests, smoke, meta, layout) (i containeren: 118 tests, 40 smoke-checks, 628 meta-checks, 0 fejl). Kør den ikke samtidig med en anden testsuite/capture (de deler `user://`).
 - [ ] `python3 tools/synty/doctor.py` → tjekker Godot-version, Pillow, xvfb (kun Linux), hvad der er pakket ud, dine valg, og at **ingen købte filer er i git**. Ændrer intet. `resultat: klar` = fortsæt.
 
 ## 1. Spil før du importerer (LR-08 / LR-09, ≈30 min)
@@ -38,47 +38,86 @@ Formål: se proxy-spillet med egne øjne på rigtig skærm, så du kan skelne "g
 
 Bed derefter agenten markere LR-08/LR-09 med din observation (en menneskelig gennemspilning kan ikke bevises headless).
 
-## 2. Læg pakkerne lokalt (10 min)
+## 2. Download-tjekliste: læg arkiverne lokalt (10–30 min)
 
-Læg de købte filer **uden for repoet**, fx:
+**Alt er valgt på forhånd:** `data/art/synty_selection.json` er det bindende valg pr. slot. Hjemme skal du kun hente, pakke ud og bygge. Baggrund og begrundelser: `docs/REALMREND_LESSONS.md`.
+
+> ⚠️ **SyntyPass udløber ca. 16.11.2026** (3 mdr. fra faktura SS-415943, 16.08.2026). Hent **alle** arkiver herunder, også de valgfri, *før* udløb, og beslut om fornyelse: videre udvikling med Synty-assets kræver aktivt abonnement (EULA §12.3).
+
+Læg arkiverne **uden for repoet**, uåbnede, præcis med disse navne (fx dem du allerede har fra Realmrend i `assets_source/synty/` eller på backup-disken `G:\REALMREND Crowns at War`):
 
 ```
-D:/LASTROOT_vendor/
-  Synty/POLYGON_Nature_SourceFiles.zip            (eller .unitypackage)
-  Synty/POLYGON_DarkFantasy_SourceFiles.zip
-  Synty/POLYGON_FantasyCharacters_SourceFiles.zip
-  PolyPerfect/Low_Poly_Animated_Animals.unitypackage
-  Mixamo/   Breathing Idle.fbx  Standing Up.fbx  Punching.fbx  Standing 1H Magic Attack 01.fbx
-            Hit Reaction.fbx  Dying.fbx  Standing Block Idle.fbx  Victory.fbx  Walking.fbx
+D:/LASTROOT_vendor/Synty/      <- alle .zip herunder, flad mappe
+D:/LASTROOT_vendor/Optional/   <- valgfri pakker (Fantasy Rivals, PolyPerfect, Mixamo-mappe)
 ```
 
-Hvilke pakker og hvorfor: `docs/ASSET_MAP.md` §0 (minimum: Nature, Dark Fantasy, Fantasy Characters, PolyPerfect Animals, 9 Mixamo-klip). Mixamo-indstillinger: §2.2 dér (FBX Binary, 30 fps, Without Skin, **In Place** på Walking). Downloadsiden hos Synty kan have en Godot-udgave; tag ellers "Source Files"/FBX.
+**Ejede arkiver (skal bruges af pipelinen — 12 stk.).** sha256/bytes fra Realmrends ledger (`asset_ledger.csv`, SYN-xx):
 
-`unpack.py` kopierer kun modeller og teksturer ind i `assets/quarantine/` (gitignored, `.gdignore`). Det er den eneste mappe i projektet, der indeholder købte råfiler; `assets/imported/` får kun de valgte filer.
+| ☐ | Arkiv | Bytes | sha256 |
+|---|---|---|---|
+| ☐ | `POLYGON_Fantasy_Kingdom_Godot_4_5_1_v1_0_0.zip` (SYN-15) | 105217496 | `e7fe0612344a43449ac5abac08b2a5bec17afd4153bf5d9e2b872a19fc8f9726` |
+| ☐ | `POLYGON_Fantasy_Kingdom_SourceFiles_v5.zip` (SYN-16) | 375411418 | `281ca1fc820d98f72c054d3fd43ee805638122d1f48618d0a5f0dc5fef8d88c8` |
+| ☐ | `POLYGON_Dark_Fantasy_Godot_4_6_2_v1_0_0.zip` (SYN-11) | 106758922 | `6b8b122d840aa3c5bf9b9422b50708345b139322b8c1dc26dc4ac2b45acd34ea` |
+| ☐ | `POLYGON_Dark_Fantasy_SourceFiles_v3.zip` (SYN-12) | 143066623 | `39f54fa9abe3cf8144443533510239ad9cfe6d07715e74667fb2263fa1af4d9b` |
+| ☐ | `POLYGON_Dungeon_Godot_4_5_1_v1_0_1.zip` (SYN-13) | 42283618 | `77aaaa7a519f2bc52640e70c4b08c20412ee8b07393c1f0d67233788827d4535` |
+| ☐ | `POLYGON_Dungeon_Pack_SourceFiles_v3.zip` (SYN-14) | 54043765 | `e6be76712680d5dfc3052aad695c62776581c3778dbbcc329a228c20d7645f28` |
+| ☐ | `ANIMATION_Base_Locomotion_SourceFiles_v3.zip` (SYN-01) | 96390430 | `948051cbc770380a86142bdea0ca3932e3b5b1a83863bda02c81bd0271020f3b` |
+| ☐ | `ANIMATION_Sword_Combat_SourceFiles_v5.zip` (SYN-06) | 20432439 | `84ebd715f483302689cf08fabe6e9f5e506809b347311ebb5662b2d1d54d4f5e` |
+| ☐ | `ANIMATION_Bow_Combat_SourceFiles_v1.zip` (SYN-02) | 77050534 | `303c6f4ccf1eb03f453ba54d136551fe0ac065113fc8a9d18fae106d688e5a66` |
+| ☐ | `ANIMATION_Emotes_And_Taunts_SourceFiles_v1.zip` (SYN-03) | 78239321 | `2bbea3fb534843796ba04e7cfed5bad8ffa76ecbc29bac9c4b17e2f89c3244aa` |
+| ☐ | `ANIMATION_Idles_SourceFiles_v3.zip` (SYN-05) | 65713449 | `6c185d31adedb92bd80827b28996f519b15fb43ae4d6c9658d24c344e0e73ad7` |
+| ☐ | `ANIMATION_Goblin_Locomotion_SourceFiles_v2.zip` (SYN-04) | 69529408 | `92345d58c3438cfb2df89c91889e69902f1cc1202672f674c8c5342ed32c8beb` |
 
-## 3. Pipeline: pak ud → match → byg (20–40 min)
+**Ejede, men ikke i slot-pipelinen (UI-sprites, valgfri senere — læg dem samme sted, så checksum-tjekket er komplet):**
 
-Kør fra projektmappen. Hver kommando giver en klar dansk/engelsk besked og stopper, hvis noget mangler (prøvet uden pakker: se §11).
+| ☐ | Arkiv | Bytes | sha256 |
+|---|---|---|---|
+| ☐ | `INTERFACE_Dark_Fantasy_HUD_SourceSprites_v3.zip` (SYN-07) | 330390104 | `833f6db545e70e6ccf6c0a0ebed0aa212a90ddfd591d6b388ceede9ab4330c37` |
+| ☐ | `INTERFACE_Dark_Fantasy_Menus_SourceFiles_v1.zip` (SYN-08) | 213353430 | `2faf614016bafe1e30c277399312121df2dbc06bdfbe230f55ddb6305242fe23` |
+| ☐ | `INTERFACE_Fantasy_Menus_SourceFiles_v2.zip` (SYN-09) | 105433383 | `baf704df96f47bd9d3868fcafd6fb3599e2ce11908c5bbda4c49741b08afc250` |
+| ☐ | `INTERFACE_Fantasy_Warrior_HUD_Source_Sprites_v3.zip` (SYN-10) | 211288035 | `06fb997e4811da5acee579d6c127fe656c5fec1acf369c19e770f146af4ff67e` |
+
+**Skal hentes (`needs_download`, alle valgfri — uden dem falder slottet automatisk tilbage til en ejet model eller proxyen):**
+
+| ☐ | Pakke | Hvorfra | Bruges til |
+|---|---|---|---|
+| ☐ | **POLYGON Fantasy Rivals** (Godot-build hvis den findes, ellers SourceFiles; navnet skal starte med `POLYGON_Fantasy_Rivals`) | SyntyPass-katalog (gratis med aktivt abonnement) | `unit.B06` Gammel Eg = Forest Guardian; reserve: Fort/Elemental Golem til B01/E05, Troll/Barbarian Giant til S06 |
+| ☐ | **PolyPerfect Low Poly Animated Animals** (filnavnet skal indeholde `Animated_Animals`) | køb hos PolyPerfect (ikke SyntyPass) | `unit.B04` Tornhjort (firbenet, egne klip). **Eneste brug af PolyPerfect** |
+| ☐ | Mixamo: `Standing 1H Magic Attack 01.fbx`, `Standing Up.fbx`, `Victory.fbx` (FBX Binary, 30 fps, Without Skin) i en mappe med "Mixamo" i navnet | mixamo.com (gratis) | kun reserve for `cast`/`summon`/`victory`, som ingen ejet Synty-animationspakke dækker |
+| ☐ | POLYGON Nature / Enchanted Forest – Nature Biome | SyntyPass-katalog | kun til senere forsøg på stamme/rødder (i dag proxy) |
+
+Tjek arkiverne (læser kun, skriver intet; ~1 min):
 
 ```bash
-python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Synty/POLYGON_Nature_SourceFiles.zip"
-python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Synty/POLYGON_DarkFantasy_SourceFiles.zip"
-python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Synty/POLYGON_FantasyCharacters_SourceFiles.zip"
-python3 tools/synty/unpack.py "D:/LASTROOT_vendor/PolyPerfect/Low_Poly_Animated_Animals.unitypackage"
-python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Mixamo"          # mappenavnet skal indeholde "Mixamo" (eller "clips"/"anim"; ellers --clips)
-python3 tools/synty/doctor.py                                       # pakker + Mixamo-navne ok?
-python3 tools/synty/match.py --report                               # se forslag uden at skrive
-python3 tools/synty/match.py                                        # skriver data/art/synty_choices.json
-python3 tools/synty/focus.py stage.floor_roots unit.B01 unit.S01    # LR-13: byg kun disse (§6)
-tools/synty/build.sh                                                # stage -> import -> wrappers (op til 3 pas)
+python3 tools/synty/apply_selection.py --archives "D:/LASTROOT_vendor"   # OK/MANGLER/FEJL pr. arkiv; exit 0 = alle 16 ok
 ```
 
-- `match.py` skriver kun **navne** (sikkert at committe). `"status"`: `auto` = bygges · `weak` = kun ét fælles ord, bygges først når du skriver `approved` · `none` = intet fundet · `skip` = behold proxy · `approved`/`manual` = låst ved næste `match.py`.
-- Forkert model valgt? Kopiér en sti fra `"alternatives"` ind i `"source"` (eller skriv en fra `assets/quarantine/<pakke>/manifest.json`) og sæt `"status": "approved"`.
+`FEJL` = forkert størrelse/sha256 → hent arkivet igen. Godot-buildet af Dark Fantasy er lavet til Godot 4.6.2; det er fint, for pipelinen tager kun FBX/PNG ud af det. **Åbn aldrig** et Synty Godot-build som projekt i LASTROOT-mappen, og kopiér aldrig dets `Assets/`-mappe ind (på Windows lander den i `assets/` uden for de gitignorerede mapper — `doctor.py` fanger det).
+
+## 3. Pipeline: pak ud → anvend valget → byg (20–40 min)
+
+Kør fra projektmappen. Hver kommando giver en klar dansk/engelsk besked og stopper, hvis noget mangler.
+
+```bash
+# 1) Pak alle 12 model-/klip-arkiver ud i karantæne (gitignored). Godot-build OG SourceFiles af hver POLYGON-pakke.
+for z in D:/LASTROOT_vendor/Synty/POLYGON_*.zip D:/LASTROOT_vendor/Synty/ANIMATION_*.zip; do python3 tools/synty/unpack.py "$z"; done
+#    valgfri: python3 tools/synty/unpack.py "D:/LASTROOT_vendor/Optional/<Rivals/PolyPerfect>.zip"   og   ... "D:/LASTROOT_vendor/Optional/Mixamo"
+python3 tools/synty/apply_selection.py --dry-run     # planen: slot -> præcis fil i karantæne, [alt n] = reserve brugt, [n matches] = tvetydigt
+python3 tools/synty/apply_selection.py               # skriver data/art/synty_choices.json (status approved / skip = proxy)
+python3 tools/synty/doctor.py                         # alt ok?
+python3 tools/synty/focus.py stage.backdrop unit.B03 unit.S01 enemy.E06   # LR-13: start med de verificerede (§6)
+tools/synty/build.sh                                  # stage -> import -> wrappers (op til 3 pas)
+```
+
+- **Ét-kommando-vej (efter unpack):** `python3 tools/synty/apply_selection.py && tools/synty/build.sh`. Exitkoder fra `apply_selection.py`: 0 alt fundet · 2 forkert input (intet skrevet) · 3 skrevet, men nogle *ejede* valg blev ikke fundet (de står som `skip` = proxy med en note; `MANGLER`-linjerne siger hvilke mønstre der blev prøvet) — `--allow-missing` giver 0.
+- `match.py` behøves ikke længere (det er reserven, hvis du vil se andre forslag: `match.py --report`).
+- **Ret et valg:** ændr `file`/`alternatives` i `data/art/synty_selection.json` og kør `apply_selection.py` igen. Eller skriv direkte i `synty_choices.json` (`"source": "<pakke>/<sti fra manifest.json>"`, `"status": "manual"`) — håndrettelser uden `"origin": "selection"` og `focus.py --revert` bevares; `--force` overskriver dem.
+- **Tvetydige mønstre** (fx `*Mushroom*`): den bedste (FBX, `_01`, korteste sti) vælges, de næste står i `"alternatives"`. Kig dem igennem i galleriet.
+- **Atlas:** `synty_choices.json → "atlas"` peger hver pakke på dens rigtige farveatlas (FK `Textures/PolygonFantasyKingdom_Texture_01_A.png`, DF `…/PolygonDarkFantasy_01_A.png`), også for SourceFiles-FBX'er, hvis egne materialer peger på manglende filer (Realmrend-lærdom, hvide modeller).
+- **Klip:** ét fælles humanoid-sæt fra de ejede Synty-pakker: idle `A_Idle_Standing_Masc`, move `A_Walk_F_Masc`, hit `A_Hit_F_React_Sword`, death `A_Death_F_01_Sword` (verificeret i Realmrend), attack `A_Attack_LightCombo01A_Sword` (ellers verificeret `A_Attack_HeavyCombo01A_Sword`: sæt da `data/art/animation_sets.json → sets.humanoid.contact.attack` til `1.19`). cast/summon/victory/defend er valgfri (procedural, hvis de mangler).
 - Byg-rapport: `evidence/asset_pipeline/build_report.json` (højde, skala, facing, knoglekort, advarsler pr. slot).
-- Første humanoide figur: `godot --headless --path . --script res://tools/synty/model_probe.gd -- res://assets/imported/<pakke>/<fil>.fbx` viser knogler, humanoid-match, klip, cm/m og op-akse (`docs/SYNTY_INTEGRATION.md` §6b).
-- Humanoid retarget er nu prøvet ende-til-ende (`docs/SYNTY_INTEGRATION.md` §6c, `evidence/asset_pipeline/humanoid_dryrun.json`): Synty-navngivet A-pose-rig og Mixamo-navngivet T-pose-rig, FBX og glTF, Mixamo-klip *uden skin* i en flad mappe, plus to rigtige Mixamo-eksporter lokalt. Fem fejl blev fundet og rettet. Ikke bevist: *dine* købte filer — kig efter i RigLab (arme ned i idle, slag fremad mod pilen), før du godkender.
-- Mixamo-klip og -figurer i **hver sin mappe**: alt i en mappe med "Mixamo" i navnet behandles som klip. Hent en Mixamo-figur til en mappe uden "Mixamo" i navnet (fx `D:/LASTROOT_vendor/Characters`) og vælg den som `"manual"` i `synty_choices.json`.
+- Første humanoide figur: `godot --headless --path . --script res://tools/synty/model_probe.gd -- res://assets/imported/<pakke>/<fil>.fbx` viser knogler, humanoid-match, klip, cm/m og op-akse (`docs/SYNTY_INTEGRATION.md` §6b). FK-figurerne fra SourceFiles bruger UE-agtige knoglenavne (`Pelvis`, `UpperArm_L`, `lowerarm_l`, `Thigh_L`, `calf_l`, `Foot_L`) — mapperen kender dem, men det er ikke prøvet på en rigtig fil: se i RigLab, at armene er nede i idle og hovedet over bækkenet (`docs/REALMREND_LESSONS.md` §7).
+- Mixamo-klip og -figurer i **hver sin mappe**: alt i en mappe med "Mixamo" i navnet behandles som klip.
 - Exitkoder fra `build.sh`: 0 bygget · 1 en wrapper fejlede (se rapporten) · 2 manglende input (ingen Godot / ingen valgfil) · 3 intet at bygge (ingen auto/approved).
 
 ## 4. Hvad du kigger efter
@@ -151,7 +190,7 @@ tools/synty/build.sh
 python3 tools/synty/focus.py --revert unit.B01        # ser forkert ud? tilbage til proxy med det samme
 ```
 
-Rækkefølge: etager → stamme → B01 + S01 → B02, S02, E01, E02 → resten (`docs/ASSET_MAP.md` §9). Kør `tools/check.sh` efter hver gruppe: grafik må aldrig ændre regler, så alle tests skal stadig være grønne. Et `weak`-valg foreslås igen, næste gang du kører `match.py` (kun `approved`/`manual`/`skip` låses).
+Rækkefølge med det bindende valg (etager, stamme og hjerte forbliver proxy): de Realmrend-verificerede først — `stage.backdrop`, `unit.B03` (Soldier), `unit.S01` (Hermit), `enemy.E06` (Dark Lord), `prop.rock`, `prop.root_arch` — så B01, B02, S02, E01, E02 → resten (`docs/ASSET_MAP.md` §9). Kør `tools/check.sh` efter hver gruppe: grafik må aldrig ændre regler, så alle tests skal stadig være grønne. `focus.py` sætter også valg fra `apply_selection.py` til `weak` (bygges ikke). Kører du `apply_selection.py` igen, godkendes alle valgte slots igen (undtagen dem, du har sat tilbage med `--revert`).
 
 ## 7. Windows-build (LR-12, 15 min)
 
@@ -220,5 +259,8 @@ Kørt med tomt `assets/quarantine/` og uden `data/art/synty_choices.json` — in
 | `GODOT_BIN=forkert tools/synty/build.sh` | "FEJL: Godot findes ikke …", exit 2 |
 | `python3 tools/synty/focus.py unit.B01` | "FEJL: data/art/synty_choices.json findes ikke …", exit 2 |
 | `python3 tools/synty/doctor.py` | OK/NB-linjer, `resultat: klar`, exit 0 |
+| `python3 tools/synty/apply_selection.py --dry-run` (22.10.2026) | planen for alle 51 slots + 9 klip, intet skrevet, exit 0 (`evidence/asset_pipeline/selection_plan.txt`) |
+| `python3 tools/synty/apply_selection.py` uden pakker | `FEJL: ingen udpakkede pakker …`, intet skrevet, exit 2 |
+| `python3 tools/synty/test_selection_tools.py` (falske manifester med Realmrends rigtige filnavne; i `tools/check.sh`) | 23/23 PASS (`evidence/asset_pipeline/selection_tools_test.json`) |
 | `tools/synty/selftest.sh` (falske pakker, hele kæden, efter ændringerne ovenfor) | 22/22 PASS (`evidence/asset_pipeline/selftest.json`) |
 | `BPY_PYTHON=<python med bpy> tools/synty/humanoid_dryrun.sh --capture` (genererede humanoider, 20.10.2026) | 15/15 PASS (`evidence/asset_pipeline/humanoid_dryrun.json`); før rettelserne 6 FAIL (`humanoid_dryrun_before_fixes.json`) |

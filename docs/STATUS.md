@@ -55,6 +55,13 @@
 
 Hele løbet (6 kampe, rute, lejr/møde/fjernelse/kortknude, belønninger, championretninger, relikvier, mutationer), "Sådan spiller du" + førstegangsguide, tastatur/gamepad, 3D-dioramaer bag menu/rute/resultat, kortportrætter fra visual slots, målringe og fare-ringe, hjertets skadestilstande, udtryksfulde proxy-animationer, lyd v2 (procedural, egen), lokal spiltest-log med svarformular og eksport, demo-tilstand (2 kampe, preset "Web Demo"), app-ikon og splash, telefonlayout med prognose-ark og tommelfinger-knaprække.
 
+## Nyt 22.10: alle assets valgt
+
+- **`data/art/synty_selection.json` = bindende valg for alle 51 slots** ud fra de 16 ejede SyntyPass-arkiver (Realmrends ledger, sha256). Fordeling: 7 ejede og verificeret i Realmrend, 16 ejede efter mønster, 2 `needs_download` (B04 PolyPerfect, B06 Fantasy Rivals — begge med automatisk reserve/proxy), 26 proxy (etager, stamme, hjerte, M01/M02/M04, 18 FX). Ét fælles humanoid-klipsæt fra de ejede Synty ANIMATION-pakker.
+- `tools/synty/apply_selection.py` (selection → `synty_choices.json`, `--dry-run`, `--check`, `--archives`), `stage.py` bruger pakkens rigtige atlas, `focus.py` virker på valgte slots, `tools/synty/fix_vendor_uid_collision.py` (port af Realmrends UID-fix), `doctor.py` tjekker valget. Test: `tools/synty/test_selection_tools.py` 23/23 (i `tools/check.sh`).
+- `docs/REALMREND_LESSONS.md` (alt lært med de rigtige pakker), download-tjekliste i `docs/HOMECOMING.md` §2. **SyntyPass udløber ca. 16.11.2026.**
+- Ikke bevist: ingen købt fil er åbnet her; DF-/Dungeon-figurnavne og ANIMATION-mapper er mønstre (butikslister/konvention).
+
 ## Nyt 21.10 (anden ferierunde)
 
 - **Færre draw calls:** statiske proxy-dele bages sammen ved bygning (`ProxyMerge`): midtkamp 1238→388, boss 1732→522, fuldt træ 2722→1016 (−63–70 %), dioramaer −70–83 %; visuelt identisk (pixel-diff i `evidence/perf/drawcalls/`). Nødbremse: `ProxyMerge.enabled = false`.
