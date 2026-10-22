@@ -5,7 +5,7 @@
 **Før du åbner Claude/Codex (≈20 min):**
 1. `git clone https://github.com/sebastianlistfeirup/Lastroot` (eller `git pull` på main).
 2. Hent de 16 Synty-arkiver fra din SyntyPass-konto **før abonnementet udløber (~16.11.2026)** — liste + sha256 i `docs/HOMECOMING.md` §2. Læg dem *uden for* repoet, fx `C:\LastrootPacks\`.
-3. Godot: Lastroot er låst til 4.5.1. Opgradering til 4.7.1 (din Realmrend-version) er testet grøn på grenen `godot-4.7` og venter på dit ja (D35, se `docs/STATUS.md`).
+3. Godot: Lastroot kører nu på **4.7.1-stable** (D35) — samme version som din Realmrend-installation. Første åbning i editoren genimporterer projektet (et par minutter).
 
 **Første besked til Claude Code** (åbn i repo-mappen og indsæt):
 ```
@@ -15,7 +15,7 @@ udpak pakkerne (tools/synty/unpack.py), kør tools/synty/apply_selection.py --ar
 og tools/synty/build.sh, og vis mig asset-galleriet og en kampcapture med de rigtige modeller.
 Ret fejl undervejs (én slot ad gangen med tools/synty/focus.py), commit og push små skridt.
 Synty/PolyPerfect-filer må aldrig committes. Spørg mig kun ved valg, der er mine
-(Godot 4.7.1-opgradering, balance Standard/Svær, assets der skal laves via docs/ASSET_GAP_WORKFLOW.md).
+(balance Standard/Svær, assets der skal laves via docs/ASSET_GAP_WORKFLOW.md).
 ```
 
 **Samme opgave i Codex:** Codex læser `AGENTS.md` automatisk. Brug samme tekst, men tilføj
